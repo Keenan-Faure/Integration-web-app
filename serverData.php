@@ -46,7 +46,7 @@
                 position: relative;
                 margin-left: 160px;
                 margin-top: -44px;
-                background-color: red;
+                background-color: blue;
                 transition-duration: 0.3s;
             }
             .buttonclear:hover
@@ -137,7 +137,7 @@
                     <br><br>
                     <input class = 'button' type='submit'>
                 </form>
-                <form action='output.php' target="_blank">
+                <form action='output.php'>
                     <button class = 'button buttonclear'>Clear Session</button>
                 </form>
                 <div class='log'>
@@ -173,6 +173,7 @@
                         $server->checkConnection();
                     ?>
                     <form action='log.php' target='_blank'>
+                        <?php session_start(); $_SESSION['clearCache'] = 'true'; ?>
                         <button class='buttonLog'>Update Log</button>
                     </form>
                 </div>
