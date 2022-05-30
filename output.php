@@ -13,7 +13,6 @@ if(isset($_POST['uname']) && isset($_POST['dbName']))
         $result->message='No connection found in current session';
         $result->token = rand();
         $result->time = $_SERVER['REQUEST_TIME'];
-        $result->loginUrl = 'http://';
         echo(json_encode($result));
     }
 }

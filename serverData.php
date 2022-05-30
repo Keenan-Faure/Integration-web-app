@@ -12,16 +12,42 @@
             }
             h1
             {
-                text-shadow: 1px 2px 6px #888888;
+                text-shadow: 1px 2px 6px rgb(153, 165, 165);
+                margin-left: 40%;
+                padding-top: 10px;
+                color: white;
+            }
+            .line
+            {
+                width: 50%;
+                height: 3px;
+                background-color: white;
+                margin-left: 23%;
+                box-shadow: 1px 2px 6px #888888;
+                border-radius: 20px;
+            }
+            .shiftButton
+            {
+                height: 120px;
+                width: 120px;
+                position: absolute;
+                margin-top: 15%;
+                margin-left: 10%;
+                background-image: url('shift.png');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
             }
             .log 
             {
                 background-color: #f1f1f1;
                 box-shadow: 1px 2px 6px #888888;
                 color: black;
+                text-align: center;
                 width: 100%;
                 height: 16%;
                 font-size: 18px;
+                border-radius: 20px;
                 overflow: auto;
                 padding-left: 10px;
                 padding-right: 10px;
@@ -34,12 +60,15 @@
             {
                 width: 140px;
                 height: 28px;
-                background-color: #f1f1f1;
+                margin-left: 10%;
+                opacity: 0.9;
+                background-color: lightblue;
                 color: black;
+                border: 1px blue;
                 cursor: pointer;
                 padding: 4px 12px;
                 transition-duration: 0.3s;
-                border-radius: 5px;
+                border-radius: 20px;
             }
             .button:hover
             {
@@ -48,8 +77,8 @@
             .buttonclear
             {
                 position: relative;
-                margin-left: 160px;
-                margin-top: -44px;
+                margin-left: 55%;
+                margin-top: -10.5%;
                 background-color: blue;
                 transition-duration: 0.3s;
             }
@@ -61,18 +90,16 @@
             {
                 
                 position: fixed;
-                margin: 5% 25%;
-                background: white;
+                margin: 5% 33%;
                 padding: 20px;
-                opacity: 0.97;
-                width: 50%;
-                height: 80%;
-                border-radius: 4px;
-                border: 1px solid #42428e
+                opacity: 0.9;
+                width: 400px;
+                height: 600px;
             }
             input[type=text], input[type=password]
 			{
 				width: 100%;
+                border-radius: 20px;
                	display: inline-block;
 				border: 1px solid #ccc;
                 box-shadow: 1px 2px 6px #888888;
@@ -98,45 +125,43 @@
             {
                 background-color: #cab5db;
                 width: 100px;
+                border-radius: 20px;
                 margin-top: 20px;
                 height: 24px;
                 border: 1px solid grey;
                 padding: 4px 12px;
-                border-radius: 5px;
                 cursor: pointer;
             }
             .background
             {
                 background-image: url('Images/background.png');
-                
+                background-size: cover;
+                background-position: left;
                 width: 100%;
                 height: 100%;
-                
             }
             .background-cover
             {
                 height: 100%;
                 width: 100%;
-                background-color: rgba(0,0,0,0.8);
+                background-color: rgba(0,0,0,0.2);
             }
         </style>
     </head>
     <body>
         <div class = 'background'>
         <div class = 'background-cover'>
+            <!--<button class='shiftButton' onclick="console.log(document.querySelector('.modalContainer'));"></button> -->
+            <h1>Check Connection</h1>
+            <div class='line'></div>
             <div class="modalContainer">
-                <h1>Check Connection</h1>
                 <form method='post' action='output.php' target='_blank'>
-                    <label for='uname'>Username</label>
                     <input type='text' name='uname' placeholder='Enter Username' required>
                     <br><br>
-                    <label for='password'>Password</label>
                     <input type='password' name='psw' placeholder='Enter Password'>
                     <br><br>
-                    <label for='host'>Host</label>
                     <input type='text' name='host' placeholder='Localhost' readonly>
                     <br><br>
-                    <label for='dbName'>Database Name</label>
                     <input type='text' name='dbName' placeholder='Enter Database Name' required>
                     <br><br>
                     <input class = 'button' type='submit'>
@@ -146,7 +171,7 @@
                     <button class = 'button buttonclear'>Clear Session</button>
                 </form>
                 <div class='log'>
-                    <h2 style='color: red;'>Log</h2>
+                    <h2 style='color: red'>Log</h2>
                     <?php    
                         include("createConnection.php");
                         use Connection\Connection as connect;
