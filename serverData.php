@@ -13,8 +13,9 @@
             h1
             {
                 text-shadow: 1px 2px 6px rgb(153, 165, 165);
-                margin-left: 40%;
-                padding-top: 10px;
+                position: relative;
+                text-align: center;
+                top: 10px;
                 color: white;
             }
             .line
@@ -22,7 +23,8 @@
                 width: 50%;
                 height: 3px;
                 background-color: white;
-                margin-left: 23%;
+                left: 25%;
+                position: relative;
                 box-shadow: 1px 2px 6px #888888;
                 border-radius: 20px;
             }
@@ -88,9 +90,10 @@
             }
             .modalContainer
             {
-                
                 position: fixed;
-                margin: 5% 33%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                top: 50%;
                 padding: 20px;
                 opacity: 0.9;
                 width: 400px;
@@ -146,6 +149,30 @@
                 width: 100%;
                 background-color: rgba(0,0,0,0.2);
             }
+            /* ❮ ❯ */
+            .next
+            {
+                cursor: pointer;
+                position: absolute;
+                right: 0;
+                top: 0;
+                height: 100%;
+                width: 50px;
+                color: white;
+                font-weight: bold;
+                font-size: 18px;
+                transition: 0.6s ease;
+                border-radius: 0 3px 3px 0;
+                background-color: rgba(0,0,0,0.6);
+            }
+            p
+            {
+                top: 50%;
+                position: absolute;
+                left: 22px;
+                width: 50px;
+                height: 100%;
+            }
         </style>
     </head>
     <body>
@@ -154,6 +181,9 @@
             <!--<button class='shiftButton' onclick="console.log(document.querySelector('.modalContainer'));"></button> -->
             <h1>Check Connection</h1>
             <div class='line'></div>
+            <div class='next'>
+                <p>❯</p>
+            </div>
             <div class="modalContainer">
                 <form method='post' action='output.php' target='_blank'>
                     <input type='text' name='uname' placeholder='Enter Username' required>
