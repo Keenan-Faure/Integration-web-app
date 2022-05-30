@@ -10,6 +10,10 @@
                 margin: 0;
                 font-family: 'Arial, Helvetica, sans-serif';
             }
+            h1
+            {
+                text-shadow: 1px 2px 6px #888888;
+            }
             .log 
             {
                 background-color: #f1f1f1;
@@ -121,7 +125,7 @@
         <div class = 'background'>
         <div class = 'background-cover'>
             <div class="modalContainer">
-                <h1>Login</h1>
+                <h1>Check Connection</h1>
                 <form method='post' action='output.php' target='_blank'>
                     <label for='uname'>Username</label>
                     <input type='text' name='uname' placeholder='Enter Username' required>
@@ -156,7 +160,7 @@
                             {
                                 if(!isset($_SESSION['connection']))
                                 {
-                                    $this->Logger('Connection not found in current session', $_SERVER['REQUEST_TIME']); 
+                                    $this->Logger('No connection found in current session', $_SERVER['REQUEST_TIME']); 
                                 }
                                 if(isset($_SESSION['connection']) and $_SESSION['connection']->active === true)
                                 {
@@ -176,7 +180,7 @@
                         $server->checkConnection();
                     ?>
                     <form action='log.php' target='_blank'>
-                        <button class='buttonLog'>Update Log</button>
+                        <button class='buttonLog'>View Log</button>
                     </form>
                 </div>
             </div>
