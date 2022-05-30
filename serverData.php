@@ -57,11 +57,11 @@
             {
                 
                 position: fixed;
-                margin: 5% 20%;
+                margin: 5% 25%;
                 background: white;
                 padding: 20px;
                 opacity: 0.97;
-                width: 60%;
+                width: 50%;
                 height: 80%;
                 border-radius: 4px;
                 border: 1px solid #42428e
