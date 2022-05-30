@@ -17,7 +17,6 @@ class Connection
         $conn = new \mysqli($host, $username, $password, $dbName);
         if($conn->connect_error)
         {
-            $_SESSION['connection'] = false;
             die("Connection failed: " . $conn->connect_error);
         }
         $this->connection = new \stdClass();

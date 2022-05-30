@@ -1,8 +1,5 @@
 <?php
 session_start();
-
-$_SESSION['ez'] = 'easy';
-
 if(isset($_SESSION['connection']))
 {
     echo(json_encode($_SESSION['connection']));
@@ -17,5 +14,4 @@ else
 
     echo(json_encode($result));
 }
-header("Refresh:2; url=serverData.php");
 ?>
