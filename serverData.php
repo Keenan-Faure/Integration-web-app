@@ -13,6 +13,7 @@
             .log 
             {
                 background-color: #f1f1f1;
+                box-shadow: 1px 2px 6px #888888;
                 color: black;
                 width: 100%;
                 height: 16%;
