@@ -1,18 +1,6 @@
 <?php
 session_start();
-if(isset($_SESSION['clearCache']))
-{
-    $variable = new \stdClass();
-    $variable->clearCache = new \stdClass();
-    $variable->clearCache->result = $_SESSION['clearCache'];
-    $variable->clearCache->token = rand();
-
-    $variable->message = 'Session data cleared, redirecting to login page in 5 seconds';
-    echo(json_encode($variable));
-    header('Refresh:5; url=serverData.php');
-
-}
-else
+if(isset($_POST['uname']) && isset($_POST['dbName']))
 {
     if(isset($_SESSION['connection']))
     {
@@ -25,8 +13,37 @@ else
         $result->message='No connection found in current session';
         $result->token = rand();
         $result->time = $_SERVER['REQUEST_TIME'];
-
+        $result->loginUrl = 'http://';
         echo(json_encode($result));
     }
+}
+else
+{
+    $variable = new \stdClass();
+    $variable->clearCache = new \stdClass();
+    $variable->clearCache->result = $_SESSION['clearCache'];
+    $variable->clearCache->token = rand();
+    $variable->message = 'Session data cleared';
+    echo(json_encode($variable));
+    $_SESSION['clearCache'] = null;
+    if(isset($_SESSION['connection']))
+    {
+        echo('?_? inside 1st');
+        if($_SESSION['connection'] === true)
+        {
+            echo('?_? inside 2nd');
+            $result = new \stdClass();
+            $result->active=false;
+            $result->message='No connection found in current session';
+            $result->token = rand();
+            $result->time = $_SERVER['REQUEST_TIME'];
+
+            $_SESSION['connection'] = $result;
+        }
+    }
+    $variable = new \stdClass();
+    $variable->message = 'Session variables destroyed';
+    $variable->timestamp = $_SERVER['REQUEST_TIME'];
+    array_push($_SESSION['log'], $variable);
 }
 ?>

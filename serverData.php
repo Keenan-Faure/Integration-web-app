@@ -137,13 +137,13 @@
                     <br><br>
                     <input class = 'button' type='submit'>
                 </form>
-                <form action='output.php'>
+                <form action='output.php' target='_blank'>
+                    <?php $_SESSION['clearCache'] = true;?>
                     <button class = 'button buttonclear'>Clear Session</button>
                 </form>
                 <div class='log'>
                     <h2 style='color: red;'>Log</h2>
                     <?php    
-
                         include("createConnection.php");
                         use Connection\Connection as connect;
                         
@@ -156,16 +156,19 @@
                             {
                                 if(!isset($_SESSION['connection']))
                                 {
-                                    $this->Logger('Connection not found in current session'); 
+                                    $this->Logger('Connection not found in current session', $_SERVER['REQUEST_TIME']); 
                                 }
                                 if(isset($_SESSION['connection']) and $_SESSION['connection']->active === true)
                                 {
-                                    $this->Logger('Connected to MySQL database successful');
+                                    $this->Logger('Connected to MySQL database successful', $_SERVER['REQUEST_TIME']);
                                 }
                             }
-                            public function Logger($value)
+                            public function Logger($value, $time)
                             {
-                                array_push($_SESSION['log'], (sizeof($_SESSION['log']) + 1) . '  -  ' . $value);
+                                $variable = new \stdClass();
+                                $variable->message = $value;
+                                $variable->timestamp = $time;
+                                array_push($_SESSION['log'], $variable);
                                 return($value);
                             }
                         }
@@ -173,7 +176,6 @@
                         $server->checkConnection();
                     ?>
                     <form action='log.php' target='_blank'>
-                        <?php session_start(); $_SESSION['clearCache'] = 'true'; ?>
                         <button class='buttonLog'>Update Log</button>
                     </form>
                 </div>
