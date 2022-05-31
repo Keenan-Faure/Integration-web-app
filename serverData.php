@@ -320,7 +320,11 @@
             var btn = document.querySelector('.next');
             var background = document.querySelector('.background');
             background.classList.add('fade-out');
-
+            setTimeout(()=>
+            {
+                document.querySelector('.next').style.opacity = 0;
+                document.querySelector('.nextBtn').style.opacity = 0;
+            }, 300);
             setTimeout(()=>
             {
                 var background2 = document.querySelector('.backgroundtwo');
