@@ -27,10 +27,8 @@ else
     $_SESSION['clearCache'] = null;
     if(isset($_SESSION['connection']))
     {
-        echo('?_? inside 1st');
         if($_SESSION['connection'] === true)
         {
-            echo('?_? inside 2nd');
             $result = new \stdClass();
             $result->active=false;
             $result->message='No connection found in current session';
