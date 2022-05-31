@@ -139,13 +139,28 @@
             {
                 background-image: url('Images/background.png');
                 background-size: cover;
+                position: absolute;
+                top: 0;
                 background-position: left;
+                width: 100%;
+                height: 100%;
+            }
+            .backgroundtwo
+            {
+                background-image: url('Images/background.png');
+                background-size: cover;
+                opacity: 0;
+                position: absolute;
+                top: 0;
+                background-position: right;
                 width: 100%;
                 height: 100%;
             }
             .background-cover
             {
                 height: 100%;
+                position: absolute;
+                top: 0;
                 width: 100%;
                 background-color: rgba(0,0,0,0.2);
             }
@@ -179,6 +194,7 @@
             }
             .fade-in
             {
+                opacity: 0;
                 animation: fades-in 1s ease-in forwards;
             }
             /* ❮ ❯ */
@@ -280,10 +296,13 @@
         btn.addEventListener('click', ()=>
         {
             var background = document.querySelector('.background');
-            var background2 = document.querySelector('.backgroundtwo');
             background.classList.add('fade-out');
+
+            var background2 = document.createElement('div');
+            background2.className = 'backgroundtwo';
             setTimeout(()=>
             {
+                document.body.appendChild(background2);
                 background2.classList.add('fade-in');
             }, 1100);
             
