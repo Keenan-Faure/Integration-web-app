@@ -93,7 +93,7 @@
                 position: fixed;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                top: 50%;
+                top: 55%;
                 padding: 20px;
                 opacity: 0.9;
                 width: 400px;
@@ -225,11 +225,35 @@
         </style>
     </head>
     <body>
+        <div class='backgroundtwo'>
+        <h1>Check Connection</h1>
+            <div class='line'></div>
+            <div class='next'>
+            </div>
+            <div class='nextBtn'>❯</div>
+            <div class="modalContainer">
+                <form method='post' action='output.php' target='_blank'>
+                    <input type='text' name='uname' placeholder='Enter Username' required>
+                    <br><br>
+                    <input type='password' name='psw' placeholder='Enter Password'>
+                    <br><br>
+                    <input type='text' name='host' placeholder='Localhost' readonly>
+                    <br><br>
+                    <input type='text' name='dbName' placeholder='Enter Database Name' required>
+                    <br><br>
+                    <input class = 'button' type='submit'>
+                </form>
+                <form action='output.php' target='_blank'>
+                    <?php $_SESSION['clearCache'] = true;?>
+                    <button class = 'button buttonclear'>Clear Session</button>
+                </form>
+            </div>
+        </div>
         <div class = 'background'>
         <div class = 'background-cover'>
             <h1>Check Connection</h1>
             <div class='line'></div>
-            <div class='next'>
+            <div class='next' onclick=swap()>
             </div>
             <div class='nextBtn'>❯</div>
             <div class="modalContainer">
@@ -291,22 +315,18 @@
         </div>
     </body>
     <script>
-        
-        var btn = document.querySelector('.next');
-        btn.addEventListener('click', ()=>
+        function swap()
         {
+            var btn = document.querySelector('.next');
             var background = document.querySelector('.background');
             background.classList.add('fade-out');
 
-            var background2 = document.createElement('div');
-            background2.className = 'backgroundtwo';
             setTimeout(()=>
             {
-                document.body.appendChild(background2);
+                var background2 = document.querySelector('.backgroundtwo');
                 background2.classList.add('fade-in');
-            }, 1100);
-            
-        });
+            }, 500); 
+        }
     </script>
 
 </html>
