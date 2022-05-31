@@ -239,7 +239,7 @@
             </div>
             <div class='nextBtn'>❯</div>
             <div class="modalContainer">
-                <form method='post' action='output.php' target='_blank'>
+                <form method='post' action='connect.php' target='endpoints.php'>
                     <input type='text' name='uname' placeholder='Enter Username' required>
                     <br><br>
                     <input type='password' name='psw' placeholder='Enter Password'>
