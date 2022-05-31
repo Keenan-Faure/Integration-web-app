@@ -28,18 +28,6 @@
                 box-shadow: 1px 2px 6px #888888;
                 border-radius: 20px;
             }
-            .shiftButton
-            {
-                height: 120px;
-                width: 120px;
-                position: absolute;
-                margin-top: 15%;
-                margin-left: 10%;
-                background-image: url('shift.png');
-                background-size: cover;
-                background-position: center;
-                background-repeat: no-repeat;
-            }
             .log 
             {
                 background-color: #f1f1f1;
@@ -71,6 +59,20 @@
                 padding: 4px 12px;
                 transition-duration: 0.3s;
                 border-radius: 20px;
+            }
+            .buttonother
+            {
+                width: 140px;
+                height: 28px;
+                opacity: 0.9;
+                background-color: lightblue;
+                color: black;
+                border: 1px blue;
+                cursor: pointer;
+                padding: 4px 12px;
+                transition-duration: 0.3s;
+                border-radius: 20px;
+                margin-left: 30%;
             }
             .button:hover
             {
@@ -222,11 +224,16 @@
                 width: 50px;
                 color: white;
             }
+            #f1,#f2,#f3,#f4,#f5,#f6,#f7,#header1,#line
+            {
+                opacity: 0;
+                
+            }
         </style>
     </head>
     <body>
         <div class='backgroundtwo'>
-        <h1>Check Connection</h1>
+        <h1>Create Connection</h1>
             <div class='line'></div>
             <div class='next'>
             </div>
@@ -241,38 +248,34 @@
                     <br><br>
                     <input type='text' name='dbName' placeholder='Enter Database Name' required>
                     <br><br>
-                    <input class = 'button' type='submit'>
-                </form>
-                <form action='output.php' target='_blank'>
-                    <?php $_SESSION['clearCache'] = true;?>
-                    <button class = 'button buttonclear'>Clear Session</button>
+                    <input class='buttonother' type='submit'>
                 </form>
             </div>
         </div>
         <div class = 'background'>
         <div class = 'background-cover'>
-            <h1>Check Connection</h1>
-            <div class='line'></div>
+            <h1 id='header1'>Check Connection</h1>
+            <div class='line' id='line'></div>
             <div class='next' onclick=swap()>
             </div>
             <div class='nextBtn'>❯</div>
             <div class="modalContainer">
                 <form method='post' action='output.php' target='_blank'>
-                    <input type='text' name='uname' placeholder='Enter Username' required>
+                    <input type='text' name='uname' placeholder='Enter Username' id='f1' required>
                     <br><br>
-                    <input type='password' name='psw' placeholder='Enter Password'>
+                    <input type='password' name='psw' placeholder='Enter Password' id='f2'>
                     <br><br>
-                    <input type='text' name='host' placeholder='Localhost' readonly>
+                    <input type='text' name='host' placeholder='Localhost' id='f3' readonly>
                     <br><br>
-                    <input type='text' name='dbName' placeholder='Enter Database Name' required>
+                    <input type='text' name='dbName' placeholder='Enter Database Name' id='f4' required>
                     <br><br>
-                    <input class = 'button' type='submit'>
+                    <input class = 'button' type='submit' id='f5'>
                 </form>
                 <form action='output.php' target='_blank'>
                     <?php $_SESSION['clearCache'] = true;?>
-                    <button class = 'button buttonclear'>Clear Session</button>
+                    <button class = 'button buttonclear' id='f6'>Clear Session</button>
                 </form>
-                <div class='log'>
+                <div class='log' id='f7'>
                     <h2 style='color: red'>Log</h2>
                     <?php    
                         include("createConnection.php");
@@ -324,12 +327,65 @@
             {
                 document.querySelector('.next').style.opacity = 0;
                 document.querySelector('.nextBtn').style.opacity = 0;
-            }, 300);
+                background.style.zIndex = -10;
+            }, 300); //0.3s
             setTimeout(()=>
             {
                 var background2 = document.querySelector('.backgroundtwo');
                 background2.classList.add('fade-in');
-            }, 500); 
+            }, 500); //0.5s
+        }
+
+        window.addEventListener('load', ()=> colors());
+        function colors()
+        {
+            //get elements on start page
+            var header = document.getElementById('header1'); //the second h1 in the array of headers
+            var line = document.getElementById('line');
+            var f1 = document.getElementById('f1');
+            var f2 = document.getElementById('f2');
+            var f3 = document.getElementById('f3');
+            var f4 = document.getElementById('f4');
+            var f5 = document.getElementById('f5');
+            var f6 = document.getElementById('f6');
+            var f7 = document.getElementById('f7');
+            
+            setTimeout(()=>
+            {
+                header.classList.add('fade-in');
+                setTimeout(()=>
+                {
+                    line.classList.add('fade-in');
+                }, 450);
+                setTimeout(()=>
+                {
+                    f1.classList.add('fade-in');
+                }, 500);
+                setTimeout(()=>
+                {
+                    f2.classList.add('fade-in');
+                }, 600);
+                setTimeout(()=>
+                {
+                    f3.classList.add('fade-in');
+                }, 700);
+                setTimeout(()=>
+                {
+                    f4.classList.add('fade-in');
+                }, 800);
+                setTimeout(()=>
+                {
+                    f5.classList.add('fade-in');
+                }, 900);
+                setTimeout(()=>
+                {
+                    f6.classList.add('fade-in');
+                }, 1000);
+                setTimeout(()=>
+                {
+                    f7.classList.add('fade-in');
+                }, 1000);
+            },400); //0.3s
         }
     </script>
 
