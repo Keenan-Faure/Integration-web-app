@@ -80,7 +80,7 @@
             {
                 position: relative;
                 margin-left: 55%;
-                margin-top: -10.5%;
+                margin-top: -11%;
                 background-color: blue;
                 transition-duration: 0.3s;
             }
@@ -149,6 +149,38 @@
                 width: 100%;
                 background-color: rgba(0,0,0,0.2);
             }
+            @keyframes fades-out
+            {
+                from
+                {
+                    opacity: 1;
+                }
+                to
+                {
+                    opacity: 0;
+                }
+
+            }
+            .fade-out
+            {
+                opacity: 1;
+                animation: fades-out 1s ease-out forwards;
+            }
+            @keyframes fades-in
+            {
+                from
+                {
+                    opacity: 0;
+                }
+                to
+                {
+                    opacity: 1;
+                }
+            }
+            .fade-in
+            {
+                animation: fades-in 1s ease-in forwards;
+            }
             /* ❮ ❯ */
             .next
             {
@@ -163,27 +195,27 @@
                 font-size: 18px;
                 transition: 0.6s ease;
                 border-radius: 0 3px 3px 0;
-                background-color: rgba(0,0,0,0.6);
+                z-index: 10;
+                background-color: rgba(0,0,0,0.5);
             }
-            p
+            .nextBtn
             {
                 top: 50%;
                 position: absolute;
-                left: 22px;
+                right: -22px;
                 width: 50px;
-                height: 100%;
+                color: white;
             }
         </style>
     </head>
     <body>
         <div class = 'background'>
         <div class = 'background-cover'>
-            <!--<button class='shiftButton' onclick="console.log(document.querySelector('.modalContainer'));"></button> -->
             <h1>Check Connection</h1>
             <div class='line'></div>
             <div class='next'>
-                <p>❯</p>
             </div>
+            <div class='nextBtn'>❯</div>
             <div class="modalContainer">
                 <form method='post' action='output.php' target='_blank'>
                     <input type='text' name='uname' placeholder='Enter Username' required>
@@ -242,6 +274,22 @@
         </div>
         </div>
     </body>
+    <script>
+        
+        var btn = document.querySelector('.next');
+        btn.addEventListener('click', ()=>
+        {
+            var background = document.querySelector('.background');
+            var background2 = document.querySelector('.backgroundtwo');
+            background.classList.add('fade-out');
+            setTimeout(()=>
+            {
+                background2.classList.add('fade-in');
+            }, 1100);
+            
+        });
+    </script>
+
 </html>
 
 <?php
