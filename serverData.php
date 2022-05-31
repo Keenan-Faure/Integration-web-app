@@ -101,7 +101,7 @@
                 width: 400px;
                 height: 600px;
             }
-            input[type=text], input[type=password]
+            input[type=text], input[type=password], select
 			{
 				width: 100%;
                 border-radius: 20px;
@@ -270,7 +270,9 @@
                     <br><br>
                     <input type='text' name='host' placeholder='Localhost' readonly>
                     <br><br>
-                    <input type='text' name='dbName' placeholder='Enter Database Name' required>
+                    <select id="cars" name="dbName" required>
+                        <option value="Database_w3schools">W3Schools.com Database</option>
+                    </select>
                     <br><br>
                     <input class='buttonother' type='submit'>
                 </form>
@@ -291,7 +293,9 @@
                     <br><br>
                     <input type='text' name='host' placeholder='Localhost' id='f3' readonly>
                     <br><br>
-                    <input type='text' name='dbName' placeholder='Enter Database Name' id='f4' required>
+                    <select id="f4" name="dbName" required>
+                        <option value="Database_w3schools">W3Schools.com Database</option>
+                    </select>
                     <br><br>
                     <input class = 'button' type='submit' id='f5'>
                 </form>
@@ -303,13 +307,10 @@
                     <h2 style='color: red'>Log</h2>
                     <?php    
                         include("createConnection.php");
-                        use Connection\Connection as connect;
-                        
+
                         class server
                         {
                             public $timestamp;
-                            private $connection;
-
                             public function checkConnection()
                             {
                                 if(!isset($_SESSION['connection']))
