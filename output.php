@@ -27,7 +27,7 @@ else
     $_SESSION['clearCache'] = null;
     if(isset($_SESSION['connection']))
     {
-        if($_SESSION['connection'] === true)
+        if($_SESSION['connection']->active === true)
         {
             $result = new \stdClass();
             $result->active=false;
