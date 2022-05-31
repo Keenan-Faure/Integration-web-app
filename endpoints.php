@@ -33,12 +33,27 @@
             }
             .container
             {
-                width: 300px;
-                height: 70%;
+                width: 25%;
+                height: 68.5%;
+                left: 5%;
                 box-shadow: -5px 6px 6px #888888;
-                position: relative;
-                top: 10px;
-                background: rgba(0,0,0,0.2);
+                position: absolute;
+                top: 13%;
+                background: rgba(0,0,0,0.3);
+            }
+            #container-2
+            {
+                position: absolute;
+                top: 13%;
+                height: 68.5%;
+                left: 37.5%;
+            }
+            #container-3
+            {
+                position: absolute;
+                top: 13%;
+                height: 68.5%;
+                left: 70%;
             }
             .line
             {
@@ -56,9 +71,24 @@
                 position: relative;
                 cursor: pointer;
                 background-color: rgba(0,0,0,0.2);
-                padding: 16px;
-                width: 140px;
-                height: 20px;
+                width: 85%;
+                height: 10%;
+                left: 7%;
+                top: 10%;
+                box-shadow: -2px 2px 4px #1d1f20;
+                border: none;
+                transition-duration: 0.4s;
+            }
+            .buttons:hover
+            {
+                border: 1px solid orange;
+            }
+            .buttonText
+            {
+                text-shadow: 1px 1px 4px rgb(42, 150, 201 );
+                position: relative;
+                text-align: center;
+                color: white;
             }
         </style>
     </head>
@@ -70,6 +100,37 @@
             <div class='container'>
                 <h2>General</h2>
                 <div class='line' id='line-1'></div>
+                <button class='buttons'><h3 class='buttonText'>Check Connection</h3></button>
+                <br><br>
+                <button class='buttons'><h3 class='buttonText'>View Log</h3></button>
+                <br><br>
+                <button class='buttons'><h3 class='buttonText'>Visit Stock2Shop</h3></button>
+            </div>
+
+            <div class='container' id='container-2'>
+                <h2>Products</h2>
+                <div class='line' id='line-1'></div>
+                <button class='buttons'><h3 class='buttonText'>Get Product by SKU</h3></button>
+                <br><br>
+                <button class='buttons'><h3 class='buttonText'>Get Products (10)</h3></button>
+                <br><br>
+                <button class='buttons'><h3 class='buttonText'>Count Products</h3></button>
+                <br><br>
+                <button class='buttons'><h3 class='buttonText'>View Product Sql</h3></button>
+                <br><br>
+                <button class='buttons'><h3 class='buttonText'>Add Product to Database</h3></button>
+            </div>
+
+            <div class='container' id='container-3'>
+                <h2>Customers</h2>
+                <div class='line' id='line-1'></div>
+                <button class='buttons'><h3 class='buttonText'>Get Customer by Name</h3></button>
+                <br><br>
+                <button class='buttons'><h3 class='buttonText'>Count Customers</h3></button>
+                <br><br>
+                <button class='buttons'><h3 class='buttonText'>View Customer Sql</h3></button>
+                <br><br>
+                <button class='buttons'><h3 class='buttonText'>Add Customer to Database</h3></button>
             </div>
             
             
