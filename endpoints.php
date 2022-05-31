@@ -26,14 +26,20 @@
             h2
             {
                 text-shadow: 1px 1px 4px rgb(42, 150, 201 );
-                position: absolute;
+                position: relative;
                 text-align: center;
-                top: 13%;
+                top: 5%;
                 color: white;
             }
-            #h2-1{ left: 5%; }
-            #h2-2{ left: 45%; }
-            #h2-3{ right: 5%; }
+            .container
+            {
+                width: 300px;
+                height: 70%;
+                box-shadow: -5px 6px 6px #888888;
+                position: relative;
+                top: 10px;
+                background: rgba(0,0,0,0.2);
+            }
             .line
             {
                 width: 50%;
@@ -44,6 +50,16 @@
                 box-shadow: 1px 1px 4px #2A96C9;
                 border-radius: 20px;
             }
+            #line-1{ top: 5%; }
+            .buttons
+            {
+                position: relative;
+                cursor: pointer;
+                background-color: rgba(0,0,0,0.2);
+                padding: 16px;
+                width: 140px;
+                height: 20px;
+            }
         </style>
     </head>
     <body>
@@ -51,9 +67,13 @@
             </div>
             <h1>Available Endpoints</h1>
             <div class='line'></div>
+            <div class='container'>
+                <h2>General</h2>
+                <div class='line' id='line-1'></div>
+            </div>
+            
+            
 
-            <h2 id='h2-1'>General</h2>
-            <h2 id='h2-2'>Products</h2>
-            <h2 id='h2-3'>Customers</h2>
+
     </body>
 </html>
