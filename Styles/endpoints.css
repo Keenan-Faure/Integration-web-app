@@ -95,7 +95,6 @@ input[type=text]:hover
     height: 10%;
     box-sizing: border-box;
     left: 7%;
-    top: 10%;
     box-shadow: -2px 2px 4px #1d1f20;
     border: none;
     transition-duration: 0.4s
