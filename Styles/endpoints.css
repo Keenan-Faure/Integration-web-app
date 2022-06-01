@@ -1,0 +1,115 @@
+.background
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: rgba(0,0,0,0.2);
+    background-position: center;
+    background-image: url('Images/dbPicture.png');
+    filter: blur(10px);
+}
+h1
+{
+    text-shadow: 1px 1px 4px rgb(42, 150, 201 );
+    position: relative;
+    text-align: center;
+    top: 10px;
+    color: white;
+}
+h2
+{
+    text-shadow: 1px 1px 4px rgb(42, 150, 201 );
+    position: relative;
+    text-align: center;
+    top: 5%;
+    color: white;
+}
+.container
+{
+    width: 25%;
+    height: 68.5%;
+    left: 5%;
+    box-shadow: -5px 6px 6px #888888;
+    position: absolute;
+    top: 13%;
+    background: rgba(0,0,0,0.3);
+}
+#container-2
+{
+    position: absolute;
+    top: 13%;
+    height: 68.5%;
+    left: 37.5%;
+}
+#container-3
+{
+    position: absolute;
+    top: 13%;
+    height: 68.5%;
+    left: 70%;
+}
+.line
+{
+    width: 50%;
+    height: 3px;
+    background-color: white;
+    left: 25%;
+    position: relative;
+    box-shadow: 1px 1px 4px #2A96C9;
+    border-radius: 20px;
+}
+#line-1{ top: 5%; opacity: 0;}
+.buttons
+{
+    position: relative;
+    cursor: pointer;
+    background-color: rgba(0,0,0,0.2);
+    width: 85%;
+    opacity: 0;
+    height: 10%;
+    left: 7%;
+    top: 10%;
+    box-shadow: -2px 2px 4px #1d1f20;
+    border: none;
+    transition-duration: 0.4s;
+}
+.buttons:hover
+{
+    border: 1px solid orange;
+}
+.buttonText
+{
+    text-shadow: 1px 1px 4px rgb(42, 150, 201 );
+    position: relative;
+    text-align: center;
+    color: white;
+}
+#container-1, #container-2, #container-3
+{
+    opacity: 0;
+}
+.h2-hidden
+{
+    opacity: 0;
+}
+@keyframes fades-in
+{
+    from
+    {
+        opacity: 0;
+    }
+    to
+    {
+        opacity: 1;
+    }
+}
+.fade-in
+{
+    opacity: 0;
+    animation: fades-in 1s ease-in forwards;
+}
+            
