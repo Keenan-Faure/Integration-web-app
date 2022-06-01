@@ -13,7 +13,6 @@ var btn = document.querySelector('.next');
 var background = document.querySelector('.background');
 var background2 = document.querySelector('.backgroundtwo');
 
-
 function swap()
 {
     background.classList.remove('fade-in');
