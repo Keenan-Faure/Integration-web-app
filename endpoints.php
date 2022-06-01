@@ -72,6 +72,7 @@
                 cursor: pointer;
                 background-color: rgba(0,0,0,0.2);
                 width: 85%;
+                opacity: 0;
                 height: 10%;
                 left: 7%;
                 top: 10%;
@@ -114,6 +115,7 @@
                 opacity: 0;
                 animation: fades-in 1s ease-in forwards;
             }
+            
         </style>
     </head>
     <body>
@@ -157,5 +159,5 @@
                 <button class='buttons' id='b12'><h3 class='buttonText'>Add Customer to Database</h3></button>
             </div>
     </body>
-        <!-- <script src='scripts2.js'></script> -->
+        <script src='scripts2.js'></script>
 </html>
