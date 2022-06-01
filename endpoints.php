@@ -13,45 +13,45 @@
             <div class='container' id='container-1'>
                 <h2 class='h2-hidden'>General</h2>
                 <div class='line' id='line-1'></div>
-                <form method='post' target='_blank' action='output.php'>
+                <form method='post' target='_blank' action='API.php'>
                     <br><br><br>
-                    <button name='checkConnection' class='buttons' id='b1'><h3 class='buttonText'>Check Connection</h3></button>
+                    <button name='checkConnection' class='button' id='b1'><p class='buttonText'>Check Connection</p></button>
                     <br><br>
-                    <button name='viewLog'class='buttons' id='b2'><h3 class='buttonText'>View Log</h3></button>
+                    <button name='viewLog'class='button' id='b2'><p class='buttonText'>View Log</p></button>
                     <br><br>
-                    <button name='visitS2S' class='buttons' id='b3'><h3 class='buttonText'>Visit Stock2Shop</h3></button>
+                    <button name='visitS2S' class='button' id='b3'><p class='buttonText'>Visit Stock2Shop</p></button>
                 </form>
             </div>
 
             <div class='container' id='container-2'>
                 <h2 class='h2-hidden'>Products</h2>
                 <div class='line' id='line-1'></div>
-                <form method='post' target='_blank' action='output.php'>
+                <form method='post' target='_blank' action='API.php'>
                     <br><br><br>
-                    <input type='text' name='getProductBySKU' placeholder='Get Product by SKU' id='b4'></input>
+                    <input type='text' name='getProductBySKU' placeholder='Get Product by SKU' autocomplete="off" id='b4'></input>
                     <br><br>
-                    <button name='getProductBatch' class='buttons' id='b5'><h3 class='buttonText'>Get Products (10)</h3></button>
+                    <input type='text' name='getProductsBatch' placeholder='Get Products (10)' autocomplete="off" id='b5'></input>
                     <br><br>
-                    <button name='countProducts' class='buttons' id='b6'><h3 class='buttonText'>Count Products</h3></button>
+                    <input type='text' name='countProducts' placeholder='Count Products' autocomplete="off" id='b6'></input>
                     <br><br>
-                    <button name='viewProductSql' class='buttons' id='b7'><h3 class='buttonText'>View Product Sql</h3></button>
+                    <button class='button' name='viewProductSql' id='b7'><p class='buttonText'>View Product Sql</p></button>
                     <br><br>
-                    <button name='addProduct' class='buttons' id='b8'><h3 class='buttonText'>Add Product to Database</h3></button>
+                    <input type='text' name='addProduct' placeholder='Add Product to Database' autocomplete="off" id='b8'></input>
                 </form>
             </div>
 
             <div class='container' id='container-3'>
                 <h2 class='h2-hidden'>Customers</h2>
                 <div class='line' id='line-1'></div>
-                <form method='post' target='_blank' action='output.php'>
+                <form method='post' target='_blank' action='API.php'>
                     <br><br><br>
-                    <button name='getCustomer' class='buttons' id='b9'><h3 class='buttonText'>Get Customer by Name</h3></button>
+                    <input type='text' name='getCustomer' placeholder='Get Customer by Name' autocomplete="off" id='b9'></input>
                     <br><br>
-                    <button name='CheckConnection' class='buttons' id='b10'><h3 class='buttonText'>Count Customers</h3></button>
+                    <input type='text' name='countCustomer' placeholder='Count Customers' autocomplete="off" id='b10'></input>
                     <br><br>
-                    <button name='CheckConnection' class='buttons' id='b11'><h3 class='buttonText'>View Customer Sql</h3></button>
+                    <input type='text' name='viewCustomerSql' placeholder='View Customer Sql' autocomplete="off" id='b11'></input>
                     <br><br>
-                    <button name='CheckConnection' class='buttons' id='b12'><h3 class='buttonText'>Add Customer to Database</h3></button>
+                    <input type='text' name='addCustomer' placeholder='Add Customer to Database' autocomplete="off" id='b12'></input>
                 </form>
             </div>
     </body>

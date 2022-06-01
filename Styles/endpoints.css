@@ -84,6 +84,34 @@ input[type=text]:hover
 {
     border: 1px solid orange;
 }
+.button
+{
+    position: relative;
+    cursor: pointer;
+    background-color: rgba(0,0,0,0.2);
+    width: 85%;
+    display: inline-block;
+    opacity: 0;
+    height: 10%;
+    box-sizing: border-box;
+    left: 7%;
+    top: 10%;
+    box-shadow: -2px 2px 4px #1d1f20;
+    border: none;
+    transition-duration: 0.4s
+}
+.button:hover
+{
+    border: 1px solid orange;
+}
+.buttonText
+{
+    text-shadow: 1px 1px 4px rgb(42, 150, 201 );
+    position: relative;
+    text-align: center;
+    color: white;
+    font-size: 13px;
+}
 ::placeholder
 {
     text-shadow: 1px 1px 4px rgb(42, 150, 201 );
