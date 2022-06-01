@@ -264,7 +264,7 @@ input[type=text]:focus, input[type=password]:focus
 /* Handle */
 ::-webkit-scrollbar-thumb 
 {
-    background: red; 
+    background: blue; 
     border-radius: 30px;
 }
 
