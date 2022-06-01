@@ -29,13 +29,19 @@
                 <form method='post' target='_blank' action='API.php'>
                     <br><br><br>
                     <input type='text' name='getProductBySKU' placeholder='Get Product by SKU' autocomplete="off" id='b4'></input>
-                    <br><br>
+                </form>
+
+                <form method='post' target='_blank' action='API.php'>
                     <input type='text' name='getProductsBatch' placeholder='Get Products (10)' autocomplete="off" id='b5'></input>
-                    <br><br>
+                </form method='post' target='_blank' action='API.php'>
+
+                <form  method='post' target='_blank' action='API.php'>
                     <input type='text' name='countProducts' placeholder='Count Products' autocomplete="off" id='b6'></input>
-                    <br><br>
-                    <button class='button' name='viewProductSql' id='b7'><p class='buttonText'>View Product Sql</p></button>
-                    <br><br>
+                <form method='post' target='_blank' action='API.php'>
+                <br><br>
+                <button class='button' name='viewProductSql' id='b7'><p class='buttonText'>View Product Sql queries</p></button>
+                <br><br>
+                <form method='post' target='_blank' action='API.php'>
                     <input type='text' name='addProduct' placeholder='Add Product to Database' autocomplete="off" id='b8'></input>
                 </form>
             </div>
@@ -49,7 +55,7 @@
                     <br><br>
                     <input type='text' name='countCustomer' placeholder='Count Customers' autocomplete="off" id='b10'></input>
                     <br><br>
-                    <input type='text' name='viewCustomerSql' placeholder='View Customer Sql' autocomplete="off" id='b11'></input>
+                    <button class='button' name='viewCustomerSql' id='b11'><p class='buttonText'>View Customer Sql queries</p></button>
                     <br><br>
                     <input type='text' name='addCustomer' placeholder='Add Customer to Database' autocomplete="off" id='b12'></input>
                 </form>
