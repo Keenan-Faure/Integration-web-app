@@ -37,7 +37,7 @@
                 width: 100%;
                 height: 16%;
                 font-size: 18px;
-                border-radius: 20px;
+                border-radius: 20px 7px 7px 20px ;
                 overflow: auto;
                 padding-left: 10px;
                 padding-right: 10px;
@@ -146,6 +146,7 @@
                 background-position: left;
                 width: 100%;
                 height: 100%;
+                overflow: hidden;
             }
             .backgroundtwo
             {
@@ -253,6 +254,33 @@
                 opacity: 0;
                 
             }
+            
+            /* width */
+            ::-webkit-scrollbar 
+            {
+                width: 5px;
+            }
+
+            /* Track */
+            ::-webkit-scrollbar-track 
+            {
+                box-shadow: inset 0 0 5px grey; 
+                border-radius: 20px;
+            }
+            
+            /* Handle */
+            ::-webkit-scrollbar-thumb 
+            {
+                background: red; 
+                border-radius: 30px;
+            }
+
+            /* Handle on hover */
+            ::-webkit-scrollbar-thumb:hover 
+            {
+                background: #b30000; 
+            }
+
         </style>
     </head>
     <body>
