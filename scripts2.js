@@ -6,9 +6,9 @@ var h1 = document.getElementsByClassName('h2-hidden')[0];
 var h2 = document.getElementsByClassName('h2-hidden')[1];
 var h3 = document.getElementsByClassName('h2-hidden')[2];
 
-var l1 = document.getElementsByClassName('line')[0];
-var l2 = document.getElementsByClassName('line')[1];
-var l3 = document.getElementsByClassName('line')[2];
+var l1 = document.getElementsByClassName('line')[1];
+var l2 = document.getElementsByClassName('line')[2];
+var l3 = document.getElementsByClassName('line')[3];
 
 var b1 = document.getElementById('b1');
 var b2 = document.getElementById('b2');
