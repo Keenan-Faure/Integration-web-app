@@ -9,7 +9,7 @@
     background-size: cover;
     background-color: rgba(0,0,0,0.2);
     background-position: center;
-    background-image: url('Images/dbPicture.png');
+    background-image: url('../Images/dbPicture.png');
     filter: blur(10px);
 }
 h1
@@ -63,25 +63,28 @@ h2
     border-radius: 20px;
 }
 #line-1{ top: 5%; opacity: 0;}
-.buttons
+
+input[type=text] 
 {
     position: relative;
     cursor: pointer;
     background-color: rgba(0,0,0,0.2);
     width: 85%;
+    display: inline-block;
     opacity: 0;
     height: 10%;
+    box-sizing: border-box;
     left: 7%;
     top: 10%;
     box-shadow: -2px 2px 4px #1d1f20;
     border: none;
-    transition-duration: 0.4s;
+    transition-duration: 0.4s
 }
-.buttons:hover
+input[type=text]:hover
 {
     border: 1px solid orange;
 }
-.buttonText
+::placeholder
 {
     text-shadow: 1px 1px 4px rgb(42, 150, 201 );
     position: relative;
