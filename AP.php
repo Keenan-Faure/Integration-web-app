@@ -21,7 +21,7 @@ if(isset($_POST['getProductBySKU']) && $_POST['getProductBySKU'])
 }
 if(isset($_POST['getProductsBatch']))
 {
-    echo("gtting product batch");
+    echo("getting product batch");
     unset($_POST['getProductsBatch']);
 }
 if(isset($_POST['countProduct']))
@@ -31,7 +31,7 @@ if(isset($_POST['countProduct']))
 }
 if(isset($_POST['viewProductSql']))
 {
-    echo("yes view product sql");
+    echo("view product sql");
     unset($_POST['viewProductSql']);
 }
 if(isset($_POST['addProduct']))
@@ -41,22 +41,22 @@ if(isset($_POST['addProduct']))
 }
 if(isset($_POST['getCustomerByName']))
 {
-    echo("yes indeed");
+    echo("getCustomerby name");
     unset($_POST['getCustomerByName']);
 }
 if(isset($_POST['countCustomer']))
 {
-    echo("yes indeed");
+    echo("count customers");
     unset($_POST['countCustomer']);
 }
 if(isset($_POST['viewCustomerSql']))
 {
-    echo("yes indeed");
+    echo("view customer sql");
     unset($_POST['viewCustomerSql']);
 }
 if(isset($_POST['addCustomer']))
 {
-    echo("yes indeed");
+    echo("add a customer to the database");
     unset($_POST['addCustomer']);
 }
 
