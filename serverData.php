@@ -270,9 +270,7 @@
                     <br><br>
                     <input type='text' name='host' placeholder='Localhost' readonly>
                     <br><br>
-                    <select id="cars" name="dbName" required>
-                        <option value="Database_w3schools">W3Schools.com Database</option>
-                    </select>
+                    <input type='text' name='dbName' placeholder='Enter Database' required>
                     <br><br>
                     <input class='buttonother' type='submit'>
                 </form>
@@ -293,9 +291,7 @@
                     <br><br>
                     <input type='text' name='host' placeholder='Localhost' id='f3' readonly>
                     <br><br>
-                    <select id="f4" name="dbName" required>
-                        <option value="Database_w3schools">W3Schools.com Database</option>
-                    </select>
+                    <input type='text' name='dbName' placeholder='Enter Database' id='f4' required>
                     <br><br>
                     <input class = 'button' type='submit' id='f5'>
                 </form>
