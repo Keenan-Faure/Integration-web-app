@@ -14,20 +14,19 @@ if(isset($_POST['visitS2S']))
     echo("redirecting in 2seconds...");
     unset($_POST['visitS2S']);
 }
-if(isset($_POST['getProductBySKU']))
+if(isset($_POST['getProductBySKU']) && $_POST['getProductBySKU'])
 {
-    print_r($_POST['getProductBySKU']);
     echo("Searching for SKU " . $_POST['getProductBySKU']);
     unset($_POST['getProductBySKU']);
 }
 if(isset($_POST['getProductsBatch']))
 {
-    echo("yes indeed");
+    echo("gtting product batch");
     unset($_POST['getProductsBatch']);
 }
 if(isset($_POST['countProduct']))
 {
-    echo("yes indeed");
+    echo("counting products");
     unset($_POST['countProduct']);
 }
 if(isset($_POST['viewProductSql']))
@@ -37,7 +36,7 @@ if(isset($_POST['viewProductSql']))
 }
 if(isset($_POST['addProduct']))
 {
-    echo("yes indeed");
+    echo("adding product ");
     unset($_POST['addProduct']);
 }
 if(isset($_POST['getCustomerByName']))
