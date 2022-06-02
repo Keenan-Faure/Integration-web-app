@@ -28,7 +28,7 @@ class Connection
         $this->connection->credentials->host = 'localhost'; //harcoded to localhost
         $this->connection->credentials->dbname = $dbName;
         $this->connection->token = rand();
-        $this->connection->time = $_SERVER['REQUEST_TIME'];
+        $this->connection->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
         $_SESSION['connection'] = $this->connection;
         return $this->connection;
     }

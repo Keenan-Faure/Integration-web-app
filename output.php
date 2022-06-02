@@ -12,7 +12,7 @@ if(isset($_POST['uname']) && isset($_POST['dbName']))
         $result->active=false;
         $result->message='No connection found in current session';
         $result->token = rand();
-        $result->time = $_SERVER['REQUEST_TIME'];
+        $result->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);;
         echo(json_encode($result));
     }
 }
@@ -33,14 +33,14 @@ else
             $result->active=false;
             $result->message='No connection found in current session';
             $result->token = rand();
-            $result->time = $_SERVER['REQUEST_TIME'];
+            $result->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);;
 
             $_SESSION['connection'] = $result;
         }
     }
     $variable = new \stdClass();
     $variable->message = 'Session variables destroyed';
-    $variable->timestamp = $_SERVER['REQUEST_TIME'];
+    $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);;
     array_push($_SESSION['log'], $variable);
 }
 ?>

@@ -73,7 +73,7 @@
                             {
                                 $variable = new \stdClass();
                                 $variable->message = $value;
-                                $variable->timestamp = $time;
+                                $variable->timestamp = date('m/d/Y H:i:s', $time);
                                 array_push($_SESSION['log'], $variable);
                                 return($value);
                             }
