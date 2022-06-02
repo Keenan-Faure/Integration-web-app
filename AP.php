@@ -1,7 +1,31 @@
+<style>
+    .errors
+    {
+        text-align: center;
+        width: 600px;
+        font-size: 20px;
+        height: 60px;
+        top: 50%;
+        left: 50%;
+        position: absolute;
+        background-color: rgba(216, 216, 216, 0.2);
+        color: red;
+        transform: translate(-50%, -50%);
+    }
+    p
+    {
+        text-align: center;
+    }
+</style>
 <?php
     session_start();
     if($_SESSION['connection']->active === true)
     {
+        if(($_POST == null))
+        {
+            echo('<div class="errors"><p>Error occurred: No endpoint selected, please return</p></div>');
+            header('Refresh:2, url=endpoints.php');
+        }
         if(isset($_POST['checkConnection']))
         {
             echo("Checking connection...");
