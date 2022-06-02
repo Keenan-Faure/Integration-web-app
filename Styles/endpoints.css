@@ -12,6 +12,18 @@
     background-image: url('../Images/dbPicture.png');
     filter: blur(10px);
 }
+.errors
+{
+    text-align: center;
+    width: 200px;
+    font-size: 10px;
+    height: 35px;
+    top: 0;
+    right: 0;
+    position: absolute;
+    background-color: rgba(216, 216, 216, 0.2);
+    color: red;
+}
 h1
 {
     text-shadow: 1px 1px 4px rgb(42, 150, 201 );

@@ -1,11 +1,15 @@
-<?php
-    unset($_POST);
-?>
 <html>
     <head>
         <link rel='stylesheet' href='Styles/endpoints.css'>
     </head>
     <body>
+            <?php 
+            session_start();
+            if($_SESSION['connection']->active !== true)
+            {
+                echo('<div class="errors"><p>No Connection found in current session</p></div>');
+            }
+            ?>
             <div class='background'>
             </div>
             <h1>Available Endpoints</h1>
