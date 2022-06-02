@@ -66,7 +66,7 @@ input[type=text]:focus, input[type=password]:focus
 }
 .background
 {
-    background-image: url('../Images/background.png');
+    background-image: url('../Images/login.jpeg');
     background-size: cover;
     position: absolute;
     top: 0;
