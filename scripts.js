@@ -88,3 +88,8 @@ back.addEventListener('click', ()=>
     document.querySelector('.next').style.opacity = 10;
     document.querySelector('.nextBtn').style.opacity = 1;
 });
+
+function showDatabase()
+{
+    //
+}
