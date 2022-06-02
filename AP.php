@@ -69,7 +69,7 @@
         $variable->active = 'false';
         $variable->message = 'No connection found in current session, please re-connect';
         $variable->failedPage = 'AP.php';
-        $variable->timestamp = $_SERVER['REQUEST_TIME'];
+        $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
         $variable->redirectTime = '3 seconds';
 
         echo(json_encode($variable));
