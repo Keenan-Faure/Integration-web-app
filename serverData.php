@@ -1,6 +1,21 @@
 <?php 
     session_start();
-    $_SESSION['log'] = array();
+    include("createConnection.php");
+    use Connection\Connection as connect;
+    
+    if(isset($_SESSION['credentials']))
+    {
+        $connection = new connect();
+        $connection->connectServer($_SESSION['credentials']->username, $_SESSION['credentials']->password);
+    }
+    else
+    {
+
+    }
+    
+    //if connected get and then show databases
+    //if not connected, try to make a header that refreshes the page once the user logins to the database, then we run the program again to check.
+    //finally we use the script 'scripts.js' to display the databases once the user hovers over the dbName input tag.
 ?>
 <html>
     <head>
@@ -8,20 +23,16 @@
     </head>
     <body>
         <div class='backgroundtwo'>
-        <h1>Create Connection</h1>
+        <h1>Create Connection to Database</h1>
             <div class='line'></div>
             <div class='next2'>
             </div>
             <div class='nextBtn2'>❮</div>
             <div class="modalContainer">
                 <form method='post' action='connect.php' target='endpoints.php'>
-                    <input type='text' name='uname' placeholder='Enter Username' required>
-                    <br><br>
-                    <input type='password' name='psw' placeholder='Enter Password'>
+                    <input type='text' autocomplete="off" class='show' name='dbName' placeholder='Enter Database' required>
                     <br><br>
                     <input type='text' name='host' placeholder='Localhost' readonly>
-                    <br><br>
-                    <input type='text' name='dbName' placeholder='Enter Database' required>
                     <br><br>
                     <input class='buttonother' type='submit'>
                 </form>
@@ -36,13 +47,9 @@
             <div class='nextBtn'>❯</div>
             <div class="modalContainer">
                 <form method='post' action='output.php' target='_blank'>
-                    <input type='text' name='uname' placeholder='Enter Username' id='f1' required>
-                    <br><br>
-                    <input type='password' name='psw' placeholder='Enter Password' id='f2'>
-                    <br><br>
                     <input type='text' name='host' placeholder='Localhost' id='f3' readonly>
                     <br><br>
-                    <input type='text' name='dbName' placeholder='Enter Database' id='f4' required>
+                    <input type='text' autocomplete="off" class='show' name='dbName' placeholder='Enter Database' id='f4' required>
                     <br><br>
                     <input class = 'button' type='submit' id='f5'>
                 </form>
@@ -53,7 +60,6 @@
                 <div class='log' id='f7'>
                     <h2 style='color: red'>Log</h2>
                     <?php    
-                        include("createConnection.php");
 
                         class server
                         {

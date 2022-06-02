@@ -1,8 +1,6 @@
 //get elements on start page
 var header = document.getElementById('header1'); //the second h1 in the array of headers
 var line = document.getElementById('line');
-var f1 = document.getElementById('f1');
-var f2 = document.getElementById('f2');
 var f3 = document.getElementById('f3');
 var f4 = document.getElementById('f4');
 var f5 = document.getElementById('f5');
@@ -45,32 +43,24 @@ function colors()
         }, 450);
         setTimeout(()=>
         {
-            f1.classList.add('fade-in');
-        }, 500);
-        setTimeout(()=>
-        {
-            f2.classList.add('fade-in');
-        }, 600);
-        setTimeout(()=>
-        {
             f3.classList.add('fade-in');
-        }, 700);
+        }, 550);
         setTimeout(()=>
         {
             f4.classList.add('fade-in');
-        }, 800);
+        }, 650);
         setTimeout(()=>
         {
             f5.classList.add('fade-in');
-        }, 900);
+        }, 750);
         setTimeout(()=>
         {
             f6.classList.add('fade-in');
-        }, 1000);
+        }, 850);
         setTimeout(()=>
         {
             f7.classList.add('fade-in');
-        }, 1000);
+        }, 850);
     },400); //0.3s
 }
 
