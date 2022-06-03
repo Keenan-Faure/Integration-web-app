@@ -30,9 +30,9 @@
             <div class='nextBtn2'>❮</div>
             <div class="modalContainer">
                 <form method='post' action='connect.php' target='endpoints.php'>
-                    <input type='text' autocomplete="off" class='show' name='dbName' placeholder='Enter Database' required>
-                    <br><br>
                     <input type='text' name='host' placeholder='Localhost' readonly>
+                    <br><br>
+                    <input type='text' autocomplete="off" class='show' name='dbName' placeholder='Enter Database' required>
                     <br><br>
                     <input class='buttonother' type='submit'>
                 </form>
@@ -53,7 +53,7 @@
                     <br><br>
                     <input class = 'button' type='submit' id='f5'>
                 </form>
-                <form action='output.php' target='_blank'>
+                <form action='output.php'>
                     <?php $_SESSION['clearCache'] = true;?>
                     <button class = 'button buttonclear' id='f6'>Clear Session</button>
                 </form>
