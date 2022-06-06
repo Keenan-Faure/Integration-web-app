@@ -16,7 +16,12 @@ class Connection
         $conn = new \mysqli($host, $username, $password, $dbName);
         if($conn->connect_error)
         {
-            die("Connection failed: " . $conn->connect_error);
+            $result = new \stdClass();
+            $result->active=false;
+            $result->message='Error has occurred when trying to connect to the database';
+            $result->token = rand();
+            $result->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+            header("Refresh:2,url=serverData.php");
         }
         $this->connection = new \stdClass();
         $this->connection->active = true;
@@ -34,11 +39,20 @@ class Connection
     }
     function connectServer($username='null', $password='', $host='localhost')
     {
-        $conn = new \mysqli($host, $username, $password);
-        if($conn->connect_error)
+        $serverConnection = null;
+        try
         {
-            die("Connection failed: " . $conn->connect_error);
+            $serverConnection = new \mysqli($host, $username, $password);
         }
+        catch(\Exception $error)
+        {
+            $variable = new \stdClass();
+            $variable->connection = false;
+            $variable->message = 'Access denied for user ' . $username . '@localhost with password ' . $password;
+            return $variable;
+        }
+       
+        // connection successful
         $this->connection = new \stdClass();
         $this->connection->active = true;
         $this->connection->credentials = new \stdClass();
@@ -48,9 +62,13 @@ class Connection
         $this->connection->credentials->host = 'localhost'; //harcoded to localhost
         $this->connection->token = rand();
         $this->connection->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-        $this->connection->rawvalue = $conn;
         $_SESSION['serverconnection'] = $this->connection;
-        return $conn;
+        
+        $serverConnection = new \stdClass();
+        $serverConnection->connection = true;
+        $serverConnection->message = 'Connected to MySql server on localhost successful';
+
+        return $serverConnection;
     }
 
     //accessor methods
@@ -73,10 +91,6 @@ class Connection
     {
        return $this->dbName; 
     }
-
-    //mutator methods
-    //cannot change userdefined credentials!!
-
 }
 
 ?>
