@@ -13,16 +13,22 @@ class Connection
 
     function createConnection($username='null', $password='', $host='localhost', $dbName='xyz987')
     {
-        $conn = new \mysqli($host, $username, $password, $dbName);
-        if($conn->connect_error)
+        try
         {
-            $result = new \stdClass();
-            $result->active=false;
-            $result->message='Error has occurred when trying to connect to the database';
-            $result->token = rand();
-            $result->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-            header("Refresh:2,url=serverData.php");
+            $conn = new \mysqli($host, $username, $password, $dbName);
         }
+        catch(\Exception $error)
+        {
+            $variable = new \stdClass();
+            $variable->connection = false;
+            $variable->message = $error->getMessage();
+            $variable->token = rand();
+            $variable->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+            header("Refresh:2,url=serverData.php");
+            return $variable;
+        }
+
+        // connection successful
         $this->connection = new \stdClass();
         $this->connection->active = true;
         $this->connection->credentials = new \stdClass();
@@ -48,7 +54,7 @@ class Connection
         {
             $variable = new \stdClass();
             $variable->connection = false;
-            $variable->message = 'Access denied for user ' . $username . '@localhost with password ' . $password;
+            $variable->message = $error->getMessage();
             return $variable;
         }
        
