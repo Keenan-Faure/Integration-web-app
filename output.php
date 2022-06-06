@@ -20,13 +20,13 @@ if(isset($_SESSION['credentials']) && isset($_POST['dbName']))
 }
 else
 {
+    $_SESSION['clearCache'] = true;
     $variable = new \stdClass();
     $variable->clearCache = new \stdClass();
     $variable->clearCache->result = $_SESSION['clearCache'];
     $variable->clearCache->token = rand();
     $variable->message = 'Session data cleared';
     echo(json_encode($variable));
-    $_SESSION['clearCache'] = true;
     if(isset($_SESSION['connection']))
     {
         if($_SESSION['connection']->active === true)
@@ -43,9 +43,11 @@ else
     $variable = new \stdClass();
     $variable->message = 'Session data destroyed';
     $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);;
-    array_push($_SESSION['log'], $variable);
+    if(isset($_SESSION['log']))
+    {
+        array_push($_SESSION['log'], $variable);
+    }
     session_destroy();
-    header('Refresh:2,url=login.php');
 
 }
 ?>

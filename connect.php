@@ -21,6 +21,7 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
     else
     {
         $variable = new \stdClass();
+        $variable->active = true;
         $variable->username = $_POST['uname'];
         $variable->password = '*****';
         $_SESSION['credentials'] = $variable;
@@ -37,9 +38,9 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
 }
 else
 {
-    if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
+    if(isset($_SESSION['credentials']) && $_SESSION['serverconnection']->connection === true)
     {
-        if($_SESSION['connection']->active)
+        if($_SESSION['serverconnection']->connection === true)
         {
             $username = $_SESSION['credentials']->username;
             $password = $_SESSION['credentials']->password;
@@ -63,7 +64,7 @@ else
             $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
             echo(json_encode($variable));
             array_push($_SESSION['log'], $variable);
-            header('Refresh:3,url=login.php');
+            
         }
         if(!isset($_SESSION['connection']))
         {
@@ -71,7 +72,7 @@ else
             $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
             echo(json_encode($variable));
             array_push($_SESSION['log'], $variable);
-            header('Refresh:3,url=serverData.php');
+            
         }
     }
 

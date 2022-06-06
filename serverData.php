@@ -7,10 +7,12 @@
     {
         $connection = new connect();
         $connection->connectServer($_SESSION['credentials']->username, $_SESSION['credentials']->password);
+        echo("<script>console.log('I am here');</script>");
+
     }
     else
     {
-
+        //the user isnt logged in, display mess
     }
     
     //if connected get and then show databases

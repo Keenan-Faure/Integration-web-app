@@ -1,8 +1,15 @@
 <?php 
-    session_destroy();
+    if(isset($_SESSION))
+    {
+        session_destroy();
+    }
     session_start();
     $_SESSION['log'] = array();
     $_SESSION['databases'] = array();
+?>
+
+
+<?php
 ?>
 <html>
     <head>
@@ -31,6 +38,3 @@
     </body>
     <script src='script3.js'></script>
 </html>
-
-<?php
-?>
