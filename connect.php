@@ -25,16 +25,13 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
         $variable->username = $_POST['uname'];
         $variable->password = $_POST['psw'];
         $_SESSION['credentials'] = $variable;
-        print_r($_SESSION['credentials']);
         $variable->message = 'Connection to MySql Server Successfull';
         $variable->redirectTime = '2 seconds';
         $variable->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
         unset($_POST['uname']);
         unset($_POST['psw']);
-
         array_push($_SESSION['log'], $variable);
         header('Refresh:0,url=serverData.php');
-
     }
 }
 else
