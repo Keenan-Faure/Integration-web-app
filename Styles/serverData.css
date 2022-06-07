@@ -11,6 +11,13 @@ h1
     top: 10px;
     color: white;
 }
+h3
+{
+    position: relative;
+    text-align: center;
+    color: white;
+    font-size: 20px;
+}
 .line
 {
     width: 50%;
@@ -20,6 +27,16 @@ h1
     position: relative;
     box-shadow: 1px 2px 6px #888888;
     border-radius: 20px;
+}
+.lineOther
+{
+    width: 50%;
+    height: 2px;
+    background-color: white;
+    left: 25%;
+    position: relative;
+    box-shadow: 1px 2px 6px #888888;
+    border-radius: 18px;
 }
 .log 
 {
@@ -241,6 +258,16 @@ input[type=text]:focus, input[type=password]:focus
     left: 20px;
     width: 50px;
     color: white;
+}
+.databases
+{
+    height: 35%;
+    width: 75%;
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.5);
 }
 #f1,#f2,#f3,#f4,#f5,#f6,#f7,#header1,#line
 {
