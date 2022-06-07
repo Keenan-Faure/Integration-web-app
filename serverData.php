@@ -3,6 +3,7 @@
     include("createConnection.php");
     use Connection\Connection as connect;
     
+    /*
     if(isset($_SESSION['credentials']))
     {
         $connection = new connect();
@@ -15,6 +16,7 @@
         //the user isnt logged in, display mess
     }
     
+    */
     //if connected get and then show databases
     //if not connected, try to make a header that refreshes the page once the user logins to the database, then we run the program again to check.
     //finally we use the script 'scripts.js' to display the databases once the user hovers over the dbName input tag.

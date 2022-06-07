@@ -11,7 +11,7 @@ class Connection
 
     public $connection;
 
-    function createConnection($username='null', $password='', $host='localhost', $dbName='xyz987')
+    function createConnection($username=null, $password='', $host='localhost', $dbName='xyz987')
     {
         try
         {
@@ -19,12 +19,12 @@ class Connection
         }
         catch(\Exception $error)
         {
+            print_r($error);
             $variable = new \stdClass();
-            $variable->connection = false;
+            $variable->active = false;
             $variable->message = $error->getMessage();
             $variable->token = rand();
             $variable->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-            header("Refresh:2,url=serverData.php");
             return $variable;
         }
 
@@ -34,7 +34,7 @@ class Connection
         $this->connection->credentials = new \stdClass();
 
         $this->connection->credentials->username = $username;
-        $this->connection->credentials->password = '*******';
+        $this->connection->credentials->password = $password;
         $this->connection->credentials->host = 'localhost'; //harcoded to localhost
         $this->connection->credentials->dbname = $dbName;
         $this->connection->token = rand();

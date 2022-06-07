@@ -23,8 +23,9 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
         $variable = new \stdClass();
         $variable->active = true;
         $variable->username = $_POST['uname'];
-        $variable->password = '*****';
+        $variable->password = $_POST['psw'];
         $_SESSION['credentials'] = $variable;
+        print_r($_SESSION['credentials']);
         $variable->message = 'Connection to MySql Server Successfull';
         $variable->redirectTime = '2 seconds';
         $variable->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
@@ -46,12 +47,10 @@ else
             $password = $_SESSION['credentials']->password;
             $host = $_POST['host'];
             $dbname = $_POST['dbName'];
-            print_r($dbname);
 
             $variable = new connect();
-            $connection = $variable->createConnection($username, $password, $host, $dbname);
-            print_r($connection->connection);
-            if($connection->connection == false)
+            $connection = $variable->createConnection($username, $password, 'localhost', $dbname);
+            if($connection->active == false)
             {
                 echo(json_encode($connection));
                 array_push($_SESSION['log'], $connection);
