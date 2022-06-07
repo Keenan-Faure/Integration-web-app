@@ -48,6 +48,6 @@ else
         array_push($_SESSION['log'], $variable);
     }
     session_destroy();
-
+    header("Refresh:3,url=login.php");
 }
 ?>
