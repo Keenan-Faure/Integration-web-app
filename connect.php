@@ -38,19 +38,28 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
 }
 else
 {
-    if(isset($_SESSION['credentials']) && $_SESSION['serverconnection']->connection === true)
+    if(isset($_SESSION['credentials']) && $_SESSION['serverconnection']->active === true)
     {
-        if($_SESSION['serverconnection']->connection === true)
+        if($_SESSION['serverconnection']->active === true)
         {
             $username = $_SESSION['credentials']->username;
             $password = $_SESSION['credentials']->password;
             $host = $_POST['host'];
             $dbname = $_POST['dbName'];
+            print_r($dbname);
 
             $variable = new connect();
-            array_push($_SESSION['log'], $variable->createConnection($username, $password, $host, $dbname));
+            $connection = $variable->createConnection($username, $password, $host, $dbname);
+            print_r($connection->connection);
+            if($connection->connection == false)
+            {
+                echo(json_encode($connection));
+                array_push($_SESSION['log'], $connection);
+                die();
+            }
             if($_SESSION['connection']->active === true)
             {
+                array_push($_SESSION['log'], $connection);
                 header('location: endpoints.php');
             }
         }
@@ -66,7 +75,7 @@ else
             array_push($_SESSION['log'], $variable);
             
         }
-        if(!isset($_SESSION['connection']))
+        if(!isset($_SESSION['serverconnection']))
         {
             $variable->message = "No connection to database found in current session";
             $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
