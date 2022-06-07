@@ -13,13 +13,13 @@ class Connection
 
     function createConnection($username=null, $password='', $host='localhost', $dbName='xyz987')
     {
+        $conn = null;
         try
         {
             $conn = new \mysqli($host, $username, $password, $dbName);
         }
         catch(\Exception $error)
         {
-            print_r($error);
             $variable = new \stdClass();
             $variable->active = false;
             $variable->message = $error->getMessage();
@@ -39,16 +39,15 @@ class Connection
         $this->connection->credentials->dbname = $dbName;
         $this->connection->token = rand();
         $this->connection->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-        $this->connection->rawvalue = $conn;
         $_SESSION['connection'] = $this->connection;
         return $this->connection;
     }
     function connectServer($username='null', $password='', $host='localhost')
     {
-        $serverConnection = null;
+        $serverConnections = null;
         try
         {
-            $serverConnection = new \mysqli($host, $username, $password);
+            $serverConnections = new \mysqli($host, $username, $password);
         }
         catch(\Exception $error)
         {
@@ -72,6 +71,7 @@ class Connection
         
         $serverConnection = new \stdClass();
         $serverConnection->connection = true;
+        $serverConnection->rawValue = $serverConnections;
         $serverConnection->message = 'Connected to MySql server on localhost successful';
 
         return $serverConnection;
