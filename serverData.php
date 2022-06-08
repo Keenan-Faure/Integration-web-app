@@ -117,7 +117,7 @@
                         <button class='buttonLog'>View Log</button>
                     </form>
                 </div>
-                <div class='databases'>
+                <div class='databases' id='c1'>
                     <h3>Available Databases</h3>
                     <div class='lineOther'></div>
                     <div class='container'><p>Database1</p></div>
