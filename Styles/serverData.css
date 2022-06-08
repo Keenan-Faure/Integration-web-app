@@ -102,7 +102,7 @@ p
     position: relative;
     margin-left: 55%;
     margin-top: -11%;
-    background-color: blue;
+    background-color: rgb(100, 194, 194);
     transition-duration: 0.3s;
 }
 .buttonclear:hover
