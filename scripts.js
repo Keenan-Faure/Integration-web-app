@@ -7,6 +7,8 @@ var f5 = document.getElementById('f5');
 var f6 = document.getElementById('f6');
 var f7 = document.getElementById('f7');
 
+var c1 = document.getElementById('c1');
+
 var btn = document.querySelector('.next');
 var background = document.querySelector('.background');
 var background2 = document.querySelector('.backgroundtwo');
@@ -61,6 +63,10 @@ function colors()
         {
             f7.classList.add('fade-in');
         }, 850);
+        setTimeout(()=>
+        {
+            c1.classList.add('fade-in');
+        }, 850);
     },400); //0.3s
 }
 
@@ -81,5 +87,24 @@ back.addEventListener('click', ()=>
 
 function showDatabase()
 {
-    //
+    
+}
+
+//<div class='container'><p>Database1</p></div>
+
+function createContainer(name)
+{
+    main = document.getElementById('c1');
+    if(name != null)
+    {
+        var container = document.createElement('div');
+        container.classList.add('container');
+
+        var word = document.createElement('p');
+        word.appendChild(document.createTextNode(name));
+
+        container.appendChild(word);
+        container.classList.add('fade-in');
+        main.appendChild(container);
+    }
 }

@@ -29,12 +29,11 @@
             
         }
 
-        
-
     }
     else
     {
-        //the user isnt logged in, display mess
+        if(!isset($_SESSION['credentials']))
+        echo('<script>console.log("No connection to MySql detected");<script>');
     }
     
     
@@ -120,15 +119,18 @@
                 <div class='databases' id='c1'>
                     <h3>Available Databases</h3>
                     <div class='lineOther'></div>
-                    <div class='container'><p>Database1</p></div>
-                    <div class='container'><p>Database2</p></div>
-                    <div class='container'><p>Database3</p></div>
-                    <div class='container'><p>Database4</p></div>
                 </div>
             </div>
         </div>
         </div>
     </body>
     <script src='scripts.js'></script>
-
+    <?php 
+        $knownDbs = array('information_schema', 'mysql', 'performance_schema', 'phpmyadmin', 'test');
+        $output = array_diff($output, $knownDbs);
+        for($p = 0; $p < sizeof($output); ++$p)
+        {
+            echo("<script>createContainer('$output[$p]');</script>");
+        } 
+    ?>
 </html>
