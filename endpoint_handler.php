@@ -19,6 +19,7 @@
 </style>
 <?php
     session_start();
+    header('Content-Type: application/json');
     if(isset($_SESSION['connection']))
     {
         if($_SESSION['connection']->active === true)
@@ -46,7 +47,6 @@
             }
             if(isset($_POST['getProductBySKU']) && $_POST['getProductBySKU'])
             {
-                echo("Searching for SKU " . $_POST['getProductBySKU']);
                 unset($_POST['getProductBySKU']);
             }
             if(isset($_POST['getProductsBatch']))
@@ -104,5 +104,14 @@
         header('Refresh:3, url=login.php');
         array_push($_SESSION['log'], $variable);
     }
+
+?>
+
+<?php 
+
+function select($query, $connection)
+{
+    print_r($_SESSION['rawconnection']);
+}
 
 ?>

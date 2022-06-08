@@ -8,6 +8,7 @@
     {
         $connection = new connect();
         $rawConnection = $connection->connectServer($_SESSION['credentials']->username, $_SESSION['credentials']->password)->rawValue;
+        $_SESSION['rawconnection'] = $rawConnection;
         //creates query
         $query = 'show DATABASES';
         $resultArray = array();
