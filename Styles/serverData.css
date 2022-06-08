@@ -16,7 +16,15 @@ h3
     position: relative;
     text-align: center;
     color: white;
-    font-size: 20px;
+    font-size: 18px;
+}
+p
+{
+    text-align: center;
+    color: white;
+    font-size: 10px;
+    margin: 0;
+    padding-top: 10px;
 }
 .line
 {
@@ -268,6 +276,15 @@ input[type=text]:focus, input[type=password]:focus
     left: 50%;
     transform: translate(-50%, -50%);
     background: rgba(0,0,0,0.5);
+}
+.container
+{
+    position: relative;
+    width: 98%;
+    top: 5%;
+    height: 15%;
+    left: 1%;
+    background: rgba(84, 164, 179, 0.2);
 }
 #f1,#f2,#f3,#f4,#f5,#f6,#f7,#header1,#line
 {
