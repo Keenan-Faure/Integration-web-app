@@ -8,7 +8,6 @@
             if(!isset($_SESSION['connection']))
             {
                 echo('<div class="errors"><p>No Connection found in current session</p></div>');
-                
             }
             ?>
             <div class='background'>

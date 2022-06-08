@@ -30,7 +30,10 @@
             }
             if(isset($_POST['checkConnection']))
             {
-                echo("Checking connection...");
+                $variable = new \stdClass();
+                $variable->connection = $_SESSION['connection'];
+                $variable->serverConnection = $_SESSION['serverconnection'];
+                echo(json_encode($variable));
                 unset($_POST['checkConnection']);
             }
             if(isset($_POST['viewLog']))
