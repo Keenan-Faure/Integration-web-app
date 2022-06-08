@@ -38,7 +38,7 @@
             }
             if(isset($_POST['viewLog']))
             {
-                echo("Displaying log");
+                echo(json_encode($_SESSION['log']));
                 unset($_POST['viewLog']);
             }
             if(isset($_POST['visitS2S']))
