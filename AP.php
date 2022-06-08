@@ -30,10 +30,7 @@
             }
             if(isset($_POST['checkConnection']))
             {
-                $variable = new \stdClass();
-                $variable->connection = $_SESSION['connection'];
-                $variable->serverConnection = $_SESSION['serverconnection'];
-                echo(json_encode($variable));
+                echo(json_encode($_SESSION['connection']));
                 unset($_POST['checkConnection']);
             }
             if(isset($_POST['viewLog']))
@@ -43,7 +40,8 @@
             }
             if(isset($_POST['visitS2S']))
             {
-                echo("redirecting in 2seconds...");
+
+                header('Refresh:0,url=https://stock2shop.com');
                 unset($_POST['visitS2S']);
             }
             if(isset($_POST['getProductBySKU']) && $_POST['getProductBySKU'])
