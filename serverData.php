@@ -63,7 +63,7 @@
                 </form>
             </div>
         </div>
-        <div class = 'background'>
+        <div class = 'background fade-in'>
         <div class = 'background-cover'>
             <h1 id='header1'>Check Connection</h1>
             <div class='line' id='line'></div>
