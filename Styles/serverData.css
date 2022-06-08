@@ -23,9 +23,9 @@ p
 {
     text-align: center;
     color: white;
-    font-size: 10px;
+    font-size: 15px;
     margin: 0;
-    padding-top: 10px;
+    padding-top: 8px;
 }
 .line
 {
@@ -272,6 +272,7 @@ input[type=text]:focus, input[type=password]:focus
 {
     height: 35%;
     width: 75%;
+    border-radius: 10px;
     position: absolute;
     top: 75%;
     left: 50%;
@@ -283,6 +284,7 @@ input[type=text]:focus, input[type=password]:focus
     position: relative;
     width: 98%;
     top: 5%;
+    border-radius: 5px;
     height: 15%;
     left: 1%;
     background: rgba(84, 164, 179, 0.2);
