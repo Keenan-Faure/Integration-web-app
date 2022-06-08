@@ -16,6 +16,7 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
         $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
         array_push($_SESSION['log'], $variable);
         echo(json_encode($variable));
+        header('Content-Type: application/json');
         header('Refresh:3,url=login.php');
     }
     else
@@ -49,6 +50,7 @@ else
             $connection = $variable->createConnection($username, $password, 'localhost', $dbname);
             if($connection->active == false)
             {
+                header('Content-Type: application/json');
                 echo(json_encode($connection));
                 array_push($_SESSION['log'], $connection);
                 die();
@@ -67,6 +69,7 @@ else
         {
             $variable->message = "No login details found in current session";
             $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+            header('Content-Type: application/json');
             echo(json_encode($variable));
             array_push($_SESSION['log'], $variable);
             
@@ -75,6 +78,7 @@ else
         {
             $variable->message = "No connection to database found in current session";
             $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+            header('Content-Type: application/json');
             echo(json_encode($variable));
             array_push($_SESSION['log'], $variable);
             

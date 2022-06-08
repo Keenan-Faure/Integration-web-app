@@ -85,11 +85,6 @@ back.addEventListener('click', ()=>
     document.querySelector('.nextBtn').style.opacity = 1;
 });
 
-function showDatabase()
-{
-    
-}
-
 //<div class='container'><p>Database1</p></div>
 
 function createContainer(name)
