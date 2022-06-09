@@ -19,7 +19,6 @@
 </style>
 <?php
     session_start();
-    header('Content-Type: application/json');
     if(isset($_SESSION['connection']))
     {
         if($_SESSION['connection']->active === true)
