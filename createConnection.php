@@ -91,12 +91,10 @@ class Connection
                 $array = $row;
                 array_push($resultArray, $array);
             }
-            //converts it to a PHP object
             for($i = 0; $i < sizeof($resultArray); ++$i)
             {
-                array_push($output, $resultArray[$i]->Database);
-            }
-            
+                array_push($output, $resultArray[$i]);
+            }    
         }
         return $output;
     }

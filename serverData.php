@@ -11,24 +11,6 @@
         $_SESSION['rawconnection'] = $rawConnection;
         //creates query
         $query = 'show DATABASES';
-        $resultArray = array();
-        $output = array();
-
-        if($result = mysqli_query($rawConnection, $query))
-        {
-            $array = array();
-            while($row = $result->fetch_object())
-            {
-                $array = $row;
-                array_push($resultArray, $array);
-            }
-            //converts it to a PHP object
-            for($i = 0; $i < sizeof($resultArray); ++$i)
-            {
-                array_push($output, $resultArray[$i]->Database);
-            }
-            
-        }
 
     }
     else
@@ -128,6 +110,8 @@
     <script src='scripts.js'></script>
     <?php 
         $knownDbs = array('information_schema', 'mysql', 'performance_schema', 'phpmyadmin', 'test');
+        $connection = new connect();
+        $output = $connection->converter($rawConnection, $query);
         $output = array_diff($output, $knownDbs);
         for($p = 0; $p < sizeof($output); ++$p)
         {

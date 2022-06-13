@@ -54,10 +54,10 @@
                 $_SESSION['rawconnection'] = $rawConnection;
                 //creates query
                 
-                $query = 'select Name from Test where Name="' . $_POST['getProductBySKU'] . '"';
+                $query = 'select * from Test where Name="' . $_POST['getProductBySKU'] . '"';
 
-                $result = mysqli_query($rawConnection, $query);
-                $output = $connection->converter($result, $query);
+                $output = $connection->converter($rawConnection, $query);
+                
                 unset($_POST['getProductBySKU']);
             }
             if(isset($_POST['getProductsBatch']))
