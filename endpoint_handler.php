@@ -19,6 +19,9 @@
 </style>
 <?php
     session_start();
+    include("createConnection.php");
+    use Connection\Connection as connect;
+    
     if(isset($_SESSION['connection']))
     {
         if($_SESSION['connection']->active === true)
@@ -46,6 +49,15 @@
             }
             if(isset($_POST['getProductBySKU']) && $_POST['getProductBySKU'])
             {
+                $connection = new connect();
+                $rawConnection = $connection->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+                $_SESSION['rawconnection'] = $rawConnection;
+                //creates query
+                
+                $query = 'select Name from Test where Name="' . $_POST['getProductBySKU'] . '"';
+
+                $result = mysqli_query($rawConnection, $query);
+                $output = $connection->converter($result, $query);
                 unset($_POST['getProductBySKU']);
             }
             if(isset($_POST['getProductsBatch']))

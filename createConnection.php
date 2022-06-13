@@ -38,6 +38,7 @@ class Connection
         $this->connection->credentials->dbname = $dbName;
         $this->connection->token = rand();
         $this->connection->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+        $this->connection->rawValue = $conn;
         $_SESSION['connection'] = $this->connection;
         return $this->connection;
     }
@@ -66,6 +67,7 @@ class Connection
         $this->connection->credentials->host = 'localhost'; //harcoded to localhost
         $this->connection->token = rand();
         $this->connection->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+        $this->connection->rawValue = $serverConnections;
         $_SESSION['serverconnection'] = $this->connection;
         
         $serverConnection = new \stdClass();
@@ -75,7 +77,29 @@ class Connection
 
         return $serverConnection;
     }
-
+    
+    //converts mysqli object to php object
+    function converter($rawConnection, $query)
+    {
+        $resultArray = array();
+        $output = array();
+        if($result = mysqli_query($rawConnection, $query))
+        {
+            $array = array();
+            while($row = $result->fetch_object())
+            {
+                $array = $row;
+                array_push($resultArray, $array);
+            }
+            //converts it to a PHP object
+            for($i = 0; $i < sizeof($resultArray); ++$i)
+            {
+                array_push($output, $resultArray[$i]->Database);
+            }
+            
+        }
+        return $output;
+    }
     //accessor methods
     public function getUsername()
     {
