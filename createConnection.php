@@ -104,9 +104,9 @@ class Connection
         if(sizeof($output) < 1)
         {
             $variable = new \stdClass();
+            $variable->result = array();
             $variable->query = $query;
-            $variable->query_time = $duration;
-            $variable->result = '';
+            $variable->queryTime = $duration;
         }
         else
         {
