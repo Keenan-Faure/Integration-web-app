@@ -113,8 +113,11 @@ class Connection
             $variable = new \stdClass();
             $variable->query = $query;
             $variable->query_time = $duration;
-            $variable->result = new \stdClass();
-            for($i = 0; $i < )
+            
+            for($i = 0; $i < sizeof($output); ++$i)
+            {
+                print_r($output[0]);
+            }
         }
         
         return $variable;
