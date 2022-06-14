@@ -54,9 +54,10 @@
                 $_SESSION['rawconnection'] = $rawConnection;
                 //creates query
                 
-                $query = 'select * from Test where Name="' . $_POST['getProductBySKU'] . '"';
+                $query = "select * from Test where Name='" . $_POST['getProductBySKU'] . "'";
 
-                $output = $connection->converter($rawConnection, $query);
+                $output = $connection->converterObject($rawConnection, $query);
+                echo(json_encode($output));
                 unset($_POST['getProductBySKU']);
             }
             if(isset($_POST['getProductsBatch']))
@@ -114,14 +115,5 @@
         header('Refresh:3, url=login.php');
         array_push($_SESSION['log'], $variable);
     }
-
-?>
-
-<?php 
-
-function select($query, $connection)
-{
-    print_r($_SESSION['rawconnection']);
-}
 
 ?>
