@@ -19,12 +19,7 @@
         echo('<script>console.log("No connection to MySql detected");<script>');
     }
     
-    
-    //if connected get and then show databases
-    //if not connected, try to make a header that refreshes the page once the user logins to the database, then we run the program again to check.
-    //finally we use the script 'scripts.js' to display the databases once the user hovers over the dbName input tag.
 ?>
-
 <html>
     <head>
         <link rel='stylesheet' href='Styles/serverData.css'>
@@ -107,11 +102,14 @@
         </div>
         </div>
     </body>
+
+
     <script src='scripts.js'></script>
     <?php 
         $knownDbs = array('information_schema', 'mysql', 'performance_schema', 'phpmyadmin', 'test');
         $connection = new connect();
-        $output = $connection->converter($rawConnection, $query);
+        $output = $connection->converterArray($rawConnection, $query);
+        print_r($output);
         $output = array_diff($output, $knownDbs);
         for($p = 0; $p < sizeof($output); ++$p)
         {
