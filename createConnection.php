@@ -83,8 +83,13 @@ class Connection
     {
         $resultArray = array();
         $output = array();
+        $duration = 0;
+        $variable = null;
+        $starttime = microtime(true);
         if($result = mysqli_query($rawConnection, $query))
         {
+            $endtime = microtime(true);
+            $duration = $endtime - $starttime; //calculates total time taken
             $array = array();
             while($row = $result->fetch_object())
             {
@@ -96,7 +101,23 @@ class Connection
                 array_push($output, $resultArray[$i]);
             }    
         }
-        return $output;
+        if(sizeof($output) < 1)
+        {
+            $variable = new \stdClass();
+            $variable->query = $query;
+            $variable->query_time = $duration;
+            $variable->result = '';
+        }
+        else
+        {
+            $variable = new \stdClass();
+            $variable->query = $query;
+            $variable->query_time = $duration;
+            $variable->result = new \stdClass();
+            for($i = 0; $i < )
+        }
+        
+        return $variable;
     }
     //accessor methods
     public function getUsername()
