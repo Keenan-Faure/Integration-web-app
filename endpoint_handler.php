@@ -57,7 +57,6 @@
                 $query = 'select * from Test where Name="' . $_POST['getProductBySKU'] . '"';
 
                 $output = $connection->converter($rawConnection, $query);
-                
                 unset($_POST['getProductBySKU']);
             }
             if(isset($_POST['getProductsBatch']))
