@@ -79,7 +79,7 @@ class Connection
     }
     
     //converts mysqli object to php object
-    function converter($rawConnection, $query)
+    function converterObject($rawConnection, $query)
     {
         $resultArray = array();
         $output = array();
@@ -116,11 +116,30 @@ class Connection
             
             for($i = 0; $i < sizeof($output); ++$i)
             {
-                print_r($output[0]);
+                print_r($output[$i]);
             }
         }
         
         return $variable;
+    }
+    function converterArray($rawConnection, $query)
+    {
+        $resultArray = array();
+        $output = array();
+        if($result = mysqli_query($rawConnection, $query))
+        {
+            $array = array();
+            while($row = $result->fetch_object())
+            {
+                $array = $row;
+                array_push($resultArray, $array);
+            }
+            for($i = 0; $i < sizeof($resultArray); ++$i)
+            {
+                array_push($output, $resultArray[$i]->Database);
+            }    
+        }
+        return $output;
     }
     //accessor methods
     public function getUsername()
