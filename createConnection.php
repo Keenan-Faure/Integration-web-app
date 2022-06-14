@@ -111,13 +111,12 @@ class Connection
         else
         {
             $variable = new \stdClass();
+            $variable->result = new \stdClass();
+            $variable->result->ID = $output[0]->ID;
+            $variable->result->Name = $output[0]->Name;
+
             $variable->query = $query;
             $variable->query_time = $duration;
-            
-            for($i = 0; $i < sizeof($output); ++$i)
-            {
-                print_r($output[$i]);
-            }
         }
         
         return $variable;
