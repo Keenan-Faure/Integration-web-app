@@ -38,7 +38,7 @@
                 $_SESSION['rawconnection'] = $rawConnection;
                 //creates query
                 
-                $query = $_POST['selfquery'];
+                $query = trim($_POST['selfquery']);
                 
                 $output = $connection->converterObject($rawConnection, $query);
                 echo(json_encode($output));
