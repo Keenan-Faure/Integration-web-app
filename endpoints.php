@@ -12,6 +12,17 @@
             ?>
             <div class='background'>
             </div>
+            <div class='selfBackground' id='top'>
+            </div>
+
+            <h1 id='top'>Custom Query</h1>
+            <div class='line' id='top'></div>
+            <form method='post' target='_blank' action='endpoint_handler.php' id='top'>
+                    <br><br><br>
+                    <textarea id='top' class='textarea' name='selfquery' placeholder='Enter your query here'></textarea>
+                    <button id='top' type = 'submit' class='enter'>Submit</button>
+            </form>
+
             <h1>Available Endpoints</h1>
             <div class='line'></div>
             <div class='container' id='container-1'>
