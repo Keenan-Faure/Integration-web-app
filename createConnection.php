@@ -86,7 +86,9 @@ class Connection
         $duration = 0;
         $variable = null;
         $starttime = microtime(true);
-        if($result = mysqli_query($rawConnection, $query))
+        try
+        {
+            if($result = mysqli_query($rawConnection, $query))
         {
             $endtime = microtime(true);
             $duration = $endtime - $starttime; //calculates total time taken
@@ -117,6 +119,13 @@ class Connection
 
             $variable->query = $query;
             $variable->query_time = $duration;
+        }
+        }
+        catch(\Exception $error)
+        {
+            $variable = new \stdClass();
+            $variable->error = $error->getMessage();
+            $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
         }
         
         return $variable;

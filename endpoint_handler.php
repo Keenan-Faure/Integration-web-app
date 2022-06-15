@@ -31,6 +31,19 @@
                 echo('<div class="errors"><p>Error occurred: No endpoint selected, please return</p></div>');
                 header('Refresh:2, url=endpoints.php');
             }
+            if(isset($_POST['selfquery']))
+            {
+                $connection = new connect();
+                $rawConnection = $connection->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+                $_SESSION['rawconnection'] = $rawConnection;
+                //creates query
+                
+                $query = $_POST['selfquery'];
+                
+                $output = $connection->converterObject($rawConnection, $query);
+                echo(json_encode($output));
+                
+            }
             if(isset($_POST['checkConnection']))
             {
                 echo(json_encode($_SESSION['connection']));
