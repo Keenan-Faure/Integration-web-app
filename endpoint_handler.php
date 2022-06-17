@@ -37,10 +37,10 @@
                 $rawConnection = $connection->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
                 $_SESSION['rawconnection'] = $rawConnection;
                 //creates query
-                
                 $query = trim($_POST['selfquery']);
                 
                 $output = $connection->converterObject($rawConnection, $query);
+                mysqli_close($rawConnection);
                 echo(json_encode($output));
                 
             }
@@ -70,17 +70,36 @@
                 $query = "select * from Test where Name='" . $_POST['getProductBySKU'] . "'";
 
                 $output = $connection->converterObject($rawConnection, $query);
+                mysqli_close($rawConnection);
                 echo(json_encode($output));
                 unset($_POST['getProductBySKU']);
             }
             if(isset($_POST['getProductsBatch']))
             {
-                echo("getting product batch");
+                $connection = new connect();
+                $rawConnection = $connection->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+                $_SESSION['rawconnection'] = $rawConnection;
+                //creates query
+                
+                $query = "select * from Test limit 15";
+
+                $output = $connection->converterObject($rawConnection, $query);
+                mysqli_close($rawConnection);
+                echo(json_encode($output));
                 unset($_POST['getProductsBatch']);
             }
             if(isset($_POST['countProduct']))
             {
-                echo("counting products");
+                $connection = new connect();
+                $rawConnection = $connection->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+                $_SESSION['rawconnection'] = $rawConnection;
+                //creates query
+                
+                $query = "select count(*) from Test";
+
+                $output = $connection->converterObject($rawConnection, $query);
+                mysqli_close($rawConnection);
+                echo(json_encode($output));
                 unset($_POST['countProduct']);
             }
             if(isset($_POST['viewProductSql']))
