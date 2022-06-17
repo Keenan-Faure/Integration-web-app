@@ -122,7 +122,8 @@ document.querySelector('.closeButton').addEventListener('click', () =>
 document.querySelector('.custom').addEventListener('click', ()=>
 {
     array = document.querySelector('.top');
-    array.classList.remove('top');
+    array.classList.remove('bottom');
+    array.classList.remove('fade-out');
     array.classList.add('fade-in');
     array.classList.add('bottom');
     

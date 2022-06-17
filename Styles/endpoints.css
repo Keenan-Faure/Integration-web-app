@@ -236,9 +236,10 @@ input[type=text]:hover
 } 
 .buttonContainer
 {
-    width: 65.5%;
-    top: 11%;
-    left: 15%;
+    width: 70%;
+    top: 13%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     height: 4%;
     border: 5px 5px 0 0;
     position: absolute;
