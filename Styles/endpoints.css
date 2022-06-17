@@ -158,6 +158,22 @@ input[type=text]:hover
     opacity: 0;
     animation: fades-in 1s ease-in forwards;
 }
+@keyframes fades-out
+{
+    from
+    {
+        opacity: 1;
+    }
+    to
+    {
+        opacity: 0;
+    }
+}
+.fade-out
+{
+    opacity: 1;
+    animation: fades-out 1s ease-out forwards;
+}
 .selfBackground
 {
     background-image: url('../Images/backgroundself.jpg');

@@ -113,9 +113,10 @@ window.addEventListener('load', ()=>
 
 document.querySelector('.closeButton').addEventListener('click', () =>
 {
-    array = document.getElementsByClassName('bottom');
-    array.classList.remove('fade-out');
+    array = document.querySelector('.bottom');
+    array.classList.add('fade-out');
     array.classList.remove('bottom');
+    array.classList.add('top');
 });
 
 document.querySelector('.custom').addEventListener('click', ()=>
