@@ -67,7 +67,7 @@
                 $_SESSION['rawconnection'] = $rawConnection;
                 //creates query
                 
-                $query = "select * from Test where Name='" . $_POST['getProductBySKU'] . "'";
+                $query = "SELECT * FROM Test WHERE Name='" . $_POST['getProductBySKU'] . "'";
 
                 $output = $connection->converterObject($rawConnection, $query);
                 mysqli_close($rawConnection);
@@ -81,7 +81,7 @@
                 $_SESSION['rawconnection'] = $rawConnection;
                 //creates query
                 
-                $query = "select * from Test limit 15";
+                $query = "SELECT * FROM Test LIMIT 15";
 
                 $output = $connection->converterObject($rawConnection, $query);
                 mysqli_close($rawConnection);
@@ -95,16 +95,30 @@
                 $_SESSION['rawconnection'] = $rawConnection;
                 //creates query
                 
-                $query = "select count(*) from Test";
+                $query = "SELECT COUNT(*) FROM Test";
 
                 $output = $connection->converterObject($rawConnection, $query);
                 mysqli_close($rawConnection);
                 echo(json_encode($output));
                 unset($_POST['countProduct']);
             }
+            print_r($_POST['viewProductSql']);
             if(isset($_POST['viewProductSql']))
             {
-                echo("view product sql");
+                $variable = new \stdClass();
+                $variable->getProductsBySKU = new \stdClass();
+                $variable->getProductsBySKU->query = "SELECT * FROM Test WHERE Name= '{{Name}}'";
+                $variable->getProductsBySKU->result = 'returns all products whose Name matches {{Name}}';
+
+                $variable->getProducts = new \stdClass();
+                $variable->getProducts->query = 'SELECT * FROM Test LIMIT 10';
+                $variable->getProducts->result = 'returns the first 10 products from the table';
+
+                $variable->countProducts = new \stdClass();
+                $variable->countProducts->query = 'SELECT COUNT(*) FROM Test';
+                $variable->countProducts->result = 'returns the amount of products in the Test table';
+
+                echo(json_encode($variable));
                 unset($_POST['viewProductSql']);
             }
             if(isset($_POST['addProduct']))
