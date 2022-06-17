@@ -12,16 +12,16 @@
             ?>
             <div class='background'>
             </div>
-            <div class='selfBackground' id='top'></div>
-            <div class='buttonContainer' id='top'></div>
-            <button class='closeButton' id='top' onclick="">&times;</button>
+            <div class='selfBackground bottom'></div>
+            <div class='buttonContainer bottom'></div>
+            <button class='closeButton bottom'>&times;</button>
             
-            <h1 id='top'>Custom Query</h1>
-            <div class='line' id='top'></div>
-            <form method='post' target='_blank' action='endpoint_handler.php' id='top'>
+            <h1 class='bottom'>Custom Query</h1>
+            <div class='line bottom'></div>
+            <form method='post' target='_blank' action='endpoint_handler.php' class='bottom'>
                     <br><br><br>
-                    <textarea id='top' class='textarea' name='selfquery' placeholder='Enter your query here'></textarea>
-                    <button id='top' type = 'submit' class='enter'>Submit</button>
+                    <textarea class='textarea bottom' name='selfquery' placeholder='Enter your query here'></textarea>
+                    <button type = 'submit' class='enter bottom'>Submit</button>
             </form>
 
             <h1>Available Endpoints</h1>

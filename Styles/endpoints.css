@@ -26,12 +26,15 @@
 }
 h1
 {
-    text-shadow: 1px 1px 4px rgb(42, 150, 201 );
-    position: relative;
+    text-shadow: 1px 1px 4px rgb(42 150 201);
+    position: absolute;
     text-align: center;
-    top: 10px;
+    top: 3%;
+    left: 50%;
     color: white;
+    transform: translate(-50%, -50%);
 }
+
 h2
 {
     text-shadow: 1px 1px 4px rgb(42, 150, 201 );
@@ -47,20 +50,20 @@ h2
     left: 5%;
     box-shadow: -5px 6px 6px #888888;
     position: absolute;
-    top: 13%;
+    top: 17%;
     background: rgba(0,0,0,0.3);
 }
 #container-2
 {
     position: absolute;
-    top: 13%;
+    top: 17%;
     height: 68.5%;
     left: 37.5%;
 }
 #container-3
 {
     position: absolute;
-    top: 13%;
+    top: 17%;
     height: 68.5%;
     left: 70%;
 }
@@ -226,7 +229,17 @@ input[type=text]:hover
     position: absolute;
     background: rgba(90, 87, 81, 0.3);
 }
-#top
+.top
 {
     z-index: 1;
+    opacity: 1;
 }   
+.bottom
+{
+    z-index: -5;
+    opacity: 0;
+}
+.custom
+{
+    
+}
