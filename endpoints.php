@@ -26,6 +26,7 @@
 
             <h1>Available Endpoints</h1>
             <div class='line'></div>
+            <img src='./Images/custom.png' class='custom'>
             <div class='container' id='container-1'>
                 <h2 class='h2-hidden'>General</h2>
                 <div class='line' id='line-1'></div>

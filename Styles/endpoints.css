@@ -10,7 +10,7 @@
     background-color: rgba(0,0,0,0.2);
     background-position: center;
     background-image: url('../Images/dbPicture.png');
-    filter: blur(10px);
+    filter: blur(8px);
 }
 .errors
 {
@@ -241,5 +241,16 @@ input[type=text]:hover
 }
 .custom
 {
-    
+    position: fixed;
+    top: 3%;
+    right: 5%;
+    width: 30px;
+    border-radius: 25px;
+    font-size: 25px;
+    height: 30px;
+    text-align: center;
+    border: none;
+    box-shadow: 1px 2px 6px #888888;
+    cursor: pointer;
+    background-color: rgb(45, 197, 218);
 }
