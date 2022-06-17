@@ -118,6 +118,15 @@ class Connection
                     $variable->query = $query;
                     $variable->queryTime = $duration;
                 }
+                if($result !== mysqli_query($rawConnection, $query))
+                {
+                    $endtime = microtime(true);
+                    $duration = $endtime - $starttime; //calculates total time taken
+                    $variable = new \stdClass();
+                    $variable->count = $result->num_rows;
+                    $variable->query = $query;
+                    $variable->query_time = $duration;
+                }
                 else
                 {
                     $variable = new \stdClass();
