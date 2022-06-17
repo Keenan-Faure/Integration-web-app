@@ -23,7 +23,7 @@
                 <button class='closeButton'>&times;</button>
                 
                 <h1>Custom Query</h1>
-                <div class='line-1'></div>
+                <div class='line-2'></div>
                 <form method='post' target='_blank' action='endpoint_handler.php'>
                         <br><br><br>
                         <textarea class='textarea' name='selfquery' placeholder='Enter your query here'></textarea>

@@ -22,6 +22,8 @@ var b9 = document.getElementById('b9');
 var b10 = document.getElementById('b10');
 var b11 = document.getElementById('b11');
 var b12 = document.getElementById('b12');
+var b13 = document.getElementById('b13');
+
 
 
 window.addEventListener('load', ()=>
@@ -107,6 +109,10 @@ window.addEventListener('load', ()=>
         {
             b12.classList.add('fade-in');
         }, 1950);
+        setTimeout(()=>
+        {
+            b13.classList.add('fade-in');
+        }, 2050);
     },400); //0.2s
 });
 
