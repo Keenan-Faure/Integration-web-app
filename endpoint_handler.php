@@ -31,7 +31,7 @@
                 echo('<div class="errors"><p>Error occurred: No endpoint selected, please return</p></div>');
                 header('Refresh:2, url=endpoints.php');
             }
-            if($_POST['table'])
+            if(isset($_POST['table']))
             {
                 $variable = new \stdClass();
                 $variable->prevTable = null;
@@ -85,7 +85,7 @@
                 $_SESSION['rawconnection'] = $rawConnection;
                 //creates query
                 
-                $query = "SELECT * FROM Test WHERE Name='" . $_POST['getProductBySKU'] . "'";
+                $query = "SELECT * FROM " . $_SESSION['tablecurrent'] . " WHERE Name='" . $_POST['getProductBySKU'] . "'";
 
                 $output = $connection->converterObject($rawConnection, $query);
                 mysqli_close($rawConnection);
@@ -99,7 +99,7 @@
                 $_SESSION['rawconnection'] = $rawConnection;
                 //creates query
                 
-                $query = "SELECT * FROM Test LIMIT 15";
+                $query = "SELECT * FROM " . $_SESSION['tablecurrent'] . " LIMIT 15";
 
                 $output = $connection->converterObject($rawConnection, $query);
                 mysqli_close($rawConnection);
@@ -113,7 +113,7 @@
                 $_SESSION['rawconnection'] = $rawConnection;
                 //creates query
                 
-                $query = "SELECT COUNT(*) FROM Test";
+                $query = "SELECT COUNT(*) FROM " . $_SESSION['tablecurrent'];
 
                 $output = $connection->converterObject($rawConnection, $query);
                 mysqli_close($rawConnection);
@@ -124,15 +124,15 @@
             {
                 $variable = new \stdClass();
                 $variable->getProductsBySKU = new \stdClass();
-                $variable->getProductsBySKU->query = "SELECT * FROM Test WHERE Name= '{{Name}}'";
+                $variable->getProductsBySKU->query = "SELECT * FROM " . $_SESSION['tablecurrent'] . " WHERE Name= '{{Name}}'";
                 $variable->getProductsBySKU->result = 'returns all products whose Name matches {{Name}}';
 
                 $variable->getProducts = new \stdClass();
-                $variable->getProducts->query = 'SELECT * FROM Test LIMIT 10';
+                $variable->getProducts->query = $query = "SELECT * FROM " . $_SESSION['tablecurrent'] . " LIMIT 15";
                 $variable->getProducts->result = 'returns the first 10 products from the table';
 
                 $variable->countProducts = new \stdClass();
-                $variable->countProducts->query = 'SELECT COUNT(*) FROM Test';
+                $variable->countProducts->query = "SELECT COUNT(*) FROM " . $_SESSION['tablecurrent'];
                 $variable->countProducts->result = 'returns the amount of products in the Test table';
 
                 echo(json_encode($variable));

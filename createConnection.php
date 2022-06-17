@@ -81,7 +81,7 @@ class Connection
     //converts mysqli object to php object
     function converterObject($rawConnection, $query)
     {
-        if($query == '')
+        if($query === '')
         {
             $variable = new \stdClass();
             $variable->error = 'Uncaught ValueError: mysqli_query(), ($query) cannot be empty';
@@ -113,12 +113,13 @@ class Connection
                 }
                 if(sizeof($output) < 1)
                 {
+
                     $variable = new \stdClass();
                     $variable->result = array();
                     $variable->query = $query;
                     $variable->queryTime = $duration;
                 }
-                if($result !== mysqli_query($rawConnection, $query))
+                if(isset($_POST['countProduct']))
                 {
                     $endtime = microtime(true);
                     $duration = $endtime - $starttime; //calculates total time taken
