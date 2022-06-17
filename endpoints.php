@@ -13,7 +13,8 @@
             <div class='background'>
             </div>
             <div class='selfBackground' id='top'></div>
-            <button class='closeButton' id='top'>&times;</button>
+            <div class='buttonContainer' id='top'></div>
+            <button class='closeButton' id='top' onclick="">&times;</button>
             
             <h1 id='top'>Custom Query</h1>
             <div class='line' id='top'></div>
