@@ -111,31 +111,20 @@ window.addEventListener('load', ()=>
 });
 
 
-window.addEventListener('click', close());
-
-function open()
+document.querySelector('.closeButton').addEventListener('click', () =>
 {
-    array = document.getElementsByClassName('top');
-    for(var i = 0; i < array.length; i++)
-    {
-        setTimeout(()=>
-        {
-            array[i].classList.add('fade-in');
-            array[i].classList.add('top');
-        }, (i * 150));
-    }
-}
+    array = document.getElementsByClassName('bottom');
+    array.classList.remove('fade-out');
+    array.classList.remove('bottom');
+});
 
-function close()
+document.querySelector('.custom').addEventListener('click', ()=>
 {
-    array = document.getElementsByClassName('top');
-    for(var i = 0; i < array.length; i++)
-    {
-        setTimeout(()=>
-        {
-            array[i].classList.remove('fade-out');
-            array[i].classList.remove('top');
-        }, (i * 150));
-    }
-}
+    array = document.querySelector('.top');
+    array.classList.remove('top');
+    array.classList.add('fade-in');
+    array.classList.add('bottom');
+    
+});
+
 
