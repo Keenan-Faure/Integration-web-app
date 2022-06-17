@@ -12,17 +12,39 @@
     background-image: url('../Images/dbPicture.png');
     filter: blur(8px);
 }
+.errorTable
+{
+    width: 210px;
+    height: 200px;
+    top: 0;
+    z-index: 10;
+    left: 0;
+    border-radius: 5px;
+    position: absolute;
+}
 .errors
 {
     text-align: center;
     width: 200px;
-    font-size: 10px;
+    font-size: 12px;
     height: 35px;
     top: 0;
-    right: 0;
-    position: absolute;
-    background-color: rgba(216, 216, 216, 0.2);
+    left: 0;
+    cursor: pointer;
+    border-radius: 5px;
+    position: relative;
+    background-color: rgba(90, 83, 83, 0.5);
+    transition-duration: 0.3s;
     color: red;
+}
+.errors:hover
+{
+    background-color: rgba(10, 10, 10, 0.9);
+
+}
+.align
+{
+    padding-top: 10px;
 }
 h1
 {
@@ -78,9 +100,20 @@ h2
     box-shadow: 1px 1px 4px #2A96C9;
     border-radius: 20px;
 }
+.line-2
+{
+    width: 50%;
+    height: 3px;
+    background-color: white;
+    left: 25%;
+    top: 10%;
+    position: relative;
+    box-shadow: 1px 1px 4px #2A96C9;
+    border-radius: 20px;
+}
 #line-1{ top: 5%; opacity: 0;}
 
-input[type=text] 
+.input
 {
     position: relative;
     cursor: pointer;
@@ -96,7 +129,27 @@ input[type=text]
     border: none;
     transition-duration: 0.4s
 }
-input[type=text]:hover
+.input:hover
+{
+    border: 1px solid orange;
+}
+.table
+{
+    position: absolute;
+    cursor: pointer;
+    background-color: rgba(0,0,0,0.2);
+    width: 20%;
+    display: inline-block;
+    opacity: 0;
+    height: 5%;
+    box-sizing: border-box;
+    left: 40%;
+    top: 91%;
+    box-shadow: -2px 2px 4px #1d1f20;
+    border: none;
+    transition-duration: 0.4s
+}
+.table:hover
 {
     border: 1px solid orange;
 }

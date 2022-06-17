@@ -5,10 +5,16 @@
     <body>
             <?php 
             session_start();
+            echo('<div class="errorTable">');
             if(!isset($_SESSION['connection']))
             {
-                echo('<div class="errors"><p>No Connection found in current session</p></div>');
+                echo('<div class="errors"><p class="align">No Connection found in current session</p></div>');
             }
+            if(!isset($_SESSION['tablecurrent']))
+            {
+                echo('<div class="errors"><p class="align">No table selected</p></div>');
+            }
+            echo('</div>');
             ?>
             <div class='background'>
             </div>
@@ -17,7 +23,7 @@
                 <button class='closeButton'>&times;</button>
                 
                 <h1>Custom Query</h1>
-                <div class='line'></div>
+                <div class='line-1'></div>
                 <form method='post' target='_blank' action='endpoint_handler.php'>
                         <br><br><br>
                         <textarea class='textarea' name='selfquery' placeholder='Enter your query here'></textarea>
@@ -46,7 +52,7 @@
                 <div class='line' id='line-1'></div>
                 <form method='post' target='_blank' action='endpoint_handler.php'>
                     <br><br><br>
-                    <input type='text' name='getProductBySKU' placeholder='Get Product by SKU' autocomplete="off" id='b4'></input>
+                    <input type='text' class='input' name='getProductBySKU' placeholder='Get Product by SKU' autocomplete="off" id='b4'></input>
                 </form>
                 <form method='post' target='_blank' action='endpoint_handler.php'>
                     <button type='text' name='getProductsBatch' class='button' id='b5'><p class='buttonText'>Get Products (10)</p></button>
@@ -68,7 +74,7 @@
                 <div class='line' id='line-1'></div>
                 <form method='post' target='_blank' action='endpoint_handler.php'>
                     <br><br><br>
-                    <input type='text' name='getCustomer' placeholder='Get Customer by Name' autocomplete="off" id='b9'></input>
+                    <input type='text' name='getCustomer' class='input' placeholder='Get Customer by Name' autocomplete="off" id='b9'></input>
                 </form>
                 <form method='post' target='_blank' action='endpoint_handler.php'>
                     <button class='button' name='countCustomer' id='b10'><p class='buttonText'>Count Customers</p></button>
@@ -80,6 +86,10 @@
                 <button class='button' name='addCustomer' id='b12'><p class='buttonText'>Add Customer to Database</p></button> 
                 </form>
             </div>
+                <form method='post' action='endpoint_handler.php' target='endpoint_handler'>
+                    <input type='text' autocomplete="off" id='b13' class='table' name='table' placeholder='Enter Table name' required>
+                </form>
+            
     </body>
         <script src='scripts2.js'></script>
 </html>

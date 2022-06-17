@@ -31,6 +31,24 @@
                 echo('<div class="errors"><p>Error occurred: No endpoint selected, please return</p></div>');
                 header('Refresh:2, url=endpoints.php');
             }
+            if($_POST['table'])
+            {
+                $variable = new \stdClass();
+                $variable->prevTable = null;
+                if(isset($_SESSION['tablecurrent']))
+                {
+                    $variable->prevTable = $_SESSION['tablecurrent'];
+                }
+                if(isset($_SESSION['tableprev']))
+                {
+                    $variable->previousTable = $_SESSION['tableprev'];
+                }
+                $_SESSION['tablecurrent'] = $_POST['table'];
+                $variable->currentTable = $_POST['table'];
+                $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+                echo(json_encode($variable));
+                header('Refresh:3, url=endpoints.php');
+            }
             if(isset($_POST['selfquery']))
             {
                 $connection = new connect();
@@ -102,7 +120,6 @@
                 echo(json_encode($output));
                 unset($_POST['countProduct']);
             }
-            print_r($_POST['viewProductSql']);
             if(isset($_POST['viewProductSql']))
             {
                 $variable = new \stdClass();
@@ -123,7 +140,7 @@
             }
             if(isset($_POST['addProduct']))
             {
-                echo("adding product ");
+                echo("adding product needs redirect");
                 unset($_POST['addProduct']);
             }
             if(isset($_POST['getCustomerByName']))
