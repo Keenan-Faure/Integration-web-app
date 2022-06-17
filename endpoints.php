@@ -12,9 +12,9 @@
             ?>
             <div class='background'>
             </div>
-            <div class='selfBackground' id='top'>
-            </div>
-
+            <div class='selfBackground' id='top'></div>
+            <button class='closeButton' id='top'>&times;</button>
+            
             <h1 id='top'>Custom Query</h1>
             <div class='line' id='top'></div>
             <form method='post' target='_blank' action='endpoint_handler.php' id='top'>
