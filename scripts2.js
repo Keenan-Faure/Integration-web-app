@@ -109,3 +109,33 @@ window.addEventListener('load', ()=>
         }, 1950);
     },400); //0.2s
 });
+
+
+window.addEventListener('click', close());
+
+function open()
+{
+    array = document.getElementsByClassName('top');
+    for(var i = 0; i < array.length; i++)
+    {
+        setTimeout(()=>
+        {
+            array[i].classList.add('fade-in');
+            array[i].classList.add('top');
+        }, (i * 150));
+    }
+}
+
+function close()
+{
+    array = document.getElementsByClassName('top');
+    for(var i = 0; i < array.length; i++)
+    {
+        setTimeout(()=>
+        {
+            array[i].classList.remove('fade-out');
+            array[i].classList.remove('top');
+        }, (i * 150));
+    }
+}
+
