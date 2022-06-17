@@ -81,51 +81,59 @@ class Connection
     //converts mysqli object to php object
     function converterObject($rawConnection, $query)
     {
-        $resultArray = array();
-        $output = array();
-        $duration = 0;
-        $variable = null;
-        $starttime = microtime(true);
-        try
-        {
-            if($result = mysqli_query($rawConnection, $query))
-        {
-            $endtime = microtime(true);
-            $duration = $endtime - $starttime; //calculates total time taken
-            $array = array();
-            while($row = $result->fetch_object())
-            {
-                $array = $row;
-                array_push($resultArray, $array);
-            }
-            for($i = 0; $i < sizeof($resultArray); ++$i)
-            {
-                array_push($output, $resultArray[$i]);
-            }    
-        }
-        if(sizeof($output) < 1)
+        if($query == '')
         {
             $variable = new \stdClass();
-            $variable->result = array();
-            $variable->query = $query;
-            $variable->queryTime = $duration;
+            $variable->error = 'Uncaught ValueError: mysqli_query(), ($query) cannot be empty';
+            $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
         }
         else
         {
-            $variable = new \stdClass();
-            $variable->result = new \stdClass();
-            $variable->result->ID = $output[0]->ID;
-            $variable->result->Name = $output[0]->Name;
-
-            $variable->query = $query;
-            $variable->query_time = $duration;
-        }
-        }
-        catch(\Exception $error)
-        {
-            $variable = new \stdClass();
-            $variable->error = $error->getMessage();
-            $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+            $resultArray = array();
+            $output = array();
+            $duration = 0;
+            $variable = null;
+            $starttime = microtime(true);
+            try
+            {
+                if($result = mysqli_query($rawConnection, $query))
+                {
+                    $endtime = microtime(true);
+                    $duration = $endtime - $starttime; //calculates total time taken
+                    $array = array();
+                    while($row = $result->fetch_object())
+                    {
+                        $array = $row;
+                        array_push($resultArray, $array);
+                    }
+                    for($i = 0; $i < sizeof($resultArray); ++$i)
+                    {
+                        array_push($output, $resultArray[$i]);
+                    }    
+                }
+                if(sizeof($output) < 1)
+                {
+                    $variable = new \stdClass();
+                    $variable->result = array();
+                    $variable->query = $query;
+                    $variable->queryTime = $duration;
+                }
+                else
+                {
+                    $variable = new \stdClass();
+                    $variable->result = new \stdClass();
+                    $variable->result->ID = $output[0]->ID;
+                    $variable->result->Name = $output[0]->Name;
+                    $variable->query = $query;
+                    $variable->query_time = $duration;
+                }
+            }
+            catch(\Exception $error)
+            {
+                $variable = new \stdClass();
+                $variable->error = $error->getMessage();
+                $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+            }
         }
         
         return $variable;
