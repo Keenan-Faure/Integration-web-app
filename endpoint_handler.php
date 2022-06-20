@@ -113,7 +113,7 @@
                 $_SESSION['rawconnection'] = $rawConnection;
                 //creates query
                 
-                $query = "SELECT COUNT(*) FROM " . $_SESSION['tablecurrent'];
+                $query = "SELECT COUNT(*) as 'Count' FROM " . $_SESSION['tablecurrent'];
 
                 $output = $connection->converterObject($rawConnection, $query);
                 mysqli_close($rawConnection);
@@ -132,7 +132,7 @@
                 $variable->getProducts->result = 'returns the first 10 products from the table';
 
                 $variable->countProducts = new \stdClass();
-                $variable->countProducts->query = "SELECT COUNT(*) FROM " . $_SESSION['tablecurrent'];
+                $variable->countProducts->query = "SELECT COUNT(*) as 'Count' FROM " . $_SESSION['tablecurrent'];
                 $variable->countProducts->result = 'returns the amount of products in the Test table';
 
                 echo(json_encode($variable));

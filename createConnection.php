@@ -110,21 +110,8 @@ class Connection
                     {
                         array_push($output, $resultArray[$i]);
                     }    
-                }
-                if(sizeof($output) < 1)
-                {
-
                     $variable = new \stdClass();
-                    $variable->result = array();
-                    $variable->query = $query;
-                    $variable->queryTime = $duration;
-                }
-                if(isset($_POST['countProduct']))
-                {
-                    $endtime = microtime(true);
-                    $duration = $endtime - $starttime; //calculates total time taken
-                    $variable = new \stdClass();
-                    $variable->count = $result->num_rows;
+                    $variable->result = $output;
                     $variable->query = $query;
                     $variable->query_time = $duration;
                 }
@@ -132,8 +119,7 @@ class Connection
                 {
                     $variable = new \stdClass();
                     $variable->result = new \stdClass();
-                    $variable->result->ID = $output[0]->ID;
-                    $variable->result->Name = $output[0]->Name;
+                    $variable->result = null;
                     $variable->query = $query;
                     $variable->query_time = $duration;
                 }
