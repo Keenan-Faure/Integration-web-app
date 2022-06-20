@@ -87,7 +87,7 @@
                 </form>
             </div>
                 <form method='post' action='endpoint_handler.php' target='endpoint_handler'>
-                    <input type='text' autocomplete="off" id='b13' class='table' name='table' placeholder='Enter Table name' required>
+                    <input type='text' autocomplete="off" id='b13' class='table' name='table' placeholder='Change Table' required>
                 </form>
             
     </body>
