@@ -37,31 +37,6 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
 }
 else
 {
-    if(isset($_SESSION['credentials']) && $_SESSION['serverconnection']->active === true)
-    {
-        if($_SESSION['serverconnection']->active === true)
-        {
-            $username = $_SESSION['credentials']->username;
-            $password = $_SESSION['credentials']->password;
-            $host = $_POST['host'];
-            $dbname = $_POST['dbName'];
-
-            $variable = new connect();
-            $connection = $variable->createConnection($username, $password, 'localhost', $dbname);
-            if($connection->active == false)
-            {
-                header('Content-Type: application/json');
-                echo(json_encode($connection));
-                array_push($_SESSION['log'], $connection);
-                die();
-            }
-            if($_SESSION['connection']->active === true)
-            {
-                array_push($_SESSION['log'], $connection);
-                header('location: endpoints.php');
-            }
-        }
-    }
     if(isset($_POST['api-name']) && isset($_POST['api-password']))
     {
         $variable = new connect();
@@ -82,7 +57,7 @@ else
             $variable->credentials = new \stdClass();
             $variable->active = true;
             $variable->credentials->apiUsername = $_POST['api-name'];
-            $variable->credentials->apiPassword = $_POST['api-password'];
+            $variable->credentials->apiPassword = '*******';
             $_SESSION['apicredentials'] = $variable;
             header('Refresh:0,url=API/api.php');
         }
@@ -90,29 +65,55 @@ else
         {
             die();
         }
-
-        
     }
     else
     {
-        $variable = new \stdClass();
-        if(!isset($_SESSION['credentials']))
+        if(isset($_SESSION['credentials']) && $_SESSION['serverconnection']->active === true)
         {
-            $variable->message = "No login details found in current session";
-            $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-            header('Content-Type: application/json');
-            echo(json_encode($variable));
-            array_push($_SESSION['log'], $variable);
-            
+            if($_SESSION['serverconnection']->active === true)
+            {
+                $username = $_SESSION['credentials']->username;
+                $password = $_SESSION['credentials']->password;
+                $host = $_POST['host'];
+                $dbname = $_POST['dbName'];
+
+                $variable = new connect();
+                $connection = $variable->createConnection($username, $password, 'localhost', $dbname);
+                if($connection->active == false)
+                {
+                    header('Content-Type: application/json');
+                    echo(json_encode($connection));
+                    array_push($_SESSION['log'], $connection);
+                    die();
+                }
+                if($_SESSION['connection']->active === true)
+                {
+                    array_push($_SESSION['log'], $connection);
+                    header('location: endpoints.php');
+                }
+            }
         }
-        if(!isset($_SESSION['serverconnection']))
+        else
         {
-            $variable->message = "No connection to database found in current session";
-            $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-            header('Content-Type: application/json');
-            echo(json_encode($variable));
-            array_push($_SESSION['log'], $variable);
-            
+            $variable = new \stdClass();
+            if(!isset($_SESSION['credentials']))
+            {
+                $variable->message = "No login details found in current session";
+                $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+                header('Content-Type: application/json');
+                echo(json_encode($variable));
+                array_push($_SESSION['log'], $variable);
+                
+            }
+            if(!isset($_SESSION['serverconnection']))
+            {
+                $variable->message = "No connection to database found in current session";
+                $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+                header('Content-Type: application/json');
+                echo(json_encode($variable));
+                array_push($_SESSION['log'], $variable);
+                
+            }
         }
     }
 
