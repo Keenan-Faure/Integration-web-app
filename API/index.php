@@ -1,6 +1,3 @@
-
-
-
 <html>
     <head>
         <style>
@@ -57,11 +54,10 @@
         </style>
     </head>
     <body>
-        <?php echo("<script>alert('Enter credentials to continue');</script>"); ?>
         <div class='container'>
-        <form action='api.php' method='post'>
-            <input placeholder='Username' name='name' type='text' autocomplete='off' required>
-            <input placeholder='Password' name='password' type='password' autocomplete='off' required>
+        <form action='../connect.php' method='post'>
+            <input placeholder='Username' name='api-name' type='text' autocomplete='on' required>
+            <input placeholder='Password' name='api-password' type='password' autocomplete='off' required>
             <br><br><br>
             <input type='submit' class='button'>
         </form>

@@ -62,6 +62,37 @@ else
             }
         }
     }
+    if(isset($_POST['api-name']) && isset($_POST['api-password']))
+    {
+        $variable = new connect();
+
+        $connection = $variable->connectServer($_POST['api-name'], $_POST['api-password']);
+        if($connection->connection == false)
+        {
+            $variable = new \stdClass();
+            $variable->message = 'Incorrect credentials';
+            $variable->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+            echo(json_encode($variable));
+            header('Content-Type: application/json');
+            header('Refresh:2,url=API/index.php');
+        }
+        if($connection->connection == true)
+        {
+            $variable = new \stdClass();
+            $variable->credentials = new \stdClass();
+            $variable->active = true;
+            $variable->credentials->apiUsername = $_POST['api-name'];
+            $variable->credentials->apiPassword = $_POST['api-password'];
+            $_SESSION['apicredentials'] = $variable;
+            header('Refresh:0,url=API/api.php');
+        }
+        else
+        {
+            die();
+        }
+
+        
+    }
     else
     {
         $variable = new \stdClass();
