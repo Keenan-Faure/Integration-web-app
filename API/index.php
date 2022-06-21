@@ -8,7 +8,8 @@
             {
                 position: relative;
                 transform: translate(0%, 50%);
-                width: 100%;
+                width: 90%;
+                left: 5%;
                 border-radius: 20px;
                 display: inline-block;
                 border: 1px solid #ccc;
@@ -24,9 +25,15 @@
                 outline: none;
                 opacity: 1;
             }
+            body
+            {
+                background-color:rgb(100, 108, 110);
+            }
             .container
             {
                 position: absolute;
+                background-color: rgba(100, 100, 100, 0.7);
+                border-radius: 10px;
                 top: 30%;
                 left: 50%;
                 transform: translate(-50%, -50%);
@@ -39,7 +46,7 @@
                 height: 28px;
                 margin-left: 30%;
                 opacity: 0.9;
-                background-color: rgb(100, 108, 110);
+                background-color: white;
                 color: black;
                 border: 1px blue;
                 cursor: pointer;
