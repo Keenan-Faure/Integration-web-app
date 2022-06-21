@@ -56,7 +56,7 @@
     <body>
         <div class='container'>
         <form action='../connect.php' method='post'>
-            <input placeholder='Username' name='api-name' type='text' autocomplete='on' required>
+            <input placeholder='Username' name='api-name' type='text' autocomplete='off' required>
             <input placeholder='Password' name='api-password' type='password' autocomplete='off' required>
             <br><br><br>
             <input type='submit' class='button'>
