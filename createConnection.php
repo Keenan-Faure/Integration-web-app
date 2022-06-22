@@ -134,7 +134,7 @@ class Connection
         
         return $variable;
     }
-    function converterArray($rawConnection, $query)
+    function converterArray($rawConnection, $query, $key)
     {
         $resultArray = array();
         $output = array();
@@ -148,7 +148,7 @@ class Connection
             }
             for($i = 0; $i < sizeof($resultArray); ++$i)
             {
-                array_push($output, $resultArray[$i]->Database);
+                array_push($output, $resultArray[$i]->$key);
             }    
         }
         return $output;
