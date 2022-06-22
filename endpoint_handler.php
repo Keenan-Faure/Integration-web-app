@@ -33,21 +33,41 @@
             }
             if(isset($_POST['table']))
             {
-                $variable = new \stdClass();
-                $variable->prevTable = null;
-                if(isset($_SESSION['tablecurrent']))
+                $connection = new connect();
+                $rawConnection = $connection->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+                $query = 'show tables';
+                $output = $connection->converterArray($rawConnection, $query, "Tables_in_" . $_SESSION['connection']->credentials->dbname);
+                if(in_array($_POST['table'], $output))
                 {
-                    $variable->prevTable = $_SESSION['tablecurrent'];
+                    $variable = new \stdClass();
+                    $variable->prevTable = null;
+                    if(isset($_SESSION['tablecurrent']))
+                    {
+                        $variable->prevTable = $_SESSION['tablecurrent'];
+                    }
+                    if(isset($_SESSION['tableprev']))
+                    {
+                        $variable->previousTable = $_SESSION['tableprev'];
+                    }
+                    $_SESSION['tablecurrent'] = $_POST['table'];
+                    $variable->currentTable = $_POST['table'];
+                    $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+                    echo(json_encode($variable));
+                    header('Refresh:3, url=endpoints.php');
                 }
-                if(isset($_SESSION['tableprev']))
+                else
                 {
-                    $variable->previousTable = $_SESSION['tableprev'];
+                    $variable = new \stdClass();
+                    $variable->message = $_POST['table'] . " does not exist in " . $_SESSION['connection']->credentials->dbname;
+                    $variable->hint = "Run custom query 'show tables;' once clicking on the green bush icon";
+                    $variable->redirectTime = 4;
+                    
+                    echo(json_encode($variable));
+                    header('Refresh:4,url=endpoints.php');
+
                 }
-                $_SESSION['tablecurrent'] = $_POST['table'];
-                $variable->currentTable = $_POST['table'];
-                $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-                echo(json_encode($variable));
-                header('Refresh:3, url=endpoints.php');
+                unset($_POST['table']);
+
             }
             if(isset($_POST['selfquery']))
             {
@@ -59,7 +79,9 @@
                 
                 $output = $connection->converterObject($rawConnection, $query);
                 mysqli_close($rawConnection);
+                unset($_POST['selfquery']);
                 echo(json_encode($output));
+                
                 
             }
             if(isset($_POST['checkConnection']))
