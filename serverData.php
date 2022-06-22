@@ -108,7 +108,7 @@
     <?php 
         $knownDbs = array('information_schema', 'mysql', 'performance_schema', 'phpmyadmin', 'test');
         $connection = new connect();
-        $output = $connection->converterArray($rawConnection, $query);
+        $output = $connection->converterArray($rawConnection, $query, "Database");
         $output = array_diff($output, $knownDbs);
         for($p = 0; $p < sizeof($output); ++$p)
         {
