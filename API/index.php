@@ -60,6 +60,7 @@
                 position: absolute;
                 right: 0;
                 height: 18px;
+                text-align: center;
                 top: 93%;
                 opacity: 0.9;
                 background-color: #136a13;
@@ -68,9 +69,9 @@
                 border: 1px blue;
                 cursor: pointer;
                 padding: 1.5px 12px;
-                transition-duration: 0.3s;
                 border-radius: 20px;
                 transition-duration: 1s;
+                text-decoration: none
             }
             .button1:hover
             {
@@ -97,7 +98,7 @@
                 <br><br><br>
                 <input type='submit' class='button'>
             </form>
-            <button class='button1' onclick='window.location.href="../connect.php"'>Forgot</button>
+            <a class='button1' href='reset.php' target='_blank'>Forgot</a>
             </div>
         </div>
     </body>
