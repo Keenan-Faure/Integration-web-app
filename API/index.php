@@ -26,7 +26,7 @@
             {
                 position: absolute;
                 opacity: 0.9;
-                background-color: rgba(100, 100, 100, 0.7);
+                background-color: rgba(100, 100, 100, 0.6);
                 border-radius: 15px;
                 top: 40%;
                 left: 50%;
@@ -54,6 +54,28 @@
                 transition-duration: 0.3s;
                 border-radius: 20px;
             }
+            .button1
+            {
+                width: 60px;
+                position: absolute;
+                right: 0;
+                height: 18px;
+                top: 93%;
+                opacity: 0.9;
+                background-color: #136a13;
+                transform: translate(-50%, -50%);
+                color: black;
+                border: 1px blue;
+                cursor: pointer;
+                padding: 1.5px 12px;
+                transition-duration: 0.3s;
+                border-radius: 20px;
+                transition-duration: 1s;
+            }
+            .button1:hover
+            {
+                background-color: white;
+            }
             .background
             {
                 background-position: center;
@@ -75,6 +97,7 @@
                 <br><br><br>
                 <input type='submit' class='button'>
             </form>
+            <button class='button1' onclick='window.location.href="../connect.php"'>Forgot</button>
             </div>
         </div>
     </body>
