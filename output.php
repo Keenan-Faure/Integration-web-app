@@ -19,7 +19,7 @@ if(isset($_SESSION['credentials']) && isset($_POST['dbName']))
 }
 else
 {
-    if(!isset($_SESSION['connection']))
+    if(!isset($_SESSION['serverconnection']))
     {
         $result = new \stdClass();
         $result->active=false;
