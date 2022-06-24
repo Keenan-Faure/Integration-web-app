@@ -22,20 +22,21 @@
                 outline: none;
                 opacity: 1;
             }
-            body
-            {
-                background-color:rgb(100, 108, 110);
-            }
             .container
             {
                 position: absolute;
+                opacity: 0.9;
                 background-color: rgba(100, 100, 100, 0.7);
-                border-radius: 10px;
-                top: 30%;
+                border-radius: 15px;
+                top: 40%;
                 left: 50%;
                 transform: translate(-50%, -50%);
                 width: 25%;
                 height: 25%;
+            }
+            body
+            {
+                margin: 0;
             }
             .button
             {
@@ -51,16 +52,28 @@
                 transition-duration: 0.3s;
                 border-radius: 20px;
             }
+            .background
+            {
+                background-position: center;
+                background-size: cover;
+                margin: 0;
+                background-repeat: no-repeat;
+                background-image: url('../Images/apis.jpeg');
+                width: 100%;
+                height: 100%;
+            }
         </style>
     </head>
     <body>
-        <div class='container'>
-        <form action='../connect.php' method='post'>
-            <input placeholder='Username' name='api-name' type='text' autocomplete='off' required>
-            <input placeholder='Password' name='api-password' type='password' autocomplete='off' required>
-            <br><br><br>
-            <input type='submit' class='button'>
-        </form>
+        <div class='background'>
+            <div class='container'>
+            <form action='../connect.php' method='post'>
+                <input placeholder='Token' name='api-name' type='text' autocomplete='off' required>
+                <input placeholder='Secret' name='api-password' type='password' autocomplete='off' required>
+                <br><br><br>
+                <input type='submit' class='button'>
+            </form>
+            </div>
         </div>
     </body>
 </html>
