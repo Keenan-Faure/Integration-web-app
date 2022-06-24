@@ -41,10 +41,12 @@
             .button
             {
                 width: 140px;
+                position: absolute;
+                left: 50%;
                 height: 28px;
-                margin-left: 30%;
                 opacity: 0.9;
                 background-color: white;
+                transform: translate(-50%, -50%);
                 color: black;
                 border: 1px blue;
                 cursor: pointer;
