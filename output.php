@@ -1,6 +1,5 @@
 <?php
 session_start();
-header('Content-Type: application/json');
 
 if(isset($_SESSION['credentials']) && isset($_POST['dbName']))
 {   
@@ -20,34 +19,46 @@ if(isset($_SESSION['credentials']) && isset($_POST['dbName']))
 }
 else
 {
-    $_SESSION['clearCache'] = true;
-    $variable = new \stdClass();
-    $variable->clearCache = new \stdClass();
-    $variable->clearCache->result = $_SESSION['clearCache'];
-    $variable->clearCache->token = rand();
-    $variable->message = 'Session data cleared';
-    echo(json_encode($variable));
-    if(isset($_SESSION['connection']))
+    if(!isset($_SESSION['connection']))
     {
-        if($_SESSION['connection']->active === true)
+        $result = new \stdClass();
+        $result->active=false;
+        $result->message='No connection to MySql server found in current session';
+        $result->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);;
+        echo(json_encode($result));
+        header('Refresh:2,url=login.php');
+    }
+    else
+    {
+        $_SESSION['clearCache'] = true;
+        $variable = new \stdClass();
+        $variable->clearCache = new \stdClass();
+        $variable->clearCache->result = $_SESSION['clearCache'];
+        $variable->clearCache->token = rand();
+        $variable->message = 'Session data cleared';
+        echo(json_encode($variable));
+        if(isset($_SESSION['connection']))
         {
-            $result = new \stdClass();
-            $result->active=false;
-            $result->message='No connection found in current session';
-            $result->token = rand();
-            $result->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);;
+            if($_SESSION['connection']->active === true)
+            {
+                $result = new \stdClass();
+                $result->active=false;
+                $result->message='No connection found in current session';
+                $result->token = rand();
+                $result->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);;
 
-            $_SESSION['connection'] = $result;
+                $_SESSION['connection'] = $result;
+            }
         }
+        $variable = new \stdClass();
+        $variable->message = 'Session data destroyed';
+        $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);;
+        if(isset($_SESSION['log']))
+        {
+            array_push($_SESSION['log'], $variable);
+        }
+        session_destroy();
+        header("Refresh:3,url=login.php");
     }
-    $variable = new \stdClass();
-    $variable->message = 'Session data destroyed';
-    $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);;
-    if(isset($_SESSION['log']))
-    {
-        array_push($_SESSION['log'], $variable);
-    }
-    session_destroy();
-    header("Refresh:3,url=login.php");
 }
 ?>

@@ -145,11 +145,11 @@ class Connection
             {
                 $array = $row;
                 array_push($resultArray, $array);
-            }
+            }            
             for($i = 0; $i < sizeof($resultArray); ++$i)
             {
                 array_push($output, $resultArray[$i]->$key);
-            }    
+            } 
         }
         return $output;
     }

@@ -3,7 +3,6 @@
     include("createConnection.php");
     use Connection\Connection as connect;
     
-    
     if(isset($_SESSION['credentials']) && $_SESSION['credentials']->active == true)
     {
         $connection = new connect();
@@ -16,7 +15,7 @@
     else
     {
         if(!isset($_SESSION['credentials']))
-        echo('<script>console.log("No connection to MySql detected");<script>');
+        echo('<script>console.log("No connection to MySql detected");</script>');
     }
     
 ?>
@@ -106,13 +105,16 @@
 
     <script src='scripts.js'></script>
     <?php 
-        $knownDbs = array('information_schema', 'mysql', 'performance_schema', 'phpmyadmin', 'test');
-        $connection = new connect();
-        $output = $connection->converterArray($rawConnection, $query, "Database");
-        $output = array_diff($output, $knownDbs);
-        for($p = 0; $p < sizeof($output); ++$p)
+        if(isset($_SESSION['credentials']) && $_SESSION['credentials']->active == true)
         {
-            echo("<script>createContainer('$output[$p]');</script>");
-        } 
+            $knownDbs = array('information_schema', 'mysql', 'performance_schema', 'phpmyadmin', 'test');
+            $connection = new connect();
+            $output = $connection->converterArray($rawConnection, $query, "Database");
+            $output = array_diff($output, $knownDbs);
+            for($p = 0; $p < sizeof($output); ++$p)
+            {
+                echo("<script>createContainer('$output[$p]');</script>");
+            } 
+        }
     ?>
 </html>
