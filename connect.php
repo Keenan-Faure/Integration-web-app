@@ -15,7 +15,6 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
         $variable->message = $result->message;
         $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
         array_push($_SESSION['log'], $variable);
-        echo(json_encode($variable));
         header('Content-Type: application/json');
         header('Refresh:3,url=login.php');
     }

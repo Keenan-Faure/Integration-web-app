@@ -40,6 +40,7 @@
                 if(in_array($_POST['table'], $output))
                 {
                     $variable = new \stdClass();
+                    $variable->result = true;
                     $variable->prevTable = null;
                     if(isset($_SESSION['tablecurrent']))
                     {
@@ -58,13 +59,10 @@
                 else
                 {
                     $variable = new \stdClass();
-                    $variable->message = $_POST['table'] . " does not exist in " . $_SESSION['connection']->credentials->dbname;
-                    $variable->hint = "Run custom query 'show tables;' once clicking on the green bush icon";
-                    $variable->redirectTime = 4;
-                    
+                    $variable->result = false;
+                    $variable->error = $_POST['table'] . " does not exist in " . $_SESSION['connection']->credentials->dbname;
+                    $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
                     echo(json_encode($variable));
-                    header('Refresh:4,url=endpoints.php');
-
                 }
                 unset($_POST['table']);
 

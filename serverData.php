@@ -111,6 +111,7 @@
             $connection = new connect();
             $output = $connection->converterArray($rawConnection, $query, "Database");
             $output = array_diff($output, $knownDbs);
+            $_SESSION['databases'] = $output;
             for($p = 0; $p < sizeof($output); ++$p)
             {
                 echo("<script>createContainer('$output[$p]');</script>");

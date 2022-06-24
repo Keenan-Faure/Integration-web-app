@@ -36,4 +36,6 @@
     //scan through the sent URL, if it is what we expect then we can run a function based on that url. We have to create
     //Another class/file to define these functions, thinking of using Controller to store them in.
 
+    //change the way the login for the api works so that it checks the token and secret instead of the database uname and psw
+
 ?>
