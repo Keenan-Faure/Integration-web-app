@@ -43,7 +43,7 @@
 
                 $variable = new \stdClass();
                 $variable->result = true;
-                $variable->message = 'API credentials has been reset, 10s until redirect';
+                $variable->message = 'API credentials has been reset';
                 $variable->apiDetails = new \stdClass();
                 $variable->apiDetails->token = $token;
                 $variable->apiDetails->secret = $secret;
