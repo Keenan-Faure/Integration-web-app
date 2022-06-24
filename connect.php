@@ -65,6 +65,8 @@ else
         {
             die();
         }
+        unset($_POST['api-name']);
+        unset($_POST['api-password']);
     }
     else
     {
