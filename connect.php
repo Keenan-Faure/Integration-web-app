@@ -15,6 +15,7 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
         $variable->message = $result->message;
         $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
         array_push($_SESSION['log'], $variable);
+        echo(json_encode($variable));
         header('Content-Type: application/json');
         header('Refresh:3,url=login.php');
     }
@@ -47,7 +48,6 @@ else
             $variable->message = 'Incorrect credentials';
             $variable->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
             echo(json_encode($variable));
-            header('Content-Type: application/json');
             header('Refresh:2,url=API/index.php');
         }
         if($connection->connection == true)
@@ -119,6 +119,4 @@ else
     }
 
 }
-//The form on Create Connection should be used to connect to the database,
-//if the database is not found it should return the user to the serverData.php 
 ?>
