@@ -80,8 +80,7 @@
                 $output = $connection->converterObject($rawConnection, $query);
                 mysqli_close($rawConnection);
                 unset($_POST['selfquery']);
-                echo(json_encode($output));
-                
+                echo(json_encode($output));                
                 
             }
             else

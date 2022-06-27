@@ -86,7 +86,7 @@
                 <button class='button' name='addCustomer' id='b12'><p class='buttonText'>Add Customer to Database</p></button> 
                 </form>
             </div>
-                <form method='post' action='endpoint_handler.php' target='endpoint_handler'>
+                <form method='post' action='endpoint_handler.php'>
                     <input type='text' autocomplete="off" id='b13' class='table' name='table' placeholder='Change Table' required>
                 </form>
                 <button class='api' onclick="window.location.href='API/index.php'" >View API</button>
