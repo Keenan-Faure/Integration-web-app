@@ -35,6 +35,7 @@
 
                 $variable = new \stdClass();
                 $variable->message = 'API details';
+                $variable->active = true;
                 $variable->credentials = new \stdClass();
                 $variable->credentials->token = $token;
                 $variable->credentials->secret = $secret;
