@@ -93,8 +93,8 @@
         <div class='background'>
             <div class='container'>
             <form action='../connect.php' method='post'>
-                <input placeholder='Token' name='api-name' type='text' autocomplete='off' required>
-                <input placeholder='Secret' name='api-password' type='password' autocomplete='off' required>
+                <input placeholder='Token' name='token' type='text' autocomplete='off' required>
+                <input placeholder='Secret' name='secret' type='password' autocomplete='off' required>
                 <br><br><br>
                 <input type='submit' class='button'>
             </form>

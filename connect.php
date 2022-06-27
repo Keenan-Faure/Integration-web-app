@@ -37,11 +37,11 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
 }
 else
 {
-    if(isset($_POST['api-name']) && isset($_POST['api-password']))
+    if(isset($_POST['token']) && isset($_POST['secret']))
     {
         $variable = new connect();
 
-        $connection = $variable->connectAPI($_POST['api-name'], $_POST['api-password']);
+        $connection = $variable->connectAPI($_POST['token'], $_POST['secret']);
         if($connection->active == false)
         {
             $variable = new \stdClass();
@@ -55,8 +55,8 @@ else
             $variable = new \stdClass();
             $variable->credentials = new \stdClass();
             $variable->active = true;
-            $variable->credentials->apiUsername = $_POST['api-name'];
-            $variable->credentials->apiPassword = '*******';
+            $variable->credentials->token = $_POST['token'];
+            $variable->credentials->secret = '*******';
             $_SESSION['apicredentials'] = $variable;
             header('Refresh:0,url=API/api.php');
         }
@@ -64,8 +64,8 @@ else
         {
             die();
         }
-        unset($_POST['api-name']);
-        unset($_POST['api-password']);
+        unset($_POST['token']);
+        unset($_POST['secret']);
     }
     else
     {
