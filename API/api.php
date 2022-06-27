@@ -9,10 +9,22 @@
         $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
         array_push($_SESSION['log'], $variable);
         
-        
         $url = parse_url($_SERVER['REQUEST_URI'])['path'];
-        print_r($url);
+        $url = explode('/', $url);
 
+        //only if the 5th segment of the url is defined and populated
+        //then run a function on it.
+        if(isset($url[5]))
+        {
+            $segment = $url[5];
+            print_r($segment);
+        }
+
+        //else display all url functions (endpoints)
+        else
+        {
+
+        }
     }
     else
     {
@@ -25,8 +37,6 @@
         header('Refresh:3,url=index.php');
 }
 
-    //define __call() which executes whenever you try to run a function that does not exist.
-
     //if they have, then display all endpoints defined in a class/database maybe
 
     //else rediret user to index.php (api login)
@@ -35,7 +45,4 @@
 
     //scan through the sent URL, if it is what we expect then we can run a function based on that url. We have to create
     //Another class/file to define these functions, thinking of using Controller to store them in.
-
-    //change the way the login for the api works so that it checks the token and secret instead of the database uname and psw
-
 ?>
