@@ -42,6 +42,45 @@ class Connection
         $_SESSION['connection'] = $this->connection;
         return $this->connection;
     }
+    function connectAPI($token, $secret)
+    {
+        if(isset($_SESSION['apicredentials']))
+        {
+            if($_SESSION['apicredentials']->credentials->token == $token)
+            {
+                if($_SESSION['apicredentials']->credentials->secret == $secret)
+                {
+                    $variable = new \stdClass();
+                    $variable->active = true;
+                    $variable->message = 'Valid API credentials';
+                    $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+
+                    return $variable;
+                }
+                else
+                {
+                    $variable = new \stdClass();
+                    $variable->active = false;
+                    $variable->message = 'Invalid API secret';
+                    $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+                }
+            }
+            else
+            {
+                $variable = new \stdClass();
+                $variable->active = false;
+                $variable->message = 'Invalid API token';
+                $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+            }
+        }
+        else
+        {
+            $variable = new \stdClass();
+            $variable->active = false;
+            $variable->message = 'No API credentials detected in database, contact admin!';
+            $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+        }
+    }
     function connectServer($username='null', $password='', $host='localhost')
     {
         $serverConnections = null;

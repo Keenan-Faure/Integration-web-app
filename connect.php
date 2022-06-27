@@ -41,8 +41,8 @@ else
     {
         $variable = new connect();
 
-        $connection = $variable->connectServer($_POST['api-name'], $_POST['api-password']);
-        if($connection->connection == false)
+        $connection = $variable->connectAPI($_POST['api-name'], $_POST['api-password']);
+        if($connection->active == false)
         {
             $variable = new \stdClass();
             $variable->message = 'Incorrect credentials';
@@ -50,7 +50,7 @@ else
             echo(json_encode($variable));
             header('Refresh:2,url=API/index.php');
         }
-        if($connection->connection == true)
+        if($connection->active == true)
         {
             $variable = new \stdClass();
             $variable->credentials = new \stdClass();
