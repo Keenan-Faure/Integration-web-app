@@ -5,7 +5,7 @@
     {
         //saves to log
         $variable = new \stdClass();
-        $variable->message = "Successfully connected to connect to API: " . $_SESSION['apicredentials']->credentials->apiUsername . ":" . $_SESSION['apicredentials']->credentials->apiPassword;
+        $variable->message = "Successfully connected to API with: " . $_SESSION['apicredentials']->credentials->token . ": secret_" . $_SESSION['apicredentials']->credentials->secret;
         $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
         array_push($_SESSION['log'], $variable);
         

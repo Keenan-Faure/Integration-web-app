@@ -44,10 +44,7 @@ else
         $connection = $variable->connectAPI($_POST['token'], $_POST['secret']);
         if($connection->active == false)
         {
-            $variable = new \stdClass();
-            $variable->message = 'Incorrect credentials';
-            $variable->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-            echo(json_encode($variable));
+            echo(json_encode($connection));
             header('Refresh:2,url=API/index.php');
         }
         if($connection->active == true)

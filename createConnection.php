@@ -63,6 +63,7 @@ class Connection
                     $variable->active = false;
                     $variable->message = 'Invalid API secret';
                     $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+                    return $variable;
                 }
             }
             else
@@ -71,6 +72,7 @@ class Connection
                 $variable->active = false;
                 $variable->message = 'Invalid API token';
                 $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+                return $variable;
             }
         }
         else
@@ -79,6 +81,7 @@ class Connection
             $variable->active = false;
             $variable->message = 'No API credentials detected in database, contact admin!';
             $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+            return $variable;
         }
     }
     function connectServer($username='null', $password='', $host='localhost')
