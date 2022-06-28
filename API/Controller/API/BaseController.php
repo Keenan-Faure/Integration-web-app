@@ -67,7 +67,18 @@ class Controller
 
             //customer endpoints
             $variable->routes->customers = new \stdClass();
-            
+            $variable->routes->customers->getProductBy = new \stdClass();
+            $variable->routes->customers->getProductBySKU->endpoint = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/customers/<sku>";
+            $variable->routes->customers->getProductBySKU->accepts_data = true;
+
+            $variable->routes->customers->getCustomers = new \stdClass();
+            $variable->routes->customers->getCustomers->endpoint = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/customers";
+            $variable->routes->customers->getCustomers->accepts_data = false;
+
+            $variable->routes->customers->countCustomers = new \stdClass();
+            $variable->routes->customers->countCustomers->endpoint = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/count";
+            $variable->routes->customers->countCustomers->accepts_data = false;
+
             $variable->routes->utility = new \stdClass();
             $variable->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
         }
