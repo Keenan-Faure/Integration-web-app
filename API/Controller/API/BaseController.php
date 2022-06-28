@@ -38,19 +38,38 @@ class Controller
 
                 }
             }
+            time:
         }
         */
         if($_SESSION['apicredentials']->active === true && $serverconnection === true)
         {
             $variable = new \stdClass();
             $variable->result = true;
-            $variable->url = $_SERVER['REQUEST_URI'];
+            $variable->url = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
             $variable->description = 'MySql API';
             $variable->version = 'v1.0.1';
             $variable->routes = new \stdClass();
+
+            //product endpoints
             $variable->routes->products = new \stdClass();
+            $variable->routes->products->getProductBySKU = new \stdClass();
+            $variable->routes->products->getProductBySKU->endpoint = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/products/<sku>";
+            $variable->routes->products->getProductBySKU->accepts_data = true;
+
+            $variable->routes->products->getProducts = new \stdClass();
+            $variable->routes->products->getProducts->endpoint = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/products";
+            $variable->routes->products->getProducts->accepts_data = false;
+
+            $variable->routes->products->countProducts = new \stdClass();
+            $variable->routes->products->countProducts->endpoint = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/count";
+            $variable->routes->products->countProducts->accepts_data = false;
+            //$variable->routes->products->addProduct
+
+            //customer endpoints
             $variable->routes->customers = new \stdClass();
+            
             $variable->routes->utility = new \stdClass();
+            $variable->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
         }
     }
 
