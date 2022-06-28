@@ -9,7 +9,7 @@
         $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
         array_push($_SESSION['log'], $variable);
         
-        $url = parse_url($_SERVER['REQUEST_URI'])['path'];
+        $url = parse_url($_SERVER['REQUEST_URI']);
         $url = explode('/', $url);
 
         //only if the 5th segment of the url is defined and populated
@@ -36,6 +36,7 @@
         echo(json_encode($variable));
         header('Refresh:3,url=index.php');
 }
+
 
     //if they have, then display all endpoints defined in a class/database maybe
 
