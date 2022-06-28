@@ -44,9 +44,13 @@ class Controller
         {
             $variable = new \stdClass();
             $variable->result = true;
-            $variable->products = new \stdClass();
-            $variable->customers = new \stdClass();
-            $variable->utilities = new \stdClass();
+            $variable->url = $_SERVER['REQUEST_URI'];
+            $variable->description = 'MySql API';
+            $variable->version = 'v1.0.1';
+            $variable->routes = new \stdClass();
+            $variable->routes->products = new \stdClass();
+            $variable->routes->customers = new \stdClass();
+            $variable->routes->utility = new \stdClass();
         }
     }
 
