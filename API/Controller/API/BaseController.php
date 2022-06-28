@@ -80,6 +80,8 @@ class Controller
             $variable->routes->customers->countCustomers->accepts_data = false;
 
             $variable->routes->utility = new \stdClass();
+            $variable->routes->utility->checkConnection = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/checkConnection";
+            $variable->routes->utility->log = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/log";
             $variable->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
         }
     }
