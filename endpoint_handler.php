@@ -55,6 +55,7 @@
                     $_SESSION['tablecurrent'] = $_POST['table'];
                     $variable->currentTable = $_POST['table'];
                     $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+
                     echo(json_encode($variable));
                     header('Refresh:3, url=endpoints.php');
                 }

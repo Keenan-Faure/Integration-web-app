@@ -46,4 +46,13 @@
 
     //scan through the sent URL, if it is what we expect then we can run a function based on that url. We have to create
     //Another class/file to define these functions, thinking of using Controller to store them in.
+
+    //When setting the table, we need to add a check to confirm if the table has all basic product information, or if one has to be created.
+    /*
+        SKU, Title, Description, product code, active field (when if), category, product-type, 
+        Brand, options (name, value), variant code, weight, barcode, price, quantity.
+
+    */
+    
+
 ?>
