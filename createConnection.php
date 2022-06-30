@@ -143,19 +143,31 @@ class Connection
                     $endtime = microtime(true);
                     $duration = $endtime - $starttime; //calculates total time taken
                     $array = array();
-                    while($row = $result->fetch_object())
+                    if(is_bool($result))
                     {
-                        $array = $row;
-                        array_push($resultArray, $array);
+                        if($result)
+                        {
+                            $variable = new \stdClass();
+                            $variable->result = true;
+                            $variable->duration = $duration;
+                        }
                     }
-                    for($i = 0; $i < sizeof($resultArray); ++$i)
+                    else
                     {
-                        array_push($output, $resultArray[$i]);
-                    }    
-                    $variable = new \stdClass();
-                    $variable->result = $output;
-                    $variable->query = $query;
-                    $variable->query_time = $duration;
+                        while($row = $result->fetch_object())
+                        {
+                            $array = $row;
+                            array_push($resultArray, $array);
+                        }
+                        for($i = 0; $i < sizeof($resultArray); ++$i)
+                        {
+                            array_push($output, $resultArray[$i]);
+                        }    
+                        $variable = new \stdClass();
+                        $variable->result = $output;
+                        $variable->query = $query;
+                        $variable->query_time = $duration;
+                    }
                 }
                 else
                 {
