@@ -184,7 +184,16 @@
                     }
                     if(isset($_POST['countCustomer']))
                     {
-                        echo("count customers");
+                        $connection = new connect();
+                        $rawConnection = $connection->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+                        $_SESSION['rawconnection'] = $rawConnection;
+                        //creates query
+                        
+                        $query = "SELECT COUNT(*) as 'Count' FROM " . $_SESSION['tablecurrent'];
+
+                        $output = $connection->converterObject($rawConnection, $query);
+                        mysqli_close($rawConnection);
+                        echo(json_encode($output));
                         unset($_POST['countCustomer']);
                     }
                     if(isset($_POST['viewCustomerSql']))
