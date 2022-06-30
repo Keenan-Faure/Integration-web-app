@@ -4,13 +4,14 @@ namespace controller;
 
 class Controller
 {
-    function __call()
+    function __call($method, $args)
     {
         $variable = new \stdClass();
         $variable->result = array();
         $variable->error = new \stdClass();
         $variable->error->errorcode = '404';
         $variable->error->errormessage = 'HTTP/1.1 404 Not Found';
+        $variable->rawMessage = $method . ' - ' . $args;
 
         return $variable;
     }
@@ -67,13 +68,9 @@ class Controller
 
             //customer endpoints
             $variable->routes->customers = new \stdClass();
-            $variable->routes->customers->getProductBy = new \stdClass();
-            $variable->routes->customers->getProductBySKU->endpoint = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/customers/<sku>";
-            $variable->routes->customers->getProductBySKU->accepts_data = true;
-
-            $variable->routes->customers->getCustomers = new \stdClass();
-            $variable->routes->customers->getCustomers->endpoint = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/customers";
-            $variable->routes->customers->getCustomers->accepts_data = false;
+            $variable->routes->customers->getCustomerById = new \stdClass();
+            $variable->routes->customers->getCustomerById->endpoint = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/customers/<id>";
+            $variable->routes->customers->getCustomerById->accepts_data = true;
 
             $variable->routes->customers->countCustomers = new \stdClass();
             $variable->routes->customers->countCustomers->endpoint = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/count";
@@ -83,6 +80,8 @@ class Controller
             $variable->routes->utility->checkConnection = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/checkConnection";
             $variable->routes->utility->log = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/log";
             $variable->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+
+            return $variable;
         }
     }
 

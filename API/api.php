@@ -1,5 +1,9 @@
 <?php
     session_start();
+    include("Controller/API/BaseController.php");
+    header("Content-Type: application/json");
+    use controller\Controller as control;
+
     //check if the api-credentials have been set...
     if(isset($_SESSION['apicredentials']) && $_SESSION['apicredentials']->active == true)
     {
@@ -9,21 +13,22 @@
         $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
         array_push($_SESSION['log'], $variable);
         
-        $url = parse_url($_SERVER['REQUEST_URI']);
-        $url = explode('/', $url);
+        $url = parse_url($_SERVER['REQUEST_URI'])['path'];
 
+        $url = explode('/', $url);
         //only if the 5th segment of the url is defined and populated
         //then run a function on it.
-        if(isset($url[5]))
+        if(isset($url[4]))
         {
-            $segment = $url[5];
+            $segment = $url[4];
             print_r($segment);
         }
 
         //else display all url functions (endpoints)
         else
         {
-
+            $variable = new control();
+            echo(json_encode($variable->endpoints($_SESSION['serverconnection']->active)));
         }
     }
     else
@@ -47,7 +52,7 @@
     //scan through the sent URL, if it is what we expect then we can run a function based on that url. We have to create
     //Another class/file to define these functions, thinking of using Controller to store them in.
 
-    //When setting the table, we need to add a check to confirm if the table has all basic product information, or if one has to be created.
+    //When setting the table, we need to add a check to confirm if the table has all basic product information, or if one has to be created. We should ask.
     /*
         SKU, Title, Description, product code, active field (when if), category, product-type, 
         Brand, options (name, value), variant code, weight, barcode, price, quantity.

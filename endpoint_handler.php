@@ -169,19 +169,19 @@
                         echo("adding product needs redirect");
                         unset($_POST['addProduct']);
                     }
-                    if(isset($_POST['getCustomerByName']))
+                    if(isset($_POST['getCustomerByID']))
                     {
                         $connection = new connect();
                         $rawConnection = $connection->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
                         $_SESSION['rawconnection'] = $rawConnection;
                         //creates query
                         
-                        $query = "SELECT * FROM " . $_SESSION['tablecurrent'] . " WHERE Name='" . $_POST['getCustomerByName'] . "'";
+                        $query = "SELECT * FROM " . $_SESSION['tablecurrent'] . " WHERE Name='" . $_POST['getCustomerByID'] . "'";
 
                         $output = $connection->converterObject($rawConnection, $query);
                         mysqli_close($rawConnection);
                         echo(json_encode($output));
-                        unset($_POST['getCustomerByName']);
+                        unset($_POST['getCustomerByID']);
                     }
                     if(isset($_POST['countCustomer']))
                     {
@@ -201,7 +201,7 @@
                     {
                         $variable = new \stdClass();
                         $variable->getCustomerByName = new \stdClass();
-                        $variable->getCustomerByName->query = "SELECT * FROM " . $_SESSION['tablecurrent'] . " WHERE Name= '{{Name}}'";
+                        $variable->getCustomerByName->query = "SELECT * FROM " . $_SESSION['tablecurrent'] . " WHERE ID= '{{ID}}'";
                         $variable->getCustomerByName->result = 'returns all products whose Name matches {{Name}}';
 
                         $variable->countCustomer = new \stdClass();
