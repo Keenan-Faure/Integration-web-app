@@ -158,7 +158,7 @@
 
                         $variable->countProducts = new \stdClass();
                         $variable->countProducts->query = "SELECT COUNT(*) as 'Count' FROM " . $_SESSION['tablecurrent'];
-                        $variable->countProducts->result = 'returns the amount of products in the Test table';
+                        $variable->countProducts->result = 'returns the amount of products in the ' . $_SESSION['tablecurrent'] . ' table';
 
                         echo(json_encode($variable));
                         unset($_POST['viewProductSql']);
@@ -198,7 +198,14 @@
                     }
                     if(isset($_POST['viewCustomerSql']))
                     {
-                        echo("view customer sql");
+                        $variable = new \stdClass();
+                        $variable->getCustomerByName = new \stdClass();
+                        $variable->getCustomerByName->query = "SELECT * FROM " . $_SESSION['tablecurrent'] . " WHERE Name= '{{Name}}'";
+                        $variable->getCustomerByName->result = 'returns all products whose Name matches {{Name}}';
+
+                        $variable->countCustomer = new \stdClass();
+                        $variable->countCustomer->query = "SELECT COUNT(*) as 'Count' FROM " . $_SESSION['tablecurrent'];
+                        $variable->countCustomer->result = 'returns the amount of customers in the ' . $_SESSION['tablecurrent'] . ' table';
                         unset($_POST['viewCustomerSql']);
                     }
                     if(isset($_POST['addCustomer']))
