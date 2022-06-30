@@ -170,7 +170,16 @@
                     }
                     if(isset($_POST['getCustomerByName']))
                     {
-                        echo("getCustomerby name");
+                        $connection = new connect();
+                        $rawConnection = $connection->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+                        $_SESSION['rawconnection'] = $rawConnection;
+                        //creates query
+                        
+                        $query = "SELECT * FROM " . $_SESSION['tablecurrent'] . " WHERE Name='" . $_POST['getCustomerByName'] . "'";
+
+                        $output = $connection->converterObject($rawConnection, $query);
+                        mysqli_close($rawConnection);
+                        echo(json_encode($output));
                         unset($_POST['getCustomerByName']);
                     }
                     if(isset($_POST['countCustomer']))
