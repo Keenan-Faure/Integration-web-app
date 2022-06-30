@@ -107,15 +107,62 @@
     <?php 
         if(isset($_SESSION['credentials']) && $_SESSION['credentials']->active == true)
         {
+            $counter = false;
             $knownDbs = array('information_schema', 'mysql', 'performance_schema', 'phpmyadmin', 'test');
             $connection = new connect();
             $output = $connection->converterArray($rawConnection, $query, "Database");
             $output = array_diff($output, $knownDbs);
             $_SESSION['databases'] = $output;
+
+
             for($p = 0; $p < sizeof($output); ++$p)
             {
-                echo("<script>createContainer('$output[$p]');</script>");
-            } 
+                if(isset($_SESSION['connection']))
+                {
+                    $connection2 = new connect();
+                    $rawConnection = $connection2->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+                    $query2 = 'show tables';
+                    $output2 = $connection2->converterArray($rawConnection, $query2, "Tables_in_" . $_SESSION['connection']->credentials->dbname);
+                    if('Inventory' != $output2[$p])
+                    {
+                        $counter = true;
+                    }
+                }
+            }
+            if($counter)
+            {
+                
+                echo("<script>console.log('Creating table Inventory');</script>");
+
+                //creates query
+                $query3 = " create table Inventory (
+
+                        Active tinyint,
+                        SKU varchar(255),
+                        Title varchar(255),
+                        Description varchar(255),
+                        Group_Code varchar(255),
+                        Category varchar(255),
+                        Product_Type varchar(255),
+                        Brand varchar(255),
+                        Variant_Code int,
+                        Barcode int,
+                        Weight int,
+                        Price int, 
+                        Quantity int,
+                        Option_1_Name varchar(255),
+                        Option_1_Value varchar(255),
+                        Option_2_Name varchar(255),
+                        Option_2_Value varchar(255),
+                        Option_3_Name varchar(255),
+                        Option_3_Value varchar(255)
+                    );
+                ";
+                
+                $output = $connection2->converterObject($rawConnection, $query3);
+                $counter = false;
+            }
+            
         }
     ?>
 </html>
