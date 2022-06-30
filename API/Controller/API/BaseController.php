@@ -78,6 +78,8 @@ class Controller
 
             $variable->routes->utility = new \stdClass();
             $variable->routes->utility->checkConnection = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/checkConnection";
+            $variable->routes->utility->checkSN = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/checkSN";
+            $variable->routes->utilities->checkTable = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/checkTable";
             $variable->routes->utility->log = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/log";
             $variable->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
 
