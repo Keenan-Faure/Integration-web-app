@@ -110,7 +110,7 @@
                         $_SESSION['rawconnection'] = $rawConnection;
                         //creates query
                         
-                        $query = "SELECT * FROM " . $_SESSION['tablecurrent'] . " WHERE Name='" . $_POST['getProductBySKU'] . "'";
+                        $query = "SELECT * FROM " . $_SESSION['tablecurrent'] . " WHERE SKU='" . $_POST['getProductBySKU'] . "'";
 
                         $output = $connection->converterObject($rawConnection, $query);
                         mysqli_close($rawConnection);
@@ -149,8 +149,8 @@
                     {
                         $variable = new \stdClass();
                         $variable->getProductsBySKU = new \stdClass();
-                        $variable->getProductsBySKU->query = "SELECT * FROM " . $_SESSION['tablecurrent'] . " WHERE Name= '{{Name}}'";
-                        $variable->getProductsBySKU->result = 'returns all products whose Name matches {{Name}}';
+                        $variable->getProductsBySKU->query = "SELECT * FROM " . $_SESSION['tablecurrent'] . " WHERE SKU= '{{SKU}}'";
+                        $variable->getProductsBySKU->result = 'returns all products whose SKU matches {{SKU}}';
 
                         $variable->getProducts = new \stdClass();
                         $variable->getProducts->query = $query = "SELECT * FROM " . $_SESSION['tablecurrent'] . " LIMIT 15";
