@@ -1,46 +1,77 @@
 <?php
     session_start();
-    include("Controller/API/BaseController.php");
-    header("Content-Type: application/json");
-    use controller\Controller as control;
-
-    //check if the api-credentials have been set...
-    if(isset($_SESSION['apicredentials']) && $_SESSION['apicredentials']->active == true)
+    if(!isset($_SESSION['log']))
     {
-        //saves to log
+        $_SESSION['log'] = array();
+    }
+    include("../createConnection.php");
+    use Connection\Connection as connect;
+    use controller\Controller as control;
+    if (!isset($_SERVER['PHP_AUTH_USER'])) 
+    {
+        header('WWW-Authenticate: Basic realm="My Realm"');
+        header('HTTP/1.0 401 Unauthorized');
         $variable = new \stdClass();
-        $variable->message = "Successfully connected to API with: " . $_SESSION['apicredentials']->credentials->token . ": secret_" . $_SESSION['apicredentials']->credentials->secret;
-        $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-        array_push($_SESSION['log'], $variable);
-        
-        $url = parse_url($_SERVER['REQUEST_URI'])['path'];
+        $variable->message = 'Bye...';
+        echo(json_encode($variable));
+        exit;
+    } 
+    else 
+    {
+        include("Controller/API/BaseController.php");
+        header("Content-Type: application/json");
 
-        $url = explode('/', $url);
-        //only if the 5th segment of the url is defined and populated
-        //then run a function on it.
-        if(isset($url[4]))
+        $apiConn = new connect();
+        $apiConn = $apiConn->connectServer($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'], 'localhost');
+        if($apiConn->connection)
         {
-            $segment = $url[4];
-            print_r($segment);
-        }
+            $variable = new \stdClass();
+            $variable->credentials = new \stdClass();
+            $variable->active = true;
+            $variable->credentials->secret = $_SERVER['PHP_AUTH_USER'];
+            $variable->credentials->token = $_SERVER['PHP_AUTH_PW'];
 
-        //else display all url functions (endpoints)
+            $_SESSION['apicredentials'] = $variable;
+
+            //saves to log
+            $variable = new \stdClass();
+            $variable->message = "Successfully connected to API with: " . $_SESSION['apicredentials']->credentials->token . ": secret_" . $_SESSION['apicredentials']->credentials->secret;
+            $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+            array_push($_SESSION['log'], $variable);
+            
+            $url = parse_url($_SERVER['REQUEST_URI'])['path'];
+
+            $url = explode('/', $url);
+            //only if the 5th segment of the url is defined and populated
+            //then run a function on it.
+            if(isset($url[4]))
+            {
+                $segment = $url[4];
+                print_r($segment);
+            }
+
+            //else display all url functions (endpoints)
+            else
+            {
+                $variable = new control();
+                echo(json_encode($variable->endpoints($_SESSION['serverconnection']->active)));
+            }
+        }
         else
         {
-            $variable = new control();
-            echo(json_encode($variable->endpoints($_SESSION['serverconnection']->active)));
+            $variable = new \stdClass();
+            $variable->connection = false;
+            $variable->error = "Failed to connect to API";
+            $variable->message = "Either no credentials were entered, or incorrect matches were given";
+            $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+
+            echo(json_encode($variable));
         }
     }
-    else
-    {
-        $variable = new \stdClass();
-        $variable->error = "Failed to connect to API";
-        $variable->message = "Either no credentials were entered, or incorrect matches were given";
-        $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-        array_push($_SESSION['log'], $variable);
-        echo(json_encode($variable));
-        header('Refresh:3,url=index.php');
-}
+    ?>
+
+
+<?php
 
 
     //if they have, then display all endpoints defined in a class/database maybe

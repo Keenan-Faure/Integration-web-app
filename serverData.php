@@ -128,6 +128,7 @@
                         $counter = true;
                     }
                 }
+                echo("<script>createContainer('$output[$p]');</script>");
             }
             if($counter)
             {

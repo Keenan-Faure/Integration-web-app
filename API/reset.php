@@ -21,7 +21,6 @@
             $variable->message = "Try to relog";
             $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
             echo(json_encode($variable));
-            header('Refresh:2,url=../login');
         }
     }
     else
@@ -59,7 +58,6 @@
             $variable->message = "Try to relog";
             $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
             echo(json_encode($variable));
-            header('Refresh:2,url=index.php');
         }
     }
 
