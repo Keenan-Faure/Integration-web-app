@@ -60,7 +60,7 @@
                     <button class = 'button buttonclear' id='f6'>Clear Session</button>
                 </form>
                 <div class='log' id='f7'>
-                    <h2 style='color: red'>Log</h2>
+                    <h2 style='color: black'>Log</h2>
                     <?php    
 
                         class server
@@ -108,6 +108,7 @@
         if(isset($_SESSION['credentials']) && $_SESSION['credentials']->active == true)
         {
             $counter = false;
+            $cust = false;
             $knownDbs = array('information_schema', 'mysql', 'performance_schema', 'phpmyadmin', 'test');
             $connection = new connect();
             $output = $connection->converterArray($rawConnection, $query, "Database");
@@ -127,12 +128,15 @@
                     {
                         $counter = true;
                     }
+                    if('Client' != $output2[$p])
+                    {
+                        $cust = true;
+                    }
                 }
                 echo("<script>createContainer('$output[$p]');</script>");
             }
             if($counter)
             {
-                
                 echo("<script>console.log('Creating table Inventory');</script>");
 
                 //creates query
@@ -162,6 +166,25 @@
                 
                 $output = $connection2->converterObject($rawConnection, $query3);
                 $counter = false;
+            }
+            if($cust)
+            {
+                echo("<script>console.log('Creating table Client');</script>");
+                $query4 = " create table Client (
+
+                    Active tinyint,
+                    Name varchar(255),
+                    Surname varchar(255),
+                    Email varchar(255),
+                    Address_1 varchar(255),
+                    Address_2 varchar(255),
+                    Address_3 varchar(255),
+                    Address_4 varchar(255)
+                );
+                ";
+            
+            $output = $connection2->converterObject($rawConnection, $query4);
+            $cust = false;
             }
             
         }

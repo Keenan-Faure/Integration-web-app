@@ -152,14 +152,17 @@
                         $variable->getProductsBySKU = new \stdClass();
                         $variable->getProductsBySKU->query = "SELECT * FROM " . $_SESSION['tablecurrent'] . " WHERE SKU= '{{SKU}}'";
                         $variable->getProductsBySKU->result = 'returns all products whose SKU matches {{SKU}}';
+                        $variable->getProductsBySKU->accepts_data = true;
 
                         $variable->getProducts = new \stdClass();
                         $variable->getProducts->query = $query = "SELECT * FROM " . $_SESSION['tablecurrent'] . " LIMIT 15";
                         $variable->getProducts->result = 'returns the first 10 products from the table';
+                        $variable->getProducts->accepts_data = true;
 
                         $variable->countProducts = new \stdClass();
                         $variable->countProducts->query = "SELECT COUNT(*) as 'Count' FROM " . $_SESSION['tablecurrent'];
                         $variable->countProducts->result = 'returns the amount of products in the ' . $_SESSION['tablecurrent'] . ' table';
+                        $variable->countProducts->accepts_data = false;
 
                         echo(json_encode($variable));
                         unset($_POST['viewProductSql']);
@@ -201,12 +204,14 @@
                     {
                         $variable = new \stdClass();
                         $variable->getCustomerByName = new \stdClass();
-                        $variable->getCustomerByName->query = "SELECT * FROM " . $_SESSION['tablecurrent'] . " WHERE ID= '{{ID}}'";
+                        $variable->getCustomerByName->query = "SELECT * FROM " . $_SESSION['tablecurrent'] . " WHERE ID= '{{Name}}'";
                         $variable->getCustomerByName->result = 'returns all products whose Name matches {{Name}}';
+                        $variable->getCustomerByName->accepts_data = true;
 
                         $variable->countCustomer = new \stdClass();
                         $variable->countCustomer->query = "SELECT COUNT(*) as 'Count' FROM " . $_SESSION['tablecurrent'];
                         $variable->countCustomer->result = 'returns the amount of customers in the ' . $_SESSION['tablecurrent'] . ' table';
+                        $variable->countCustomers->accepts_data = false;
                         unset($_POST['viewCustomerSql']);
                     }
                     if(isset($_POST['addCustomer']))
