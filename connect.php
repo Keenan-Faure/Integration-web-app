@@ -40,7 +40,6 @@ else
     if(isset($_POST['token']) && isset($_POST['secret']))
     {
         $variable = new connect();
-
         $connection = $variable->connectAPI($_POST['token'], $_POST['secret']);
         if($connection->active == false)
         {
@@ -55,6 +54,8 @@ else
             $variable->credentials->token = $_POST['token'];
             $variable->credentials->secret = '*******';
             $_SESSION['apicredentials'] = $variable;
+            $_SERVER['PHP_AUTH_USER'] = $_POST['token'];
+            $_SERVER['PHP_AUTH_PSW'] = $_POST['secret'];
             header('Refresh:0,url=API/api.php');
         }
         else

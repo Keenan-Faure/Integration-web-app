@@ -54,7 +54,6 @@ class Connection
                     $variable->active = true;
                     $variable->message = 'Valid API credentials';
                     $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-
                     return $variable;
                 }
                 else

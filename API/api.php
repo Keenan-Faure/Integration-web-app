@@ -7,20 +7,21 @@
     include("../createConnection.php");
     use Connection\Connection as connect;
     use controller\Controller as control;
-    if (!isset($_SERVER['PHP_AUTH_USER'])) 
+    if(!isset($_SERVER['PHP_AUTH_USER']) && !isset($_SERVER['PHP_AUTH_USER'])) 
     {
-        header('WWW-Authenticate: Basic realm="My Realm"');
+        header('WWW-Authenticate: Basic realm="Authorization"');
         header('HTTP/1.0 401 Unauthorized');
+        header('Content-Type: application/json');
         $variable = new \stdClass();
-        $variable->message = 'Bye...';
+        $variable->message = 'Unauthorized access, or credentials not provided';
         echo(json_encode($variable));
+        header('Refresh:2, url=api.php');
         exit;
     } 
     else 
     {
         include("Controller/API/BaseController.php");
         header("Content-Type: application/json");
-
         $apiConn = new connect();
         $apiConn = $apiConn->connectServer($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'], 'localhost');
         if($apiConn->connection)
@@ -28,11 +29,10 @@
             $variable = new \stdClass();
             $variable->credentials = new \stdClass();
             $variable->active = true;
-            $variable->credentials->secret = $_SERVER['PHP_AUTH_USER'];
-            $variable->credentials->token = $_SERVER['PHP_AUTH_PW'];
+            $variable->credentials->token = $_SERVER['PHP_AUTH_USER'];
+            $variable->credentials->secret = $_SERVER['PHP_AUTH_PW'];
 
             $_SESSION['apicredentials'] = $variable;
-
             //saves to log
             $variable = new \stdClass();
             $variable->message = "Successfully connected to API with: " . $_SESSION['apicredentials']->credentials->token . ": secret_" . $_SESSION['apicredentials']->credentials->secret;
@@ -64,8 +64,9 @@
             $variable->error = "Failed to connect to API";
             $variable->message = "Either no credentials were entered, or incorrect matches were given";
             $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-
             echo(json_encode($variable));
+            header('WWW-Authenticate: Basic realm="Authorization"');
+
         }
     }
     ?>
