@@ -89,8 +89,6 @@
                 <form method='post' action='endpoint_handler.php'>
                     <input type='text' autocomplete="off" id='b13' class='table' name='table' placeholder='Change Table' required>
                 </form>
-
-                <button class='api' onclick="window.location.href='API/api.php'" >View API</button>
             
     </body>
         <script src='scripts2.js'></script>
