@@ -24,8 +24,6 @@
     
     if(isset($_SESSION['connection']))
     {
-
-
         if($_SESSION['connection']->active === true)
         {
             if(($_POST == null))
@@ -68,7 +66,7 @@
                     echo(json_encode($variable));
                 }
                 unset($_POST['table']);
-
+                exit;
             }
             if(isset($_POST['selfquery']))
             {
@@ -82,7 +80,21 @@
                 mysqli_close($rawConnection);
                 unset($_POST['selfquery']);
                 echo(json_encode($output));                
+                exit;
+            }
+            if(isset($_POST['checkTable']))
+            {
+                $connection = new connect();
+                $rawConnection = $connection->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+                $_SESSION['rawconnection'] = $rawConnection;
+                //creates query
+                $query = "show tables;";
                 
+                $output = $connection->converterObject($rawConnection, $query);
+                mysqli_close($rawConnection);
+                unset($_POST['selfquery']);
+                echo(json_encode($output));                
+                exit;
             }
             else
             {
@@ -103,21 +115,6 @@
 
                         header('Refresh:0,url=https://stock2shop.com');
                         unset($_POST['visitS2S']);
-                    }
-                    if(isset($_POST['checkTable']))
-                    {
-                        $connection = new connect();
-                        $rawConnection = $connection->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
-                        $_SESSION['rawconnection'] = $rawConnection;
-                        //creates query
-                        
-                        $query = "show tables";
-
-                        $output = $connection->converterObject($rawConnection, $query);
-                        mysqli_close($rawConnection);
-                        echo(json_encode($output));
-                        
-                        unset($_POST['checkTable']);
                     }
                     if(isset($_POST['getProductBySKU']) && $_POST['getProductBySKU'])
                     {
