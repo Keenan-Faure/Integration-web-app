@@ -23,8 +23,7 @@ var b10 = document.getElementById('b10');
 var b11 = document.getElementById('b11');
 var b12 = document.getElementById('b12');
 var b13 = document.getElementById('b13');
-
-
+var b14 = document.getElementById('b14');
 
 window.addEventListener('load', ()=>
 {
@@ -51,7 +50,6 @@ window.addEventListener('load', ()=>
         {
             b3.classList.add('fade-in');
         }, 650);
-        
 
         contain2.classList.add('fade-in');
         setTimeout(()=>
@@ -113,6 +111,10 @@ window.addEventListener('load', ()=>
         {
             b13.classList.add('fade-in');
         }, 2050);
+        setTimeout(()=>
+        {
+            b14.classList.add('fade-in');
+        }, 2150);
     },400); //0.2s
 });
 

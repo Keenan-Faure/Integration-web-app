@@ -104,6 +104,21 @@
                         header('Refresh:0,url=https://stock2shop.com');
                         unset($_POST['visitS2S']);
                     }
+                    if(isset($_POST['checkTable']))
+                    {
+                        $connection = new connect();
+                        $rawConnection = $connection->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+                        $_SESSION['rawconnection'] = $rawConnection;
+                        //creates query
+                        
+                        $query = "show tables";
+
+                        $output = $connection->converterObject($rawConnection, $query);
+                        mysqli_close($rawConnection);
+                        echo(json_encode($output));
+                        
+                        unset($_POST['checkTable']);
+                    }
                     if(isset($_POST['getProductBySKU']) && $_POST['getProductBySKU'])
                     {
                         $connection = new connect();

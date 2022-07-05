@@ -188,5 +188,6 @@
             }
             
         }
+        mysqli_close($rawConnection);
     ?>
 </html>
