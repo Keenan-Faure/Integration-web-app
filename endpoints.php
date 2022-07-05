@@ -23,7 +23,7 @@
 
             <h1>Available Endpoints</h1>
             <div class='line'></div>
-            <img src='./Images/custom.png' class='custom'>
+            <img src='./Images/custom.png' title = "Query custom Sql" class='custom'>
             <div class='container' id='container-1'>
                 <h2 class='h2-hidden'>General</h2>
                 <div class='line' id='line-1'></div>
@@ -118,11 +118,11 @@ if(isset($_SESSION['credentials']) && $_SESSION['credentials']->active == true)
             $rawConnection = $connection2->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
             $query2 = 'show tables';
             $output2 = $connection2->converterArray($rawConnection, $query2, "Tables_in_" . $_SESSION['connection']->credentials->dbname);
-            if(isset($output2['Inventory']))
+            if(!in_array("Inventory", $output2))
             {
                 $counter = true;
             }
-            if(isset($output2[$p]['Client']))
+            if(!in_array("Client", $output2))
             {
                 $cust = true;
             }
@@ -162,7 +162,6 @@ if(isset($_SESSION['credentials']) && $_SESSION['credentials']->active == true)
     }
     if($cust)
     {
-        echo("I am here");
         echo('<div class="errors"><p class="align">Client table created</p></div>');
         $query4 = " create table Client(
 
