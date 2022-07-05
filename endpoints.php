@@ -100,88 +100,90 @@ if(!isset($_SESSION['tablecurrent']))
 
 include("createConnection.php");
 use Connection\Connection as connect;
-
-$rawConnection = $_SESSION['rawconnection'];
-if(isset($_SESSION['credentials']) && $_SESSION['credentials']->active == true)
+if(isset($_SESSION['rawConnection']) && isset($_SESSION['connection']))
 {
-    $counter = false;
-    $cust = false;
-    $knownDbs = array('information_schema', 'mysql', 'performance_schema', 'phpmyadmin', 'test');
-    $connection = new connect();
-
-    $output = $_SESSION['databases'];
-    for($p = 0; $p < sizeof($output); ++$p)
+    $rawConnection = $_SESSION['rawconnection'];
+    if(isset($_SESSION['credentials']) && $_SESSION['credentials']->active == true)
     {
-        if(isset($_SESSION['connection']))
+        $counter = false;
+        $cust = false;
+        $knownDbs = array('information_schema', 'mysql', 'performance_schema', 'phpmyadmin', 'test');
+        $connection = new connect();
+
+        $output = $_SESSION['databases'];
+        for($p = 0; $p < sizeof($output); ++$p)
         {
-            $connection2 = new connect();
-            $rawConnection = $connection2->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
-            $query2 = 'show tables';
-            $output2 = $connection2->converterArray($rawConnection, $query2, "Tables_in_" . $_SESSION['connection']->credentials->dbname);
-            if(!in_array("Inventory", $output2))
+            if(isset($_SESSION['connection']))
             {
-                $counter = true;
-            }
-            if(!in_array("Client", $output2))
-            {
-                $cust = true;
+                $connection2 = new connect();
+                $rawConnection = $connection2->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+                $query2 = 'show tables';
+                $output2 = $connection2->converterArray($rawConnection, $query2, "Tables_in_" . $_SESSION['connection']->credentials->dbname);
+                if(!in_array("Inventory", $output2))
+                {
+                    $counter = true;
+                }
+                if(!in_array("Client", $output2))
+                {
+                    $cust = true;
+                }
             }
         }
-    }
-    if($counter)
-    {
-        echo('<div class="errors"><p class="align">Inventory table created</p></div>');
+        if($counter)
+        {
+            echo('<div class="errors"><p class="align">Inventory table created</p></div>');
 
-        //creates query
-        $query3 = " create table Inventory (
+            //creates query
+            $query3 = " create table Inventory (
+
+                    Active tinyint,
+                    SKU varchar(255),
+                    Title varchar(255),
+                    Description varchar(255),
+                    Group_Code varchar(255),
+                    Category varchar(255),
+                    Product_Type varchar(255),
+                    Brand varchar(255),
+                    Variant_Code int,
+                    Barcode int,
+                    Weight int,
+                    Price int, 
+                    Quantity int,
+                    Option_1_Name varchar(255),
+                    Option_1_Value varchar(255),
+                    Option_2_Name varchar(255),
+                    Option_2_Value varchar(255),
+                    Option_3_Name varchar(255),
+                    Option_3_Value varchar(255)
+                );
+            ";
+            
+            $output = $connection2->converterObject($rawConnection, $query3);
+            $counter = false;
+        }
+        if($cust)
+        {
+            echo('<div class="errors"><p class="align">Client table created</p></div>');
+            $query4 = " create table Client(
 
                 Active tinyint,
-                SKU varchar(255),
-                Title varchar(255),
-                Description varchar(255),
-                Group_Code varchar(255),
-                Category varchar(255),
-                Product_Type varchar(255),
-                Brand varchar(255),
-                Variant_Code int,
-                Barcode int,
-                Weight int,
-                Price int, 
-                Quantity int,
-                Option_1_Name varchar(255),
-                Option_1_Value varchar(255),
-                Option_2_Name varchar(255),
-                Option_2_Value varchar(255),
-                Option_3_Name varchar(255),
-                Option_3_Value varchar(255)
+                Name varchar(255),
+                Surname varchar(255),
+                Email varchar(255),
+                Address_1 varchar(255),
+                Address_2 varchar(255),
+                Address_3 varchar(255),
+                Address_4 varchar(255)
             );
-        ";
+            ";
         
-        $output = $connection2->converterObject($rawConnection, $query3);
-        $counter = false;
+        $output = $connection2->converterObject($rawConnection, $query4);
+        $cust = false;
+        }
+        
     }
-    if($cust)
-    {
-        echo('<div class="errors"><p class="align">Client table created</p></div>');
-        $query4 = " create table Client(
-
-            Active tinyint,
-            Name varchar(255),
-            Surname varchar(255),
-            Email varchar(255),
-            Address_1 varchar(255),
-            Address_2 varchar(255),
-            Address_3 varchar(255),
-            Address_4 varchar(255)
-        );
-        ";
-    
-    $output = $connection2->converterObject($rawConnection, $query4);
-    $cust = false;
+    echo('</div>');
     }
-    
-}
-echo('</div>');
 ?>
 
 
