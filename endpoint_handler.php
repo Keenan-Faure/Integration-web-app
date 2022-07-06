@@ -223,7 +223,8 @@
                         $variable->countCustomer = new \stdClass();
                         $variable->countCustomer->query = "SELECT COUNT(*) as 'Count' FROM " . $_SESSION['tablecurrent'];
                         $variable->countCustomer->result = 'returns the amount of customers in the ' . $_SESSION['tablecurrent'] . ' table';
-                        $variable->countCustomers->accepts_data = false;
+                        $variable->countCustomer->accepts_data = false;
+                        echo(json_encode($variable));
                         unset($_POST['viewCustomerSql']);
                     }
                     if(isset($_POST['addCustomer']))
