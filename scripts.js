@@ -70,9 +70,9 @@ function colors()
     },400); //0.3s
 }
 
-var back = document.querySelector('.next2');
-back.addEventListener('click', ()=>
+function swap2()
 {
+
     background2.classList.remove('fade-in');
     background2.classList.add('fade-out');
     background2.style.zIndex = -10;
@@ -83,7 +83,7 @@ back.addEventListener('click', ()=>
 
     document.querySelector('.next').style.opacity = 10;
     document.querySelector('.nextBtn').style.opacity = 1;
-});
+}
 
 //<div class='container'><p>Database1</p></div>
 
@@ -103,3 +103,19 @@ function createContainer(name)
         main.appendChild(container);
     }
 }
+
+var side = "right";
+
+document.addEventListener('keydown', (event)=>
+{
+    if(event.key == "ArrowRight")
+    {
+        swap();
+        side = "left";
+    }
+    if(event.key == "ArrowLeft")
+    {
+        swap2();
+        side = "right";
+    }
+});

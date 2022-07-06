@@ -79,7 +79,7 @@
                     <button class='button' name='addCustomer' id='b13'><p class='buttonText'>Add Customer to Database</p></button> 
                 </form>
             </div>
-                <form method='post' action='endpoint_handler.php'>
+                <form method='post' target='_blank' action='endpoint_handler.php'>
                     <input type='text' autocomplete="off" id='b14' class='table' name='table' placeholder='Change Query Table' required>
                 </form>
             
