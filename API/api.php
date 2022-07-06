@@ -46,10 +46,33 @@
             //then run a function on it.
             if(isset($url[4]))
             {
-                $segment = $url[4];
-                print_r($segment);
+                $variable = new control();
+                if(sizeof($url) > 6)
+                {
+                    $variable = new \stdClass();
+                    $variable->data = new \stdClass();
+                    $variable->data->result = false;
+                    $variable->data->error = "Endpoint not defined";
+                    $variable->url = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+                    $variable->description = 'MySql API';
+                    $variable->version = 'v1.0.1';
+                    header("HTTP/1.1 404 Not Found");
+                    echo(json_encode($variable));
+                }
+                else
+                {
+                    if(isset($url[5]))
+                    {
+                        $segment = $url[4];
+                        echo(json_encode($variable->{$segment}($url[5])));
+                    }
+                    else
+                    {
+                        $segment = $url[4];
+                        echo(json_encode($variable->{$segment}()));
+                    }
+                }
             }
-
             //else display all url functions (endpoints)
             else
             {

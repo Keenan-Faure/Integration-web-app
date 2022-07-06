@@ -9,9 +9,8 @@ class Controller
         $variable = new \stdClass();
         $variable->result = array();
         $variable->error = new \stdClass();
-        $variable->error->errorcode = '404';
+        $variable->error->errorcode = 404;
         $variable->error->errormessage = 'HTTP/1.1 404 Not Found';
-        $variable->rawMessage = $method . ' - ' . $args;
 
         return $variable;
     }
@@ -88,11 +87,21 @@ class Controller
     }
 
     //handles products endpoints
-    function products()
+    function products($segment = null)
     {
         if($_SESSION['apicredentials']->active === true)
         {
             
+        }
+        else
+        {
+            $variable = new \stdClass();
+            $variable->connection = false;
+            $variable->error = "Failed to connect to API";
+            $variable->message = "Either no credentials were entered, or incorrect matches were given";
+            $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+            
+            return $variable;
         }
     }
 
@@ -103,6 +112,16 @@ class Controller
         {
 
         }
+        else
+        {
+            $variable = new \stdClass();
+            $variable->connection = false;
+            $variable->error = "Failed to connect to API";
+            $variable->message = "Either no credentials were entered, or incorrect matches were given";
+            $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+            
+            return $variable;
+        }
     }
 
     function utility()
@@ -110,6 +129,16 @@ class Controller
         if($_SESSION['apicredentials']->active === true)
         {
 
+        }
+        else
+        {
+            $variable = new \stdClass();
+            $variable->connection = false;
+            $variable->error = "Failed to connect to API";
+            $variable->message = "Either no credentials were entered, or incorrect matches were given";
+            $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+            
+            return $variable;
         }
     }
 
