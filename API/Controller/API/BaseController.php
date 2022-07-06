@@ -18,30 +18,6 @@ class Controller
 
     function endpoints($serverconnection)
     {
-        /*
-        {
-            result: true,
-            URL: 192.168.64.3/MySQL-API/API/api.php - use php server to get it...
-            description: 'MySql API',
-            version: 1.0.1,
-            routes:
-            {
-                products: 
-                {
-
-                },
-                customers:
-                {
-
-                },
-                utility:
-                {
-
-                }
-            }
-            time:
-        }
-        */
         if($_SESSION['apicredentials']->active === true && $serverconnection === true)
         {
             $variable = new \stdClass();
