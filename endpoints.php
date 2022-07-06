@@ -67,7 +67,7 @@
                 <div class='line' id='line-1'></div>
                 <form method='post' target='_blank' action='endpoint_handler.php'>
                     <br><br><br>
-                    <input type='text' name='getCustomer' class='input' placeholder='Get Customer by Name' autocomplete="off" id='b10'></input>
+                    <input type='text' name='getCustomerByID' class='input' placeholder='Get Customer by ID' autocomplete="off" id='b10'></input>
                 </form>
                 <form method='post' target='_blank' action='endpoint_handler.php'>
                     <button class='button' name='countCustomer' id='b11'><p class='buttonText'>Count Customers</p></button>
