@@ -65,17 +65,22 @@ class Controller
     }
 
     //handles products endpoints
-    function products($segment = null, $connection)
+    function products($segment = null, $rawConnection, $connection)
     {
-        if($_SESSION['apicredentials']->active === true && $connection->active == true)
+
+        if($_SESSION['apicredentials']->active === true)
         {
             if(isset($segment))
             {
-                
+                $query = "SELECT * FROM Inventory" . " WHERE SKU='" . $segment . "'";
+                $output = $connection->converterObject($rawConnection, $query);
+                return $output;
             }
             else
             {
-
+                $query = "SELECT * FROM Inventory LIMIT 15";
+                $output = $connection->converterObject($rawConnection, $query);
+                return $output;
             }
         }
         else
@@ -91,11 +96,13 @@ class Controller
     }
 
     //handles the customer endpoints
-    function customers($segment, $connection)
+    function customers($segment = null, $rawConnection, $connection)
     {
-        if($_SESSION['apicredentials']->active === true && $connection->active == true)
+        if($_SESSION['apicredentials']->active === true)
         {
-
+            $query = "SELECT * FROM Client" . " WHERE ID='" . $segment . "'";
+            $output = $connection->converterObject($rawConnection, $query);
+            return $output;
         }
         else
         {
@@ -109,11 +116,17 @@ class Controller
         }
     }
 
-    function utility($segment, $connection)
+    function utility($segment = null, $rawConnection, $connection)
     {
-        if($_SESSION['apicredentials']->active === true && $connection->active == true)
+        if($_SESSION['apicredentials']->active === true)
         {
-
+            if(isset($segment))
+            {
+                if($segment == '')
+                {
+                    
+                }
+            }
         }
         else
         {

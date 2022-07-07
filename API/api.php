@@ -1,5 +1,4 @@
 <?php
-    session_start();
     if(!isset($_SESSION['log']))
     {
         $_SESSION['log'] = array();
@@ -7,6 +6,7 @@
     include("../createConnection.php");
     use Connection\Connection as connect;
     use controller\Controller as control;
+
     if(!isset($_SERVER['PHP_AUTH_USER']) && !isset($_SERVER['PHP_AUTH_USER'])) 
     {
         header('WWW-Authenticate: Basic realm="Authorization"');
@@ -98,14 +98,14 @@
                     if(isset($url[5]))
                     {
                         $segment = $url[4];
-                        echo(json_encode($variable->{$segment}($url[5], $_SESSION['connection'])));
+                        echo(json_encode($variable->{$segment}($url[5], $rawConnection, $connection)));
                     }
                     
                     //gets a batch
                     else
                     {
                         $segment = $url[4];
-                        echo(json_encode($variable->{$segment}($url[4], $_SESSION['connection'])));
+                        echo(json_encode($variable->{$segment}($url[4], $rawConnection, $connection)));
                     }
                 }
             }

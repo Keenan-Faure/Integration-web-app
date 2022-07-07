@@ -21,7 +21,6 @@
     session_start();
     include("createConnection.php");
     use Connection\Connection as connect;
-    
     if(isset($_SESSION['connection']))
     {
         if($_SESSION['connection']->active === true)
@@ -34,7 +33,7 @@
             if(isset($_POST['table']))
             {
                 $connection = new connect();
-                $rawConnection = $connection->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+                $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
                 $query = 'show tables';
                 $output = $connection->converterArray($rawConnection, $query, "Tables_in_" . $_SESSION['connection']->credentials->dbname);
                 if(in_array($_POST['table'], $output))
@@ -55,7 +54,6 @@
                     $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
 
                     echo(json_encode($variable));
-                    header('Refresh:3, url=endpoints.php');
                 }
                 else
                 {
@@ -71,8 +69,8 @@
             if(isset($_POST['selfquery']))
             {
                 $connection = new connect();
-                $rawConnection = $connection->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
-                //creates query
+                $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+                //creates query and trims
                 $query = trim($_POST['selfquery']);
                 
                 $output = $connection->converterObject($rawConnection, $query);
@@ -84,7 +82,7 @@
             if(isset($_POST['checkTable']))
             {
                 $connection = new connect();
-                $rawConnection = $connection->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+                $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
                 
                 //creates query
                 $query = "show tables";
@@ -123,7 +121,7 @@
                     if(isset($_POST['getProductBySKU']) && $_POST['getProductBySKU'])
                     {
                         $connection = new connect();
-                        $rawConnection = $connection->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+                        $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
                         //creates query
                         
                         $query = "SELECT * FROM " . $_SESSION['tablecurrent'] . " WHERE SKU='" . $_POST['getProductBySKU'] . "'";
@@ -136,7 +134,7 @@
                     if(isset($_POST['getProductsBatch']))
                     {
                         $connection = new connect();
-                        $rawConnection = $connection->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+                        $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
                         //creates query
                         
                         $query = "SELECT * FROM " . $_SESSION['tablecurrent'] . " LIMIT 15";
@@ -149,7 +147,7 @@
                     if(isset($_POST['countProduct']))
                     {
                         $connection = new connect();
-                        $rawConnection = $connection->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+                        $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
                         //creates query
                         
                         $query = "SELECT COUNT(*) as 'Count' FROM " . $_SESSION['tablecurrent'];
@@ -188,7 +186,7 @@
                     if(isset($_POST['getCustomerByID']))
                     {
                         $connection = new connect();
-                        $rawConnection = $connection->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+                        $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
                         //creates query
                         
                         $query = "SELECT * FROM " . $_SESSION['tablecurrent'] . " WHERE Name='" . $_POST['getCustomerByID'] . "'";
@@ -201,7 +199,7 @@
                     if(isset($_POST['countCustomer']))
                     {
                         $connection = new connect();
-                        $rawConnection = $connection->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+                        $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
                         //creates query
                         
                         $query = "SELECT COUNT(*) as 'Count' FROM " . $_SESSION['tablecurrent'];
