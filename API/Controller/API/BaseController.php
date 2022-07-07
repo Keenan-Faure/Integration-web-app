@@ -6,6 +6,7 @@ class Controller
 {
     function __call($method, $args)
     {
+        //wont use any of the parameter defined in $method, $args
         $variable = new \stdClass();
         $variable->result = array();
         $variable->error = new \stdClass();
@@ -54,7 +55,8 @@ class Controller
             $variable->routes->utility = new \stdClass();
             $variable->routes->utility->checkConnection = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/checkConnection";
             $variable->routes->utility->checkSN = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/checkSN";
-            $variable->routes->utility->checkTable = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/checkTable";
+            $variable->routes->utility->checkTables = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/checkTables";
+            $variable->routes->utility->checkDatabases = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/checkDatabases";
             $variable->routes->utility->log = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/log";
             $variable->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
 
@@ -63,11 +65,18 @@ class Controller
     }
 
     //handles products endpoints
-    function products($segment = null)
+    function products($segment = null, $connection)
     {
-        if($_SESSION['apicredentials']->active === true)
+        if($_SESSION['apicredentials']->active === true && $connection->active == true)
         {
-            
+            if(isset($segment))
+            {
+                
+            }
+            else
+            {
+
+            }
         }
         else
         {
@@ -82,9 +91,9 @@ class Controller
     }
 
     //handles the customer endpoints
-    function customers()
+    function customers($segment, $connection)
     {
-        if($_SESSION['apicredentials']->active === true)
+        if($_SESSION['apicredentials']->active === true && $connection->active == true)
         {
 
         }
@@ -100,9 +109,9 @@ class Controller
         }
     }
 
-    function utility()
+    function utility($segment, $connection)
     {
-        if($_SESSION['apicredentials']->active === true)
+        if($_SESSION['apicredentials']->active === true && $connection->active == true)
         {
 
         }

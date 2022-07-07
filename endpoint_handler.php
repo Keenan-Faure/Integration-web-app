@@ -72,7 +72,6 @@
             {
                 $connection = new connect();
                 $rawConnection = $connection->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
-                $_SESSION['rawconnection'] = $rawConnection;
                 //creates query
                 $query = trim($_POST['selfquery']);
                 
@@ -86,9 +85,9 @@
             {
                 $connection = new connect();
                 $rawConnection = $connection->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
-                $_SESSION['rawconnection'] = $rawConnection;
+                
                 //creates query
-                $query = "show tables;";
+                $query = "show tables";
                 
                 $output = $connection->converterObject($rawConnection, $query);
                 mysqli_close($rawConnection);
@@ -96,31 +95,35 @@
                 echo(json_encode($output));                
                 exit;
             }
+            if(isset($_POST['checkConnection']))
+            {
+                echo(json_encode($_SESSION['connection']));
+                unset($_POST['checkConnection']);
+                exit();
+            }
+            if(isset($_POST['viewLog']))
+            {
+                echo(json_encode($_SESSION['log']));
+                unset($_POST['viewLog']);
+                exit();
+
+            }
+            if(isset($_POST['visitS2S']))
+            {
+
+                header('Refresh:0,url=https://stock2shop.com');
+                unset($_POST['visitS2S']);
+                exit();
+
+            }
             else
             {
                 if(isset($_SESSION['tablecurrent']))
                 {
-                    if(isset($_POST['checkConnection']))
-                    {
-                        echo(json_encode($_SESSION['connection']));
-                        unset($_POST['checkConnection']);
-                    }
-                    if(isset($_POST['viewLog']))
-                    {
-                        echo(json_encode($_SESSION['log']));
-                        unset($_POST['viewLog']);
-                    }
-                    if(isset($_POST['visitS2S']))
-                    {
-
-                        header('Refresh:0,url=https://stock2shop.com');
-                        unset($_POST['visitS2S']);
-                    }
                     if(isset($_POST['getProductBySKU']) && $_POST['getProductBySKU'])
                     {
                         $connection = new connect();
                         $rawConnection = $connection->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
-                        $_SESSION['rawconnection'] = $rawConnection;
                         //creates query
                         
                         $query = "SELECT * FROM " . $_SESSION['tablecurrent'] . " WHERE SKU='" . $_POST['getProductBySKU'] . "'";
@@ -134,7 +137,6 @@
                     {
                         $connection = new connect();
                         $rawConnection = $connection->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
-                        $_SESSION['rawconnection'] = $rawConnection;
                         //creates query
                         
                         $query = "SELECT * FROM " . $_SESSION['tablecurrent'] . " LIMIT 15";
@@ -148,7 +150,6 @@
                     {
                         $connection = new connect();
                         $rawConnection = $connection->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
-                        $_SESSION['rawconnection'] = $rawConnection;
                         //creates query
                         
                         $query = "SELECT COUNT(*) as 'Count' FROM " . $_SESSION['tablecurrent'];
@@ -188,7 +189,6 @@
                     {
                         $connection = new connect();
                         $rawConnection = $connection->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
-                        $_SESSION['rawconnection'] = $rawConnection;
                         //creates query
                         
                         $query = "SELECT * FROM " . $_SESSION['tablecurrent'] . " WHERE Name='" . $_POST['getCustomerByID'] . "'";
@@ -202,7 +202,6 @@
                     {
                         $connection = new connect();
                         $rawConnection = $connection->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
-                        $_SESSION['rawconnection'] = $rawConnection;
                         //creates query
                         
                         $query = "SELECT COUNT(*) as 'Count' FROM " . $_SESSION['tablecurrent'];
@@ -242,7 +241,6 @@
                     array_push($_SESSION['log'], $variable);
         
                     echo(json_encode($variable));
-                    header('Refresh:3, url=endpoints.php');
                 }
             }
         }
@@ -254,10 +252,8 @@
         $variable->message = 'No connection found in current session, please re-connect';
         $variable->failedPage = 'AP.php';
         $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-        $variable->redirectTime = '3 seconds';
 
         echo(json_encode($variable));
-        header('Refresh:3, url=login.php');
         array_push($_SESSION['log'], $variable);
     }
 

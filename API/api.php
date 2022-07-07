@@ -23,6 +23,7 @@
         include("Controller/API/BaseController.php");
         header("Content-Type: application/json");
         $apiConn = new connect();
+
         $apiConn = $apiConn->connectServer($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'], 'localhost');
         if($apiConn->connection)
         {
@@ -35,7 +36,7 @@
             $_SESSION['apicredentials'] = $variable;
             //saves to log
             $variable = new \stdClass();
-            $variable->message = "Successfully connected to API with: " . $_SESSION['apicredentials']->credentials->token . ": secret_" . $_SESSION['apicredentials']->credentials->secret;
+            $variable->message = "Successfully connected to API";
             $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
             array_push($_SESSION['log'], $variable);
             
@@ -46,7 +47,39 @@
             //then run a function on it.
             if(isset($url[4]))
             {
+                $connection = new connect();
+                $serverConnection = $connection->connectServer($_SESSION['apicredentials']->credentials->token, $_SESSION['apicredentials']->credentials->secret, 'localhost')->rawValue;
+                $query = 'show DATABASES';
+                $output = $connection->converterArray($serverConnection, $query, "Database");
+
+                //closes connection
+                mysqli_close($serverConnection);
+                $knownDbs = array('information_schema', 'mysql', 'performance_schema', 'phpmyadmin', 'test');
+                $output = array_diff($output, $knownDbs);
+
+                //checks if there are more than one Databases on server
+                //only uses the first one...
+                if(sizeof($output) > 1)
+                {
+                    $variable = new \stdClass();
+                    $variable->result = true;
+                    $variable->message = "More than one Database detected";
+                    $variable->currentDatabase = $output[0];
+                    array_push($_SESSION['log'], $variable);
+                }
+                $database = $output[0];
+
+
+                //starts new connection based on the Database taken
+                $connection = new connect();
+                $rawConnection = $connection->createConnection($_SESSION['apicredentials']->credentials->token, $_SESSION['apicredentials']->credentials->secret, 'localhost', $database)->rawValue;
+                //creates query
+                $query = "show tables;";
+                
+                $output = $connection->converterObject($rawConnection, $query);
+
                 $variable = new control();
+                //if the URL length is longer than expected...
                 if(sizeof($url) > 6)
                 {
                     $variable = new \stdClass();
@@ -61,15 +94,18 @@
                 }
                 else
                 {
+                    //uses the 5th arrayField as a search in the database using the 4th arrayField as a reference
                     if(isset($url[5]))
                     {
                         $segment = $url[4];
-                        echo(json_encode($variable->{$segment}($url[5])));
+                        echo(json_encode($variable->{$segment}($url[5], $_SESSION['connection'])));
                     }
+                    
+                    //gets a batch
                     else
                     {
                         $segment = $url[4];
-                        echo(json_encode($variable->{$segment}()));
+                        echo(json_encode($variable->{$segment}($url[4], $_SESSION['connection'])));
                     }
                 }
             }
@@ -97,22 +133,6 @@
 
 <?php
 
-
-    //if they have, then display all endpoints defined in a class/database maybe
-
-    //else rediret user to index.php (api login)
-
-    //fix tables, it has to check if that table exists, if it doesn't it should advise the person to query show tables;
-
-    //scan through the sent URL, if it is what we expect then we can run a function based on that url. We have to create
-    //Another class/file to define these functions, thinking of using Controller to store them in.
-
-    //When setting the table, we need to add a check to confirm if the table has all basic product information, or if one has to be created. We should ask.
-    /*
-        SKU, Title, Description, product code, active field (when if), category, product-type, 
-        Brand, options (name, value), variant code, weight, barcode, price, quantity.
-
-    */
-    
+    //create a new function inside createConnection for the API to connect to, instead of creating a new code each time.
 
 ?>
