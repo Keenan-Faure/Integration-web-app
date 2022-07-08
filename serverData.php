@@ -37,7 +37,22 @@
                     <input type='text' autocomplete="off" class='show' name='dbName' placeholder='Enter Database' required>
                     <br><br>
                     <input class='buttonother' type='submit'>
+                    <br><br>
                 </form>
+                <div class='line'></div>
+                <div class='api'>
+                    <h3>View <b>API</b></h3>
+                    <div class='lineOther'></div>
+                    <div class='container2'>
+                        <p>Documentation</p>
+                    </div>
+                    <div class='container2'>
+                        <p>Download Postman Collection</p>
+                    </div>
+                    <div class='container2'>
+                        <p><?php echo($_SERVER['HTTP_HOST'] . "/MySQL-API/API/api.php");?></p>
+                    </div>
+                </div>
             </div>
         </div>
         <div class = 'background fade-in'>
@@ -53,46 +68,15 @@
                     <br><br>
                     <input type='text' autocomplete="off" class='show' name='dbName' placeholder='Enter Database' id='f4' required>
                     <br><br>
-                    <input class = 'button' type='submit' id='f5'>
+                    <input class='button' type='submit' id='f5'>
                 </form>
                 <form action='output.php'>
                     <?php $_SESSION['clearCache'] = true;?>
                     <button class = 'button buttonclear' id='f6'>Clear Session</button>
                 </form>
-                <div class='log' id='f7'>
-                    <h2 style='color: black'>Log</h2>
-                    <?php    
+                <div class='line' id='f7'></div>
 
-                        class server
-                        {
-                            public $timestamp;
-                            public function checkConnection()
-                            {
-                                if(!isset($_SESSION['connection']))
-                                {
-                                    $this->Logger('No connection found in current session', $_SERVER['REQUEST_TIME']); 
-                                }
-                                if(isset($_SESSION['connection']) and $_SESSION['connection']->active === true)
-                                {
-                                    $this->Logger('Connected to MySQL database successful', $_SERVER['REQUEST_TIME']);
-                                }
-                            }
-                            public function Logger($value, $time)
-                            {
-                                $variable = new \stdClass();
-                                $variable->message = $value;
-                                $variable->timestamp = date('m/d/Y H:i:s', $time);
-                                array_push($_SESSION['log'], $variable);
-                                return($value);
-                            }
-                        }
-                        $server = new server();
-                        $server->checkConnection();
-                    ?>
-                    <form action='log.php' target='_blank'>
-                        <button class='buttonLog'>View Log</button>
-                    </form>
-                </div>
+    
                 <div class='databases' id='c1'>
                     <h3>Available Databases</h3>
                     <div class='lineOther'></div>
@@ -126,6 +110,7 @@
                     $output2 = $connection2->converterArray($rawConnection, $query2, "Tables_in_" . $_SESSION['connection']->credentials->dbname);
                 }
                 echo("<script>createContainer('$output[$p]');</script>");
+                echo("<br>");
             }
         }
         mysqli_close($rawConnection);

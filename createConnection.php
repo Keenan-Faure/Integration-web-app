@@ -181,6 +181,7 @@ class Connection
             {
                 $variable = new \stdClass();
                 $variable->error = $error->getMessage();
+                $variable->query = $query;
                 $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
             }
         }

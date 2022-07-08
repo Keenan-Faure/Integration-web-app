@@ -91,7 +91,7 @@ p
     padding: 4px 12px;
     transition-duration: 0.3s;
     border-radius: 20px;
-    margin-left: 30%;
+    margin-left: 31.5%;
 }
 .button:hover
 {
@@ -115,10 +115,16 @@ p
     left: 50%;
     transform: translate(-50%, -50%);
     top: 55%;
+    border-radius: 25px;
     padding: 20px;
     opacity: 0.9;
     width: 400px;
     height: 600px;
+    transition-duration: 1s;
+}
+.modalContainer:hover
+{
+    background-color: rgba(0,0,0,0.2);
 }
 input[type=text], input[type=password], select
 {
@@ -274,7 +280,7 @@ input[type=text]:focus, input[type=password]:focus
     width: 75%;
     border-radius: 10px;
     position: absolute;
-    top: 75%;
+    top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
     background: rgba(0,0,0,0.5);
@@ -318,4 +324,30 @@ input[type=text]:focus, input[type=password]:focus
 {
     background: rgb(70, 179, 187); 
     border-radius: 30px;
+}
+.api
+{
+    height: 35%;
+    width: 75%;
+    border-radius: 10px;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.5);
+}
+.container2
+{
+    position: relative;
+    width: 98%;
+    top: 5%;
+    border-radius: 5px;
+    height: 15%;
+    left: 1%;
+    background: rgba(84, 164, 179, 0.2);
+    transition-duration: 0.4s;
+}
+.container2:hover
+{
+    background: rgb(100, 194, 194);
 }

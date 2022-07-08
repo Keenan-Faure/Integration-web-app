@@ -155,13 +155,16 @@ class Controller
                 else if($segment == 'utility')
                 {
                     $variable = new \stdClass();
+                    $variable->url = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+                    $variable->description = 'MySql API';
+                    $variable->version = 'v1.0.1';
                     $variable->result = true;
                     $variable->routes = new \stdClass();
                     $variable->routes->utility = new \stdClass();
                     $variable->routes->utility->checkConnection = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/checkConnection";
                     $variable->routes->utility->checkTables = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/checkTables";
                     $variable->routes->utility->checkDatabases = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/checkDatabases";
-                    $variable->routes->utility->log = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/log";
+                    $variable->routes->utility->log = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/viewLog";
                     $variable->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
                     return $variable;
                 }
