@@ -38,7 +38,7 @@ class Controller
             $variable->routes->products->getProducts->accepts_data = false;
 
             $variable->routes->products->countProducts = new \stdClass();
-            $variable->routes->products->countProducts->endpoint = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/count";
+            $variable->routes->products->countProducts->endpoint = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/products/count";
             $variable->routes->products->countProducts->accepts_data = false;
             //$variable->routes->products->addProduct
 
@@ -49,7 +49,7 @@ class Controller
             $variable->routes->customers->getCustomerById->accepts_data = true;
 
             $variable->routes->customers->countCustomers = new \stdClass();
-            $variable->routes->customers->countCustomers->endpoint = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/count";
+            $variable->routes->customers->countCustomers->endpoint = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/customers/count";
             $variable->routes->customers->countCustomers->accepts_data = false;
 
             $variable->routes->utility = new \stdClass();
@@ -72,6 +72,12 @@ class Controller
         {
             if(isset($segment))
             {
+                if($segment == 'count')
+                {
+                    $query = "SELECT COUNT(*) FROM Inventory";
+                    $output = $connection->converterObject($rawConnection, $query);
+                    return $output;
+                }
                 $query = "SELECT * FROM Inventory" . " WHERE SKU='" . $segment . "'";
                 $output = $connection->converterObject($rawConnection, $query);
                 return $output;
@@ -100,9 +106,24 @@ class Controller
     {
         if($_SESSION['apicredentials']->active === true)
         {
-            $query = "SELECT * FROM Client" . " WHERE ID='" . $segment . "'";
-            $output = $connection->converterObject($rawConnection, $query);
-            return $output;
+            if(isset($segment))
+            {
+                if($segment == 'count')
+                {
+                    $query = "SELECT COUNT(*) FROM Client";
+                    $output = $connection->converterObject($rawConnection, $query);
+                    return $output;
+                }
+                $query = "SELECT * FROM Client WHERE Name='" . $segment . "'";
+                $output = $connection->converterObject($rawConnection, $query);
+                return $output;
+            }
+            else
+            {
+                $query = "SELECT * FROM Client LIMIT 15";
+                $output = $connection->converterObject($rawConnection, $query);
+                return $output;
+            }
         }
         else
         {
@@ -114,13 +135,14 @@ class Controller
             
             return $variable;
         }
+        
     }
 
     function utility($segment = null, $rawConnection, $connection)
     {
         if($_SESSION['apicredentials']->active === true)
         {
-            if(isset($segment) && $segment != null)
+            if(isset($segment))
             {
                 if($segment == 'checkConnection')
                 {
@@ -152,22 +174,6 @@ class Controller
                     $output = $connection->converterObject($rawConnection, $query);
                     return $output;;
                 }
-                else if($segment == 'utility')
-                {
-                    $variable = new \stdClass();
-                    $variable->url = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-                    $variable->description = 'MySql API';
-                    $variable->version = 'v1.0.1';
-                    $variable->result = true;
-                    $variable->routes = new \stdClass();
-                    $variable->routes->utility = new \stdClass();
-                    $variable->routes->utility->checkConnection = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/checkConnection";
-                    $variable->routes->utility->checkTables = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/checkTables";
-                    $variable->routes->utility->checkDatabases = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/checkDatabases";
-                    $variable->routes->utility->log = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/viewLog";
-                    $variable->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-                    return $variable;
-                }
                 else
                 {
                     $variable = new \stdClass();
@@ -179,8 +185,17 @@ class Controller
             else
             {
                 $variable = new \stdClass();
-                $variable->connection = false;
-                $variable->error = "Incorrect endpoint entered";
+                $variable->url = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+                $variable->description = 'MySql API';
+                $variable->version = 'v1.0.1';
+                $variable->result = true;
+                $variable->routes = new \stdClass();
+                $variable->routes->utility = new \stdClass();
+                $variable->routes->utility->checkConnection = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/checkConnection";
+                $variable->routes->utility->checkTables = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/checkTables";
+                $variable->routes->utility->checkDatabases = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/checkDatabases";
+                $variable->routes->utility->viewLog = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/viewLog";
+                $variable->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
                 return $variable;
             }
         }

@@ -105,7 +105,7 @@
                     else
                     {
                         $segment = $url[4];
-                        echo(json_encode($variable->{$segment}($url[4], $rawConnection, $connection)));
+                        echo(json_encode($variable->{$segment}(null, $rawConnection, $connection)));
                     }
                 }
             }
