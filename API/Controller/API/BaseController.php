@@ -12,7 +12,7 @@ class Controller
         $variable->error = new \stdClass();
         $variable->error->errorcode = 404;
         $variable->error->errormessage = 'HTTP/1.1 404 Not Found';
-
+        header('HTTP/1.0 404 Not Found');
         return $variable;
     }
 
@@ -120,18 +120,71 @@ class Controller
     {
         if($_SESSION['apicredentials']->active === true)
         {
-            if(isset($segment))
+            if(isset($segment) && $segment != null)
             {
-                if($segment == '')
+                if($segment == 'checkConnection')
                 {
-                    
+                    return $connection;
                 }
+                elseif($segment == 'viewLog')
+                {
+                    $variable = new \stdClass();
+                    $variable->result = true;
+                    $variable->log = $_SESSION['log'];
+                    return $variable;
+                }
+                else if($segment == 'visitS2S')
+                {
+                    header('Refresh:0, url=https://Stock2Shop.com');
+                    $variable = new \stdClass();
+                    $variable->message = 'Redirecting...';
+                    return $variable;
+                }
+                else if($segment == 'checkTables')
+                {
+                    $query = "show tables";
+                    $output = $connection->converterObject($rawConnection, $query);
+                    return $output;
+                }
+                else if($segment == 'checkDatabases')
+                {
+                    $query = "show Databases";
+                    $output = $connection->converterObject($rawConnection, $query);
+                    return $output;;
+                }
+                else if($segment == 'utility')
+                {
+                    $variable = new \stdClass();
+                    $variable->result = true;
+                    $variable->routes = new \stdClass();
+                    $variable->routes->utility = new \stdClass();
+                    $variable->routes->utility->checkConnection = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/checkConnection";
+                    $variable->routes->utility->checkTables = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/checkTables";
+                    $variable->routes->utility->checkDatabases = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/checkDatabases";
+                    $variable->routes->utility->log = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/log";
+                    $variable->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+                    return $variable;
+                }
+                else
+                {
+                    $variable = new \stdClass();
+                    $variable->connection = false;
+                    $variable->error = "Incorrect endpoint entered";
+                    return $variable;
+                }
+            }
+            else
+            {
+                $variable = new \stdClass();
+                $variable->connection = false;
+                $variable->error = "Incorrect endpoint entered";
+                return $variable;
             }
         }
         else
         {
             $variable = new \stdClass();
-            $variable->connection = false;
+            $variable->result = false;
             $variable->error = "Failed to connect to API";
             $variable->message = "Either no credentials were entered, or incorrect matches were given";
             $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
@@ -139,8 +192,6 @@ class Controller
             return $variable;
         }
     }
-
-
 }
 
 ?>
