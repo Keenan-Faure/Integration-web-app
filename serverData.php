@@ -49,9 +49,6 @@
                     <div class='container2'>
                         <p>Download Postman Collection</p>
                     </div>
-                    <div class='container2'>
-                        <p><?php echo($_SERVER['HTTP_HOST'] . "/MySQL-API/API/api.php");?></p>
-                    </div>
                 </div>
             </div>
         </div>

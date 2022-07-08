@@ -290,6 +290,7 @@ input[type=text]:focus, input[type=password]:focus
     position: relative;
     width: 98%;
     top: 5%;
+    margin-top: 5px;
     border-radius: 5px;
     height: 15%;
     left: 1%;
@@ -340,7 +341,9 @@ input[type=text]:focus, input[type=password]:focus
 {
     position: relative;
     width: 98%;
+    cursor: pointer;
     top: 5%;
+    margin-top: 5px;
     border-radius: 5px;
     height: 15%;
     left: 1%;
