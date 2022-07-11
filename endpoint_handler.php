@@ -79,7 +79,7 @@
                 echo(json_encode($output));                
                 exit;
             }
-            if(isset($_POST['checkTable']))
+            if(isset($_POST['checkTables']))
             {
                 $connection = new connect();
                 $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;

@@ -20,7 +20,6 @@
                         <button type = 'submit' class='enter'>Submit</button>
                 </form>
             </div>
-
             <h1>Available Endpoints</h1>
             <div class='line'></div>
             <img src='./Images/custom.png' title = "Query custom Sql" class='custom'>
@@ -35,8 +34,7 @@
                     <br><br>
                     <button name='visitS2S' class='button' id='b3'><p class='buttonText'>Visit Stock2Shop</p></button>
                     <br><br>
-                    <button name='checkTable' class='button' id='b4'><p class='buttonText'>Check Tables in Database</p></button>
-
+                    <button name='checkTables' class='button' id='b4'><p class='buttonText'>Check Tables in Database</p></button>
                 </form>
             </div>
 
