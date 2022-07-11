@@ -43,7 +43,7 @@
                 <div class='api'>
                     <h3>View <b>API</b></h3>
                     <div class='lineOther'></div>
-                    <div class='container2'>
+                    <div class='container2' onclick='window.location.href="API/document.html"'>
                         <p>Documentation</p>
                     </div>
                     <div class='container2'>
