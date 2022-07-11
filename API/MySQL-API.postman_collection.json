@@ -1,0 +1,280 @@
+{
+	"info": {
+		"_postman_id": "38ca04f9-a9cc-456b-b9ab-3edb49344609",
+		"name": "MySQL-API",
+		"description": "**Overview**\n\nJSON based REST-ful API that connects to a MySQL Database situated on the host machine.\n\n**Requirements**\n\n*   User must set Authorisation to **Basic Auth** and have valid credentials with which they use to connect to the Database.\n*   User must set up the **BaseURL** in the **Variables** section of this collection and change the Current Value to the respective IP address.\n    \n\nAvailable Method Types\n\n*   GET\n*   POST\n    \n\nAvailable Endpoints\n\n*   GET Utility\n*   GET Products\n*   GET Client",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19641787"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "GET Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{IP}}{{BaseURL}}/api.php/products",
+							"host": [
+								"{{IP}}{{BaseURL}}"
+							],
+							"path": [
+								"api.php",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ProductBySKU",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{IP}}{{BaseURL}}/api.php/products/{{sku}}",
+							"host": [
+								"{{IP}}{{BaseURL}}"
+							],
+							"path": [
+								"api.php",
+								"products",
+								"{{sku}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Count",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{IP}}{{BaseURL}}/api.php/products/count",
+							"host": [
+								"{{IP}}{{BaseURL}}"
+							],
+							"path": [
+								"api.php",
+								"products",
+								"count"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "**Products**\n\nFolder containing Product related endpoints such as:\n\n*   GET Products\n*   Get ProductsBySKU\n*   Get Count\n    \n\n**Functionality**\n\n**Get Products** - Returns a maximum of 15 Products from the Inventory Table\n\n**Get ProductsBySKU** - Returns a specific product queried by the SKU\n\nGet Count - returns the amount of products in the Inventory Table"
+		},
+		{
+			"name": "Customers",
+			"item": [
+				{
+					"name": "GET Customers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{IP}}{{BaseURL}}/api.php/customers",
+							"host": [
+								"{{IP}}{{BaseURL}}"
+							],
+							"path": [
+								"api.php",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET CustomersByName",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{IP}}{{BaseURL}}/api.php/customers/{{name}}",
+							"host": [
+								"{{IP}}{{BaseURL}}"
+							],
+							"path": [
+								"api.php",
+								"customers",
+								"{{name}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Count",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{IP}}{{BaseURL}}/api.php/customers/count",
+							"host": [
+								"{{IP}}{{BaseURL}}"
+							],
+							"path": [
+								"api.php",
+								"customers",
+								"count"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "**Customers**\n\nFolder containing Product related endpoints such as:\n\n*   GET Customer\n*   Get CustomersByName\n*   Get Count\n    \n\n**Functionality**\n\n**Get Customers** - Returns a maximum of 15 Customers from the Client Table\n\n**Get CustomersByID** - Returns a specific customer queried by the SKU\n\n**Get Count** - returns the amount of customers in the Client Table"
+		},
+		{
+			"name": "Utility",
+			"item": [
+				{
+					"name": "GET Utility",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{IP}}{{BaseURL}}/api.php/utility",
+							"host": [
+								"{{IP}}{{BaseURL}}"
+							],
+							"path": [
+								"api.php",
+								"utility"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET checkConnection",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{IP}}{{BaseURL}}/api.php/utility/checkConnection",
+							"host": [
+								"{{IP}}{{BaseURL}}"
+							],
+							"path": [
+								"api.php",
+								"utility",
+								"checkConnection"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET viewLog",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{IP}}{{BaseURL}}/api.php/utility/viewLog",
+							"host": [
+								"{{IP}}{{BaseURL}}"
+							],
+							"path": [
+								"api.php",
+								"utility",
+								"viewLog"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET viewTables",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{IP}}{{BaseURL}}/api.php/utility/checkTables",
+							"host": [
+								"{{IP}}{{BaseURL}}"
+							],
+							"path": [
+								"api.php",
+								"utility",
+								"checkTables"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "**Customers**\n\nFolder containing Utility related endpoints such as:\n\n*   GET checkConnection\n*   Get viewLog\n*   Get viewTables\n    \n\n**Functionality**\n\n**Get checkConnection** - returns the current session connection\n\n**Get viewLog** - returns the current Log of the session.\n\n**Get viewTables** - returns all the tables in the current Database; **First database is selected as the primary one**."
+		},
+		{
+			"name": "GET Endpoints",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{IP}}{{BaseURL}}/api.php",
+					"host": [
+						"{{IP}}{{BaseURL}}"
+					],
+					"path": [
+						"api.php"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "kl",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "Keenan",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "IP",
+			"value": "192.168.64.3",
+			"type": "string"
+		},
+		{
+			"key": "BaseURL",
+			"value": "/MySQL-API/API",
+			"type": "string"
+		}
+	]
+}
