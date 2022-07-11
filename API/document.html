@@ -4,8 +4,83 @@
     </head>
     <body>
         <div class="background">
-            <h1>Documentation to MySQL-API</h1>
+            <h1>API Documentation</h1>
             <div class="line"></div>
+            <div class="content">
+                <h2>Overview</h2>
+                <div class="endpoints">
+                    <ul>
+                        <li>JSON based <b>REST-ful</b> API that connects to a MySQL Database situated on the host machine.</li>
+                    </ul>
+                </div>
+                <h2>Requirements</h2>
+                <div class="endpoints">
+                    <ul>
+                        <li>User must set Authorisation to <b>Basic Auth</b> and have valid credentials with which they use to connect to the Database.</li>
+                        <li>User must set up the <b>BaseURL</b> in the <b>Variables</b> section of this collection and change the Current Value to the respective IP address.</li>
+                    </ul>
+                </div>
+                <h2>Available Method Types</h2>
+                <div class="endpoints">
+                    <ul>
+                        <li>GET</li>
+                        <li>POST</li>
+                    </ul>
+                </div>
+                <h2>Available Endpoints</h2>
+                <div class="endpoints">
+                    <ul>
+                        <li>GET Utility</li>
+                        <li>GET Products</li>
+                        <li>GET Client</li>
+                    </ul>
+                </div>
+                <h2>Products</h2>
+                <div class="endpoints">
+                    <p>Folder containing Product related endpoints such as</p>
+                    <ul>
+                        <li>GET Products</li>
+                        <li>Get ProductsBySKU</li>
+                        <li>Get Count</li>
+                    </ul>
+                    <p>Functionality</p>
+                    <ul>
+                        <li>GET Products - Returns a maximum of <b>15</b> Products from the Inventory Table</li>
+                        <li>Get ProductsBySKU - Returns a specific product queried by the SKU</li>
+                        <li>Get Count - returns the amount of products in the Inventory Table</li>
+                    </ul>
+                </div>
+                <h2>Customers</h2>
+                <div class="endpoints">
+                    <p>Folder containing Customer related endpoints such as</p>
+                    <ul>
+                        <li>GET Customers</li>
+                        <li>Get CustomerByID</li>
+                        <li>Get Count</li>
+                    </ul>
+                    <p>Functionality</p>
+                    <ul>
+                        <li>GET Customer - Returns a maximum of <b>15</b> Customers from the Client Table</li>
+                        <li>Get CustomerByID - Returns a specific product queried by the ID</li>
+                        <li>Get Count - returns the amount of customers in the Client Table</li>
+                    </ul>
+                </div>
+                <h2>Utility</h2>
+                <div class="endpoints">
+                    <p>Folder containing Utility endpoints</p>
+                    <ul>
+                        <li>GET checkConnection</li>
+                        <li>Get viewLog</li>
+                        <li>Get viewTables</li>
+                    </ul>
+                    <p>Functionality</p>
+                    <ul>
+                        <li>GET checkConnection - Returns the current session connection</li>
+                        <li>Get viewLog - Returns the current Log of the session.</li>
+                        <li>Get viewTables - eturns all the tables in the current Database; <b>First database is selected as the primary one.</b></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </body>
 </html>
