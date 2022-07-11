@@ -347,6 +347,7 @@ input[type=text]:focus, input[type=password]:focus
     border-radius: 5px;
     height: 15%;
     left: 1%;
+    text-decoration: none;
     background: rgba(84, 164, 179, 0.2);
     transition-duration: 0.4s;
 }

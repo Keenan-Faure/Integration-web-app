@@ -46,9 +46,9 @@
                     <div class='container2' onclick='window.location.href="API/document.html"'>
                         <p>Documentation</p>
                     </div>
-                    <div class='container2'>
+                    <a style='text-decoration: none' href='API/API-collection.json' download='collection'><div class='container2'>
                         <p>Download Postman Collection</p>
-                    </div>
+                    </div></a>
                 </div>
             </div>
         </div>
