@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <link rel='stylesheet' href='Styles/addItem.css'>
+    </head>
+    <body>
+        <div class='backgroundtwo'>
+        <h1>Add Customers</h1>
+            <div class='line'></div>
+            <div class='next2'onclick=swap2()>
+            </div>
+            <div class='nextBtn2'><</div>
+            <div class="modalContainer">
+                <form method='post' action='connect.php' target='endpoints.php'>
+                    <input type='text' autocomplete="off" class='show' name='Title' required>
+
+                    <textarea autocomplete="off" class='show' name='Description'required></textarea>
+                    
+                    <input class='buttonother' type='submit'>
+                </form>
+            </div>
+        </div>
+        <div class = 'background fade-in'>
+        <div class = 'background-cover'>
+            <h1 id='header1'>Add Products</h1>
+            <div class='line' id='line'></div>
+            <div class='next' onclick=swap()>
+            </div>
+            <div class='nextBtn'>></div>
+            <div class="modalContainer">
+                <form method='post' action='output.php' target='_blank'>
+                    <div class="containerText">Title</div>
+                    <div class="line"></div>
+                    <input type='text' autocomplete="off" class='show' name='title' required>
+                    
+                    <div class="containerText">Long Description</div>
+                    <div class="line"></div>
+                    <textarea type='text' autocomplete="off" class='show' name='description'></textarea>
+                    
+                    <div class="containerText">Category</div>
+                    <div class="line"></div>
+                    <input type='text' autocomplete="off" class='show' name='category'></input>
+
+                    <input class='button' type='submit' id='f5'>
+                </form>
+            </div>
+        </div>
+        </div>
+    </body>
+
+
+    <script src='script4.js'></script>
+</html>
