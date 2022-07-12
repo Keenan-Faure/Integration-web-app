@@ -85,23 +85,3 @@ b
     left: 3%;
     top: 2%;
 }
-.head
-{
-    width: 15%;
-    position: absolute;
-    border-radius: 15px;
-    height: 90%;
-    top: 5%;
-    left: 3%;
-    background-color: blue;
-}
-.bodyy
-{
-    width: 75%;
-    position: absolute;
-    border-radius: 15px;
-    height: 90%;
-    top: 5%;
-    right: 4%;
-    background-color: black;
-}
