@@ -110,6 +110,9 @@
                 echo("<br>");
             }
         }
-        mysqli_close($rawConnection);
+        if(isset($rawConnection))
+        {
+            mysqli_close($rawConnection);
+        }
     ?>
 </html>

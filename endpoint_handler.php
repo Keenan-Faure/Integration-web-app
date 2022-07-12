@@ -180,7 +180,10 @@
                     }
                     if(isset($_POST['addProduct']))
                     {
-                        echo("adding product needs redirect");
+                        $variable = new \stdClass();
+                        $variable->message = "Redirecting...";
+                        echo(json_encode($variable));
+                        header("Refresh:2, url=addItem.html");
                         unset($_POST['addProduct']);
                     }
                     if(isset($_POST['getCustomerByID']))
