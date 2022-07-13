@@ -98,7 +98,7 @@ if(!isset($_SESSION['tablecurrent']))
 
 include("createConnection.php");
 use Connection\Connection as connect;
-if(isset($_SESSION['rawConnection']) && isset($_SESSION['connection']))
+if(isset($_SESSION['rawconnection']) && isset($_SESSION['connection']))
 {
     $rawConnection = $_SESSION['rawconnection'];
     if(isset($_SESSION['credentials']) && $_SESSION['credentials']->active == true)
