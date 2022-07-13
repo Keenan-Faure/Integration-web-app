@@ -27,26 +27,26 @@
             <div class='nextBtn'>></div>
             </div>
             <div class="modalContainer">
-                <form method='post' action='output.php' target='_blank'>
+                <form method='post' action='output.php' target='_blank' id="'variable">
                     <div class="containerText">Title</div>
                     <div class="line"></div>
-                    <input type='text' id = 'title' autocomplete="off" class='show' name='title' required>
+                    <input type='text' id = 'title' autocomplete="off" class='show' name='title' title='title for your product' required>
                     
                     <div class="containerText">Long Description</div>
                     <div class="line"></div>
-                    <textarea type='text' autocomplete="off" class='show' name='description'></textarea>
+                    <textarea type='text' autocomplete="off" class='show' name='description' title="can include HTML markup"></textarea>
                     
                     <div class="containerText">Category & Type</div>
                     <div class="line"></div>
                     <input type='text' id='category' autocomplete="off" class='show' placeholder = "Category" name='category'></input>
-                    <input type='text' id='p-type' autocomplete="off" placeholder = "Product Type" class='show' name='product-type'></input>
+                    <input type='text' id='p-type' autocomplete="off" placeholder = "Product Type" class='show' name='product-type' category="sub-category"></input>
 
                     <div class="containerText">Brand</div>
                     <div class="line"></div>
-                    <input type='text' id = 'brand' autocomplete="off" placeholder='Brand' class='show' name='title' required>
+                    <input type='text' id = 'brand' autocomplete="off" placeholder='Brand' class='show' name='title' title='vendor' required>
 
                     <div class="containerText"></div>
-                    <div class="naming">SKU <input type='text' id = 'other' autocomplete="off" class='show' name='sku' required></div>
+                    <div class="naming">SKU <input type='text' id = 'other' autocomplete="off" class='show' name='sku' title='unique' required></div>
 
                     <div class="containerText"></div>
                     <div class="naming">Grouping Code <input type='text' id = 'codes' autocomplete="off" class='show' name='grouping_cpde' required></div>
@@ -57,11 +57,36 @@
                     <div class="containerText"></div>
                     <div class="naming">Barcode <input type='text' id = 'other' autocomplete="off" class='show' name='barcode'></div>
 
+                    <div class="containerText"></div>
+                    <div class="namingS">Weight (g) <input type='text' id = 'weight' placeholder='Amount' autocomplete="off" class='show' name='weight'></div>
                     
-                    
+                    <div class="containerText"></div>
+                    <div class="namingS">Price (R)<input type='text' id = 'weight' placeholder='Amount' autocomplete="off" class='show' name='price'></div>
+
+                    <div class="containerText"></div>
+                    <div class="namingSS">
+                        Warehouse Name<input type='text' id = 'options' placeholder='Name' autocomplete="off" class='show' name='option1' title="Maximum one warehouse">
+                        <br>
+                        Quantity<input type='text' id = 'options' placeholder='Amount' autocomplete="off" class='show' name='option1'>
+                    </div>
 
 
+                    <div class="containerText"></div>
+                    <div class="namingSS">
+                        Option Name<input type='text' id = 'options' placeholder='Name' autocomplete="off" class='show' name='option1' required>
+                        <br>
+                        Option Value<input type='text' id = 'options' placeholder='Value' autocomplete="off" class='show' name='option1' required>
+                    </div>
+
+                    <div class="containerText"></div>
+                    <div class="namingSS">
+                        Option Name<input type='text' id = 'options' placeholder='name' autocomplete="off" class='show' name='option1'>
+                        <br>
+                        Option Value<input type='text' id = 'options' placeholder='Value' autocomplete="off" class='show' name='option1'>
+                    </div>
                     
+
+                    <input class='button' type='submit'>
                 </form>
             </div>
             </div>
