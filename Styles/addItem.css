@@ -3,6 +3,8 @@ body
     margin: 0;
     font-family: 'Arial, Helvetica, sans-serif';
     background: rgb(0, 0, 0);
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 h1
 {
@@ -57,7 +59,6 @@ p
     height: 16%;
     font-size: 18px;
     border-radius: 20px 7px 7px 20px ;
-    overflow: auto;
     padding-left: 10px;
     padding-right: 10px;
     padding-bottom: 10px;
@@ -127,7 +128,6 @@ p
     padding: 20px;
     opacity: 0.9;
     width: 400px;
-    height: 1200px;
     transition-duration: 1s;
 }
 .modalContainer:hover
@@ -204,7 +204,21 @@ textarea
 }
 #other
 {
-    width: 50%;
+    width: 75%;
+    left: 10%;
+    position: relative;
+    border-radius: 20px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-shadow: 1px 2px 6px #888888;
+    background-color: #f1f1f1;
+    margin: 8px 0;
+    padding: 12px 20px;
+    box-sizing: border-box;
+}
+#codes
+{
+    width: 60%;
     left: 10%;
     position: relative;
     border-radius: 20px;
@@ -218,15 +232,16 @@ textarea
 }
 .naming
 {
-    width: 40%;
+    width: 98%;
     left: 0%;
     position: relative;
     border-radius: 5px;
     display: inline-block;
-    text-align: center;
+    text-align: left;
+    color: black;
     border: 1px solid #ccc;
+    background-color: rgba(241,241,241);
     box-shadow: 1px 2px 6px #888888;
-    background-color: #f1f1f1;
     padding: 12px 20px;
     box-sizing: border-box;
 }
