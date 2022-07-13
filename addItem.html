@@ -20,30 +20,45 @@
             </div>
         </div>
         <div class = 'background fade-in'>
-        <div class = 'background-cover'>
-            <h1 id='header1'>Add Products</h1>
-            <div class='line' id='line'></div>
-            <div class='next' onclick=swap()>
-            </div>
+            <div class="overlay">
+                <h1 id='header1'>Add simple products</h1>
+                <div class='line' id='line'></div>
+                <div class='next' onclick=swap()></div>
             <div class='nextBtn'>></div>
+            </div>
             <div class="modalContainer">
                 <form method='post' action='output.php' target='_blank'>
                     <div class="containerText">Title</div>
                     <div class="line"></div>
-                    <input type='text' autocomplete="off" class='show' name='title' required>
+                    <input type='text' id = 'title' autocomplete="off" class='show' name='title' required>
                     
                     <div class="containerText">Long Description</div>
                     <div class="line"></div>
                     <textarea type='text' autocomplete="off" class='show' name='description'></textarea>
                     
-                    <div class="containerText">Category</div>
+                    <div class="containerText">Category & Type</div>
                     <div class="line"></div>
-                    <input type='text' autocomplete="off" class='show' name='category'></input>
+                    <input type='text' id='category' autocomplete="off" class='show' placeholder = "Category" name='category'></input>
+                    <input type='text' id='p-type' autocomplete="off" placeholder = "Product Type" class='show' name='product-type'></input>
 
-                    <input class='button' type='submit' id='f5'>
+                    <div class="containerText">Brand</div>
+                    <div class="line"></div>
+                    <input type='text' id = 'brand' autocomplete="off" placeholder='Brand' class='show' name='title' required>
+
+                    <div class="containerText"></div>
+                    <div class="line"></div>
+                    <div class="naming">SKU</div>
+                    <input type='text' id = 'other' autocomplete="off" placeholder='SKU' class='show' name='title' required>
+
+                    
+                    
+
+
+                    
                 </form>
             </div>
-        </div>
+            </div>
+
         </div>
     </body>
 

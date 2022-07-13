@@ -79,45 +79,65 @@ p
     transition-duration: 0.3s;
     border-radius: 20px;
 }
-.buttonother
-{
-    width: 140px;
-    height: 28px;
-    border: rgb(194, 194, 194);
-    opacity: 0.9;
-    background-color: #f1f1f1;
-    color: black;
-    cursor: pointer;
-    padding: 4px 12px;
-    transition-duration: 0.3s;
-    border-radius: 20px;
-    margin-left: 31.5%;
-}
 .button:hover
 {
     border: rgb(194, 194, 194)
 }
+.overlay
+{
+    width: 100%;
+    left: 50%;
+    top: 5%;
+    transform: translate(-50%, -50%);
+    position: relative;
+    height: 80px;
+}
+.buttonOption
+{
+    position: relative;
+    width: 100%;
+    height: 30px;
+    text-align: center;
+    font-size: 20px;
+    text-shadow: 1px 2px 6px rgb(0 0 0);
+    color: white;
+    width: 140px;
+    height: 35px;
+    border: rgb(194, 194, 194);
+    margin-left: 10%;
+    margin-top: 5%;
+    opacity: 0.9;
+    background-color: #10a5aa;
+    color: black;
+    cursor: pointer;
+    transition-duration: 0.7s;
+    border-radius: 20px;
+}
+.buttonOption:hover
+{
+    background-color: #15ce87;
+}
 
 .modalContainer
 {
-    position: fixed;
+    position: relative;
     left: 50%;
-    transform: translate(-50%, -50%);
-    top: 55%;
+    transform: translate(-50%, 0%);
     border-radius: 25px;
     padding: 20px;
     opacity: 0.9;
     width: 400px;
-    height: 600px;
+    height: 1200px;
     transition-duration: 1s;
 }
 .modalContainer:hover
 {
     background-color: rgba(0,0,0,0.2);
 }
-input[type=text], input[type=password]
+#title
 {
     width: 100%;
+    position: relative;
     border-radius: 20px;
     display: inline-block;
     border: 1px solid #ccc;
@@ -131,12 +151,82 @@ textarea
 {
     width: 100%;
     height: 150px;
+    position: relative;
     border-radius: 20px;
     display: inline-block;
     border: 1px solid #ccc;
     box-shadow: 1px 2px 6px #888888;
     background-color: #f1f1f1;
     margin: 8px 0;
+    padding: 12px 20px;
+    box-sizing: border-box;
+}
+#category
+{
+    width: 40%;
+    position: relative;
+    left: 5%;
+    border-radius: 20px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-shadow: 1px 2px 6px #888888;
+    background-color: #f1f1f1;
+    margin: 8px 0;
+    padding: 12px 20px;
+    box-sizing: border-box;
+}
+#p-type
+{
+    width: 40%;
+    left: 15%;
+    position: relative;
+    border-radius: 20px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-shadow: 1px 2px 6px #888888;
+    background-color: #f1f1f1;
+    padding: 12px 20px;
+    box-sizing: border-box;
+}
+#brand
+{
+    width: 80%;
+    left: 10%;
+    position: relative;
+    border-radius: 20px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-shadow: 1px 2px 6px #888888;
+    background-color: #f1f1f1;
+    margin: 8px 0;
+    padding: 12px 20px;
+    box-sizing: border-box;
+}
+#other
+{
+    width: 50%;
+    left: 10%;
+    position: relative;
+    border-radius: 20px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-shadow: 1px 2px 6px #888888;
+    background-color: #f1f1f1;
+    margin: 8px 0;
+    padding: 12px 20px;
+    box-sizing: border-box;
+}
+.naming
+{
+    width: 40%;
+    left: 0%;
+    position: relative;
+    border-radius: 5px;
+    display: inline-block;
+    text-align: center;
+    border: 1px solid #ccc;
+    box-shadow: 1px 2px 6px #888888;
+    background-color: #f1f1f1;
     padding: 12px 20px;
     box-sizing: border-box;
 }
@@ -157,12 +247,12 @@ input[type=text]:focus, input[type=password]:focus
 {
     background-image: url('../Images/add.png');
     background-size: cover;
-    position: absolute;
+    position: fixed;
     top: 0;
     background-position: left;
     width: 100%;
     height: 100%;
-    overflow: hidden;
+    overflow: auto;
 }
 .backgroundtwo
 {
@@ -178,7 +268,7 @@ input[type=text]:focus, input[type=password]:focus
 .background-cover
 {
     height: 100%;
-    position: absolute;
+    position: fixed;
     top: 0;
     width: 100%;
     background-color: rgba(0,0,0,0.2);
@@ -235,7 +325,7 @@ input[type=text]:focus, input[type=password]:focus
 }
 .nextBtn
 {
-    top: 50%;
+    top: 40%;
     position: absolute;
     right: -22px;
     width: 50px;
@@ -269,9 +359,13 @@ input[type=text]:focus, input[type=password]:focus
 {
     position: relative;
     width: 100%;
-    height: 5%;
+    height: 30px;
     text-align: center;
     font-size: 20px;
-    text-shadow: 1px 2px 6px rgb(0,0,0);
+    text-shadow: 1px 2px 6px rgb(0 0 0);
     color: white;
+}
+::placeholder
+{
+    text-align: center;
 }

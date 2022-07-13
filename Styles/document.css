@@ -44,14 +44,13 @@ h2
 }
 .content
 {
-    position: absolute;
+    position: relative;
     width: 60%;
     border-radius: 20px;
     height: 1900px;
     background-color: rgba(0,0,0,0.4);
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 0%);
     left: 50%;
-    top: 135%;
 }
 li
 {
