@@ -30,6 +30,18 @@
                 echo('<div class="errors"><p>Error occurred: No endpoint selected, please return</p></div>');
                 header('Refresh:2, url=endpoints.php');
             }
+            if(isset($_POST['addCustomer']))
+            {
+                header("Refresh:0, url=addCustomer.html");
+                unset($_POST['addCustomer']);
+                exit();
+            }
+            if(isset($_POST['addProduct']))
+            {
+                header("Refresh:0, url=addItem.html");
+                unset($_POST['addProduct']);
+                exit();
+            }
             if(isset($_POST['table']))
             {
                 $connection = new connect();
@@ -113,22 +125,6 @@
                 unset($_POST['visitS2S']);
                 exit();
 
-            }
-            if(isset($_POST['addCustomer']))
-            {
-                echo("add a customer to the database");
-                unset($_POST['addCustomer']);
-                
-                exit();
-            }
-            if(isset($_POST['addProduct']))
-            {
-                $variable = new \stdClass();
-                $variable->message = "Redirecting...";
-                echo(json_encode($variable));
-                header("Refresh:2, url=addItem.html");
-                unset($_POST['addProduct']);
-                exit();
             }
             else
             {

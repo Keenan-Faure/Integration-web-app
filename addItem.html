@@ -9,13 +9,15 @@
             <div class="errors"><p class="align">Hover for more information</p></div>
         </div>
         <div class='backgroundtwo'>
-        <h1>Add simple products</h1>
-            <div class='line'></div>
+            <div class="overlay">
+                <h1>Add simple products</h1>
+                <div class='line'></div>
+            </div>
             <div class='next2'onclick=swap2()>
             </div>
             <div class='nextBtn2'><</div>
             <div class="modalContainer">
-                <form method='post' action='output.php' target='_blank' id="'variable">
+                <form method='post' action='output.php' target='_blank' id="simple">
                     <div class="containerText">Title</div>
                     <div class="line"></div>
                     <input type='text' id = 'title' autocomplete="off" class='show' name='title' title='title for your product' required>
@@ -48,17 +50,27 @@
                     <div class="containerText"></div>
                     <div class="namingS">Weight (g) <input type='text' id = 'weight' placeholder='Amount' autocomplete="off" class='show' name='weight'></div>
                     
+                    <div class="containerText"></div>
                     <div class="namingSS">
-                        Cost Price<input type='text' id = 'options' autocomplete="off" class='show' name='CostPrice' required>
+                        Cost Price (R)<input type='text' id = 'options' autocomplete="off" class='show' name='CostPrice' required>
                         <br>
-                        Selling Price<input type='text' id = 'options' autocomplete="off" class='show' name='SellingPrice' required>
+                        Selling Price (R)<input type='text' id = 'options' autocomplete="off" class='show' name='SellingPrice' required>
                     </div>
 
                     <div class="containerText"></div>
                     <div class="namingSS">
-                        Warehouse Name<input type='text' id = 'options' placeholder='Name' autocomplete="off" class='show' name='whseName' title="Maximum one warehouse">
+                        Warehouse Name<input type='text' id = 'options' placeholder='Cape Town Warehouse' autocomplete="off" class='show' name='whseName' title="Maximum one warehouse" readonly>
                         <br>
                         Quantity<input type='text' id = 'options' placeholder='Amount' autocomplete="off" class='show' name='whseQty'>
+                    </div>
+
+                    <div class="containerText"></div>
+                    <div class="namingSSS">
+                        Meta Data 1<input type='text' id = 'options' placeholder='Name' autocomplete="off" class='show' name='option1'>
+                        <br>
+                        Meta Data 2<input type='text' id = 'options' placeholder='Value' autocomplete="off" class='show' name='option1'>
+                        <br>
+                        Meta Data 3<input type='text' id = 'options' placeholder='Value' autocomplete="off" class='show' name='option1'>
                     </div>
 
                     <input class='button' type='submit'>
@@ -73,7 +85,7 @@
             <div class='next' onclick=swap()></div>
             <div class='nextBtn'>></div>
             <div class="modalContainer">
-                <form method='post' action='output.php' target='_blank' id="'variable">
+                <form method='post' action='output.php' target='_blank' id="variable">
                     <div class="containerText">Title</div>
                     <div class="line"></div>
                     <input type='text' id = 'title' autocomplete="off" class='show' name='title' title='title for your product' required>
@@ -92,30 +104,30 @@
                     <input type='text' id = 'brand' autocomplete="off" class='show' name='title' title='vendor' required>
 
                     <div class="containerText"></div>
-                    <div class="naming">SKU <input type='text' id = 'other' autocomplete="off" class='show' name='sku' title='unique' required></div>
+                    <div class="naming">SKU<input type='text' id = 'other' autocomplete="off" class='show' name='sku' title='unique' required></div>
 
                     <div class="containerText"></div>
-                    <div class="naming">Grouping Code <input type='text' id = 'codes' autocomplete="off" class='show' name='grouping_cpde' required></div>
+                    <div class="naming">Grouping Code<input type='text' id = 'codes' autocomplete="off" class='show' name='grouping_cpde' required></div>
 
                     <div class="containerText"></div>
-                    <div class="naming">Variant Code <input type='text' id = 'codes' autocomplete="off" class='show' name='variant_code' required></div>
+                    <div class="naming">Variant Code<input type='text' id = 'codes' autocomplete="off" class='show' name='variant_code' required></div>
 
                     <div class="containerText"></div>
-                    <div class="naming">Barcode <input type='text' id = 'other' autocomplete="off" class='show' name='barcode'></div>
+                    <div class="naming">Barcode<input type='text' id = 'other' autocomplete="off" class='show' name='barcode'></div>
 
                     <div class="containerText"></div>
-                    <div class="namingS">Weight (g) <input type='text' id = 'weight' placeholder='Amount' autocomplete="off" class='show' name='weight'></div>
+                    <div class="namingS">Weight (g)<input type='text' id = 'weight' placeholder='Amount' autocomplete="off" class='show' name='weight'></div>
                     
                     <div class="containerText"></div>
                     <div class="namingSS">
-                        Cost Price<input type='text' id = 'options' autocomplete="off" class='show' name='CostPrice' required>
+                        Cost Price (R)<input type='text' id = 'options' autocomplete="off" class='show' name='CostPrice' required>
                         <br>
-                        Selling Price<input type='text' id = 'options' autocomplete="off" class='show' name='SellingPrice' required>
+                        Selling Price (R)<input type='text' id = 'options' autocomplete="off" class='show' name='SellingPrice' required>
                     </div>
 
                     <div class="containerText"></div>
                     <div class="namingSS">
-                        Warehouse Name<input type='text' id = 'options' placeholder='Name' autocomplete="off" class='show' name='whseName' title="Maximum one warehouse">
+                        Warehouse Name<input type='text' id = 'options' placeholder='Cape Town Warehouse' autocomplete="off" class='show' name='whseName' title="Maximum one warehouse" readonly>
                         <br>
                         Quantity<input type='text' id = 'options' placeholder='Amount' autocomplete="off" class='show' name='whseQty'>
                     </div>
@@ -133,6 +145,15 @@
                         Option Name<input type='text' id = 'options' placeholder='Name' autocomplete="off" class='show' name='option1'>
                         <br>
                         Option Value<input type='text' id = 'options' placeholder='Value' autocomplete="off" class='show' name='option1'>
+                    </div>
+
+                    <div class="containerText"></div>
+                    <div class="namingSSS">
+                        Meta Data 1<input type='text' id = 'options' placeholder='Name' autocomplete="off" class='show' name='option1'>
+                        <br>
+                        Meta Data 2<input type='text' id = 'options' placeholder='Value' autocomplete="off" class='show' name='option1'>
+                        <br>
+                        Meta Data 3<input type='text' id = 'options' placeholder='Value' autocomplete="off" class='show' name='option1'>
                     </div>
                     
 

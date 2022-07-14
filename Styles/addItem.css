@@ -302,6 +302,22 @@ textarea
     padding: 12px 20px;
     box-sizing: border-box;
 }
+.namingSSS
+{
+    width: 100%;
+    height: 20%;
+    left: 0%;
+    position: relative;
+    border-radius: 20px;
+    display: inline-block;
+    text-align: left;
+    color: black;
+    border: 1px solid #ccc;
+    background-color: rgba(241,241,241);
+    box-shadow: 1px 2px 6px #888888;
+    padding: 12px 20px;
+    box-sizing: border-box;
+}
 .image
 {
     position: absolute;
@@ -378,7 +394,7 @@ textarea
 .next
 {
     cursor: pointer;
-    position: absolute;
+    position: fixed;
     right: 0;
     top: 40%;
     height: 10%;
@@ -394,7 +410,7 @@ textarea
 .nextBtn
 {
     top: 44%;
-    position: absolute;
+    position: fixed;
     right: -22px;
     width: 50px;
     color: white;
@@ -402,7 +418,7 @@ textarea
 .next2
 {
     cursor: pointer;
-    position: absolute;
+    position: fixed;
     top: 36%;
     height: 10%;
     width: 50px;
@@ -418,7 +434,7 @@ textarea
 .nextBtn2
 {
     top: 40%;
-    position: absolute;
+    position: fixed;
     left: 20px;
     width: 50px;
     color: white;
