@@ -36,5 +36,5 @@
         </div>
         </div>
     </body>
-    <script src='script3.js'></script>
+    <script src='Scripts/script3.js'></script>
 </html>

@@ -116,7 +116,6 @@
                 echo(json_encode($_SESSION['log']));
                 unset($_POST['viewLog']);
                 exit();
-
             }
             if(isset($_POST['visitS2S']))
             {
@@ -124,7 +123,6 @@
                 header('Refresh:0,url=https://stock2shop.com');
                 unset($_POST['visitS2S']);
                 exit();
-
             }
             else
             {
@@ -248,9 +246,9 @@
     else
     {
         $variable = new \stdClass();
-        $variable->active = 'false';
+        $variable->active = false;
         $variable->message = 'No connection found in current session, please re-connect';
-        $variable->failedPage = 'AP.php';
+        $variable->failedPage = 'endpoint_handler.php';
         $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
 
         echo(json_encode($variable));

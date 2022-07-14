@@ -15,7 +15,9 @@
     else
     {
         if(!isset($_SESSION['credentials']))
-        echo('<script>console.log("No connection to MySql detected");</script>');
+        {
+            echo('<script>console.log("No connection to MySql detected");</script>');
+        }
     }
     
 ?>

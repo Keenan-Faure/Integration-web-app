@@ -82,7 +82,7 @@
                 </form>
             
     </body>
-        <script src='scripts2.js'></script>
+        <script src='Scripts/scripts2.js'></script>
 </html>
 <?php
 
@@ -151,7 +151,7 @@ if(isset($_SESSION['rawconnection']) && isset($_SESSION['connection']))
                     Option_1_Name varchar(255),
                     Option_1_Value varchar(255),
                     Option_2_Name varchar(255),
-                    Option_2_Value varchar(255)
+                    Option_2_Value varchar(255),
                     Meta_1 varchar(255),
                     Meta_2 varchar(255),
                     Meta_3 varchar(255)

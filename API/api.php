@@ -129,10 +129,3 @@
         }
     }
     ?>
-
-
-<?php
-
-    //create a new function inside createConnection for the API to connect to, instead of creating a new code each time.
-
-?>
