@@ -114,6 +114,22 @@
                 exit();
 
             }
+            if(isset($_POST['addCustomer']))
+            {
+                echo("add a customer to the database");
+                unset($_POST['addCustomer']);
+                
+                exit();
+            }
+            if(isset($_POST['addProduct']))
+            {
+                $variable = new \stdClass();
+                $variable->message = "Redirecting...";
+                echo(json_encode($variable));
+                header("Refresh:2, url=addItem.html");
+                unset($_POST['addProduct']);
+                exit();
+            }
             else
             {
                 if(isset($_SESSION['tablecurrent']))
@@ -178,14 +194,6 @@
                         echo(json_encode($variable));
                         unset($_POST['viewProductSql']);
                     }
-                    if(isset($_POST['addProduct']))
-                    {
-                        $variable = new \stdClass();
-                        $variable->message = "Redirecting...";
-                        echo(json_encode($variable));
-                        header("Refresh:2, url=addItem.html");
-                        unset($_POST['addProduct']);
-                    }
                     if(isset($_POST['getCustomerByID']))
                     {
                         $connection = new connect();
@@ -226,11 +234,6 @@
                         $variable->countCustomer->accepts_data = false;
                         echo(json_encode($variable));
                         unset($_POST['viewCustomerSql']);
-                    }
-                    if(isset($_POST['addCustomer']))
-                    {
-                        echo("add a customer to the database");
-                        unset($_POST['addCustomer']);
                     }
                 }
                 else

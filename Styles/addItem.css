@@ -467,3 +467,7 @@ textarea
     background-color: rgba(10, 10, 10, 0.9);
 
 }
+input[type=text]:focus, input[type=password]:focus 
+{
+    border: 1px solid orange;
+}
