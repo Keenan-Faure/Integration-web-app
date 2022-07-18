@@ -86,14 +86,44 @@ Class Utility
         $password = $_SESSION['connection']->credentials->password;
         $dbName = $_SESSION['connection']->credentials->dbname;
 
-        //checks variant code
         $rawConnection = $connect->createConnection($username, $password,"localhost", $dbName)->rawValue;
-        
-        $query = "select Group_Code from Inventory where Option_1_Name = '" . $product['optionName'] . "'";
-        $result = $connect->converterObject($rawConnection, $query);
-        return $result;
 
-        
+        //checks how many times it has been repeated in current group code
+        $query = "select count(*) as total from Inventory where Option_1_Value = '" . $product['optionValue'] . "' && Group_Code = '" . $product['groupingCode'] . "'";
+        $result = $connect->converterObject($rawConnection, $query);
+
+        if($result->result[0]->total == 1)
+        {
+            $variable = new \stdClass();
+            $variable->data = $result;
+            $variable->message = "Option Value {{" . $product['optionValue'] . "}} already exists under {{" . $product['groupingCode'] . "}} with the value {{" . $product['optionValue'] . "}}";
+            return $variable;
+        }
+        else if(isset($product['option2Name']) && $product['option2Name'] != '' && isset($product['option2Value']) && $product['option2Value'] != '')
+        {
+            $query = "select Group_Code from Inventory where Option_2_Name = '" . $product['option2Name'] . "'";
+            $result = $connect->converterObject($rawConnection, $query);
+
+            //checks how many times it has been repeated in current group code
+            $query = "select count(*) as total from Inventory where Option_2_Value = '" . $product['option2Value'] . "' && Group_Code = '" . $product['groupingCode'] . "'";
+            $result = $connect->converterObject($rawConnection, $query);
+
+            if($result->result[0]->total == 1)
+            {
+                $variable = new \stdClass();
+                $variable->data = $result;
+                $variable->message = "Option Value {{" . $product['option2Value'] . "}} already exists under {{" . $product['groupingCode'] . "}} with the value {{" . $product['option2Value'] . "}}";
+                return $variable;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        else
+        {
+            return true;
+        }
     }
 }
 

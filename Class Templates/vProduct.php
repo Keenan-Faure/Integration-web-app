@@ -72,19 +72,18 @@ Class vProducts
         {
             return $util->existSKU($product, $rawConnection, $connection);
         }
-
+        
+        //checks variantCode
         if($util->existVariantCode($product, $rawConnection, $connection) !== true)
         {
             return $util->existVariantCode($product, $rawConnection, $connection);
         }
+
+        //checks for duplicate options
         if($util->existOptions($product, $rawConnection, $connection) !== true)
         {
             return $util->existOptions($product, $rawConnection, $connection);
         }
-
-
-
-
         //creates the product
         $productTemplate = array('title', 'description', 'category', 'productType', 'brand', 'sku', 'groupingCode', 'variantCode', 'barcode', 'weight', 'costPrice', 'sellingPrice',
         'whseName', 'quantity', 'optionName', 'optionValue', 'option2Name', 'option2Value', 'meta1', 'meta2', 'meta3');
@@ -102,8 +101,13 @@ Class vProducts
                 //converts to a string
                 $variable = json_encode($productTemplate);
                 $this->product->$variable[$i] = $product[$productTemplate[$i]];
+                print_r($variable . " --- " . $product[$productTemplate[$i]]);
+                echo("<br>");
+                exit();
             }
         }
+        
+        
     }
 }
 ?>
