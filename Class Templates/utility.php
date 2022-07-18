@@ -4,13 +4,13 @@ namespace utils;
 
 Class Utility
 {
-    function isNumeric($value)
+    function isNumeric($value, $field)
     {
         if(is_numeric($value))
         {
             $variable = new \stdClass();
             $variable->result = true;
-            $variable->message = 'Is Numeric';
+            $variable->message = $field . ' Is Numeric';
             $variable->value = $value;
             return $variable;
         }
@@ -18,7 +18,7 @@ Class Utility
         {
             $variable = new \stdClass();
             $variable->result = false;
-            $variable->message = $value . " is NOT numeric";
+            $variable->message = $field . " {{" . $value . "}} is NOT numeric";
             $variable->value = $value;
             return $variable;
         }
