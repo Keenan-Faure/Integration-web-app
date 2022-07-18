@@ -134,7 +134,7 @@ if(isset($_SESSION['rawconnection']) && isset($_SESSION['connection']))
             //creates query
             $query3 = " create table Inventory (
 
-                    Active tinyint,
+                    Active varchar(6),
                     SKU varchar(255),
                     Title varchar(255),
                     Description varchar(255),
@@ -166,7 +166,7 @@ if(isset($_SESSION['rawconnection']) && isset($_SESSION['connection']))
             echo('<div class="errors"><p class="align">Client table created</p></div>');
             $query4 = " create table Client(
 
-                Active tinyint,
+                Active varchar(6),
                 Name varchar(255),
                 Surname varchar(255),
                 Email varchar(255),

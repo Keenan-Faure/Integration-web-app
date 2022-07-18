@@ -86,7 +86,7 @@
     </body>
 
 
-    <script src='scripts.js'></script>
+    <script src='Scripts/scripts.js'></script>
     <?php 
         if(isset($_SESSION['credentials']) && $_SESSION['credentials']->active == true)
         {
