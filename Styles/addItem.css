@@ -123,7 +123,7 @@ p
     border-radius: 25px;
     padding: 20px;
     overflow: hidden;
-    opacity: 0.9;
+    opacity: 0.95;
     width: 400px;
     transition-duration: 1s;
 }
