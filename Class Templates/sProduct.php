@@ -19,7 +19,7 @@ Class sProducts
     private $sellingPrice;
 
     private $warehouseName;
-    private $Quantity;
+    private $quantity;
 
     private $meta1;
     private $meta2;

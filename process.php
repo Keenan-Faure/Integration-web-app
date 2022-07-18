@@ -1,19 +1,43 @@
 <?php
 session_start();
+include("Class Templates/vProduct.php");
+include("Class Templates/sProduct.php");
+include("Class Templates/customer.php");
+include("Class Templates/utility.php");
+
+use sProducts\sProducts as sproduct;
+use vProducts\vProducts as vproduct;
+use customer\customer as customer;
+use utils\Utility as util;
+
 if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
 {
     if($_SESSION['credentials']->active == true)
     {
+
         if($_SESSION['connection']->active == true)
         {
             //variable product
-            if(isset($_POST['opt1_name']) && isset($_POST['opt1_value']))
+            $util = new util();
+            if(isset($_POST['op1_name']) && isset($_POST['op1_value']))
             {
+                $product = new vproduct();
+                echo(json_encode($product->createProduct($_POST, $util)));
                 
+                
+
+                //if statement to check if everything went well...
+                //run a query against database to check if a product with similar data exists;
             }
             //simple product
             else
             {
+                $product = new sproduct();
+            
+                //if statement to check if everything went well...
+                //run a query against database to check if a product with similar data exists;
+
+
 
             }
         }
