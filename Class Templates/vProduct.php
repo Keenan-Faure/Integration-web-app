@@ -7,7 +7,7 @@ Class vProducts
     private $title;
     private $description;
     private $category;
-    private $type;
+    private $productType;
     private $brand;
     private $sku;
     private $groupingCode;
@@ -56,12 +56,14 @@ Class vProducts
         //query against Database to check if the options, SKU, source variant codes are repeated?_?
 
         //creates the product
-        $productTemplate = array('title', 'description', 'category', 'type', 'brand', 'sku', 'groupingCode', 'variantCode', 'barcode', 'weight', 'costPrice', 'sellingPrice',
+        $productTemplate = array('title', 'description', 'category', 'productType', 'brand', 'sku', 'groupingCode', 'variantCode', 'barcode', 'weight', 'costPrice', 'sellingPrice',
         'whseName', 'quantity', 'optionName', 'optionValue', 'option2Name', 'option2Value', 'meta1', 'meta2', 'meta3');
 
         $this->product = new \stdClass();
         for($i = 0; $i < sizeof($productTemplate); ++$i)
         {
+            print_r($product[$productTemplate[$i]]);
+            echo("<br>");
             if(isset($product[$productTemplate[$i]]))
             {
                 $variable = json_encode($productTemplate);

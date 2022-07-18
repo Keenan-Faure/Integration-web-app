@@ -19,7 +19,7 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
         {
             //variable product
             $util = new util();
-            if(isset($_POST['op1_name']) && isset($_POST['op1_value']))
+            if(isset($_POST['optionName']) && isset($_POST['optionValue']))
             {
                 $product = new vproduct();
                 echo(json_encode($product->createProduct($_POST, $util)));
