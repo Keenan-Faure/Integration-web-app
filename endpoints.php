@@ -133,7 +133,7 @@ if(isset($_SESSION['rawconnection']) && isset($_SESSION['connection']))
 
             //creates query
             $query3 = " CREATE TABLE Inventory (
-
+                    Token int AUTO_INCREMENT primary key NOT NULL,
                     Active varchar(6),
                     SKU varchar(255),
                     Title text,
@@ -159,6 +159,7 @@ if(isset($_SESSION['rawconnection']) && isset($_SESSION['connection']))
             ";
             
             $output = $connection2->converterObject($rawConnection, $query3);
+            print_r($output);
             $counter = false;
         }
         if($cust)
@@ -166,6 +167,7 @@ if(isset($_SESSION['rawconnection']) && isset($_SESSION['connection']))
             echo('<div class="errors"><p class="align">Client table created</p></div>');
             $query4 = " CREATE TABLE Client(
 
+                Token int AUTO_INCREMENT primary key NOT NULL,
                 Active varchar(6),
                 Name varchar(255),
                 Surname varchar(255),
