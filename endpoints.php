@@ -132,17 +132,17 @@ if(isset($_SESSION['rawconnection']) && isset($_SESSION['connection']))
             echo('<div class="errors"><p class="align">Inventory table created</p></div>');
 
             //creates query
-            $query3 = " create table Inventory (
+            $query3 = " CREATE TABLE Inventory (
 
                     Active varchar(6),
                     SKU varchar(255),
-                    Title varchar(255),
+                    Title text,
                     Description varchar(255),
                     Group_Code varchar(255),
                     Category varchar(255),
                     Product_Type varchar(255),
                     Brand varchar(255),
-                    Variant_Code int,
+                    Variant_Code varchar(255),
                     Barcode int,
                     Weight int,
                     CostPrice int,
@@ -164,7 +164,7 @@ if(isset($_SESSION['rawconnection']) && isset($_SESSION['connection']))
         if($cust)
         {
             echo('<div class="errors"><p class="align">Client table created</p></div>');
-            $query4 = " create table Client(
+            $query4 = " CREATE TABLE Client(
 
                 Active varchar(6),
                 Name varchar(255),

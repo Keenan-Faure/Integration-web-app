@@ -10,6 +10,8 @@ use vProducts\vProducts as vproduct;
 use customer\customer as customer;
 use utils\Utility as util;
 
+header("Content-Type: application/json");
+
 if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
 {
     if($_SESSION['credentials']->active == true)
@@ -22,9 +24,11 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
             if(isset($_POST['optionName']) && isset($_POST['optionValue']))
             {
                 $product = new vproduct();
-                echo(json_encode($product->createProduct($_POST, $util)));
-                
-                
+                $result = $product->createProduct($_POST, $util);
+                $result = $product->addProduct($result);
+                echo(json_encode($result));
+                header("Refresh:3, url='addItem.html'");
+
 
                 //if statement to check if everything went well...
                 //run a query against database to check if a product with similar data exists;

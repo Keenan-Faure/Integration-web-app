@@ -38,7 +38,7 @@ Class Utility
     {
 
         //checks SKU
-        $query = "select count(*) as total from Inventory where SKU = '" . $product['sku'] . "'";
+        $query = "SELECT COUNT(*) AS total FROM Inventory WHERE SKU = '" . $product['sku'] . "'";
         $result = $connect->converterObject($rawConnection, $query);
 
         if($result->result[0]->total > 0)
@@ -63,7 +63,7 @@ Class Utility
         //checks variant code
         $rawConnection = $connect->createConnection($username, $password,"localhost", $dbName)->rawValue;
         
-        $query = "select count(*) as total from Inventory where Variant_Code = '" . $product['variantCode'] . "'";
+        $query = "SELECT COUNT(*) AS total FROM Inventory WHERE Variant_Code = '" . $product['variantCode'] . "'";
         $result = $connect->converterObject($rawConnection, $query);
 
         if($result->result[0]->total > 0)
@@ -89,7 +89,7 @@ Class Utility
         $rawConnection = $connect->createConnection($username, $password,"localhost", $dbName)->rawValue;
 
         //checks how many times it has been repeated in current group code
-        $query = "select count(*) as total from Inventory where Option_1_Value = '" . $product['optionValue'] . "' && Group_Code = '" . $product['groupingCode'] . "'";
+        $query = "SELECT COUNT(*) AS total FROM Inventory WHERE Option_1_Value = '" . $product['optionValue'] . "' && Group_Code = '" . $product['groupingCode'] . "'";
         $result = $connect->converterObject($rawConnection, $query);
 
         if($result->result[0]->total == 1)
@@ -101,11 +101,11 @@ Class Utility
         }
         else if(isset($product['option2Name']) && $product['option2Name'] != '' && isset($product['option2Value']) && $product['option2Value'] != '')
         {
-            $query = "select Group_Code from Inventory where Option_2_Name = '" . $product['option2Name'] . "'";
+            $query = "SELECT Group_Code FROM Inventory WHERE Option_2_Name = '" . $product['option2Name'] . "'";
             $result = $connect->converterObject($rawConnection, $query);
 
             //checks how many times it has been repeated in current group code
-            $query = "select count(*) as total from Inventory where Option_2_Value = '" . $product['option2Value'] . "' && Group_Code = '" . $product['groupingCode'] . "'";
+            $query = "SELECT COUNT(*) AS total FROM Inventory WHERE Option_2_Value = '" . $product['option2Value'] . "' && Group_Code = '" . $product['groupingCode'] . "'";
             $result = $connect->converterObject($rawConnection, $query);
 
             if($result->result[0]->total == 1)

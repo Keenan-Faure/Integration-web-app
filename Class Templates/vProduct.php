@@ -86,7 +86,7 @@ Class vProducts
         }
         //creates the product
         $productTemplate = array('title', 'description', 'category', 'productType', 'brand', 'sku', 'groupingCode', 'variantCode', 'barcode', 'weight', 'costPrice', 'sellingPrice',
-        'whseName', 'quantity', 'optionName', 'optionValue', 'option2Name', 'option2Value', 'meta1', 'meta2', 'meta3');
+        'quantity', 'optionName', 'optionValue', 'option2Name', 'option2Value', 'meta1', 'meta2', 'meta3');
 
         //creates as a standard class
         $this->product = new \stdClass();
@@ -99,15 +99,76 @@ Class vProducts
             if(isset($product[$productTemplate[$i]]))
             {
                 //converts to a string
-                $variable = json_encode($productTemplate);
-                $this->product->$variable[$i] = $product[$productTemplate[$i]];
-                print_r($variable . " --- " . $product[$productTemplate[$i]]);
-                echo("<br>");
-                exit();
+                $variable = $productTemplate[$i];
+                $this->product->$variable = $product[$productTemplate[$i]];
             }
         }
+        return $this->product;
         
-        
+    }
+    function addProduct($product)
+    {
+        $connection = new connect();
+        $username = $_SESSION['connection']->credentials->username;
+        $password = $_SESSION['connection']->credentials->password;
+        $dbName = $_SESSION['connection']->credentials->dbname;
+        $rawConnection = $connection->createConnection($username, $password,"localhost", $dbName)->rawValue;
+
+        $query = "INSERT INTO Inventory 
+        (
+            Active,
+            Title,
+            Description,
+            Category,
+            Product_Type,
+            Brand,
+            SKU,
+            Group_Code,
+            Variant_Code,
+            Barcode,
+            Weight,
+            CostPrice,
+            SellingPrice,
+            CapeTown_Warehouse,
+            Option_1_Name,
+            Option_1_Value,
+            Option_2_Name,
+            Option_2_Value,
+            Meta_1,
+            Meta_2,
+            Meta_3
+        )
+
+        VALUES 
+        (
+            'true','" .
+            $product->title . "','" .
+            $product->description . "','" .
+            $product->category . "','" .
+            $product->productType . "','" .
+            $product->brand . "','" .
+            $product->sku . "','" .
+            $product->groupingCode . "','" .
+            $product->variantCode . "','" .
+            $product->barcode . "','" .
+            $product->weight . "','" .
+            $product->costPrice . "','" .
+            $product->sellingPrice . "','" .
+            $product->quantity . "','" .
+            $product->optionName . "','" .
+            $product->optionValue . "','" .
+            $product->option2Name . "','" .
+            $product->option2Value . "','" .
+            $product->meta1 . "','" .
+            $product->meta2 . "',"
+            . "'" . $product->meta3 . "');"
+        ;
+        $output = $connection->converterObject($rawConnection, $query);
+        $result = new \stdClass();
+        $result->result = $output;
+        $result->data = $product;
+        return $result;
+
     }
 }
 ?>
