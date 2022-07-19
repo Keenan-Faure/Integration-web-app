@@ -34,6 +34,8 @@ Class Utility
             return false;
         }
     }
+
+    //variable product
     function existSKU($product, $rawConnection, $connect)
     {
 
@@ -44,6 +46,7 @@ Class Utility
         if($result->result[0]->total > 0)
         {
             $variable = new \stdClass();
+            $variable->return = false;
             $variable->data = $result;
             $variable->message = "SKU {{" . $product['sku'] . "}} already exists in Inventory Table";
             return $variable;
@@ -69,6 +72,7 @@ Class Utility
         if($result->result[0]->total > 0)
         {
             $variable = new \stdClass();
+            $variable->return = false;
             $variable->data = $result;
             $variable->message = "Variant Code {{" . $product['variantCode'] . "}} already exists in Inventory Table";
             return $variable;
@@ -80,6 +84,7 @@ Class Utility
     }
 
     //going to be cringe
+    //variable products only
     function existOptions($product, $rawConnection, $connect)
     {
         $username = $_SESSION['connection']->credentials->username;
@@ -95,6 +100,7 @@ Class Utility
         if($result->result[0]->total == 1)
         {
             $variable = new \stdClass();
+            $variable->return = false;
             $variable->data = $result;
             $variable->message = "Option Value {{" . $product['optionValue'] . "}} already exists under {{" . $product['groupingCode'] . "}} with the value {{" . $product['optionValue'] . "}}";
             return $variable;
@@ -111,6 +117,7 @@ Class Utility
             if($result->result[0]->total == 1)
             {
                 $variable = new \stdClass();
+                $variable->return = false;
                 $variable->data = $result;
                 $variable->message = "Option Value {{" . $product['option2Value'] . "}} already exists under {{" . $product['groupingCode'] . "}} with the value {{" . $product['option2Value'] . "}}";
                 return $variable;

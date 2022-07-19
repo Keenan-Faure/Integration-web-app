@@ -120,7 +120,7 @@ class Connection
     }
     
     //converts mysqli object to php object
-    function converterObject($rawConnection, $query)
+    function converterObject($rawConnection, $query, $parameter=null)
     {
         if($query === '')
         {
@@ -130,11 +130,11 @@ class Connection
         }
         else
         {
-            if(str_contains(strtolower($query),'insert into'))
+            if(str_contains(strtolower($query),'insert into') && $parameter === 'selfquery')
             {
                 $variable = new \stdClass();
-                $variable->result = false;
-                $variable->query = $query;
+                $variable->return = false;
+                $variable->raw_query = $query;
                 $variable->message = "Not allowed via Custom Query, contact Admin!";
 
                 return $variable;

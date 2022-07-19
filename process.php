@@ -25,9 +25,13 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
             {
                 $product = new vproduct();
                 $result = $product->createProduct($_POST, $util);
+                if(isset($result->return))
+                {
+                    echo(json_encode($result));
+                    exit();
+                }
                 $result = $product->addProduct($result);
                 echo(json_encode($result));
-                header("Refresh:3, url='addItem.html'");
 
 
                 //if statement to check if everything went well...
@@ -37,7 +41,14 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
             else
             {
                 $product = new sproduct();
-            
+                $result = $product->createProduct($_POST, $util);
+                if(isset($result->return))
+                {
+                    echo(json_encode($result));
+                    exit();
+                }
+                $result = $product->addProduct($result);
+                echo(json_encode($result));
                 //if statement to check if everything went well...
                 //run a query against database to check if a product with similar data exists;
 

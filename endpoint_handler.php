@@ -86,7 +86,7 @@
                 //creates query and trims
                 $query = trim($_POST['selfquery']);
                 
-                $output = $connection->converterObject($rawConnection, $query);
+                $output = $connection->converterObject($rawConnection, $query, 'selfquery');
                 mysqli_close($rawConnection);
                 unset($_POST['selfquery']);
                 echo(json_encode($output));                
