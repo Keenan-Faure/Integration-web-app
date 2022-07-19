@@ -130,6 +130,15 @@ class Connection
         }
         else
         {
+            if(str_contains(strtolower($query),'insert into'))
+            {
+                $variable = new \stdClass();
+                $variable->result = false;
+                $variable->query = $query;
+                $variable->message = "Not allowed via Custom Query, contact Admin!";
+
+                return $variable;
+            }
             $resultArray = array();
             $output = array();
             $duration = 0;
@@ -148,6 +157,7 @@ class Connection
                         {
                             $variable = new \stdClass();
                             $variable->result = true;
+                            $variable->query = $query;
                             $variable->duration = $duration;
                         }
                     }
