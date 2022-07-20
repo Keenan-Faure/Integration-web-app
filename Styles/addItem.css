@@ -507,7 +507,7 @@ input[type=text]:focus, input[type=password]:focus
 
 .bg
 {
-    background-image: url(../Images/addProduct.png);
+    background-image: url(../Images/editProduct.jpeg);
     background-size: cover;
     position: relative;
     top: 0;

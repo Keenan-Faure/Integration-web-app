@@ -5,7 +5,6 @@
     <body>
         <div class="bg">
             <textarea>
-                
             </textarea>
         </div>
 
