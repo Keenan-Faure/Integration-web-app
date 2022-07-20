@@ -169,6 +169,7 @@ if(isset($_SESSION['rawconnection']) && isset($_SESSION['connection']))
 
                 Token int AUTO_INCREMENT primary key NOT NULL,
                 Active varchar(6),
+                ID int,
                 Name varchar(255),
                 Surname varchar(255),
                 Email varchar(255),
