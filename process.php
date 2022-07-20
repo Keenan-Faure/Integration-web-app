@@ -4,12 +4,13 @@ include("Class Templates/vProduct.php");
 include("Class Templates/sProduct.php");
 include("Class Templates/customer.php");
 include("Class Templates/utility.php");
+include('createConnection.php');
 
 use sProducts\sProducts as sproduct;
 use vProducts\vProducts as vproduct;
-use customer\customer as customer;
+use customer\Customers as customer;
 use utils\Utility as util;
-
+use Connection\Connection as connect;
 header("Content-Type: application/json");
 
 if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
@@ -21,39 +22,47 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
         {
             //variable product
             $util = new util();
-            if(isset($_POST['optionName']) && isset($_POST['optionValue']))
+            $connection = new connect();
+            if(isset($_POST['name']) && isset($_POST['surname']))
             {
-                $product = new vproduct();
-                $result = $product->createProduct($_POST, $util);
+                //customer
+                $customer = new customer();
+                $result = $customer->createCustomer($_POST, $util, $connection);
                 if(isset($result->return))
                 {
                     echo(json_encode($result));
                     exit();
                 }
-                $result = $product->addProduct($result);
+                $result = $customer->addCustomer($result, $connection);
                 echo(json_encode($result));
-
-
-                //if statement to check if everything went well...
-                //run a query against database to check if a product with similar data exists;
             }
-            //simple product
             else
             {
-                $product = new sproduct();
-                $result = $product->createProduct($_POST, $util);
-                if(isset($result->return))
+                if(isset($_POST['optionName']) && isset($_POST['optionValue']))
                 {
+                    $product = new vproduct();
+                    $result = $product->createProduct($_POST, $util, $connection);
+                    if(isset($result->return))
+                    {
+                        echo(json_encode($result));
+                        exit();
+                    }
+                    $result = $product->addProduct($result, $connection);
                     echo(json_encode($result));
-                    exit();
                 }
-                $result = $product->addProduct($result);
-                echo(json_encode($result));
-                //if statement to check if everything went well...
-                //run a query against database to check if a product with similar data exists;
-
-
-
+                else
+                {
+                    //simple product
+                    $product = new sproduct();
+                    $result = $product->createProduct($_POST, $util, $connection);
+                    if(isset($result->return))
+                    {
+                        echo(json_encode($result));
+                        exit();
+                    }
+                    $result = $product->addProduct($result, $connection);
+                    echo(json_encode($result));
+                }
             }
         }
         else
