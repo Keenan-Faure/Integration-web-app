@@ -1,34 +1,13 @@
 <?php
 
 namespace customer;
-include('createConnection.php');
-
-use Connection\Connection as connect;
 
 Class Customers
 {
     private $customer;
 
-    function createCustomer($customer, $util)
+    function createCustomer($customer, $util, $connection)
     {
-        //checks if all the numeric values entered are numeric...
-        $numeric = array("id"); //array of numeric values
-        for($j = 0; $j < sizeof($numeric); ++$j)
-        {
-            if(isset($customer[$numeric[$j]]))
-            {
-                if($customer[$numeric[$j]] != null)
-                {
-                    //check if they are numeric using the util class -- its a parameter
-                    $variable = $util->isNumeric($customer[$numeric[$j]], $numeric[$j]);
-                    if($variable->result == false)
-                    {
-                        // returns the values that are not numeric...
-                        return $variable;
-                    }
-                }
-            }
-        }
         if(!filter_var($customer['email'], FILTER_VALIDATE_EMAIL))
         {
             $variable = new \stdClass();
@@ -38,10 +17,9 @@ Class Customers
             return $variable;
         }
 
-        //query against Database to check if the ID is repeated?_?
+        //query against Database to check if the name-surname combination is repeated?_?
 
         //create connection first
-        $connection = new connect();
         $username = $_SESSION['connection']->credentials->username;
         $password = $_SESSION['connection']->credentials->password;
         $dbName = $_SESSION['connection']->credentials->dbname;
@@ -52,11 +30,11 @@ Class Customers
         //checks SKU
         if($util->existID($customer, $rawConnection, $connection) !== true)
         {
-            return $util->existsID($customer, $rawConnection, $connection);
+            return $util->existID($customer, $rawConnection, $connection);
         }
 
         //creates the customer
-        $customerTemplate = array('id', 'name', 'surname', 'email', 'address1', 'address2', 'address3', 'address4');
+        $customerTemplate = array('id','name', 'surname', 'email', 'address1', 'address2', 'address3', 'address4');
 
         //creates as a standard class
         $this->customer = new \stdClass();
@@ -76,15 +54,13 @@ Class Customers
         return $this->customer;
         
     }
-    function addCustomer($customer)
+    function addCustomer($customer, $connection)
     {
-        $connection = new connect();
         $username = $_SESSION['connection']->credentials->username;
         $password = $_SESSION['connection']->credentials->password;
         $dbName = $_SESSION['connection']->credentials->dbname;
         $rawConnection = $connection->createConnection($username, $password,"localhost", $dbName)->rawValue;
-
-        $query = "INSERT INTO Inventory 
+        $query = "INSERT INTO Client 
         (
             Active,
             ID,
@@ -94,20 +70,19 @@ Class Customers
             Address_1,
             Address_2,
             Address_3,
-            Address_4,
+            Address_4
         )
-
         VALUES 
         (
             'true','" .
-            $customer->id . "','" .
+            strtolower($customer->id) . "','" .
             $customer->name . "','" .
             $customer->surname . "','" .
             $customer->email . "','" .
             $customer->address1 . "','" .
             $customer->address2 . "','" .
             $customer->address3 . "','"
-            . "'" . $customer->address4 . "');"
+            . "" . $customer->address4 . "');"
         ;
         $output = $connection->converterObject($rawConnection, $query);
         $result = new \stdClass();
@@ -117,10 +92,4 @@ Class Customers
 
     }
 }
-?>
-
-
-
-}
-
 ?>

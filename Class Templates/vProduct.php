@@ -1,15 +1,12 @@
 <?php
 
 namespace vProducts;
-include('createConnection.php');
-
-use Connection\Connection as connect;
 
 Class vProducts
 {
     private $product;
 
-    function createProduct($product, $util)
+    function createProduct($product, $util, $connection)
     {
         //checks if all the numeric values entered are numeric...
         $numeric = array("barcode", "weight", "costPrice", "sellingPrice", "quantity"); //array of numeric values
@@ -33,7 +30,6 @@ Class vProducts
         //query against Database to check if the options, SKU, source variant codes are repeated?_?
 
         //create connection first
-        $connection = new connect();
         $username = $_SESSION['connection']->credentials->username;
         $password = $_SESSION['connection']->credentials->password;
         $dbName = $_SESSION['connection']->credentials->dbname;
@@ -80,9 +76,8 @@ Class vProducts
         return $this->product;
         
     }
-    function addProduct($product)
+    function addProduct($product, $connection)
     {
-        $connection = new connect();
         $username = $_SESSION['connection']->credentials->username;
         $password = $_SESSION['connection']->credentials->password;
         $dbName = $_SESSION['connection']->credentials->dbname;

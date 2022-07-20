@@ -39,7 +39,7 @@ Class Utility
     {
         //checks ID
         //checks SKU
-        $query = "SELECT COUNT(*) AS total FROM Client WHERE ID = '" . $customer['id'] . "'";
+        $query = "SELECT COUNT(*) AS total FROM Client WHERE ID = '" . strtolower($customer['id']) . "'";
         $result = $connect->converterObject($rawConnection, $query);
 
         if($result->result[0]->total > 0)
