@@ -1,17 +1,125 @@
 <?php
 
 namespace customer;
+include('createConnection.php');
 
-Class customer
+use Connection\Connection as connect;
+
+Class Customers
 {
-    private $firstName;
-    private $lastName;
-    private $email;
+    private $customer;
 
-    private $address1;
-    private $address2;
-    private $address3;
-    private $address4;
+    function createCustomer($customer, $util)
+    {
+        //checks if all the numeric values entered are numeric...
+        $numeric = array("id"); //array of numeric values
+        for($j = 0; $j < sizeof($numeric); ++$j)
+        {
+            if(isset($customer[$numeric[$j]]))
+            {
+                if($customer[$numeric[$j]] != null)
+                {
+                    //check if they are numeric using the util class -- its a parameter
+                    $variable = $util->isNumeric($customer[$numeric[$j]], $numeric[$j]);
+                    if($variable->result == false)
+                    {
+                        // returns the values that are not numeric...
+                        return $variable;
+                    }
+                }
+            }
+        }
+        if(!filter_var($customer['email'], FILTER_VALIDATE_EMAIL))
+        {
+            $variable = new \stdClass();
+            $variable->result = false;
+            $variable->error = "Invalid Email: " . $customer['email'];
+
+            return $variable;
+        }
+
+        //query against Database to check if the ID is repeated?_?
+
+        //create connection first
+        $connection = new connect();
+        $username = $_SESSION['connection']->credentials->username;
+        $password = $_SESSION['connection']->credentials->password;
+        $dbName = $_SESSION['connection']->credentials->dbname;
+
+        //checks SKU
+        $rawConnection = $connection->createConnection($username, $password,"localhost", $dbName)->rawValue;
+
+        //checks SKU
+        if($util->existID($customer, $rawConnection, $connection) !== true)
+        {
+            return $util->existsID($customer, $rawConnection, $connection);
+        }
+
+        //creates the customer
+        $customerTemplate = array('id', 'name', 'surname', 'email', 'address1', 'address2', 'address3', 'address4');
+
+        //creates as a standard class
+        $this->customer = new \stdClass();
+        for($i = 0; $i < sizeof($customerTemplate); ++$i)
+        {
+            //for debugging only 
+
+            //print_r($customer[$customerTemplate[$i]]);
+            //echo("<br>");
+            if(isset($customer[$customerTemplate[$i]]))
+            {
+                //converts to a string
+                $variable = $customerTemplate[$i];
+                $this->customer->$variable = $customer[$customerTemplate[$i]];
+            }
+        }
+        return $this->customer;
+        
+    }
+    function addCustomer($customer)
+    {
+        $connection = new connect();
+        $username = $_SESSION['connection']->credentials->username;
+        $password = $_SESSION['connection']->credentials->password;
+        $dbName = $_SESSION['connection']->credentials->dbname;
+        $rawConnection = $connection->createConnection($username, $password,"localhost", $dbName)->rawValue;
+
+        $query = "INSERT INTO Inventory 
+        (
+            Active,
+            ID,
+            Name,
+            Surname,
+            Email,
+            Address_1,
+            Address_2,
+            Address_3,
+            Address_4,
+        )
+
+        VALUES 
+        (
+            'true','" .
+            $customer->id . "','" .
+            $customer->name . "','" .
+            $customer->surname . "','" .
+            $customer->email . "','" .
+            $customer->address1 . "','" .
+            $customer->address2 . "','" .
+            $customer->address3 . "','"
+            . "'" . $customer->address4 . "');"
+        ;
+        $output = $connection->converterObject($rawConnection, $query);
+        $result = new \stdClass();
+        $result->result = $output;
+        $result->data = $customer;
+        return $result;
+
+    }
+}
+?>
+
+
 
 }
 
