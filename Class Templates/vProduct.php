@@ -7,32 +7,6 @@ use Connection\Connection as connect;
 
 Class vProducts
 {
-    private $title;
-    private $description;
-    private $category;
-    private $productType;
-    private $brand;
-    private $sku;
-    private $groupingCode;
-    private $variantCode;
-    private $barcode;
-    private $weight;
-
-    private $costPrice;
-    private $sellingPrice;
-
-    private $whseName;
-    private $quantity;
-
-    private $optionName;
-    private $optionValue;
-    private $option2Name;
-    private $option2Value;
-
-    private $meta1;
-    private $meta2;
-    private $meta3;
-
     private $product;
 
     function createProduct($product, $util)

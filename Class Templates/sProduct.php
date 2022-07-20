@@ -6,25 +6,6 @@ use Connection\Connection as connect;
 
 Class sProducts
 {
-    private $title;
-    private $description;
-    private $category;
-    private $productType;
-    private $brand;
-    private $sku;
-    private $groupingCode;
-    private $variantCode;
-    private $barcode;
-    private $weight;
-
-    private $costPrice;
-    private $sellingPrice;
-
-    private $quantity;
-
-    private $meta1;
-    private $meta2;
-    private $meta3;
 
     private $product;
 
