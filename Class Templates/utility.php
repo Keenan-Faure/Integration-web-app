@@ -35,6 +35,27 @@ Class Utility
         }
     }
 
+    function existID($customer, $rawConnection, $connect)
+    {
+        //checks ID
+        //checks SKU
+        $query = "SELECT COUNT(*) AS total FROM Client WHERE ID = '" . $customer['id'] . "'";
+        $result = $connect->converterObject($rawConnection, $query);
+
+        if($result->result[0]->total > 0)
+        {
+            $variable = new \stdClass();
+            $variable->return = false;
+            $variable->data = $result;
+            $variable->message = "ID {{" . $customer['id'] . "}} already exists in Client Table";
+            return $variable;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
     //variable product
     function existSKU($product, $rawConnection, $connect)
     {
