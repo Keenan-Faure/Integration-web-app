@@ -517,3 +517,20 @@ input[type=text]:focus, input[type=password]:focus
     overflow-y: auto;
     overflow-x: hidden;
 }
+
+.bg-modalContainer
+{
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    border-radius: 25px;
+    padding: 20px;
+    overflow: hidden;
+    opacity: 0.95;
+    width: 40%;
+    transition-duration: 1s;
+}
+.bg-modalContainer:hover
+{
+    background-color: rgba(0,0,0,0.2);
+}
