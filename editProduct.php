@@ -9,10 +9,7 @@
                 <div class='line'></div>
             </div>
             <div class='containers'>
-                <div>
-                    <div class='prev'></div>
-                    <textarea class='current'></textarea>
-                </div>
+                <?php echo("<script type='text/javascript'>createTA('prev', 'current', 'I am here');</script>"); ?>
                 <div>
                     <div class='prev'></div>
                     <textarea class='current'></textarea>
@@ -33,4 +30,5 @@
         </div>
 
     </body>
+    <script src='Scripts/createElements.js'></script>
 </html>

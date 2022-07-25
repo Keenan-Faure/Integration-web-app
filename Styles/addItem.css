@@ -526,6 +526,7 @@ input[type=text]:focus, input[type=password]:focus
     border-radius: 25px;
     background-color: rgba(0,0,0,0.5);
     padding: 20px;
+    border-right: 1px solid blue;
     overflow: hidden;
     opacity: 0.95;
     width: 70%;
