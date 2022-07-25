@@ -251,9 +251,11 @@
         $variable->message = 'No connection found in current session, please re-connect';
         $variable->failedPage = 'endpoint_handler.php';
         $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-
+        if(isset($_SESSION['log']))
+        {
+            array_push($_SESSION['log'], $variable);
+        }
         echo(json_encode($variable));
-        array_push($_SESSION['log'], $variable);
     }
 
 ?>

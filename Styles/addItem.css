@@ -518,19 +518,50 @@ input[type=text]:focus, input[type=password]:focus
     overflow-x: hidden;
 }
 
-.bg-modalContainer
+.containers
 {
     position: relative;
     left: 50%;
     transform: translate(-50%, 0%);
     border-radius: 25px;
+    background-color: rgba(0,0,0,0.5);
     padding: 20px;
     overflow: hidden;
     opacity: 0.95;
-    width: 40%;
+    width: 70%;
     transition-duration: 1s;
 }
-.bg-modalContainer:hover
+.prev
 {
-    background-color: rgba(0,0,0,0.2);
+    width: 30%;
+    height: 15%;
+    position: relative;
+    left: 5%;
+    color: white;
+    display: inline-block;
+    border-right: 1px solid blue;
+    box-shadow: 1px 2px 6px #888888;
+    background-color: rgba(0,0,0,0.5);
+    margin: 8px 0;
+    padding: 12px 20px;
+    box-sizing: border-box;
+
+
+}
+.current
+{
+    width: 60%;
+    border-radius: 0px;
+    height: 15%;
+    position: relative;
+    left: 5%;
+    color: white;
+    resize: none;
+    overflow: auto;
+    display: inline-block;
+    box-shadow: 1px 2px 6px #888888;
+    background-color: rgba(0,0,0,0.5);
+    margin: 8px 0;
+    padding: 12px 20px;
+    box-sizing: border-box;
 }
