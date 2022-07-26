@@ -4,6 +4,7 @@ function createTA(classNamePrev, classNameCurrent, text)
 
     prev = document.createElement('textarea');
     prev.className = classNamePrev;
+    prev.readOnly = true;
     prev.value = text;
 
     current = document.createElement('textarea');
@@ -13,5 +14,7 @@ function createTA(classNamePrev, classNameCurrent, text)
     div.appendChild(prev);
     div.appendChild(current);
 
-    body.appendChild(div);
+    main = document.getElementById("main");
+
+    main.appendChild(div);
 }
