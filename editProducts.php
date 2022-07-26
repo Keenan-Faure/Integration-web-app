@@ -9,7 +9,11 @@
                 <h1>Edit Product</h1>
                 <div class='line'></div>
             </div>
-            <div class='containers' id='main'></div>
+            <div class='containers' id='main'>
+                <textarea id = 'smaller' class='typeE'>Product Attribute</textarea>
+                <textarea id = 'smaller' class='prev'>Current Value</textarea>
+                <textarea id = 'smaller' class='current'>Editable Value</textarea>
+            </div>
         </div>
 
     </body>
@@ -26,7 +30,7 @@
                 for($j = 0; $j < sizeof($productTemplateDB); ++ $j)
                 {
                     $template = $productTemplateDB[$j];
-                    echo("<script>createTA('prev', 'current','" . $_SESSION['products']->result[0]->$template . "', 'title');</script>");
+                    echo("<script>createTA('prev', 'current','" . $_SESSION['products']->result[0]->$template . "','" . $template . "');</script>");
                 }
             }
         } 

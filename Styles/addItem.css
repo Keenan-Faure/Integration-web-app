@@ -511,7 +511,7 @@ input[type=text]:focus, input[type=password]:focus
 {
     background-image: url(../Images/editProduct.jpeg);
     background-size: cover;
-    position: relative;
+    position: fixed;
     top: 0;
     background-position: left;
     width: 100%;
@@ -520,27 +520,35 @@ input[type=text]:focus, input[type=password]:focus
     overflow-x: hidden;
 }
 
+#smaller
+{
+    height: 3%;
+    padding-top: 5px;
+    border: 1px solid blue;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+}
 .containers
 {
     position: relative;
     left: 50%;
     transform: translate(-50%, 0%);
-    border-radius: 25px;
+    border-radius: 12px;
     background-color: rgba(0,0,0,0.5);
-    padding: 20px;
+    padding: 10px;
     border-right: 1px solid blue;
     overflow: hidden;
     opacity: 0.95;
-    width: 70%;
+    width: 80%;
     transition-duration: 1s;
 }
 .prev
 {
     width: 30%;
     text-align: center;
-    height: 15%;
+    height: 10%;
     position: relative;
-    left: 5%;
+    left: 2%;
     resize: none;
     color: white;
     display: inline-block;
@@ -548,19 +556,19 @@ input[type=text]:focus, input[type=password]:focus
     box-shadow: 1px 2px 6px #888888;
     background-color: rgba(0,0,0,0.5);
     margin: 8px 0;
-    padding: 12px 20px;
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 28px 20px;
     box-sizing: border-box;
-
-
 }
 .current
 {
-    width: 60%;
+    width: 45%;
     border-radius: 0px;
     text-align: center;
-    height: 15%;
+    height: 10%;
     position: relative;
-    left: 5%;
+    left: 3%;
     color: white;
     resize: none;
     overflow: auto;
@@ -568,6 +576,29 @@ input[type=text]:focus, input[type=password]:focus
     box-shadow: 1px 2px 6px #888888;
     background-color: rgba(0,0,0,0.5);
     margin: 8px 0;
-    padding: 12px 20px;
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 28px 20px;
+    box-sizing: border-box;
+}
+.typeE
+{
+    width: 20%;
+    border-radius: 0px;
+    text-align: center;
+    height: 10%;
+    position: relative;
+    left: 1%;
+    color: white;
+    resize: none;
+    overflow: auto;
+    display: inline-block;
+    box-shadow: 1px 2px 6px #888888;
+    background-color: rgba(0,0,0,0.5);
+    margin: 8px 0;
+    font-size: 15px;
+    text-decoration: underline;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 28px 20px;
     box-sizing: border-box;
 }

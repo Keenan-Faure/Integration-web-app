@@ -12,6 +12,11 @@ function createTA(classNamePrev, classNameCurrent, text = '', name = '')
     {
         let div = document.createElement('div');
 
+        what = document.createElement('textarea');
+        what.className = 'typeE';
+        what.readOnly = true;
+        what.value = name;
+
         prev = document.createElement('textarea');
         prev.className = classNamePrev;
         prev.readOnly = true;
@@ -22,9 +27,10 @@ function createTA(classNamePrev, classNameCurrent, text = '', name = '')
 
         current = document.createElement('textarea');
         current.className = classNameCurrent;
-        current.name = name;
         current.value = text;
+        current.name = name;
 
+        div.appendChild(what);
         div.appendChild(prev);
         div.appendChild(current);
 
