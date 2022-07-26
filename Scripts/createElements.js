@@ -1,20 +1,27 @@
-function createTA(classNamePrev, classNameCurrent, text)
+function createTA(classNamePrev, classNameCurrent, text = '')
 {
-    let div = document.createElement('div');
+    if(text == '')
+    {
+        return null;
+    }
+    else
+    {
+        let div = document.createElement('div');
 
-    prev = document.createElement('textarea');
-    prev.className = classNamePrev;
-    prev.readOnly = true;
-    prev.value = text;
+        prev = document.createElement('textarea');
+        prev.className = classNamePrev;
+        prev.readOnly = true;
+        prev.value = text;
 
-    current = document.createElement('textarea');
-    current.className = classNameCurrent;
-    current.value = text;
+        current = document.createElement('textarea');
+        current.className = classNameCurrent;
+        current.value = text;
 
-    div.appendChild(prev);
-    div.appendChild(current);
+        div.appendChild(prev);
+        div.appendChild(current);
 
-    main = document.getElementById("main");
+        main = document.getElementById("main");
 
-    main.appendChild(div);
+        main.appendChild(div);
+    }
 }

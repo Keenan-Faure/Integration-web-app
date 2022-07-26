@@ -58,6 +58,9 @@
                 <form method='post' target='_blank' action='endpoint_handler.php'>
                     <button class='button' name='addProduct' id='b9'><p class='buttonText'>Add Product to Database</p></button>               
                 </form>
+                <form method='post' target='_blank' action='endpoint_handler.php'>
+                    <button class='button' name='editProduct' id='b10'><p class='buttonText'>Edit Products</p></button>               
+                </form>
             </div>
 
             <div class='container' id='container-3'>
@@ -65,20 +68,23 @@
                 <div class='line' id='line-1'></div>
                 <form method='post' target='_blank' action='endpoint_handler.php'>
                     <br><br><br>
-                    <input type='text' name='getCustomerByID' class='input' placeholder='Get Customer by ID' autocomplete="off" id='b10'></input>
+                    <input type='text' name='getCustomerByID' class='input' placeholder='Get Customer by ID' autocomplete="off" id='b11'></input>
                 </form>
                 <form method='post' target='_blank' action='endpoint_handler.php'>
-                    <button class='button' name='countCustomer' id='b11'><p class='buttonText'>Count Customers</p></button>
+                    <button class='button' name='countCustomer' id='b12'><p class='buttonText'>Count Customers</p></button>
                 </form>
                 <form method='post' target='_blank' action='endpoint_handler.php'>
-                    <button class='button' name='viewCustomerSql' id='b12'><p class='buttonText'>View Customer Sql queries</p></button>
+                    <button class='button' name='viewCustomerSql' id='b13'><p class='buttonText'>View Customer Sql queries</p></button>
                 </form>
                 <form method='post' target='_blank' action='endpoint_handler.php'>
-                    <button class='button' name='addCustomer' id='b13'><p class='buttonText'>Add Customer to Database</p></button> 
+                    <button class='button' name='addCustomer' id='b14'><p class='buttonText'>Add Customer to Database</p></button> 
+                </form>
+                <form method='post' target='_blank' action='endpoint_handler.php'>
+                    <button class='button' name='editCustomer' id='b15'><p class='buttonText'>Edit Customer</p></button> 
                 </form>
             </div>
                 <form method='post' target='_blank' action='endpoint_handler.php'>
-                    <input type='text' autocomplete="off" id='b14' class='table' name='table' placeholder='Change Query Table' required>
+                    <input type='text' autocomplete="off" id='b16' class='table' name='table' placeholder='Change Query Table' required>
                 </form>
             
     </body>

@@ -14,8 +14,8 @@
     </body>
     <script src='Scripts/createElements.js'></script>
     <?php 
-
-        echo("<script>createTA('prev', 'current', 'text');</script>"); 
+        
+        echo("<script>createTA('prev', 'current');</script>"); 
         
     ?>
 </html>

@@ -68,7 +68,7 @@ h2
 .container
 {
     width: 25%;
-    height: 68.5%;
+    height: 70.5%;
     left: 5%;
     box-shadow: -5px 6px 6px #888888;
     position: absolute;
@@ -79,14 +79,14 @@ h2
 {
     position: absolute;
     top: 17%;
-    height: 68.5%;
+    height: 70.5%;
     left: 37.5%;
 }
 #container-3
 {
     position: absolute;
     top: 17%;
-    height: 68.5%;
+    height: 70.5%;
     left: 70%;
 }
 .line
