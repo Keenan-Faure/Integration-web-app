@@ -8,27 +8,14 @@
                 <h1>Edit Product</h1>
                 <div class='line'></div>
             </div>
-            <div class='containers'>
-                <?php echo("<script type='text/javascript'>createTA('prev', 'current', 'I am here');</script>"); ?>
-                <div>
-                    <div class='prev'></div>
-                    <textarea class='current'></textarea>
-                </div>
-                <div>
-                    <div class='prev'></div>
-                    <textarea class='current'></textarea>
-                </div>
-                <div>
-                    <div class='prev'></div>
-                    <textarea class='current'></textarea>
-                </div>
-                <div>
-                    <div class='prev'></div>
-                    <textarea class='current'></textarea>
-                </div>
-            </div>
+            <div class='containers' id='main'></div>
         </div>
 
     </body>
     <script src='Scripts/createElements.js'></script>
+    <?php 
+
+        echo("<script>createTA('prev', 'current', 'text');</script>"); 
+        
+    ?>
 </html>
