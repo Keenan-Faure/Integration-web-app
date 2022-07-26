@@ -42,6 +42,34 @@
                 unset($_POST['addProduct']);
                 exit();
             }
+            if(isset($_POST['editProduct']))
+            {
+                $connection = new connect();
+                $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+                //creates query
+                
+                $query = "SELECT * FROM Inventory LIMIT 20";
+
+                $output = $connection->converterObject($rawConnection, $query);
+                mysqli_close($rawConnection);
+                
+                unset($_POST['editProduct']);
+                exit();
+            }
+            if(isset($_POST['editCustomer']))
+            {
+                $connection = new connect();
+                $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+                //creates query
+                
+                $query = "SELECT * FROM Client LIMIT 20";
+
+                $output = $connection->converterObject($rawConnection, $query);
+                mysqli_close($rawConnection);
+                
+                unset($_POST['editCustomer']);
+                exit();
+            }
             if(isset($_POST['table']))
             {
                 $connection = new connect();
