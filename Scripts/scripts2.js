@@ -24,6 +24,8 @@ var b11 = document.getElementById('b11');
 var b12 = document.getElementById('b12');
 var b13 = document.getElementById('b13');
 var b14 = document.getElementById('b14');
+var b15 = document.getElementById('b15');
+var b16 = document.getElementById('b16');
 
 window.addEventListener('load', ()=>
 {
@@ -80,6 +82,10 @@ window.addEventListener('load', ()=>
         {
             b8.classList.add('fade-in');
         }, 1350);
+        setTimeout(()=>
+        {
+            b9.classList.add('fade-in');
+        }, 1400);
 
 
         contain3.classList.add('fade-in');
@@ -93,28 +99,32 @@ window.addEventListener('load', ()=>
         }, 1550);
         setTimeout(()=>
         {
-            b9.classList.add('fade-in');
+            b10.classList.add('fade-in');
         }, 1650);
         setTimeout(()=>
         {
-            b10.classList.add('fade-in');
+            b11.classList.add('fade-in');
         }, 1750);
         setTimeout(()=>
         {
-            b11.classList.add('fade-in');
+            b12.classList.add('fade-in');
         }, 1850);
         setTimeout(()=>
         {
-            b12.classList.add('fade-in');
+            b13.classList.add('fade-in');
         }, 1950);
         setTimeout(()=>
         {
-            b13.classList.add('fade-in');
+            b14.classList.add('fade-in');
         }, 2050);
         setTimeout(()=>
         {
-            b14.classList.add('fade-in');
+            b15.classList.add('fade-in');
         }, 2150);
+        setTimeout(()=>
+        {
+            b16.classList.add('fade-in');
+        }, 2100);
     },400); //0.2s
 });
 
