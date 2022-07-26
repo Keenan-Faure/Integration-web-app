@@ -48,11 +48,12 @@
                 $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
                 //creates query
                 
-                $query = "SELECT * FROM Inventory LIMIT 20";
+                $query = "SELECT * FROM Inventory";
 
                 $output = $connection->converterObject($rawConnection, $query);
                 mysqli_close($rawConnection);
-                
+                $_SESSION['products'] = $output;
+                header('Refresh:0, url=editProduct.php');
                 unset($_POST['editProduct']);
                 exit();
             }
@@ -62,11 +63,12 @@
                 $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
                 //creates query
                 
-                $query = "SELECT * FROM Client LIMIT 20";
+                $query = "SELECT * FROM Client";
 
                 $output = $connection->converterObject($rawConnection, $query);
                 mysqli_close($rawConnection);
-                
+                $_SESSION['customers'] = $output;
+                header('Refresh:0, url=editCustomer.php');
                 unset($_POST['editCustomer']);
                 exit();
             }

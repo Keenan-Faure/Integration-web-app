@@ -1,6 +1,10 @@
-function createTA(classNamePrev, classNameCurrent, text = '')
+let require = ['title', 'sku', 'groupingCode', 'variantCode', 'costPrice', 'sellingPrice', 'optionName', 'optionValue'];
+
+function createTA(classNamePrev, classNameCurrent, text = '', name = '')
 {
-    if(text == '')
+    console.log(text);
+    console.log(name);
+    if(text == '' || name == '')
     {
         return null;
     }
@@ -13,8 +17,12 @@ function createTA(classNamePrev, classNameCurrent, text = '')
         prev.readOnly = true;
         prev.value = text;
 
+        //check if container to be created is in the required title
+        // code //
+
         current = document.createElement('textarea');
         current.className = classNameCurrent;
+        current.name = name;
         current.value = text;
 
         div.appendChild(prev);
