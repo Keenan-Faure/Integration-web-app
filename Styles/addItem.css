@@ -522,7 +522,7 @@ input[type=text]:focus, input[type=password]:focus
 
 #smaller
 {
-    height: 3%;
+    height: 35px;
     padding-top: 5px;
     border: 1px solid blue;
     color: rgb(255, 255, 255);
@@ -546,7 +546,7 @@ input[type=text]:focus, input[type=password]:focus
 {
     width: 30%;
     text-align: center;
-    height: 10%;
+    height: 77px;
     position: relative;
     left: 2%;
     resize: none;
@@ -566,7 +566,7 @@ input[type=text]:focus, input[type=password]:focus
     width: 45%;
     border-radius: 0px;
     text-align: center;
-    height: 10%;
+    height: 77px;
     position: relative;
     left: 3%;
     color: white;
@@ -585,8 +585,9 @@ input[type=text]:focus, input[type=password]:focus
 {
     width: 20%;
     border-radius: 0px;
+    height: 77px;
+    text-shadow: 1px 2px 6px rgb(153 165 165);
     text-align: center;
-    height: 10%;
     position: relative;
     left: 1%;
     color: white;
@@ -608,19 +609,85 @@ input[type=text]:focus, input[type=password]:focus
     width: 90%;
     transform: translate(-50%, 0%);
     left: 50%;
-    text-align: center;
-    height: 5%;
+    text-align: left;
+    height: 40px;
     position: relative;
     color: white;
     resize: none;
     overflow: auto;
     display: inline-block;
+    box-shadow: 1px 1px 6px #888888;
+    background-color: rgba(0,0,0,0.5);
+    margin: 3px 0;
+    cursor: pointer;
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+    transition-duration: 0.5s;
+}
+.fullSize:hover
+{
+    background-color: rgba(35, 120, 131, 0.9);
+}
+.column1
+{
+    display: inline-block;
+    box-sizing: border-box;
+    width: 15%;
+    border-radius: 0px;
+    height: 35px;
+    text-shadow: 1px 2px 6px rgb(153 165 165);
+    text-align: center;
+    position: relative;
+    left: 5%;
+    color: white;
     box-shadow: 1px 2px 6px #888888;
     background-color: rgba(0,0,0,0.5);
     margin: 8px 0;
     font-size: 15px;
-    text-decoration: underline;
     font-family: Arial, Helvetica, sans-serif;
-    padding: 28px 20px;
+    padding: 10px 20px;
+}
+#column2
+{
+    width: 20%;
+}
+
+#column3
+{
+    width: 33%;
+}
+#column4
+{
+    width: 20%;
+}
+
+.entry1
+{
+    display: inline-block;
     box-sizing: border-box;
+    width: 17%;
+    border-radius: 0px;
+    height: 35px;
+    text-shadow: 1px 2px 6px rgb(153 165 165);
+    text-align: center;
+    position: relative;
+    color: white;
+    margin: 3px 0;
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 8px 20px;
+}
+#entry2
+{
+    width: 22%;
+}
+
+#entry3
+{
+    width: 37%;
+}
+#entry4
+{
+    width: 22%;
 }
