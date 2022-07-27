@@ -165,6 +165,9 @@ class Connection
                     {
                         while($row = $result->fetch_object())
                         {
+                            //removes white spaces
+                            $var = htmlspecialchars($row->Description);
+                            $row->Description = $var;
                             $array = $row;
                             array_push($resultArray, $array);
                         }
