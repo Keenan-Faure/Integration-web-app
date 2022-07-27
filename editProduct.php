@@ -9,8 +9,12 @@
                 <h1>Edit Product</h1>
                 <div class='line'></div>
             </div>
-            <div class='containers' id='main'>
-                <div class='fullsize'></div>
+            <div class='containers' id='maine'>
+                <div class='column1'>Active</div>
+                <div class='column1' id = 'column2'>SKU</div>
+                <div class='column1' id = 'column3'>Title</div>
+                <div class='column1' id = 'column4'>Brand</div>
+
             </div>
         </div>
 
@@ -23,11 +27,11 @@
             for($i = 0; $i < sizeof($_SESSION['products']->result); ++ $i)
             {
                 //loop through template list...
-                for($j = 0; $j < sizeof($productTemplateDB); ++ $j)
-                {
-                    $template = $productTemplateDB[$j];
-                    //echo("<script>createTA('prev', 'current','" . $_SESSION['products']->result[0]->$template . "','" . $template . "');</script>");
-                }
+                $title = $_SESSION['products']->result[$i]->Title;
+                $sku = $_SESSION['products']->result[$i]->SKU;
+                $active = $_SESSION['products']->result[$i]->Active;
+                $brand = $_SESSION['products']->result[$i]->Brand;
+                echo("<script>createPLV('" . $active . "','" . $sku . "','" . $title . "','" . $brand . "');</script>");
             }
         } 
     ?>
