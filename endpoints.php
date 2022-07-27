@@ -142,8 +142,8 @@ if(isset($_SESSION['rawconnection']) && isset($_SESSION['connection']))
                     Token int AUTO_INCREMENT primary key NOT NULL,
                     Active varchar(6),
                     SKU varchar(255),
-                    Title text,
-                    Description varchar(255),
+                    Title varchar(255),
+                    Description varchar(510),
                     Group_Code varchar(255),
                     Category varchar(255),
                     Product_Type varchar(255),
@@ -165,7 +165,6 @@ if(isset($_SESSION['rawconnection']) && isset($_SESSION['connection']))
             ";
             
             $output = $connection2->converterObject($rawConnection, $query3);
-            print_r($output);
             $counter = false;
         }
         if($cust)
