@@ -74,7 +74,7 @@ class Controller
             {
                 if($segment == 'count')
                 {
-                    $query = "SELECT COUNT(*) FROM Inventory";
+                    $query = "SELECT COUNT(*) as 'Count' FROM Inventory";
                     $output = $connection->converterObject($rawConnection, $query);
                     return $output;
                 }
@@ -110,7 +110,7 @@ class Controller
             {
                 if($segment == 'count')
                 {
-                    $query = "SELECT COUNT(*) FROM Client";
+                    $query = "SELECT COUNT(*) as 'Count' FROM Client";
                     $output = $connection->converterObject($rawConnection, $query);
                     return $output;
                 }

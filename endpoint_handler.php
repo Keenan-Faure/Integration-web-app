@@ -66,6 +66,7 @@
                 $query = "SELECT * FROM Client";
 
                 $output = $connection->converterObject($rawConnection, $query);
+                $_SESSION['customers'] = $output;
                 mysqli_close($rawConnection);
                 $_SESSION['customers'] = $output;
                 header('Refresh:0, url=editCustomer.php');
