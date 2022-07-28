@@ -1,5 +1,3 @@
-let require = ['title', 'sku', 'groupingCode', 'variantCode', 'costPrice', 'sellingPrice', 'optionName', 'optionValue'];
-
 function createTA(classNamePrev, classNameCurrent, text = '', name = '')
 {
     if(text == '' || name == '')
@@ -9,6 +7,7 @@ function createTA(classNamePrev, classNameCurrent, text = '', name = '')
     else
     {
         let div = document.createElement('div');
+        div.className = 'item';
 
         what = document.createElement('textarea');
         what.className = 'typeE';
@@ -38,20 +37,26 @@ function createTA(classNamePrev, classNameCurrent, text = '', name = '')
     }
 }
 
-function createPLV(t1, t2, t3, t4)
+function createPLV(t1, t2, t3, t4, sku)
 {
     /*
-    <div class='fullSize'>
-        <div class='entry1'></div>
-        <div class='entry1' id = 'entry2'></div>
-        <div class='entry1' id = 'entry3'></div>
-        <div class='entry1' id = 'entry4'></div>
-    </div>
+    <form method='post' target='_blank' action='editProducts.php'>
+        <div class='fullSize'>
+            <div class='entry1'></div>
+            <div class='entry1' id = 'entry2'></div>
+            <div class='entry1' id = 'entry3'></div>
+            <div class='entry1' id = 'entry4'></div>
+        </div>
+    </form>
     */
-
-    let div = document.createElement('div');
+    let form = document.createElement('form');
+    form.target = '_blank';
+    form.method = 'post';
+    form.action = 'editProducts.php';
+    let div = document.createElement('button');
 
     div.className = 'fullsize';
+    div.name = sku;
 
     //can be done in loop
     //1.) creates entry div -> 2.) creates text Node with text parameter
@@ -86,7 +91,8 @@ function createPLV(t1, t2, t3, t4)
     div.appendChild(entry4);
 
     //appends to container
+    form.appendChild(div);
     main = document.getElementById("maine");
 
-    main.appendChild(div);
+    main.appendChild(form);
 }
