@@ -6,6 +6,8 @@ function createTA(classNamePrev, classNameCurrent, text = '', name = '')
     }
     else
     {
+        let form = document.getElementById('form');
+
         let div = document.createElement('div');
         div.className = 'item';
 
@@ -31,9 +33,10 @@ function createTA(classNamePrev, classNameCurrent, text = '', name = '')
         div.appendChild(prev);
         div.appendChild(current);
 
+        form.appendChild(div);
         main = document.getElementById("main");
 
-        main.appendChild(div);
+        main.appendChild(form);
     }
 }
 
@@ -95,4 +98,14 @@ function createPLV(t1, t2, t3, t4, sku)
     main = document.getElementById("maine");
 
     main.appendChild(form);
+}
+
+function createSumbit()
+{
+    let button = document.createElement('input');
+    button.className = 'eButton';
+    button.type = 'submit';
+
+    form = document.getElementById('form');
+    form.appendChild(button);
 }

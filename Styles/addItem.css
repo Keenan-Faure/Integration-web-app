@@ -79,7 +79,21 @@ p
     transition-duration: 0.3s;
     border-radius: 20px;
 }
-
+.eButton
+{   
+    width: 140px;
+    height: 41px;
+    border: rgb(194, 194, 194);
+    left: 50%;
+    transform: translate(-50%, 10%);
+    position: relative;
+    opacity: 0.9;
+    background-color: #fd0000;
+    color: black;
+    cursor: pointer;
+    transition-duration: 0.3s;
+    border-radius: 20px;
+}
 .overlay
 {
     width: 100%;
@@ -637,7 +651,7 @@ input[type=text]:focus, input[type=password]:focus
 }
 .item:hover
 {
-    background-color: rgba(91, 164, 173, 0.9);
+    background-color: rgba(39, 66, 70, 0.9);
 }
 .column1
 {

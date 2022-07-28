@@ -18,6 +18,7 @@
                 <textarea id = 'smaller' class='typeE'>Product Attribute</textarea>
                 <textarea id = 'smaller' class='prev'>Current Value</textarea>
                 <textarea id = 'smaller' class='current'>Editable Value</textarea>
+                <form id='form' action='process.php' target='_blank' method='post'></form>
             </div>
         </div>
 
@@ -35,14 +36,17 @@
                 $output2 = $connection2->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
 
                 $productTemplateDB = array('Title', 'Description', 'Category', 'Product_Type', 'Brand', 'SKU', 'Grouping_Code', 'Variant_Code', 'Barcode', 'Weight', 'CostPrice', 'SellingPrice',
-                                        'CapeTown_Warehouse', 'Option_1_Name', 'Option_1_Value', 'Option_2_Name', 'Option_2_Value', 'Meta_1', 'Meta_2', 'Meta_3');
-
+                                        'CapeTown_Warehouse', 'Option_1_Name', 'Option_1_Value', 'Option_2_Name', 'Option_2_Value', 'Meta_1', 'Meta_2', 'Meta_3', 'submit');
                 //loop through template list...
                 for($j = 0; $j < sizeof($productTemplateDB); ++ $j)
                 {
                     
                     $template = $productTemplateDB[$j];
-                    
+
+                    if($template == 'submit' && !(isset($output2->result[0]->$template)))
+                    {
+                        echo("<script>createSumbit()</script>");
+                    }
                     if(isset($output2->result[0]->$template))
                     {
                         if($template == 'Description')
@@ -56,6 +60,7 @@
                         }
                         else
                         {
+                            //if its the last item in the list
                             echo("<script>createTA('prev', 'current','" . $output2->result[0]->$template . "','" . $template . "');</script>");
                         }
                     }
