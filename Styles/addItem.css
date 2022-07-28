@@ -484,6 +484,10 @@ form
 {
     margin-bottom: 5px;
 }
+form:hover
+{
+    background-color: rgba(35, 120, 131, 0.9);
+}
 ::placeholder
 {
     text-align: center;
