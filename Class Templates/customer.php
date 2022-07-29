@@ -6,7 +6,7 @@ Class Customers
 {
     private $customer;
 
-    function createCustomer($customer, $util, $connection)
+    function createCustomer($customer, $util, $connection, $update = '')
     {
         if(!filter_var($customer['email'], FILTER_VALIDATE_EMAIL))
         {

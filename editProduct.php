@@ -25,7 +25,6 @@
         {
             for($i = 0; $i < sizeof($_SESSION['products']->result); ++ $i)
             {
-                //loop through template list...
                 $title = $_SESSION['products']->result[$i]->Title;
                 $sku = $_SESSION['products']->result[$i]->SKU;
                 $active = $_SESSION['products']->result[$i]->Active;

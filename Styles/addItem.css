@@ -645,14 +645,6 @@ input[type=text]:focus, input[type=password]:focus
 {
     background-color: rgba(35, 120, 131, 0.9);
 }
-.item
-{
-    transition-duration: 0.1s;
-}
-.item:hover
-{
-    background-color: rgba(39, 66, 70, 0.9);
-}
 .column1
 {
     display: inline-block;

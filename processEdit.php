@@ -20,7 +20,6 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
 
         if($_SESSION['connection']->active == true)
         {
-            print_r("Hi there");
             //variable product
             $util = new util();
             $connection = new connect();
@@ -36,38 +35,39 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
                 }
                 $result = $customer->addCustomer($result, $connection);
                 echo(json_encode($result));
+                unset($_POST);
             }
-            else
+            else if(!isset($_POST['name']) && isset($_POST['sku']))
             {
                 if(isset($_POST['optionName']) && isset($_POST['optionValue']))
                 {
                     $product = new vproduct();
-                    print_r("I am here");
-                    $result = $product->createProduct($_POST, $util, $connection);
-                    print_r($result);
-                    exit();
+                    $result = $product->createProduct($_POST, $util, $connection, 'edit');
                     if(isset($result->return))
                     {
                         echo(json_encode($result));
                         exit();
                     }
-                    $result = $product->addProduct($result, $connection);
+                    $result = $product->updateProduct($result, $util, $connection);
                     echo(json_encode($result));
+                    unset($_POST);
                 }
                 else
                 {
                     //simple product
                     $product = new sproduct();
-                    $result = $product->createProduct($_POST, $util, $connection);
+                    $result = $product->createProduct($_POST, $util, $connection, 'edit');
                     if(isset($result->return))
                     {
                         echo(json_encode($result));
                         exit();
                     }
-                    $result = $product->addProduct($result, $connection);
+                    $result = $product->updateProduct($result, $util, $connection);
                     echo(json_encode($result));
+                    unset($_POST);
                 }
             }
+            
         }
         else
         {

@@ -7,7 +7,7 @@ Class sProducts
 
     private $product;
 
-    function createProduct($product, $util, $connection)
+    function createProduct($product, $util, $connection, $update = '')
     {
         //checks if all the numeric values entered are numeric...
         $numeric = array("barcode", "weight", "costPrice", "sellingPrice", "quantity"); //array of numeric values
@@ -35,39 +35,86 @@ Class sProducts
 
         $rawConnection = $connection->createConnection($username, $password,"localhost", $dbName)->rawValue;
 
-        //checks SKU
-        if($util->existSKU($product, $rawConnection, $connection) !== true)
+        if($update == 'edit')
         {
-            return $util->existSKU($product, $rawConnection, $connection);
-        }
-        
-        //checks variantCode
-        if($util->existVariantCode($product, $rawConnection, $connection) !== true)
-        {
-            return $util->existVariantCode($product, $rawConnection, $connection);
-        }
-
-        //creates the product
-        $productTemplate = array('title', 'description', 'category', 'productType', 'brand', 'sku', 'groupingCode', 'variantCode', 'barcode', 'weight', 'costPrice', 'sellingPrice',
-        'quantity', 'optionName', 'optionValue', 'option2Name', 'option2Value', 'meta1', 'meta2', 'meta3');
-
-        //creates as a standard class
-        $this->product = new \stdClass();
-        for($i = 0; $i < sizeof($productTemplate); ++$i)
-        {
-            //for debugging only 
-
-            //print_r($product[$productTemplate[$i]]);
-            //echo("<br>");
-            if(isset($product[$productTemplate[$i]]))
+            //checks SKU
+            if($util->existSKU($product, $rawConnection, $connection) !== true)
             {
-                //converts to a string
-                $variable = $productTemplate[$i];
-                $this->product->$variable = $product[$productTemplate[$i]];
+                return $util->existSKU($product, $rawConnection, $connection);
             }
-        }
-        return $this->product;
-        
+            
+            //checks variantCode
+            if($util->existVariantCode($product, $rawConnection, $connection) !== true)
+            {
+                return $util->existVariantCode($product, $rawConnection, $connection);
+            }
+
+            //creates the product
+            $productTemplate = array('title', 'description', 'category', 'productType', 'brand', 'sku', 'variantCode', 'barcode', 'weight', 'costPrice', 'sellingPrice',
+            'quantity', 'meta1', 'meta2', 'meta3');
+
+            //creates as a standard class
+            $this->product = new \stdClass();
+            for($i = 0; $i < sizeof($productTemplate); ++$i)
+            {
+                //for debugging only 
+
+                //print_r($product[$productTemplate[$i]]);
+                //echo("<br>");
+                if(isset($product[$productTemplate[$i]]))
+                {
+                    //converts to a string
+                    $variable = $productTemplate[$i];
+                    $this->product->$variable = $product[$productTemplate[$i]];
+                }
+                else
+                {
+                    $variable = $productTemplate[$i];
+                    $this->product->$variable = null;
+                }
+            }
+            return $this->product;
+        }   
+        else
+        {
+            //checks SKU
+            if($util->existSKU($product, $rawConnection, $connection) !== true)
+            {
+                return $util->existSKU($product, $rawConnection, $connection);
+            }
+            
+            //checks variantCode
+            if($util->existVariantCode($product, $rawConnection, $connection) !== true)
+            {
+                return $util->existVariantCode($product, $rawConnection, $connection);
+            }
+
+            //creates the product
+            $productTemplate = array('title', 'description', 'category', 'productType', 'brand', 'sku', 'variantCode', 'barcode', 'weight', 'costPrice', 'sellingPrice',
+            'quantity', 'meta1', 'meta2', 'meta3');
+
+            //creates as a standard class
+            $this->product = new \stdClass();
+            for($i = 0; $i < sizeof($productTemplate); ++$i)
+            {
+                //for debugging only 
+
+                //print_r($product[$productTemplate[$i]]);
+                //echo("<br>");
+                if(isset($product[$productTemplate[$i]]))
+                {
+                    //converts to a string
+                    $variable = $productTemplate[$i];
+                    $this->product->$variable = $product[$productTemplate[$i]];
+                }
+                else
+                {
+                    $variable = $productTemplate[$i];
+                    $this->product->$variable = null;
+                }
+            }
+            return $this->product;
+            }
     }
     function addProduct($product, $connection)
     {
@@ -122,6 +169,42 @@ Class sProducts
         $result->data = $product;
         return $result;
 
+    }
+    function updateProduct($product, $connection)
+    {
+        $username = $_SESSION['connection']->credentials->username;
+        $password = $_SESSION['connection']->credentials->password;
+        $dbName = $_SESSION['connection']->credentials->dbname;
+        $rawConnection = $connection->createConnection($username, $password,"localhost", $dbName)->rawValue;
+
+        $query = "UPDATE Inventory 
+
+        SET 
+            Active = 'true',
+            Title = '$product->title',
+            Description = '$product->description',
+            Category = '$product->category',
+            Product_Type = '$product->productType',
+            Brand = '$product->brand',
+            SKU = '$product->sku',
+            Variant_Code = '$product->variantCode',
+            Barcode = '$product->barcode',
+            Weight = '$product->weight',
+            CostPrice = '$product->costPrice',
+            SellingPrice = '$product->sellingPrice',
+            CapeTown_Warehouse = '$product->quantity',
+            Meta_1 = '$product->meta1',
+            Meta_2 = '$product->meta2',
+            Meta_3 = '$product->meta1'
+            
+        WHERE SKU = '$product->sku'"
+        ;
+
+        $output = $connection->converterObject($rawConnection, $query);
+        $result = new \stdClass();
+        $result->result = $output;
+        $result->data = $product;
+        return $result;
     }
 }
 ?>

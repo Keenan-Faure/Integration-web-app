@@ -34,8 +34,9 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
                 }
                 $result = $customer->addCustomer($result, $connection);
                 echo(json_encode($result));
+                unset($_POST);
             }
-            else
+            else if(isset($_POST['optionName']) && isset($_POST['optionValue']))
             {
                 if(isset($_POST['optionName']) && isset($_POST['optionValue']))
                 {
@@ -48,6 +49,7 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
                     }
                     $result = $product->addProduct($result, $connection);
                     echo(json_encode($result));
+                    unset($_POST);
                 }
                 else
                 {
@@ -61,14 +63,27 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
                     }
                     $result = $product->addProduct($result, $connection);
                     echo(json_encode($result));
+                    unset($_POST);
                 }
+            }
+            else
+            {
+                $variable = new \stdClass();
+                $variable->active = false;
+                $variable->message = 'No POST Data found, please re-select';
+                $variable->failedPage = 'process.php';
+                $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+
+                echo(json_encode($variable));
+                array_push($_SESSION['log'], $variable);
+                header('Refresh:2,url=editProduct.php');
             }
         }
         else
         {
             $variable = new \stdClass();
             $variable->active = false;
-            $variable->message = 'No connection found in current session, please re-connect';
+            $variable->message = 'No connection found in current session, please re-connect or no pro';
             $variable->failedPage = 'process.php';
             $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
 

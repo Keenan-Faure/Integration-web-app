@@ -28,6 +28,7 @@
         if(isset($_SESSION['customers']))
         {
             $id = array_keys($_POST)[0];
+            unset($_POST);
             if($_SESSION['connection'])
             {
                 $connection2 = new connect();
@@ -52,7 +53,7 @@
                     }
                     if(isset($output2->result[0]->$template))
                     {
-                        echo("<script>createTA('prev', 'current','" . $output2->result[0]->$template . "','" . $template1 . "');</script>");
+                        echo("<script>createTA('prev', 'current','" . $output2->result[0]->$template . "','" . $template1 . "','" . $template . "');</script>");
                     }
                 }
             }

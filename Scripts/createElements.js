@@ -1,4 +1,4 @@
-function createTA(classNamePrev, classNameCurrent, text = '', name = '')
+function createTA(classNamePrev, classNameCurrent, text = '', name = '', vName = '')
 {
     if(text == '' || name == '')
     {
@@ -14,7 +14,7 @@ function createTA(classNamePrev, classNameCurrent, text = '', name = '')
         what = document.createElement('textarea');
         what.className = 'typeE';
         what.readOnly = true;
-        what.value = name;
+        what.value = vName;
 
         prev = document.createElement('textarea');
         prev.className = classNamePrev;
