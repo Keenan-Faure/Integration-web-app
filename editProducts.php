@@ -18,7 +18,7 @@
                 <textarea id = 'smaller' class='typeE'>Product Attribute</textarea>
                 <textarea id = 'smaller' class='prev'>Current Value</textarea>
                 <textarea id = 'smaller' class='current'>Editable Value</textarea>
-                <form id='form' action='process.php' target='_blank' method='post'></form>
+                <form id='form' action='processEdit.php' target='_blank' method='post'></form>
             </div>
         </div>
 
@@ -37,22 +37,26 @@
 
                 $productTemplateDB = array('Title', 'Description', 'Category', 'Product_Type', 'Brand', 'SKU', 'Grouping_Code', 'Variant_Code', 'Barcode', 'Weight', 'CostPrice', 'SellingPrice',
                                         'CapeTown_Warehouse', 'Option_1_Name', 'Option_1_Value', 'Option_2_Name', 'Option_2_Value', 'Meta_1', 'Meta_2', 'Meta_3', 'submit');
+
+                $productTemplateForm = array('title', 'description', 'category', 'productType', 'brand', 'sku', 'groupingCode', 'variantCode', 'barcode', 'weight', 'costPrice', 'sellingPrice',
+                'quantity', 'option1', 'option1Value', 'option2Name', 'option2Value', 'meta1', 'meta2', 'meta3', 'submit');
                 //loop through template list...
                 for($j = 0; $j < sizeof($productTemplateDB); ++ $j)
                 {
                     
-                    $template = $productTemplateDB[$j];
+                    $templateDB = $productTemplateDB[$j];
+                    $template = $productTemplateForm[$j];
 
-                    if($template == 'submit' && !(isset($output2->result[0]->$template)))
+                    if($templateDB == 'submit' && !(isset($output2->result[0]->$templateDB)))
                     {
                         echo("<script>createSumbit()</script>");
                     }
-                    if(isset($output2->result[0]->$template))
+                    if(isset($output2->result[0]->$templateDB))
                     {
-                        if($template == 'Description')
+                        if($templateDB == 'Description')
                         {
                             //decodes it
-                            $var = htmlspecialchars_decode($output2->result[0]->$template);
+                            $var = htmlspecialchars_decode($output2->result[0]->$templateDB);
 
                             //fixes the html
                             $var = str_replace(["\r\n", "\r", "\n"], '', $var);
@@ -61,7 +65,7 @@
                         else
                         {
                             //if its the last item in the list
-                            echo("<script>createTA('prev', 'current','" . $output2->result[0]->$template . "','" . $template . "');</script>");
+                            echo("<script>createTA('prev', 'current','" . $output2->result[0]->$templateDB . "','" . $template . "');</script>");
                         }
                     }
                 }
