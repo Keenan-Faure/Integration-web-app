@@ -20,7 +20,6 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
 
         if($_SESSION['connection']->active == true)
         {
-            //variable product
             $util = new util();
             $connection = new connect();
             if(isset($_POST['name']) && isset($_POST['surname']))
