@@ -36,13 +36,13 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
                 echo(json_encode($result));
                 unset($_POST);
             }
-            else if(isset($_POST['optionName']) && isset($_POST['optionValue']))
+            else if(!isset($_POST['name']) && !isset($_POST['surname']))
             {
                 if(isset($_POST['optionName']) && isset($_POST['optionValue']))
                 {
                     $product = new vproduct();
                     $result = $product->createProduct($_POST, $util, $connection);
-                    if(isset($result->return))
+                    if($result->return === false)
                     {
                         echo(json_encode($result));
                         exit();
@@ -56,7 +56,7 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
                     //simple product
                     $product = new sproduct();
                     $result = $product->createProduct($_POST, $util, $connection);
-                    if(isset($result->return))
+                    if($result->return === false)
                     {
                         echo(json_encode($result));
                         exit();

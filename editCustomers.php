@@ -18,7 +18,7 @@
                 <textarea id = 'smaller' class='typeE'>Customer Attribute</textarea>
                 <textarea id = 'smaller' class='prev'>Current Value</textarea>
                 <textarea id = 'smaller' class='current'>Editable Value</textarea>
-                <form id='form' action='processEdit.php' target='_blank' method='post'></form>
+                <form id='form' action='processEdit.php' method='post'></form>
             </div>
         </div>
 

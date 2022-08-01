@@ -153,7 +153,7 @@ Class Utility
             return true;
         }
     }
-    
+
     //variable product
     function existSKUe($product, $rawConnection, $connect)
     {

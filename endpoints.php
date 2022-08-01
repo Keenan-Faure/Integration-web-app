@@ -140,6 +140,7 @@ if(isset($_SESSION['rawconnection']) && isset($_SESSION['connection']))
             //creates query
             $query3 = " CREATE TABLE Inventory (
                     Token int AUTO_INCREMENT primary key NOT NULL,
+                    Type varchar(7),
                     Active varchar(6),
                     SKU varchar(255),
                     Title varchar(255),

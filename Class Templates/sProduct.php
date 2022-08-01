@@ -37,17 +37,6 @@ Class sProducts
 
         if($update == 'edit')
         {
-            //checks SKU
-            if($util->existSKU($product, $rawConnection, $connection) !== true)
-            {
-                return $util->existSKU($product, $rawConnection, $connection);
-            }
-            
-            //checks variantCode
-            if($util->existVariantCode($product, $rawConnection, $connection) !== true)
-            {
-                return $util->existVariantCode($product, $rawConnection, $connection);
-            }
 
             //creates the product
             $productTemplate = array('title', 'description', 'category', 'productType', 'brand', 'sku', 'variantCode', 'barcode', 'weight', 'costPrice', 'sellingPrice',
@@ -122,9 +111,10 @@ Class sProducts
         $password = $_SESSION['connection']->credentials->password;
         $dbName = $_SESSION['connection']->credentials->dbname;
         $rawConnection = $connection->createConnection($username, $password,"localhost", $dbName)->rawValue;
-
+        
         $query = "INSERT INTO Inventory 
         (
+            Type,
             Active,
             Title,
             Description,
@@ -132,7 +122,6 @@ Class sProducts
             Product_Type,
             Brand,
             SKU,
-            Group_Code,
             Variant_Code,
             Barcode,
             Weight,
@@ -145,6 +134,7 @@ Class sProducts
         )
         VALUES 
         (
+            'Simple',
             'true','" .
             $product->title . "','" .
             $product->description . "','" .
@@ -152,7 +142,6 @@ Class sProducts
             $product->productType . "','" .
             $product->brand . "','" .
             $product->sku . "','" .
-            $product->groupingCode . "','" .
             $product->variantCode . "','" .
             $product->barcode . "','" .
             $product->weight . "','" .
@@ -170,12 +159,23 @@ Class sProducts
         return $result;
 
     }
-    function updateProduct($product, $connection)
+    function updateProduct($product, $util, $connection)
     {
         $username = $_SESSION['connection']->credentials->username;
         $password = $_SESSION['connection']->credentials->password;
         $dbName = $_SESSION['connection']->credentials->dbname;
         $rawConnection = $connection->createConnection($username, $password,"localhost", $dbName)->rawValue;
+
+        if($util->existSKUe($product, $rawConnection, $connection) !== true)
+        {
+            return $util->existSKUe($product, $rawConnection, $connection);
+        }
+        
+        //checks variantCode
+        if($util->existVariantCodee($product, $rawConnection, $connection) !== true)
+        {
+            return $util->existVariantCodee($product, $rawConnection, $connection);
+        }
 
         $query = "UPDATE Inventory 
 

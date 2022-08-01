@@ -119,6 +119,7 @@ Class vProducts
 
         $query = "INSERT INTO Inventory 
         (
+            Type,
             Active,
             Title,
             Description,
@@ -144,6 +145,7 @@ Class vProducts
 
         VALUES 
         (
+            'Variant',
             'true','" .
             $product->title . "','" .
             $product->description . "','" .

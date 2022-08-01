@@ -53,7 +53,6 @@ function createPLV(t1, t2, t3, t4, sku)
     </form>
     */
     let form = document.createElement('form');
-    form.target = '_blank';
     form.method = 'post';
     form.action = 'editProducts.php';
     let div = document.createElement('button');
@@ -113,7 +112,6 @@ function createCLV(t1, t2, t3, t4, id)
     </form>
     */
     let form = document.createElement('form');
-    form.target = '_blank';
     form.method = 'post';
     form.action = 'editCustomers.php';
     let div = document.createElement('button');
