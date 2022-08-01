@@ -17,8 +17,6 @@ Class Customers
             return $variable;
         }
 
-        //query against Database to check if the name-surname combination is repeated?_?
-
         //create connection first
         $username = $_SESSION['connection']->credentials->username;
         $password = $_SESSION['connection']->credentials->password;
@@ -27,32 +25,56 @@ Class Customers
         //checks SKU
         $rawConnection = $connection->createConnection($username, $password,"localhost", $dbName)->rawValue;
 
-        //checks SKU
-        if($util->existID($customer, $rawConnection, $connection) !== true)
+        if($update == 'edit')
         {
-            return $util->existID($customer, $rawConnection, $connection);
-        }
+            //creates the customer
+            $customerTemplate = array('id','name', 'surname', 'email', 'address1', 'address2', 'address3', 'address4');
 
-        //creates the customer
-        $customerTemplate = array('id','name', 'surname', 'email', 'address1', 'address2', 'address3', 'address4');
-
-        //creates as a standard class
-        $this->customer = new \stdClass();
-        for($i = 0; $i < sizeof($customerTemplate); ++$i)
-        {
-            //for debugging only 
-
-            //print_r($customer[$customerTemplate[$i]]);
-            //echo("<br>");
-            if(isset($customer[$customerTemplate[$i]]))
+            //creates as a standard class
+            $this->customer = new \stdClass();
+            for($i = 0; $i < sizeof($customerTemplate); ++$i)
             {
-                //converts to a string
-                $variable = $customerTemplate[$i];
-                $this->customer->$variable = $customer[$customerTemplate[$i]];
+                //for debugging only 
+
+                //print_r($customer[$customerTemplate[$i]]);
+                //echo("<br>");
+                if(isset($customer[$customerTemplate[$i]]))
+                {
+                    //converts to a string
+                    $variable = $customerTemplate[$i];
+                    $this->customer->$variable = $customer[$customerTemplate[$i]];
+                }
             }
+            return $this->customer;
         }
-        return $this->customer;
-        
+        else
+        {
+            //checks SKU
+            if($util->existID($customer, $rawConnection, $connection) !== true)
+            {
+                return $util->existID($customer, $rawConnection, $connection);
+            }
+
+            //creates the customer
+            $customerTemplate = array('id','name', 'surname', 'email', 'address1', 'address2', 'address3', 'address4');
+
+            //creates as a standard class
+            $this->customer = new \stdClass();
+            for($i = 0; $i < sizeof($customerTemplate); ++$i)
+            {
+                //for debugging only 
+
+                //print_r($customer[$customerTemplate[$i]]);
+                //echo("<br>");
+                if(isset($customer[$customerTemplate[$i]]))
+                {
+                    //converts to a string
+                    $variable = $customerTemplate[$i];
+                    $this->customer->$variable = $customer[$customerTemplate[$i]];
+                }
+            }
+            return $this->customer;
+        }
     }
     function addCustomer($customer, $connection)
     {
@@ -90,6 +112,50 @@ Class Customers
         $result->data = $customer;
         return $result;
 
+    }
+    function updateCustomer($customer, $util, $connection)
+    {
+        $username = $_SESSION['connection']->credentials->username;
+        $password = $_SESSION['connection']->credentials->password;
+        $dbName = $_SESSION['connection']->credentials->dbname;
+        $rawConnection = $connection->createConnection($username, $password,"localhost", $dbName)->rawValue;
+
+        //checks SKU
+
+        if($util->existIDe($customer, $rawConnection, $connection) !== true)
+        {
+            return $util->existIDe($customer, $rawConnection, $connection);
+        }
+
+        $query = "INSERT INTO Client 
+        (
+            Active,
+            ID,
+            Name,
+            Surname,
+            Email,
+            Address_1,
+            Address_2,
+            Address_3,
+            Address_4
+        )
+        VALUES 
+        (
+            'true','" .
+            strtolower($customer->id) . "','" .
+            $customer->name . "','" .
+            $customer->surname . "','" .
+            $customer->email . "','" .
+            $customer->address1 . "','" .
+            $customer->address2 . "','" .
+            $customer->address3 . "','"
+            . "" . $customer->address4 . "');"
+        ;
+        $output = $connection->converterObject($rawConnection, $query);
+        $result = new \stdClass();
+        $result->result = $output;
+        $result->data = $customer;
+        return $result;
     }
 }
 ?>
