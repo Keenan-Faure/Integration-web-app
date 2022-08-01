@@ -27,17 +27,15 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
             {
                 //customer
                 $customer = new customer();
-                $result = $customer->createCustomer($_POST, $util, $connection);
+                $result = $customer->createCustomer($_POST, $util, $connection, 'edit');
                 if(isset($result->return))
                 {
                     echo(json_encode($result));
-                    header('Refresh:2, url=endpoints.php');
                     exit();
                 }
-                $result = $customer->addCustomer($result, $connection);
+                $result = $customer->updateCustomer($result, $util, $connection);
                 echo(json_encode($result));
                 unset($_POST);
-                header('Refresh:2, url=endpoints.php');
             }
             else if(!isset($_POST['name']) && isset($_POST['sku']))
             {
@@ -48,13 +46,11 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
                     if(isset($result->return))
                     {
                         echo(json_encode($result));
-                        header('Refresh:2, url=endpoints.php');
                         exit();
                     }
                     $result = $product->updateProduct($result, $util, $connection);
                     echo(json_encode($result));
                     unset($_POST);
-                    header('Refresh:2, url=endpoints.php');
                 }
                 else
                 {
@@ -64,13 +60,11 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
                     if(isset($result->return))
                     {
                         echo(json_encode($result));
-                        header('Refresh:2, url=endpoints.php');
                         exit();
                     }
                     $result = $product->updateProduct($result, $util, $connection);
                     echo(json_encode($result));
                     unset($_POST);
-                    header('Refresh:2, url=endpoints.php');
                 }
             }
             
