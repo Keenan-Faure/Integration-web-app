@@ -43,6 +43,7 @@
             $url = parse_url($_SERVER['REQUEST_URI'])['path'];
 
             $url = explode('/', $url);
+
             //only if the 5th segment of the url is defined and populated
             //then run a function on it.
             if(isset($url[4]))
