@@ -1,0 +1,10 @@
+updates
+
+- configure $_SESSION['products'] to update once the user lands on the editCustomers/Products.php page, then it will make sense to re-direct 
+  the user back there once the product/customer has been added/editted.
+
+- create NavBar to make navigation easier (will require Js, CSS, some HTML)
+
+- decrease the size of the tabs on editCustomer/Products.php for everything besides the html editng fields. (They are just too big)
+
+- 
