@@ -18,7 +18,7 @@ Class vProducts
                 {
                     //check if they are numeric using the util class -- its a parameter
                     $variable = $util->isNumeric($product[$numeric[$j]], $numeric[$j]);
-                    if($variable->result == false)
+                    if($variable->return == false)
                     {
                         // returns the values that are not numeric...
                         return $variable;
@@ -34,7 +34,6 @@ Class vProducts
         $password = $_SESSION['connection']->credentials->password;
         $dbName = $_SESSION['connection']->credentials->dbname;
 
-        //checks SKU
         $rawConnection = $connection->createConnection($username, $password,"localhost", $dbName)->rawValue;
         if($update == 'edit')
         {           

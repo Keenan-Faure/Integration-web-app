@@ -9,7 +9,7 @@ Class Utility
         if(is_numeric($value))
         {
             $variable = new \stdClass();
-            $variable->result = true;
+            $variable->return = true;
             $variable->message = $field . ' Is Numeric';
             $variable->value = $value;
             return $variable;
@@ -17,8 +17,8 @@ Class Utility
         else
         {
             $variable = new \stdClass();
-            $variable->result = false;
-            $variable->message = $field . " {{" . $value . "}} is NOT numeric";
+            $variable->return = false;
+            $variable->message = $field . " is NOT numeric";
             $variable->value = $value;
             return $variable;
         }
@@ -38,7 +38,6 @@ Class Utility
     function existID($customer, $rawConnection, $connect)
     {
         //checks ID
-        //checks SKU
         $query = "SELECT COUNT(*) AS total FROM Client WHERE ID = '" . strtolower($customer['id']) . "'";
         $result = $connect->converterObject($rawConnection, $query);
 
@@ -46,7 +45,7 @@ Class Utility
         {
             $variable = new \stdClass();
             $variable->return = false;
-            $variable->message = "ID {{" . $customer['id'] . "}} already exists in Client Table";
+            $variable->message = "ID already exists in Client Table";
             $variable->data = $result;
             return $variable;
         }
@@ -59,7 +58,6 @@ Class Utility
     //variable product
     function existSKU($product, $rawConnection, $connect)
     {
-
         //checks SKU
         $query = "SELECT COUNT(*) AS total FROM Inventory WHERE SKU = '" . $product['sku'] . "'";
         $result = $connect->converterObject($rawConnection, $query);
@@ -68,7 +66,7 @@ Class Utility
         {
             $variable = new \stdClass();
             $variable->return = false;
-            $variable->message = "SKU {{" . $product['sku'] . "}} already exists in Inventory Table";
+            $variable->message = "SKU already exists in Inventory Table";
             $variable->data = $result;
             return $variable;
         }
@@ -94,7 +92,7 @@ Class Utility
         {
             $variable = new \stdClass();
             $variable->return = false;
-            $variable->message = "Variant Code {{" . $product['variantCode'] . "}} already exists in Inventory Table";
+            $variable->message = "Variant Code already exists in Inventory Table";
             $variable->data = $result;
             return $variable;
         }
@@ -174,7 +172,26 @@ Class Utility
             return true;
         }
     }
+    function existIDe($customer, $rawConnection, $connect)
+    {
+        //checks ID
+        //checks SKU
+        $query = "SELECT COUNT(*) AS total FROM Client WHERE ID = '" . strtolower($customer->id) . "'";
+        $result = $connect->converterObject($rawConnection, $query);
 
+        if($result->result[0]->total > 1)
+        {
+            $variable = new \stdClass();
+            $variable->return = false;
+            $variable->message = "ID already exists in Client Table";
+            $variable->data = $result;
+            return $variable;
+        }
+        else
+        {
+            return true;
+        }
+    }
     function existVariantCodee($product, $rawConnection, $connect)
     {
         $username = $_SESSION['connection']->credentials->username;

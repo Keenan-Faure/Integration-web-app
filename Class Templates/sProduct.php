@@ -19,7 +19,7 @@ Class sProducts
                 {
                     //check if they are numeric using the util class -- its a parameter
                     $variable = $util->isNumeric($product[$numeric[$j]], $numeric[$j]);
-                    if($variable->result == false)
+                    if($variable->return == false)
                     {
                         // returns the values that are not numeric...
                         return $variable;
