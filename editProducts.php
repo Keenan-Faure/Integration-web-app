@@ -51,7 +51,6 @@
                     {
                         echo("<script>createSumbit()</script>");
                     }
-                    print_r($templateDB);
                     if(isset($output2->result[0]->$templateDB))
                     {
                         if($templateDB == 'Description')

@@ -55,6 +55,7 @@ function createContainer(name)
     }
 }
 
+/*
 var side = "right";
 
 document.addEventListener('keydown', (event)=>
@@ -70,4 +71,6 @@ document.addEventListener('keydown', (event)=>
         side = "right";
     }
 });
+
+*/
 

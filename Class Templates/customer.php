@@ -126,31 +126,23 @@ Class Customers
         {
             return $util->existIDe($customer, $rawConnection, $connection);
         }
+        
+        $query = "UPDATE Client 
 
-        $query = "INSERT INTO Client 
-        (
-            Active,
-            ID,
-            Name,
-            Surname,
-            Email,
-            Address_1,
-            Address_2,
-            Address_3,
-            Address_4
-        )
-        VALUES 
-        (
-            'true','" .
-            strtolower($customer->id) . "','" .
-            $customer->name . "','" .
-            $customer->surname . "','" .
-            $customer->email . "','" .
-            $customer->address1 . "','" .
-            $customer->address2 . "','" .
-            $customer->address3 . "','"
-            . "" . $customer->address4 . "');"
+        SET 
+            Active = 'true',
+            ID = '$customer->id',
+            Name = '$customer->name',
+            Surname = '$customer->surname',
+            Email = '$customer->email',
+            Address_1 = '$customer->address1',
+            Address_2 = '$customer->address2',
+            Address_3 = '$customer->address3',
+            Address_4 = '$customer->address4'
+
+        WHERE ID = '$customer->id'"
         ;
+
         $output = $connection->converterObject($rawConnection, $query);
         $result = new \stdClass();
         $result->result = $output;

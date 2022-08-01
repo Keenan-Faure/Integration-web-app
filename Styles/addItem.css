@@ -27,6 +27,10 @@ p
     margin: 0;
     padding-top: 8px;
 }
+.navBar
+{
+    /**/
+}
 .line
 {
     width: 50%;
@@ -501,7 +505,7 @@ form
 .errors
 {
     text-align: center;
-    width: 200px;
+    width: 100%;
     font-size: 12px;
     height: 35px;
     top: 0;

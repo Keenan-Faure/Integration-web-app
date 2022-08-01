@@ -175,10 +175,8 @@ Class Utility
     function existIDe($customer, $rawConnection, $connect)
     {
         //checks ID
-        //checks SKU
         $query = "SELECT COUNT(*) AS total FROM Client WHERE ID = '" . strtolower($customer->id) . "'";
         $result = $connect->converterObject($rawConnection, $query);
-
         if($result->result[0]->total > 1)
         {
             $variable = new \stdClass();
