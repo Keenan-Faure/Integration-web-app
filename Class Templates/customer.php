@@ -38,7 +38,7 @@ Class Customers
 
                 //print_r($customer[$customerTemplate[$i]]);
                 //echo("<br>");
-                if(isset($customer[$customerTemplate[$i]]))
+                if(isset($customer[$customerTemplate[$i]]) && $customer[$customerTemplate[$i]] != 'null')
                 {
                     //converts to a string
                     $variable = $customerTemplate[$i];
