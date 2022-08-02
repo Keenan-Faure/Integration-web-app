@@ -102,7 +102,7 @@ p
 .eButton
 {   
     width: 140px;
-    height: 41px;
+    height: 25px;
     border: rgb(194, 194, 194);
     left: 50%;
     transform: translate(-50%, 10%);
@@ -618,6 +618,19 @@ input[type=text]:focus, input[type=password]:focus
     font-family: Arial, Helvetica, sans-serif;
     padding: 28px 20px;
     box-sizing: border-box;
+}
+#shrink
+{
+    height: 40px;
+    padding-top: 10px;
+    overflow: hidden;
+}
+@media screen and (max-width: 900px)
+{
+    #shrink
+    {
+        overflow: auto;
+    }
 }
 .currentNA
 {

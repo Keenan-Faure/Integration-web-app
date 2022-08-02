@@ -29,6 +29,7 @@ Class Customers
             //creates the customer
             $customerTemplate = array('id','name', 'surname', 'email', 'address1', 'address2', 'address3', 'address4');
 
+            $customer['id'] = strtolower($customer['name']) . '-' . strtolower($customer['surname']);
             //creates as a standard class
             $this->customer = new \stdClass();
             for($i = 0; $i < sizeof($customerTemplate); ++$i)
@@ -48,7 +49,10 @@ Class Customers
         }
         else
         {
-            //checks SKU
+
+            $customer['id'] = strtolower($customer['name']) . '-' . strtolower($customer['surname']);
+
+            //checks ID
             if($util->existID($customer, $rawConnection, $connection) !== true)
             {
                 return $util->existID($customer, $rawConnection, $connection);

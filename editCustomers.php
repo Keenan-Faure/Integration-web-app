@@ -52,6 +52,10 @@
                         //if its the last item in the list
                         echo("<script>createSumbit()</script>");
                     }
+                    else if($template == 'id')
+                    {
+                        $_SESSION['edit_cust']->$template = $output2->result[0]->$templateDB;
+                    }
                     else
                     {
                         if(isset($output2->result[0]->$templateDB) && $output2->result[0]->$templateDB != null)

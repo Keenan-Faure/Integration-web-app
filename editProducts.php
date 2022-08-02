@@ -54,29 +54,32 @@
                     {
                         echo("<script>createSumbit()</script>");
                     }
-                    if(isset($output2->result[0]->$templateDB) && $output2->result[0]->$templateDB != null)
+                    else
                     {
-                        if($templateDB == 'Description')
+                        if(isset($output2->result[0]->$templateDB) && $output2->result[0]->$templateDB != null)
                         {
-                            //decodes it
-                            $var = htmlspecialchars_decode($output2->result[0]->$templateDB);
+                            if($templateDB == 'Description')
+                            {
+                                //decodes it
+                                $var = htmlspecialchars_decode($output2->result[0]->$templateDB);
 
-                            //fixes the html
-                            $var = str_replace(["\r\n", "\r", "\n"], '', $var);
-                            $_SESSION['edit_prod']->$template = $var;
-                            echo("<script>createTA('prev', 'current','" . $var . "','" . $template . "','" . $templateDB . "');</script>");
+                                //fixes the html
+                                $var = str_replace(["\r\n", "\r", "\n"], '', $var);
+                                $_SESSION['edit_prod']->$template = $var;
+                                echo("<script>createTA('prev', 'current','" . $var . "','" . $template . "','" . $templateDB . "');</script>");
+                            }
+                            else
+                            {
+                                //if its the last item in the list
+                                $_SESSION['edit_prod']->$template = $output2->result[0]->$templateDB;
+                                echo("<script>createTA('prev', 'current','" . $output2->result[0]->$templateDB . "','" . $template . "','" . $templateDB . "');</script>");
+                            }
                         }
                         else
                         {
-                            //if its the last item in the list
-                            $_SESSION['edit_prod']->$template = $output2->result[0]->$templateDB;
-                            echo("<script>createTA('prev', 'current','" . $output2->result[0]->$templateDB . "','" . $template . "','" . $templateDB . "');</script>");
+                            $var = 'null';
+                            echo("<script>createTA('prevNA', 'currentNA','" . $var . "','" . $template . "','" . $templateDB . "');</script>");
                         }
-                    }
-                    else
-                    {
-                        $var = 'null';
-                        echo("<script>createTA('prevNA', 'currentNA','" . $var . "','" . $template . "','" . $templateDB . "');</script>");
                     }
                 }
             }

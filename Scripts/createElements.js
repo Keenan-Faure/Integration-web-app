@@ -23,6 +23,13 @@ function createTA(classNamePrev, classNameCurrent, text = null, name = null, vNa
     current.value = text;
     current.name = name;
 
+    if(name != 'description')
+    {
+        current.id = 'shrink';
+        prev.id = 'shrink';
+        what.id = 'shrink';
+    }
+
     div.appendChild(what);
     div.appendChild(prev);
     div.appendChild(current);
@@ -159,34 +166,4 @@ function createSumbit()
 
     form = document.getElementById('form');
     form.appendChild(button);
-}
-
-function createUnused(t1 = '')
-{
-    let unused = document.createElement('div');
-    unused.className = 'entry1';
-
-
-    let text = document.createTextNode(t1);
-    entry1.appendChild(text);
-    div.appendChild(entry1);
-
-    let form = document.getElementById('form');
-    form.appendChild(unused);
-}
-
-function createLine()
-{
-    //creates header and line
-
-    let header = document.createElement('h3');
-    let text3 = document.createTextNode('Unused config');
-    header.appendChild(text3);
-
-    let line = document.createElement('div');
-    line.className = 'line';
-    
-    let form = document.getElementById('form');
-    form.appendChild(header);
-    form.appendChild(line);
 }
