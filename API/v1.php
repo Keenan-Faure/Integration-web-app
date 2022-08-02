@@ -78,7 +78,6 @@
                 $query = "show tables;";
                 
                 $output = $connection->converterObject($rawConnection, $query);
-
                 $variable = new control();
                 //if the URL length is longer than expected...
                 if(sizeof($url) > 6)

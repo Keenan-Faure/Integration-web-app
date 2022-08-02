@@ -25,6 +25,8 @@ class Controller
             $variable->url = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
             $variable->description = 'MySql API';
             $variable->version = 'v1.0.1';
+            $variable->accepted_headers = ['GET', 'POST'];
+            
             $variable->routes = new \stdClass();
 
             //product endpoints

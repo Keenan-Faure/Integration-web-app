@@ -16,12 +16,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{IP}}{{BaseURL}}/api.php/products",
+							"raw": "{{IP}}{{BaseURL}}/v1.php/products",
 							"host": [
 								"{{IP}}{{BaseURL}}"
 							],
 							"path": [
-								"api.php",
+								"v1.php",
 								"products"
 							]
 						}
@@ -34,12 +34,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{IP}}{{BaseURL}}/api.php/products/{{sku}}",
+							"raw": "{{IP}}{{BaseURL}}/v1.php/products/{{sku}}",
 							"host": [
 								"{{IP}}{{BaseURL}}"
 							],
 							"path": [
-								"api.php",
+								"v1.php",
 								"products",
 								"{{sku}}"
 							]
@@ -53,12 +53,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{IP}}{{BaseURL}}/api.php/products/count",
+							"raw": "{{IP}}{{BaseURL}}/v1.php/products/count",
 							"host": [
 								"{{IP}}{{BaseURL}}"
 							],
 							"path": [
-								"api.php",
+								"v1.php",
 								"products",
 								"count"
 							]
@@ -67,7 +67,7 @@
 					"response": []
 				}
 			],
-			"description": "**Products**\n\nFolder containing Product related endpoints such as:\n\n*   GET Products\n*   Get ProductsBySKU\n*   Get Count\n    \n\n**Functionality**\n\n**Get Products** - Returns a maximum of 15 Products from the Inventory Table\n\n**Get ProductsBySKU** - Returns a specific product queried by the SKU\n\nGet Count - returns the amount of products in the Inventory Table"
+			"description": "**Products**\n\nFolder containing Product related endpoints such as:\n\n*   GET Products\n*   Get ProductsBySKU\n*   Get Count\n    \n\n**Functionality**\n\n**Get Products** - Returns a maximum of 15 Products from the Inventory Table\n\n**Get ProductsBySKU** - Returns a specific product queried by the SKU\n\n**Get Count** - returns the amount of products in the Inventory Table"
 		},
 		{
 			"name": "Customers",
@@ -78,12 +78,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{IP}}{{BaseURL}}/api.php/customers",
+							"raw": "{{IP}}{{BaseURL}}/v1.php/customers",
 							"host": [
 								"{{IP}}{{BaseURL}}"
 							],
 							"path": [
-								"api.php",
+								"v1.php",
 								"customers"
 							]
 						}
@@ -96,12 +96,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{IP}}{{BaseURL}}/api.php/customers/{{name}}",
+							"raw": "{{IP}}{{BaseURL}}/v1.php/customers/{{name}}",
 							"host": [
 								"{{IP}}{{BaseURL}}"
 							],
 							"path": [
-								"api.php",
+								"v1.php",
 								"customers",
 								"{{name}}"
 							]
@@ -115,12 +115,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{IP}}{{BaseURL}}/api.php/customers/count",
+							"raw": "{{IP}}{{BaseURL}}/v1.php/customers/count",
 							"host": [
 								"{{IP}}{{BaseURL}}"
 							],
 							"path": [
-								"api.php",
+								"v1.php",
 								"customers",
 								"count"
 							]
@@ -140,12 +140,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{IP}}{{BaseURL}}/api.php/utility",
+							"raw": "{{IP}}{{BaseURL}}/v1.php/utility",
 							"host": [
 								"{{IP}}{{BaseURL}}"
 							],
 							"path": [
-								"api.php",
+								"v1.php",
 								"utility"
 							]
 						}
@@ -158,12 +158,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{IP}}{{BaseURL}}/api.php/utility/checkConnection",
+							"raw": "{{IP}}{{BaseURL}}/v1.php/utility/checkConnection",
 							"host": [
 								"{{IP}}{{BaseURL}}"
 							],
 							"path": [
-								"api.php",
+								"v1.php",
 								"utility",
 								"checkConnection"
 							]
@@ -177,12 +177,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{IP}}{{BaseURL}}/api.php/utility/viewLog",
+							"raw": "{{IP}}{{BaseURL}}/v1.php/utility/viewLog",
 							"host": [
 								"{{IP}}{{BaseURL}}"
 							],
 							"path": [
-								"api.php",
+								"v1.php",
 								"utility",
 								"viewLog"
 							]
@@ -196,12 +196,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{IP}}{{BaseURL}}/api.php/utility/checkTables",
+							"raw": "{{IP}}{{BaseURL}}/v1.php/utility/checkTables",
 							"host": [
 								"{{IP}}{{BaseURL}}"
 							],
 							"path": [
-								"api.php",
+								"v1.php",
 								"utility",
 								"checkTables"
 							]
@@ -218,12 +218,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{IP}}{{BaseURL}}/api.php",
+					"raw": "{{IP}}{{BaseURL}}/v1.php",
 					"host": [
 						"{{IP}}{{BaseURL}}"
 					],
 					"path": [
-						"api.php"
+						"v1.php"
 					]
 				}
 			},
