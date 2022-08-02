@@ -220,6 +220,7 @@ Class Utility
     //variable products only
     function existOptionse($product, $rawConnection, $connect)
     {
+        print_r($product);
         $username = $_SESSION['connection']->credentials->username;
         $password = $_SESSION['connection']->credentials->password;
         $dbName = $_SESSION['connection']->credentials->dbname;
@@ -234,13 +235,13 @@ Class Utility
         {
             $variable = new \stdClass();
             $variable->return = false;
-            $variable->message = "Option Value {{" . $product['optionValue'] . "}} already exists under {{" . $product['groupingCode'] . "}} with the value {{" . $product['optionValue'] . "}}";
+            $variable->message = "Option Value {{" . $product->optionValue . "}} already exists under {{" . $product->groupingCode . "}} with the value {{" . $product->optionValue . "}}";
             $variable->data = $result;
             return $variable;
         }
         else if(isset($product->option2Name) && isset($product->option2Value))
         {
-            $query = "SELECT Group_Code FROM Inventory WHERE Option_2_Name = '" . $product['option2Name'] . "'";
+            $query = "SELECT Group_Code FROM Inventory WHERE Option_2_Name = '" . $product->option2Name . "'";
             $result = $connect->converterObject($rawConnection, $query);
 
             //checks how many times it has been repeated in current group code
@@ -251,7 +252,7 @@ Class Utility
             {
                 $variable = new \stdClass();
                 $variable->return = false;
-                $variable->message = "Option Value {{" . $product['option2Value'] . "}} already exists under {{" . $product['groupingCode'] . "}} with the value {{" . $product['option2Value'] . "}}";
+                $variable->message = "Option Value {{" . $product->option2Value . "}} already exists under {{" . $product->groupingCode . "}} with the value {{" . $product->option2Value . "}}";
                 $variable->data = $result;
                 return $variable;
             }

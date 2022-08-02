@@ -49,7 +49,7 @@ Class vProducts
 
                 //print_r($product[$productTemplate[$i]]);
                 //echo("<br>");
-                if(isset($product[$productTemplate[$i]]))
+                if(isset($product[$productTemplate[$i]]) && $product[$productTemplate[$i]] != 'null')
                 {
                     //converts to a string
                     $variable = $productTemplate[$i];

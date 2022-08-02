@@ -78,6 +78,7 @@
                         else
                         {
                             $var = 'null';
+                            $_SESSION['edit_prod']->$template = $output2->result[0]->$templateDB;
                             echo("<script>createTA('prevNA', 'currentNA','" . $var . "','" . $template . "','" . $templateDB . "');</script>");
                         }
                     }
