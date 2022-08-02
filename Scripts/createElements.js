@@ -1,43 +1,36 @@
-function createTA(classNamePrev, classNameCurrent, text = '', name = '', vName = '')
+function createTA(classNamePrev, classNameCurrent, text = null, name = null, vName = '')
 {
-    if(text == '' || name == '')
-    {
-        return null;
-    }
-    else
-    {
-        let form = document.getElementById('form');
+    let form = document.getElementById('form');
 
-        let div = document.createElement('div');
-        div.className = 'item';
+    let div = document.createElement('div');
+    div.className = 'item';
 
-        what = document.createElement('textarea');
-        what.className = 'typeE';
-        what.readOnly = true;
-        what.value = vName;
+    what = document.createElement('textarea');
+    what.className = 'typeE';
+    what.readOnly = true;
+    what.value = vName;
 
-        prev = document.createElement('textarea');
-        prev.className = classNamePrev;
-        prev.readOnly = true;
-        prev.value = text;
+    prev = document.createElement('textarea');
+    prev.className = classNamePrev;
+    prev.readOnly = true;
+    prev.value = text;
 
-        //check if container to be created is in the required title
-        // code //
+    //check if container to be created is in the required title
+    // code //
 
-        current = document.createElement('textarea');
-        current.className = classNameCurrent;
-        current.value = text;
-        current.name = name;
+    current = document.createElement('textarea');
+    current.className = classNameCurrent;
+    current.value = text;
+    current.name = name;
 
-        div.appendChild(what);
-        div.appendChild(prev);
-        div.appendChild(current);
+    div.appendChild(what);
+    div.appendChild(prev);
+    div.appendChild(current);
 
-        form.appendChild(div);
-        main = document.getElementById("main");
+    form.appendChild(div);
+    main = document.getElementById("main");
 
-        main.appendChild(form);
-    }
+    main.appendChild(form);
 }
 
 function createPLV(t1, t2, t3, t4, sku)
@@ -166,4 +159,34 @@ function createSumbit()
 
     form = document.getElementById('form');
     form.appendChild(button);
+}
+
+function createUnused(t1 = '')
+{
+    let unused = document.createElement('div');
+    unused.className = 'entry1';
+
+
+    let text = document.createTextNode(t1);
+    entry1.appendChild(text);
+    div.appendChild(entry1);
+
+    let form = document.getElementById('form');
+    form.appendChild(unused);
+}
+
+function createLine()
+{
+    //creates header and line
+
+    let header = document.createElement('h3');
+    let text3 = document.createTextNode('Unused config');
+    header.appendChild(text3);
+
+    let line = document.createElement('div');
+    line.className = 'line';
+    
+    let form = document.getElementById('form');
+    form.appendChild(header);
+    form.appendChild(line);
 }

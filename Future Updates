@@ -7,6 +7,8 @@ updates
 
 - decrease the size of the tabs on editCustomer/Products.php for everything besides the html editng fields. (They are just too big)
 
-- Make the update query detect if anychanges has been made
+- Make the name-surname field on Customers hidden (created on the back-end)
 
-- Fix API endpoints
+- Make the update query detect if anychanges has been made - done
+
+- Fix API endpoints - done

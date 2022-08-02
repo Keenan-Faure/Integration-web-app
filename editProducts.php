@@ -54,7 +54,7 @@
                     {
                         echo("<script>createSumbit()</script>");
                     }
-                    if(isset($output2->result[0]->$templateDB))
+                    if(isset($output2->result[0]->$templateDB) && $output2->result[0]->$templateDB != null)
                     {
                         if($templateDB == 'Description')
                         {
@@ -75,8 +75,8 @@
                     }
                     else
                     {
-                        print_r("This is undefined");
-
+                        $var = 'null';
+                        echo("<script>createTA('prevNA', 'currentNA','" . $var . "','" . $template . "','" . $templateDB . "');</script>");
                     }
                 }
             }

@@ -11,9 +11,8 @@ Class Customers
         if(!filter_var($customer['email'], FILTER_VALIDATE_EMAIL))
         {
             $variable = new \stdClass();
-            $variable->result = false;
+            $variable->return = false;
             $variable->error = "Invalid Email: " . $customer['email'];
-
             return $variable;
         }
 
