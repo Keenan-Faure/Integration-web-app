@@ -35,6 +35,8 @@
                 $rawConnection = $connection2->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
                 $query2 = 'select * from Client where ID = "' . $id .  '"';
                 $output2 = $connection2->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
+
+                $_SESSION['edit_cust'] = new \stdClass();
                 
                 $customerTemplateDB = array('ID','Name', 'Surname', 'Email', 'Address_1', 'Address_2', 'Address_3', 'Address_4', 'submit');
                 $customerTemplateForm = array('id','name', 'surname', 'email', 'address1', 'address2', 'address3', 'address4', 'submit');
@@ -44,15 +46,29 @@
                 {
                     $templateDB = $customerTemplateDB[$j];
                     $template = $customerTemplateForm[$j];
-
-                    if($template == 'submit' && !(isset($output2->result[0]->$template)))
+                    if(isset($output2->result[0]->$templateDB))
                     {
-                        //if its the last item in the list
-                        echo("<script>createSumbit()</script>");
+                        if($template == 'submit' && !(isset($output2->result[0]->$template)))
+                        {
+                            //if its the last item in the list
+                            echo("<script>createSumbit()</script>");
+                        }
+                        else
+                        {
+                            $_SESSION['edit_cust']->$template = $output2->result[0]->$templateDB;
+                            echo("<script>createTA('prev', 'current','" . $output2->result[0]->$templateDB . "','" . $template . "','" . $templateDB . "');</script>");
+                        }
                     }
                     else
                     {
-                        echo("<script>createTA('prev', 'current','" . $output2->result[0]->$templateDB . "','" . $template . "','" . $templateDB . "');</script>");
+                        if(isset($id))
+                        {
+                            //create unsed config
+                            //create javasript to do this..
+
+                            // ----------- //
+                            // block 
+                        }
                     }
                 }
             }

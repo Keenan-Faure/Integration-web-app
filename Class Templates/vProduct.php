@@ -199,6 +199,14 @@ Class vProducts
             return $util->existOptionse($product, $rawConnection, $connection);
         }
 
+        if($_SESSION['edit_prod'] == $product)
+        {
+            $variable = new \stdClass();
+            $variable->result = false;
+            $variable->message = "No changes have been detected";
+            return $variable;
+        }
+
         $query = "UPDATE Inventory 
 
         SET 

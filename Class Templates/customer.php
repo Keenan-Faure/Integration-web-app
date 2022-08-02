@@ -126,7 +126,15 @@ Class Customers
         {
             return $util->existIDe($customer, $rawConnection, $connection);
         }
-        
+
+        if($_SESSION['edit_cust'] == $customer)
+        {
+            $variable = new \stdClass();
+            $variable->result = false;
+            $variable->message = "No changes have been detected";
+            return $variable;
+        }
+
         $query = "UPDATE Client 
 
         SET 

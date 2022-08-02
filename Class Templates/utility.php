@@ -266,8 +266,6 @@ Class Utility
         }
     }
 
-
-
 }
 
 ?>
