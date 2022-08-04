@@ -29,6 +29,7 @@
             {
                 echo('<div class="errors"><p>Error occurred: No endpoint selected, please return</p></div>');
                 header('Refresh:2, url=endpoints.php');
+                exit();
             }
             if(isset($_POST['addCustomer']))
             {
