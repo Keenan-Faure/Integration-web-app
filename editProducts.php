@@ -18,18 +18,16 @@
                     <div class="dropDown">
                     <button class="dropDownBtn">Products</button>
                         <div class="dropDownContent">
-                            <a href="#">Link 1</a>
-                            <a href="#">Link 2</a>
-                            <a href="#">Link 3</a>
+                            <a href="addItem.html">Add Product</a>
+                            <a href="editProduct.php">View all products</a>
                         </div>
                     </div>
 
                     <div class="dropDown">
                     <button class="dropDownBtn">Customers</button>
                         <div class="dropDownContent">
-                            <a href="#">Link 1</a>
-                            <a href="#">Link 2</a>
-                            <a href="#">Link 3</a>
+                            <a href="addCustomer.php">Add Customer</a>
+                            <a href="editCustomer.php">View Customers</a>
                         </div>
                     </div>
                 </div>
@@ -38,18 +36,15 @@
                     <div class="dropDown">
                     <button class="dropDownBtn">Home</button>
                         <div class="dropDownContent">
-                            <a href="#">Link 1</a>
-                            <a href="#">Link 2</a>
-                            <a href="#">Link 3</a>
+                            <a href="serverData.php">Dashboard</a>
                         </div>
                     </div>
 
                     <div class="dropDown">
                     <button class="dropDownBtn">Endpoints</button>
                         <div class="dropDownContent">
-                            <a href="#">Link 1</a>
-                            <a href="#">Link 2</a>
-                            <a href="#">Link 3</a>
+                            <a href="endpoints.php">View Endpoints</a>
+                            <a href="API/document.html" target='_blank'>API</a>
                         </div>
                     </div>
                 </div>
