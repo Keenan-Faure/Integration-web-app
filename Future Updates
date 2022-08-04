@@ -1,5 +1,9 @@
 updates
 
+- change the layout of the way products are added. - LAAAAST
+
+- Make a condition that checks whether the user filled in the OptionName before just sending the value with a null option name
+
 - configure $_SESSION['products'] to update once the user lands on the editCustomers/Products.php page, then it will make sense to re-direct 
   the user back there once the product/customer has been added/editted.
 
