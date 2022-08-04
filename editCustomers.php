@@ -10,9 +10,10 @@
     </head>
     <body>
         <div class="bg">
+            <div class="navBar">
             <div class="overlay">
                 <h1>Edit Customer</h1>
-                <div class='line'></div>
+            </div>
             </div>
             <div class='containers' id='main'>
                 <textarea id = 'smaller' class='typeE'>Customer Attribute</textarea>

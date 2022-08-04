@@ -5,9 +5,10 @@
     </head>
     <body>
         <div class="bg">
+            <div class="navBar">
             <div class="overlay">
-                <h1>View Customer</h1>
-                <div class='line'></div>
+                <h1>Edit Customer</h1>
+            </div>
             </div>
             <div class='containers' id='maine'>
                 <div class='column1'>Active</div>
