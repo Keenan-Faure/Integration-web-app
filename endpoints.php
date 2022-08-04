@@ -55,10 +55,10 @@
                 <form method='post' target='_blank' action='endpoint_handler.php'>
                     <button class='button' name='viewProductSql' id='b8'><p class='buttonText'>View Product Sql queries</p></button>
                 </form>
-                <form method='post' target='_blank' action='endpoint_handler.php'>
+                <form method='post' action='endpoint_handler.php'>
                     <button class='button' name='addProduct' id='b9'><p class='buttonText'>Add Product to Database</p></button>               
                 </form>
-                <form method='post' target='_blank' action='endpoint_handler.php'>
+                <form method='post' action='endpoint_handler.php'>
                     <button class='button' name='editProduct' id='b10'><p class='buttonText'>Edit Products</p></button>               
                 </form>
             </div>
@@ -76,10 +76,10 @@
                 <form method='post' target='_blank' action='endpoint_handler.php'>
                     <button class='button' name='viewCustomerSql' id='b13'><p class='buttonText'>View Customer Sql queries</p></button>
                 </form>
-                <form method='post' target='_blank' action='endpoint_handler.php'>
+                <form method='post' action='endpoint_handler.php'>
                     <button class='button' name='addCustomer' id='b14'><p class='buttonText'>Add Customer to Database</p></button> 
                 </form>
-                <form method='post' target='_blank' action='endpoint_handler.php'>
+                <form method='post' action='endpoint_handler.php'>
                     <button class='button' name='editCustomer' id='b15'><p class='buttonText'>Edit Customer</p></button> 
                 </form>
             </div>
