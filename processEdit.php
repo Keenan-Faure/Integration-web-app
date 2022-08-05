@@ -35,6 +35,7 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
                 }
                 $result = $customer->updateCustomer($result, $util, $connection);
                 echo(json_encode($result));
+                header('Refresh:2, url=editCustomer.php');
                 unset($_POST);
             }
             else if(!isset($_POST['name']) && isset($_POST['sku']))
@@ -50,6 +51,7 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
                     }
                     $result = $product->updateProduct($result, $util, $connection);
                     echo(json_encode($result));
+                    header('Refresh:2, url=editProduct.php');
                     unset($_POST);
                 }
                 else
@@ -64,6 +66,7 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
                     }
                     $result = $product->updateProduct($result, $util, $connection);
                     echo(json_encode($result));
+                    header('Refresh:2, url=editProduct.php');
                     unset($_POST);
                 }
             }

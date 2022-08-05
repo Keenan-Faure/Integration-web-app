@@ -220,7 +220,6 @@ Class Utility
     //variable products only
     function existOptionse($product, $rawConnection, $connect)
     {
-        print_r($product);
         $username = $_SESSION['connection']->credentials->username;
         $password = $_SESSION['connection']->credentials->password;
         $dbName = $_SESSION['connection']->credentials->dbname;
