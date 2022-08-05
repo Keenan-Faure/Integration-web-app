@@ -1,4 +1,9 @@
-<?php session_start(); ?>
+<?php 
+    session_start(); 
+    include("createConnection.php");
+    use Connection\Connection as connect;
+
+?>
 <html>
     <head>
         <link rel='stylesheet' href='Styles/addItem.css'>
@@ -37,7 +42,7 @@
                     <div class="dropDown">
                     <button class="dropDownBtn">Customers</button>
                         <div class="dropDownContent">
-                            <a href="addCustomer.php">Add Customer</a>
+                            <a href="addCustomer.html">Add Customer</a>
                             <a href="editCustomer.php">View Customers</a>
                         </div>
                     </div>
@@ -56,17 +61,24 @@
     </body>
     <script src='Scripts/createElements.js'></script>
     <?php 
+
+        $connection = new connect();
+        $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+        //creates query
         
-        if(isset($_SESSION['products']))
+        $query = "SELECT * FROM Inventory";
+
+        $output = $connection->converterObject($rawConnection, $query);
+        mysqli_close($rawConnection);
+        $_SESSION['products'] = $output;
+
+        for($i = 0; $i < sizeof($_SESSION['products']->result); ++ $i)
         {
-            for($i = 0; $i < sizeof($_SESSION['products']->result); ++ $i)
-            {
-                $title = $_SESSION['products']->result[$i]->Title;
-                $sku = $_SESSION['products']->result[$i]->SKU;
-                $active = $_SESSION['products']->result[$i]->Active;
-                $brand = $_SESSION['products']->result[$i]->Brand;
-                echo("<script>createPLV('". $i+1 . ".  " . $active . "','" . $sku . "','" . $title . "','" . $brand . "','" . $sku . "');</script>");
-            }
-        } 
+            $title = $_SESSION['products']->result[$i]->Title;
+            $sku = $_SESSION['products']->result[$i]->SKU;
+            $active = $_SESSION['products']->result[$i]->Active;
+            $brand = $_SESSION['products']->result[$i]->Brand;
+            echo("<script>createPLV('". $i+1 . ".  " . $active . "','" . $sku . "','" . $title . "','" . $brand . "','" . $sku . "');</script>");
+        }
     ?>
 </html>
