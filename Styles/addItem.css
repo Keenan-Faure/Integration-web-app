@@ -167,6 +167,31 @@ p
     box-sizing: border-box;
     border: 1px solid #ccc;
 }
+.import
+{
+    width: 100px;
+    height: 20px;
+    display: inline-block;
+    right: 0%;
+    transform: translate(-11%, -30%);
+    top: 50px;
+    position: absolute;
+    border: rgb(194, 194, 194);
+    opacity: 0.9;
+    background-color: #970000;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    padding: 4px 12px;
+    transition-duration: 0.1s;
+    border-radius: 20px;
+}
+.import:hover
+{
+    background-color: #580000;
+    opacity: 1;
+}
 .button
 {
     width: 140px;

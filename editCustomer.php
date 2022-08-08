@@ -79,7 +79,7 @@
             $active = $_SESSION['customers']->result[$i]->Active;
             $email = $_SESSION['customers']->result[$i]->Email;
             $id = $_SESSION['customers']->result[$i]->ID;
-            echo("<script>createCLV('". $i+1 . ".  " . $active . "','" . $name . "','" . $surname . "','" . $email . "','" . $id . "');</script>");
+            echo("<script>createCLV('". $active . "','" . $name . "','" . $surname . "','" . $email . "','" . $id . "');</script>");
         }
     ?>
 </html>

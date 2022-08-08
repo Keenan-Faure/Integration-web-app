@@ -1,5 +1,7 @@
 Updates (05-08-2022)
 
+- create import feature to bulk import new products using csv file.
+
 - change the layout of the way products are added. - LAAAAST
 
 - Make a condition that checks whether the user filled in the OptionName before just sending the value with a null option name
