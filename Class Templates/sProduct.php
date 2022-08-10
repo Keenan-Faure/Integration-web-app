@@ -39,7 +39,7 @@ Class sProducts
         {
 
             //creates the product
-            $productTemplate = array('title', 'description', 'category', 'productType', 'brand', 'sku', 'variantCode', 'barcode', 'weight', 'costPrice', 'sellingPrice',
+            $productTemplate = array('title', 'description', 'category', 'productType', 'brand', 'sku', 'groupingCode', 'variantCode', 'barcode', 'weight', 'costPrice', 'sellingPrice',
             'quantity', 'meta1', 'meta2', 'meta3');
 
             //creates as a standard class
@@ -79,7 +79,7 @@ Class sProducts
             }
 
             //creates the product
-            $productTemplate = array('title', 'description', 'category', 'productType', 'brand', 'sku', 'variantCode', 'barcode', 'weight', 'costPrice', 'sellingPrice',
+            $productTemplate = array('title', 'description', 'category', 'productType', 'brand', 'sku', 'groupingCode', 'variantCode', 'barcode', 'weight', 'costPrice', 'sellingPrice',
             'quantity', 'meta1', 'meta2', 'meta3');
 
             //creates as a standard class
@@ -122,6 +122,7 @@ Class sProducts
             Product_Type,
             Brand,
             SKU,
+            Group_Code,
             Variant_Code,
             Barcode,
             Weight,
@@ -142,6 +143,7 @@ Class sProducts
             $product->productType . "','" .
             $product->brand . "','" .
             $product->sku . "','" .
+            $product->groupingCode . "','" .
             $product->variantCode . "','" .
             $product->barcode . "','" .
             $product->weight . "','" .
@@ -194,6 +196,7 @@ Class sProducts
             Product_Type = '$product->productType',
             Brand = '$product->brand',
             SKU = '$product->sku',
+            Group_Code = '$product->groupingCode',
             Variant_Code = '$product->variantCode',
             Barcode = '$product->barcode',
             Weight = '$product->weight',

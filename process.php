@@ -42,7 +42,7 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
                 {
                     $product = new vproduct();
                     $result = $product->createProduct($_POST, $util, $connection);
-                    if($result->return === false)
+                    if(isset($result->return))
                     {
                         echo(json_encode($result));
                         exit();
@@ -56,7 +56,7 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
                     //simple product
                     $product = new sproduct();
                     $result = $product->createProduct($_POST, $util, $connection);
-                    if($result->return === false)
+                    if(isset($result->return))
                     {
                         echo(json_encode($result));
                         exit();
