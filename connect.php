@@ -14,7 +14,10 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
         $variable->password = $_POST['psw'];
         $variable->message = $result->message;
         $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-        array_push($_SESSION['log'], $variable);
+        if(isset($_SESSION['log']))
+        {
+            array_push($_SESSION['log'], $variable);
+        }
         echo(json_encode($variable));
         header('Content-Type: application/json');
         header('Refresh:3,url=login.php');
@@ -31,7 +34,10 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
         $variable->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
         unset($_POST['uname']);
         unset($_POST['psw']);
-        array_push($_SESSION['log'], $variable);
+        if(isset($_SESSION['log']))
+        {
+            array_push($_SESSION['log'], $variable);
+        }
         header('Refresh:0,url=serverData.php');
     }
 }
@@ -82,12 +88,18 @@ else
                 {
                     header('Content-Type: application/json');
                     echo(json_encode($connection));
-                    array_push($_SESSION['log'], $connection);
+                    if(isset($_SESSION['log']))
+                    {
+                        array_push($_SESSION['log'], $connection);
+                    }
                     die();
                 }
                 if($_SESSION['connection']->active === true)
                 {
-                    array_push($_SESSION['log'], $connection);
+                    if(isset($_SESSION['log']))
+                    {
+                        array_push($_SESSION['log'], $connection);
+                    }
                     header('location: endpoints.php');
                 }
             }
@@ -101,7 +113,10 @@ else
                 $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
                 header('Content-Type: application/json');
                 echo(json_encode($variable));
-                array_push($_SESSION['log'], $variable);
+                if(isset($_SESSION['log']))
+                {
+                    array_push($_SESSION['log'], $variable);
+                }
                 
             }
             if(!isset($_SESSION['serverconnection']))
@@ -110,8 +125,10 @@ else
                 $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
                 header('Content-Type: application/json');
                 echo(json_encode($variable));
-                array_push($_SESSION['log'], $variable);
-                
+                if(isset($_SESSION['log']))
+                {
+                    array_push($_SESSION['log'], $variable);
+                }    
             }
         }
     }
