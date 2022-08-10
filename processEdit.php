@@ -42,12 +42,13 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
             {
                 if(isset($_POST['optionName']) && isset($_POST['optionValue']))
                 {
+                    //variable product
                     $product = new vproduct();
                     $result = $product->createProduct($_POST, $util, $connection, 'edit');
                     if(isset($result->return))
                     {
                         echo(json_encode($result));
-                        exit();
+                        header('Refresh:2, url=editProduct.php');
                     }
                     $result = $product->updateProduct($result, $util, $connection);
                     echo(json_encode($result));

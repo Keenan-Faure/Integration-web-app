@@ -265,6 +265,67 @@ Class Utility
             return true;
         }
     }
+    function optionCheck($product)
+    {
+        //$productTemplate = array('title', 'description', 'category', 'productType', 'brand', 'sku', 'groupingCode', 'variantCode', 'barcode', 'weight', 'costPrice', 'sellingPrice',
+        //'quantity', 'optionName', 'optionValue', 'option2Name', 'option2Value', 'meta1', 'meta2', 'meta3');
+        if($product['groupingCode'] == null)
+        {
+            if($product['optionValue'] == null && $product['optionName'] != null)
+            {
+                $variable = new \stdClass();
+                $variable->return = false;
+                $variable->message = 'Error: Variant option value is defined but no name has been set';
+                return $variable;
+            }
+            else if($product['option2Value'] == null && $product['option2Name'] != null)
+            {
+                $variable = new \stdClass();
+                $variable->return = false;
+                $variable->message = 'Error: Variant option value is defined but no name has been set';
+                return $variable;
+
+            }
+            else if($product['optionValue'] != null && $product['optionName'] == null)
+            {
+                $variable = new \stdClass();
+                $variable->return = false;
+                $variable->message = 'Error: Variant option name is defined but no value has been set';
+                return $variable;
+            }
+            else if($product['option2Value'] != null && $product['option2Name'] == null)
+            {
+                $variable = new \stdClass();
+                $variable->return = false;
+                $variable->message = 'Error: Variant option name is defined but no value has been set';
+                return $variable;
+            }
+            else
+            {
+                $variable = new \stdClass();
+                $variable->return = false;
+                $variable->message = 'Unknown condition encountered';
+                return $variable;
+            }
+        }
+        else if($product['groupingCode'] != null)
+        {
+            if($product['optionName'] == null || $product['optionValue'] == null)
+            {
+                $variable = new \stdClass();
+                $variable->return = false;
+                $variable->message = 'Attempting to create variable product without Options';
+                return $variable;
+            }
+            else if($product['option2Name'] == null || $product['option2Value'] == null)
+            {
+                $variable = new \stdClass();
+                $variable->return = false;
+                $variable->message = 'Attempting to create variable product without Options';
+                return $variable;
+            }
+        }
+    }
 
 }
 

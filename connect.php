@@ -117,9 +117,8 @@ else
                 {
                     array_push($_SESSION['log'], $variable);
                 }
-                
             }
-            if(!isset($_SESSION['serverconnection']))
+            else if(!isset($_SESSION['serverconnection']))
             {
                 $variable->message = "No connection to database found in current session";
                 $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);

@@ -41,14 +41,20 @@ Class vProducts
             $productTemplate = array('title', 'description', 'category', 'productType', 'brand', 'sku', 'groupingCode', 'variantCode', 'barcode', 'weight', 'costPrice', 'sellingPrice',
             'quantity', 'optionName', 'optionValue', 'option2Name', 'option2Value', 'meta1', 'meta2', 'meta3');
 
+            if($util->optionCheck($product))
+            {
+                return $util->optionCheck($product);
+            }
             //creates as a standard class
             $this->product = new \stdClass();
             for($i = 0; $i < sizeof($productTemplate); ++$i)
             {
                 //for debugging only 
-
                 //print_r($product[$productTemplate[$i]]);
                 //echo("<br>");
+                
+                //check if the productOption has been created without a value
+                
                 if(isset($product[$productTemplate[$i]]) && $product[$productTemplate[$i]] != 'null')
                 {
                     //converts to a string
