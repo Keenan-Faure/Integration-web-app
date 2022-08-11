@@ -1,6 +1,6 @@
 Updates (011-08-2022)
 
-- Change serverData.php so that it does not need a table check, if product endpoints are run it must only run on Inventory...
+- Change serverData.php so that it does not need a table check, if product endpoints are run it must only run on Inventory - done
 
 - create import feature to bulk import new products using csv file.
 

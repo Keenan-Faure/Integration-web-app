@@ -84,7 +84,7 @@
                 </form>
             </div>
                 
-            
+            <a href='cURL/example.php' style='right: 0;bottom: 0;position: absolute;'>Push Products</a>     
     </body>
         <script src='Scripts/scripts2.js'></script>
 </html>
