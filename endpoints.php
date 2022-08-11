@@ -83,9 +83,7 @@
                     <button class='button' name='editCustomer' id='b15'><p class='buttonText'>Edit Customer</p></button> 
                 </form>
             </div>
-                <form method='post' target='_blank' action='endpoint_handler.php'>
-                    <input type='text' autocomplete="off" id='b16' class='table' name='table' placeholder='Change Query Table' required>
-                </form>
+                
             
     </body>
         <script src='Scripts/scripts2.js'></script>
@@ -96,10 +94,6 @@ echo('<div class="errorTable">');
 if(!isset($_SESSION['connection']))
 {
     echo('<div class="errors"><p class="align">No Connection found in current session</p></div>');
-}
-if(!isset($_SESSION['tablecurrent']))
-{
-    echo('<div class="errors"><p class="align">No table selected</p></div>');
 }
 
 include("createConnection.php");

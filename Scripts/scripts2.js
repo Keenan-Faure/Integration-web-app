@@ -25,7 +25,6 @@ var b12 = document.getElementById('b12');
 var b13 = document.getElementById('b13');
 var b14 = document.getElementById('b14');
 var b15 = document.getElementById('b15');
-var b16 = document.getElementById('b16');
 
 window.addEventListener('load', ()=>
 {
@@ -121,10 +120,6 @@ window.addEventListener('load', ()=>
         {
             b15.classList.add('fade-in');
         }, 2150);
-        setTimeout(()=>
-        {
-            b16.classList.add('fade-in');
-        }, 2100);
     },400); //0.2s
 });
 

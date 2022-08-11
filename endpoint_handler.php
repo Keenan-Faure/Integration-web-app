@@ -55,42 +55,6 @@
                 unset($_POST['editCustomer']);
                 exit();
             }
-            if(isset($_POST['table']))
-            {
-                $connection = new connect();
-                $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
-                $query = 'show tables';
-                $output = $connection->converterArray($rawConnection, $query, "Tables_in_" . $_SESSION['connection']->credentials->dbname);
-                if(in_array($_POST['table'], $output))
-                {
-                    $variable = new \stdClass();
-                    $variable->result = true;
-                    $variable->prevTable = null;
-                    if(isset($_SESSION['tablecurrent']))
-                    {
-                        $variable->prevTable = $_SESSION['tablecurrent'];
-                    }
-                    if(isset($_SESSION['tableprev']))
-                    {
-                        $variable->previousTable = $_SESSION['tableprev'];
-                    }
-                    $_SESSION['tablecurrent'] = $_POST['table'];
-                    $variable->currentTable = $_POST['table'];
-                    $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-
-                    echo(json_encode($variable));
-                }
-                else
-                {
-                    $variable = new \stdClass();
-                    $variable->result = false;
-                    $variable->error = $_POST['table'] . " does not exist in " . $_SESSION['connection']->credentials->dbname;
-                    $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-                    echo(json_encode($variable));
-                }
-                unset($_POST['table']);
-                exit;
-            }
             if(isset($_POST['selfquery']))
             {
                 $connection = new connect();
@@ -140,109 +104,106 @@
             }
             else
             {
-                if(isset($_SESSION['tablecurrent']))
+                if(isset($_POST['getProductBySKU']) && $_POST['getProductBySKU'])
                 {
-                    if(isset($_POST['getProductBySKU']) && $_POST['getProductBySKU'])
-                    {
-                        $connection = new connect();
-                        $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
-                        //creates query
-                        
-                        $query = "SELECT * FROM " . $_SESSION['tablecurrent'] . " WHERE SKU='" . $_POST['getProductBySKU'] . "'";
+                    $connection = new connect();
+                    $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+                    //creates query
+                    
+                    $query = "SELECT * FROM Inventory WHERE SKU='" . $_POST['getProductBySKU'] . "'";
 
-                        $output = $connection->converterObject($rawConnection, $query);
-                        mysqli_close($rawConnection);
-                        echo(json_encode($output));
-                        unset($_POST['getProductBySKU']);
-                    }
-                    if(isset($_POST['getProductsBatch']))
-                    {
-                        $connection = new connect();
-                        $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
-                        //creates query
-                        
-                        $query = "SELECT * FROM " . $_SESSION['tablecurrent'] . " LIMIT 15";
+                    $output = $connection->converterObject($rawConnection, $query);
+                    mysqli_close($rawConnection);
+                    echo(json_encode($output));
+                    unset($_POST['getProductBySKU']);
+                }
+                else if(isset($_POST['getProductsBatch']))
+                {
+                    $connection = new connect();
+                    $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+                    //creates query
+                    
+                    $query = "SELECT * FROM Inventory LIMIT 15";
 
-                        $output = $connection->converterObject($rawConnection, $query);
-                        mysqli_close($rawConnection);
-                        echo(json_encode($output));
-                        unset($_POST['getProductsBatch']);
-                    }
-                    if(isset($_POST['countProduct']))
-                    {
-                        $connection = new connect();
-                        $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
-                        //creates query
-                        
-                        $query = "SELECT COUNT(*) as 'Count' FROM " . $_SESSION['tablecurrent'];
+                    $output = $connection->converterObject($rawConnection, $query);
+                    mysqli_close($rawConnection);
+                    echo(json_encode($output));
+                    unset($_POST['getProductsBatch']);
+                }
+                else if(isset($_POST['countProduct']))
+                {
+                    $connection = new connect();
+                    $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+                    //creates query
+                    
+                    $query = "SELECT COUNT(*) as 'Count' FROM Inventory";
 
-                        $output = $connection->converterObject($rawConnection, $query);
-                        mysqli_close($rawConnection);
-                        echo(json_encode($output));
-                        unset($_POST['countProduct']);
-                    }
-                    if(isset($_POST['viewProductSql']))
-                    {
-                        $variable = new \stdClass();
-                        $variable->getProductsBySKU = new \stdClass();
-                        $variable->getProductsBySKU->query = "SELECT * FROM " . $_SESSION['tablecurrent'] . " WHERE SKU= '{{SKU}}'";
-                        $variable->getProductsBySKU->result = 'returns all products whose SKU matches {{SKU}}';
-                        $variable->getProductsBySKU->accepts_data = true;
+                    $output = $connection->converterObject($rawConnection, $query);
+                    mysqli_close($rawConnection);
+                    echo(json_encode($output));
+                    unset($_POST['countProduct']);
+                }
+                else if(isset($_POST['viewProductSql']))
+                {
+                    $variable = new \stdClass();
+                    $variable->getProductsBySKU = new \stdClass();
+                    $variable->getProductsBySKU->query = "SELECT * FROM Inventory WHERE SKU= '{{SKU}}'";
+                    $variable->getProductsBySKU->result = 'returns all products whose SKU matches {{SKU}}';
+                    $variable->getProductsBySKU->accepts_data = true;
 
-                        $variable->getProducts = new \stdClass();
-                        $variable->getProducts->query = $query = "SELECT * FROM " . $_SESSION['tablecurrent'] . " LIMIT 15";
-                        $variable->getProducts->result = 'returns the first 10 products from the table';
-                        $variable->getProducts->accepts_data = true;
+                    $variable->getProducts = new \stdClass();
+                    $variable->getProducts->query = $query = "SELECT * FROM Inventory LIMIT 15";
+                    $variable->getProducts->result = 'returns the first 10 products from the table';
+                    $variable->getProducts->accepts_data = true;
 
-                        $variable->countProducts = new \stdClass();
-                        $variable->countProducts->query = "SELECT COUNT(*) as 'Count' FROM " . $_SESSION['tablecurrent'];
-                        $variable->countProducts->result = 'returns the amount of products in the ' . $_SESSION['tablecurrent'] . ' table';
-                        $variable->countProducts->accepts_data = false;
+                    $variable->countProducts = new \stdClass();
+                    $variable->countProducts->query = "SELECT COUNT(*) as 'Count' FROM Inventory";
+                    $variable->countProducts->result = 'returns the amount of products in the ' . $_SESSION['tablecurrent'] . ' table';
+                    $variable->countProducts->accepts_data = false;
 
-                        echo(json_encode($variable));
-                        unset($_POST['viewProductSql']);
-                    }
-                    if(isset($_POST['getCustomerByID']))
-                    {
-                        $connection = new connect();
-                        $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
-                        //creates query
-                        
-                        $query = "SELECT * FROM " . $_SESSION['tablecurrent'] . " WHERE Name='" . $_POST['getCustomerByID'] . "'";
+                    echo(json_encode($variable));
+                    unset($_POST['viewProductSql']);
+                }
+                else if(isset($_POST['getCustomerByID']))
+                {
+                    $connection = new connect();
+                    $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+                    //creates query
+                    
+                    $query = "SELECT * FROM Client WHERE Name='" . $_POST['getCustomerByID'] . "'";
 
-                        $output = $connection->converterObject($rawConnection, $query);
-                        mysqli_close($rawConnection);
-                        echo(json_encode($output));
-                        unset($_POST['getCustomerByID']);
-                    }
-                    if(isset($_POST['countCustomer']))
-                    {
-                        $connection = new connect();
-                        $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
-                        //creates query
-                        
-                        $query = "SELECT COUNT(*) as 'Count' FROM " . $_SESSION['tablecurrent'];
+                    $output = $connection->converterObject($rawConnection, $query);
+                    mysqli_close($rawConnection);
+                    echo(json_encode($output));
+                    unset($_POST['getCustomerByID']);
+                }
+                else if(isset($_POST['countCustomer']))
+                {
+                    $connection = new connect();
+                    $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+                    //creates query
+                    
+                    $query = "SELECT COUNT(*) as 'Count' FROM Client";
 
-                        $output = $connection->converterObject($rawConnection, $query);
-                        mysqli_close($rawConnection);
-                        echo(json_encode($output));
-                        unset($_POST['countCustomer']);
-                    }
-                    if(isset($_POST['viewCustomerSql']))
-                    {
-                        $variable = new \stdClass();
-                        $variable->getCustomerByName = new \stdClass();
-                        $variable->getCustomerByName->query = "SELECT * FROM " . $_SESSION['tablecurrent'] . " WHERE ID= '{{Name}}'";
-                        $variable->getCustomerByName->result = 'returns all products whose Name matches {{Name}}';
-                        $variable->getCustomerByName->accepts_data = true;
+                    $output = $connection->converterObject($rawConnection, $query);
+                    mysqli_close($rawConnection);
+                    echo(json_encode($output));
+                    unset($_POST['countCustomer']);
+                }
+                else if(isset($_POST['viewCustomerSql']))
+                {
+                    $variable = new \stdClass();
+                    $variable->getCustomerByName = new \stdClass();
+                    $variable->getCustomerByName->query = "SELECT * FROM Client WHERE ID= '{{Name}}'";
+                    $variable->getCustomerByName->result = 'returns all products whose Name matches {{Name}}';
+                    $variable->getCustomerByName->accepts_data = true;
 
-                        $variable->countCustomer = new \stdClass();
-                        $variable->countCustomer->query = "SELECT COUNT(*) as 'Count' FROM " . $_SESSION['tablecurrent'];
-                        $variable->countCustomer->result = 'returns the amount of customers in the ' . $_SESSION['tablecurrent'] . ' table';
-                        $variable->countCustomer->accepts_data = false;
-                        echo(json_encode($variable));
-                        unset($_POST['viewCustomerSql']);
-                    }
+                    $variable->countCustomer = new \stdClass();
+                    $variable->countCustomer->query = "SELECT COUNT(*) as 'Count' FROM Client";
+                    $variable->countCustomer->result = 'returns the amount of customers in the Client table';
+                    $variable->countCustomer->accepts_data = false;
+                    echo(json_encode($variable));
+                    unset($_POST['viewCustomerSql']);
                 }
                 else
                 {

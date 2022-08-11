@@ -1,10 +1,12 @@
-Updates (05-08-2022)
+Updates (011-08-2022)
+
+- Change serverData.php so that it does not need a table check, if product endpoints are run it must only run on Inventory...
 
 - create import feature to bulk import new products using csv file.
 
 - change the layout of the way products are added. - LAAAAST
 
-- Make a condition that checks whether the user filled in the OptionName before just sending the value with a null option name
+- Make a condition that checks whether the user filled in the OptionName before just sending the value with a null option name - done
 
 - configure $_SESSION['products'] to update once the user lands on the editCustomers/Products.php page, then it will make sense to re-direct 
   the user back there once the product/customer has been added/editted. - done
