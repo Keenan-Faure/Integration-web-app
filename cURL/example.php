@@ -1,14 +1,17 @@
 <?php
-$username='Keenan';
-$password='kl';
-$response = get_web_page("http://192.168.64.3/MySQL-API/API/v1.php", $username, $password);
+$username='root';
+$password='';
+$page = "http://localhost/myWebsite/Websites/MySQL-API/API/v1.php";
+$response = get_web_page($page, $username, $password);
 $resArr = array();
 $resArr = json_decode($response);
 echo "<pre>"; print_r($resArr); echo "</pre>";
 
-function get_web_page($url, $uname, $psw) {
+function get_web_page($url, $uname, $psw) 
+{
     $options = array(
         CURLOPT_USERPWD => $uname . ":" . $psw, 
+        CURLOPT_HTTPHEADER => array("Content-Type: application/json"),
         CURLOPT_RETURNTRANSFER => true,   // return web page
         CURLOPT_HEADER         => false,  // don't return headers
         CURLOPT_FOLLOWLOCATION => true,   // follow redirects

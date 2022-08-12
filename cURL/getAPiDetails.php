@@ -2,7 +2,6 @@
 
 $username = "Keenan";
 $password = "kl";
-
 $url = "http://192.168.64.3/MySQL-API/API/v1.php";
 $curl = curl_init($url);
 
