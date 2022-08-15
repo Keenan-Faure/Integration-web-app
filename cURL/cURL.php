@@ -28,7 +28,7 @@ Class CURL
             }
         }
     }
-    function get_web_page($url, $request = null, $postfields = null, $username, $password) 
+    function get_web_page($url, $request = null, $username, $password) 
     {
         $options = array(
             CURLOPT_USERPWD => $username . ":" . $password, 
@@ -44,18 +44,14 @@ Class CURL
             CURLOPT_CONNECTTIMEOUT => 120,    // time-out on connect
             CURLOPT_TIMEOUT        => 120,    // time-out on response
         ); 
-    
-        $ch = curl_init($url);
         
+        $ch = curl_init($url);
+
         if(isset($request))
         {
             curl_setopt($ch, CURLOPT_POSTFIELDS, $request);
         }
-        else if(isset($postfields))
-        {
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $postfields);
-        }
+
         curl_setopt_array($ch, $options);
         $content  = curl_exec($ch);
         $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
@@ -71,22 +67,14 @@ Class CURL
         //use http_build_query here to create parameters for ep
         $params = http_build_query(array('format' => 'json', 'token' => $token)); 
 
-        $url = 'https://app.stock2shop.com/v1/sources';
-        return $this->cURLRequest(null, $params, $url, $username, $password);
+        $url = 'https://app.stock2shop.com/v1/sources?' . $params;
+        return $this->cURLRequest(null, $url, $username, $password);
 
     }
 
-    function cURLRequest($request = new \stdClass(), $postfields = null, $url, $username, $password)
+    function cURLRequest($request = new \stdClass(), $url, $username, $password)
     {
-        if(isset($postfields))
-        {
-            $response = $this->get_web_page($url, $request, $postfields, $username, $password);
-            $resArr = array();
-            $resArr = json_decode($response);
-            return $resArr;
-        }
-
-        $response = $this->get_web_page($url, $request, null, $username, $password);
+        $response = $this->get_web_page($url, $request, $username, $password);
         $resArr = array();
         $resArr = json_decode($response);
         return $resArr;
@@ -95,7 +83,7 @@ Class CURL
     function validateToken($token, $username, $password)
     {
         $url = 'https://app.stock2shop.com/v1/users/valid_token/' . $token . '?format=json';
-        return $this->cURLRequest(null, null, $url, $username, $password);
+        return $this->cURLRequest(null, $url, $username, $password);
     }
 
     function authenticate($username, $password)
@@ -109,8 +97,7 @@ Class CURL
 
         //url to send request
         $url = 'https://app.stock2shop.com/v1/users/authenticate?format=json';
-
-        return $this->cURLRequest($request, null, $url, $username, $password);
+        return $this->cURLRequest($request, $url, $username, $password);
     }
     function addHTTP($content, $code)
     {

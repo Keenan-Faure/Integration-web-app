@@ -6,7 +6,10 @@ use cURL\CURL as curl;
 //All Data here, username, password, token must come from $_SESSION variables stored inside the session.
 
 $curl = new curl();
-print_r(json_encode($curl->getSources('VS9X7THF8HKFCV2LV2F0CC2UQI67ZGJGO2DWHOOB', 'keenan.faure', 'Re_Ghoul')));
+//print_r(json_encode($curl->getSources('UW2LO0RS34T0S8ZR6ZPLKJ4WTJGH1Q64300IKPMG','keenan.faure', 'Re_Ghoul')));
+print_r(json_encode($curl->authenticate('keenan.faure', 'Re_Ghoul')));
+
+
 
 //make a condition based on the returned values httpcode and errors
 //if httpcode is 200 and error is not defined and token is defined then proceed.
