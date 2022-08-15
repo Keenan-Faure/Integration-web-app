@@ -1,13 +1,9 @@
 <?php
-
 namespace cURL;
+
 Class CURL
-{
-    
-    private $username='root';
-    private $password='';
-    
-    function geturl()
+{   
+    function getUrl()
     {
         $host = "http://" . $_SERVER['HTTP_HOST']; //needs to be defined
         $url = explode('/', $_SERVER['REQUEST_URI']); //needs to be defined
@@ -32,14 +28,15 @@ Class CURL
             }
         }
     }
-    function get_web_page($url, $uname, $psw) 
+    function get_web_page($url, $request = null, $postfields = null, $username, $password) 
     {
         $options = array(
-            CURLOPT_USERPWD => $uname . ":" . $psw, 
-            CURLOPT_HTTPHEADER => array("Content-Type: application/json"),
+            CURLOPT_USERPWD => $username . ":" . $password, 
+            CURLOPT_HTTPHEADER => array("Content-Type: application/json", "accept: application/json"),
             CURLOPT_RETURNTRANSFER => true,   // return web page
             CURLOPT_HEADER         => false,  // don't return headers
             CURLOPT_FOLLOWLOCATION => true,   // follow redirects
+            CURLOPT_RETURNTRANSFER => true,
             CURLOPT_MAXREDIRS      => 10,     // stop after 10 redirects
             CURLOPT_ENCODING       => "",     // handle compressed
             CURLOPT_USERAGENT      => "test", // name of client
@@ -49,21 +46,79 @@ Class CURL
         ); 
     
         $ch = curl_init($url);
+        
+        if(isset($request))
+        {
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $request);
+        }
+        else if(isset($postfields))
+        {
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $postfields);
+        }
         curl_setopt_array($ch, $options);
-    
         $content  = curl_exec($ch);
-    
+        $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+        //adds the HTTP code to check if errors were found
+        $content = $this->addHTTP($content, $httpcode);
         curl_close($ch);
     
         return $content;
     }
-    function cURLRequest($page, $request)
+    function getSources($token, $username, $password)
     {
-        $page = geturl() . "/MySQL-API/API/v1.php";
-        $response = get_web_page($page, $username, $password);
+        //use http_build_query here to create parameters for ep
+        $params = http_build_query(array('format' => 'json', 'token' => $token)); 
+
+        $url = 'https://app.stock2shop.com/v1/sources';
+        return $this->cURLRequest(null, $params, $url, $username, $password);
+
+    }
+
+    function cURLRequest($request = new \stdClass(), $postfields = null, $url, $username, $password)
+    {
+        if(isset($postfields))
+        {
+            $response = $this->get_web_page($url, $request, $postfields, $username, $password);
+            $resArr = array();
+            $resArr = json_decode($response);
+            return $resArr;
+        }
+
+        $response = $this->get_web_page($url, $request, null, $username, $password);
         $resArr = array();
         $resArr = json_decode($response);
-        echo "<pre>"; print_r($resArr); echo "</pre>";
+        return $resArr;
+    }
+
+    function validateToken($token, $username, $password)
+    {
+        $url = 'https://app.stock2shop.com/v1/users/valid_token/' . $token . '?format=json';
+        return $this->cURLRequest(null, null, $url, $username, $password);
+    }
+
+    function authenticate($username, $password)
+    {
+        //builds json object
+        $request = new \stdClass();
+        $request->system_user_auth = new \stdClass();
+        $request->system_user_auth->username = $username;
+        $request->system_user_auth->password = $password;
+        $request = json_encode($request);
+
+        //url to send request
+        $url = 'https://app.stock2shop.com/v1/users/authenticate?format=json';
+
+        return $this->cURLRequest($request, null, $url, $username, $password);
+    }
+    function addHTTP($content, $code)
+    {
+        $content = json_decode($content);
+        $content->httpcode = $code;
+
+        $content = json_encode($content);
+        return $content;
     }
 }
 ?>
