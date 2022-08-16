@@ -287,6 +287,20 @@ p
     padding: 12px 20px;
     box-sizing: border-box;
 }
+#appTitle
+{
+    width: 80%;
+    position: relative;
+    left: 10%;
+    border-radius: 20px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-shadow: 1px 2px 6px #888888;
+    background-color: #f1f1f1;
+    margin: 8px 0;
+    padding: 12px 20px;
+    box-sizing: border-box;
+}
 #id
 {
     width: 70%;
