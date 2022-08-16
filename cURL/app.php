@@ -1,3 +1,5 @@
+
+
 <?php
 session_start();
 include('cURL.php');
@@ -47,17 +49,60 @@ while($token == null)
 ?>
 
 <html>
-    <link rel='stylesheet' href='Styles/app.css'>
+    <link rel='stylesheet' href='../Styles/addItem.css'>
     <body>
-    <div class='background'>
-        <form action="execute.php" method='post' target='_blank'>
-            <select id="cars" name="cars">
-                <option value="authenticate">Authenticate User</option>
-                <option value="validToken">Validate Current Token</option>
-                <option value="getSources">Get Sources</option>
-                <option value="getChannels">Get Channels</option>
-            </select>
-        <input type="submit">
+    <div class='backgroundApp'>
+    <div class="navBar">
+                <div class="overlay">
+                    <div class='imageNav'></div>
+                    <h1>App</h1>
+                    <div class='buttonContainer2'>
+                        <div class="dropDown">
+                        <button class="dropDownBtn">Home</button>
+                            <div class="dropDownContent">
+                                <a href="serverData.php">Dashboard</a>
+                            </div>
+                        </div>
+    
+                        <div class="dropDown">
+                        <button class="dropDownBtn">Endpoints</button>
+                            <div class="dropDownContent">
+                                <a href="endpoints.php">View Endpoints</a>
+                                <a href="API/document.html" target='_blank'>API</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='buttonContainer'>
+                        <div class="dropDown">
+                        <button class="dropDownBtn">Products</button>
+                            <div class="dropDownContent">
+                                <a href="addItem.html">Add Product</a>
+                                <a href="editProduct.php">View all products</a>
+                            </div>
+                        </div>
+    
+                        <div class="dropDown">
+                        <button class="dropDownBtn">Customers</button>
+                            <div class="dropDownContent">
+                                <a href="addCustomer.html">Add Customer</a>
+                                <a href="editCustomer.php">View Customers</a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="Import utilities/import.html" class="buttonOption"></a>
+    
+                    </div>
+                </div>
+        <div class='modalContainer'>
+            <form action="execute.php" method='post' target='_blank'>
+                <select id="cars" name="cars">
+                    <option value="authenticate">Authenticate User</option>
+                    <option value="validToken">Validate Current Token</option>
+                    <option value="getSources">Get Sources</option>
+                    <option value="getChannels">Get Channels</option>
+                </select>
+            <input type="submit">
+        </div>
     </div>
 </html>
 

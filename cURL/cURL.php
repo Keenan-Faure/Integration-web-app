@@ -71,6 +71,14 @@ Class CURL
         return $this->cURLRequest(null, $url, $username, $password);
 
     }
+    function getChannels($token, $username, $password)
+    {
+        //use http_build_query here to create parameters for ep
+        $params = http_build_query(array('format' => 'json', 'token' => $token)); 
+
+        $url = 'https://app.stock2shop.com/v1/channels?' . $params;
+        return $this->cURLRequest(null, $url, $username, $password);
+    }
 
     function cURLRequest($request = new \stdClass(), $url, $username, $password)
     {
