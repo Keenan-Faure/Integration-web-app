@@ -135,8 +135,10 @@ Class Customers
             $variable = new \stdClass();
             $variable->result = false;
             $variable->message = "No changes have been detected";
+            unset($_SESSION['edit_cust']);
             return $variable;
         }
+        unset($_SESSION['edit_prod']);
 
         $query = "UPDATE Client 
 

@@ -210,8 +210,10 @@ Class vProducts
             $variable = new \stdClass();
             $variable->result = false;
             $variable->message = "No changes have been detected";
+            unset($_SESSION['edit_prod']);
             return $variable;
         }
+        unset($_SESSION['edit_prod']);
 
         $query = "UPDATE Inventory 
 

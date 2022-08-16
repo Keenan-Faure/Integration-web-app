@@ -81,5 +81,6 @@
             $id = $_SESSION['customers']->result[$i]->ID;
             echo("<script>createCLV('". $active . "','" . $name . "','" . $surname . "','" . $email . "','" . $id . "');</script>");
         }
+        $_SESSION['customers'] = sizeof($_SESSION['customers']->result);
     ?>
 </html>
