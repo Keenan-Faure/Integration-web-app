@@ -37,7 +37,6 @@ Class sProducts
 
         if($update == 'edit')
         {
-
             //creates the product
             $productTemplate = array('title', 'description', 'category', 'productType', 'brand', 'sku', 'groupingCode', 'variantCode', 'barcode', 'weight', 'costPrice', 'sellingPrice',
             'quantity', 'meta1', 'meta2', 'meta3');
@@ -168,6 +167,13 @@ Class sProducts
         $dbName = $_SESSION['connection']->credentials->dbname;
         $rawConnection = $connection->createConnection($username, $password,"localhost", $dbName)->rawValue;
 
+        if($product->sku == null || $product->variantCode == null || $product->groupingCode == null)
+        {
+            $variable = new \stdClass();
+            $variable->return = false;
+            $variable->message = 'Undefined property';
+            return $variable;
+        }
         if($util->existSKUe($product, $rawConnection, $connection) !== true)
         {
             return $util->existSKUe($product, $rawConnection, $connection);

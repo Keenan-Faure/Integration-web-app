@@ -187,6 +187,13 @@ Class vProducts
         $dbName = $_SESSION['connection']->credentials->dbname;
         $rawConnection = $connection->createConnection($username, $password,"localhost", $dbName)->rawValue;
 
+        if($product->sku == null || $product->variantCode == null || $product->groupingCode == null)
+        {
+            $variable = new \stdClass();
+            $variable->return = false;
+            $variable->message = 'Undefined property';
+            return $variable;
+        }
         //must check if the respective data already exists in the database
         if($util->existSKUe($product, $rawConnection, $connection) !== true)
         {
