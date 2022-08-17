@@ -46,7 +46,18 @@ if($_SESSION['connection']->active == true)
         $output = $connection->converterObject($rawConnection, $query);
         mysqli_close($rawConnection);
 
-        echo(json_encode($curl->addProduct($output)));
+        //gets the source information, we'll only use the flatfile
+        $sources = ($curl->getSources($_SESSION['token'],'keenan.faure', 'Re_Ghoul'));
+        if($sources->httpcode == '200')
+        {
+            echo(json_encode($curl->addProduct($output->result[0], $sources->system_sources[0])));
+        }
+        else
+        {
+            $result = $curl->authenticate($_POST['username'], $_POST['password']);
+            $_SESSION['token'] = $result->system_user->token;
+            echo(json_encode($curl->addProduct($output->result[0], $sources->system_sources[0])));
+        }
     }
 }
 else

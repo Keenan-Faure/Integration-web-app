@@ -115,46 +115,45 @@ Class CURL
         $content = json_encode($content);
         return $content;
     }
-    function addProduct($product)
+    function addProduct($product, $source)
     {
         if(isset($product))
         {
-            $product = new \stdClass();
+            $Product = new \stdClass();
 
             //creates the product not the array called system_products in the request
-            $product = new \stdClass();
-            $product->source = new \stdClass();
-            $product->source->source_id = '';
-            $product->source->product_active = '';
-            $product->source->source_product_code = '';
-            $product->source->sync_token = '';
-            $product->source->fetch_token = '';
-            $product->product = new \stdClass();
-            $product->product->options = $this->addOptions($product);
-            $product->product->body_html = '';
-            $product->product->collection = '';
-            $product->product->product_type = '';
-            $product->product->tags = '';
-            $product->product->title = '';
-            $product->product->vendor = '';
-            $product->product->variants = new \stdClass();
-            $product->product->variants->source_variant_code = '';
-            $product->product->variants->sku = '';
-            $product->product->variants->barcode = '';
-            $product->product->variants->qty = null;
-            $product->product->variants->qty_availability = $this->addQty($product);
-            $product->product->variants->price = null;
-            $product->product->variants->price_tiers = $this->addPrices($product);
-            $product->product->variants->inventory_management = false;
-            $product->product->variants->grams = '';
-            $optionContainer = $this->addOptionValues($product, $product->product->options);
-            if(sizeof($optionContainer) > 0)
+            $Product = new \stdClass();
+            $Product->source = new \stdClass();
+            $Product->source->source_id = $source->id;
+            $Product->source->product_active = true; //hard coded to be true for now
+            $Product->source->source_product_code = $product->Group_Code;
+            $Product->source->sync_token = $source->sync_token;
+            $Product->source->fetch_token = 0;
+            $Product->product = new \stdClass();
+            $Product->product->options = $this->addOptions($product);
+            $Product->product->body_html = $product->Description;
+            $Product->product->collection = $product->Category;
+            $Product->product->product_type = $product->Product_Type;
+            $Product->product->tags = null;
+            $Product->product->title = $product->Title;
+            $Product->product->vendor = $product->Brand;
+            $Product->product->variants = new \stdClass();
+            $Product->product->variants->source_variant_code = $product->Variant_Code;
+            $Product->product->variants->sku = $product->SKU;
+            $Product->product->variants->barcode = $product->Barcode;
+            $Product->product->variants->qty = null;
+            $Product->product->variants->qty_availability = $this->addQty($product);
+            $Product->product->variants->price = null;
+            $Product->product->variants->price_tiers = $this->addPrices($product);
+            $Product->product->variants->inventory_management = false;
+            $Product->product->variants->grams = $product->Weight;
+            $optionContainer = $this->addOptionValues($product, $Product->product->options);
+            for($i = 0; $i < sizeof($optionContainer); ++$i)
             {
-                $product->product->variants->option1 = $optionContainer[0];
-                $product->product->variants->option1 = $optionContainer[1];
+                $Product->product->variants->option1 = $optionContainer[$i];
             }
-            $product->product->meta = $this->addMeta($product);
-            return $product;
+            $Product->product->meta = $this->addMeta($product);
+            return $Product;
         }
         return null;
     }
@@ -162,15 +161,15 @@ Class CURL
     function addOptions($product)
     {
         $options = array();
-        if(isset($product->result->Option_1_Name) && isset($product->result->Option_1_Value))
+        if($product->Option_1_Name != null && $product->Option_1_Value != null)
         {
             $optionArray = new \stdClass();
-            $optionArray->name = $product->result->Option_1_Name;
+            $optionArray->name = $product->Option_1_Name;
             $optionArray->position = sizeof($options) + 1;
             array_push($options, $optionArray);
-            if(isset($product->result->Option_2_Name) && isset($product->result->Option_2_Value))
+            if($product->Option_2_Name != null && $product->Option_2_Value != null)
             {
-                $optionArray->name = $product->result->Option_2_Name;
+                $optionArray->name = $product->Option_2_Name;
                 $optionArray->position = sizeof($options) + 1;
                 array_push($options, $optionArray);
             }
@@ -180,11 +179,11 @@ Class CURL
     function addQty($product)
     {
         $qty = array();
-        if(isset($product->result->CapeTown_Warehouse))
+        if($product->CapeTown_Warehouse != null)
         {
             $qty_available = new \stdClass();
             $qty_available->description = 'CapeTown_Warehouse';
-            $qty_available->qty = $product->result->CapeTown_Warehouse;
+            $qty_available->qty = $product->CapeTown_Warehouse;
             array_push($qty, $qty_available);
         }
         return $qty;
@@ -193,18 +192,18 @@ Class CURL
     function addPrices($product)
     {
         $price = array();
-        if(isset($product->result->CostPrice))
+        if($product->CostPrice != null)
         {
             $priceTier = new \stdClass();
             $priceTier->tier = 'Cost Price';
-            $priceTier->price = $product->result->CostPrice;
+            $priceTier->price = $product->CostPrice;
             array_push($price, $priceTier);
         }
-        if(isset($product->result->SellingPrice))
+        if($product->SellingPrice != null)
         {
             $priceTier = new \stdClass();
             $priceTier->tier = 'Selling Price';
-            $priceTier->price = $product->result->SellingPrice;
+            $priceTier->price = $product->SellingPrice;
             array_push($price, $priceTier);
         }
         return $price;
@@ -218,7 +217,7 @@ Class CURL
         {
             if($i == 0)
             {
-                if(isset($options[$i]->name))
+                if($options[$i]->name != null)
                 {
                     array_push($array, $product->Option_1_Value);
                 }
@@ -226,7 +225,7 @@ Class CURL
             }
             if($i == 1)
             {
-                if(isset($options[$i]->name))
+                if($options[$i]->name != null)
                 {
                     array_push($array, $product->Option_2_Value);
                 }
@@ -237,21 +236,21 @@ Class CURL
     function addMeta($product)
     {
         $meta = array();
-        if(isset($product->Meta_1))
+        if($product->Meta_1 != null)
         {
             $metaOption = new \stdClass();
             $metaOption->key = 'Meta_1';
             $metaOption->value = $product->Meta_1;
             array_push($meta, $metaOption);
         }
-        if(isset($product->Meta_2))
+        if($product->Meta_2 != null)
         {
             $metaOption = new \stdClass();
             $metaOption->key = 'Meta_2';
             $metaOption->value = $product->Meta_2;
             array_push($meta, $metaOption);
         }
-        if(isset($product->Meta_3))
+        if($product->Meta_3 != null)
         {
             $metaOption = new \stdClass();
             $metaOption->key = 'Meta_3';
