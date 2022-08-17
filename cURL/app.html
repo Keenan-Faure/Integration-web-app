@@ -15,7 +15,7 @@
                         <div class="dropDown">
                         <button class="dropDownBtn">Home</button>
                             <div class="dropDownContent">
-                                <a href="serverData.php">Dashboard</a>
+                                <a href="../serverData.php">Dashboard</a>
                             </div>
                         </div>
     
@@ -23,7 +23,7 @@
                         <button class="dropDownBtn">Endpoints</button>
                             <div class="dropDownContent">
                                 <a href="endpoints.php">View Endpoints</a>
-                                <a href="API/document.html" target='_blank'>API</a>
+                                <a href="../API/document.html" target='_blank'>API</a>
                             </div>
                         </div>
                     </div>
@@ -31,20 +31,20 @@
                         <div class="dropDown">
                         <button class="dropDownBtn">Products</button>
                             <div class="dropDownContent">
-                                <a href="addItem.html">Add Product</a>
-                                <a href="editProduct.php">View all products</a>
+                                <a href="../addItem.html">Add Product</a>
+                                <a href="../editProduct.php">View all products</a>
                             </div>
                         </div>
     
                         <div class="dropDown">
                         <button class="dropDownBtn">Customers</button>
                             <div class="dropDownContent">
-                                <a href="addCustomer.html">Add Customer</a>
-                                <a href="editCustomer.php">View Customers</a>
+                                <a href="../addCustomer.html">Add Customer</a>
+                                <a href="../editCustomer.php">View Customers</a>
                             </div>
                         </div>
                     </div>
-                    <a href="Import utilities/import.html" class="buttonOption"></a>
+                    <a href="../Import utilities/import.html" class="buttonOption"></a>
     
                     </div>
                 </div>
@@ -52,19 +52,20 @@
             <form action="execute.php" method='post' target='_blank'>
                 <div class="containerText">Username</div>
                 <div class="line"></div>
-                <input type='text' id = 'appTitle' autocomplete="off" name='title' title='Stock2Shop valid username' required>
+                <input type='text' id = 'appTitle' autocomplete="off" name='username' title='Stock2Shop valid username' required>
                 
                 <div class="containerText">Password</div>
                 <div class="line"></div>
-                <input type='text' id = 'appTitle' autocomplete="off" name='title' title='Stock2Shop user password' required>
+                <input type='text' id = 'appTitle' autocomplete="off" name='password' title='Stock2Shop user password' required>
                 <br><br><br>
                 <div class="containerText">Endpoint</div>
                 <div class="line"></div>
-                <select id="appTitle" name="cars">
+                <select id="appTitle" name="endpoint">
                     <option value="authenticate">Authenticate User</option>
                     <option value="validToken">Validate Current Token</option>
                     <option value="getSources">Get Sources</option>
                     <option value="getChannels">Get Channels</option>
+                    <option value="pushProducts">Push Products</option>
                 </select>
                 <input class='button' type='submit'>
             </form>

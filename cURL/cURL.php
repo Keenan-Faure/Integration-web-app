@@ -115,5 +115,150 @@ Class CURL
         $content = json_encode($content);
         return $content;
     }
+    function addProduct($product)
+    {
+        if(isset($product))
+        {
+            $product = new \stdClass();
+
+            //creates the product not the array called system_products in the request
+            $product = new \stdClass();
+            $product->source = new \stdClass();
+            $product->source->source_id = '';
+            $product->source->product_active = '';
+            $product->source->source_product_code = '';
+            $product->source->sync_token = '';
+            $product->source->fetch_token = '';
+            $product->product = new \stdClass();
+            $product->product->options = $this->addOptions($product);
+            $product->product->body_html = '';
+            $product->product->collection = '';
+            $product->product->product_type = '';
+            $product->product->tags = '';
+            $product->product->title = '';
+            $product->product->vendor = '';
+            $product->product->variants = new \stdClass();
+            $product->product->variants->source_variant_code = '';
+            $product->product->variants->sku = '';
+            $product->product->variants->barcode = '';
+            $product->product->variants->qty = null;
+            $product->product->variants->qty_availability = $this->addQty($product);
+            $product->product->variants->price = null;
+            $product->product->variants->price_tiers = $this->addPrices($product);
+            $product->product->variants->inventory_management = false;
+            $product->product->variants->grams = '';
+            $optionContainer = $this->addOptionValues($product, $product->product->options);
+            if(sizeof($optionContainer) > 0)
+            {
+                $product->product->variants->option1 = $optionContainer[0];
+                $product->product->variants->option1 = $optionContainer[1];
+            }
+            $product->product->meta = $this->addMeta($product);
+            return $product;
+        }
+        return null;
+    }
+    //
+    function addOptions($product)
+    {
+        $options = array();
+        if(isset($product->result->Option_1_Name) && isset($product->result->Option_1_Value))
+        {
+            $optionArray = new \stdClass();
+            $optionArray->name = $product->result->Option_1_Name;
+            $optionArray->position = sizeof($options) + 1;
+            array_push($options, $optionArray);
+            if(isset($product->result->Option_2_Name) && isset($product->result->Option_2_Value))
+            {
+                $optionArray->name = $product->result->Option_2_Name;
+                $optionArray->position = sizeof($options) + 1;
+                array_push($options, $optionArray);
+            }
+        }
+        return $options;
+    }
+    function addQty($product)
+    {
+        $qty = array();
+        if(isset($product->result->CapeTown_Warehouse))
+        {
+            $qty_available = new \stdClass();
+            $qty_available->description = 'CapeTown_Warehouse';
+            $qty_available->qty = $product->result->CapeTown_Warehouse;
+            array_push($qty, $qty_available);
+        }
+        return $qty;
+    }
+
+    function addPrices($product)
+    {
+        $price = array();
+        if(isset($product->result->CostPrice))
+        {
+            $priceTier = new \stdClass();
+            $priceTier->tier = 'Cost Price';
+            $priceTier->price = $product->result->CostPrice;
+            array_push($price, $priceTier);
+        }
+        if(isset($product->result->SellingPrice))
+        {
+            $priceTier = new \stdClass();
+            $priceTier->tier = 'Selling Price';
+            $priceTier->price = $product->result->SellingPrice;
+            array_push($price, $priceTier);
+        }
+        return $price;
+
+    }
+
+    function addOptionValues($product, $options)
+    {
+        $array = array();
+        for($i = 0; $i < sizeof($options); $i ++)
+        {
+            if($i == 0)
+            {
+                if(isset($options[$i]->name))
+                {
+                    array_push($array, $product->Option_1_Value);
+                }
+                continue;
+            }
+            if($i == 1)
+            {
+                if(isset($options[$i]->name))
+                {
+                    array_push($array, $product->Option_2_Value);
+                }
+            }
+        }
+        return $array;
+    }
+    function addMeta($product)
+    {
+        $meta = array();
+        if(isset($product->Meta_1))
+        {
+            $metaOption = new \stdClass();
+            $metaOption->key = 'Meta_1';
+            $metaOption->value = $product->Meta_1;
+            array_push($meta, $metaOption);
+        }
+        if(isset($product->Meta_2))
+        {
+            $metaOption = new \stdClass();
+            $metaOption->key = 'Meta_2';
+            $metaOption->value = $product->Meta_2;
+            array_push($meta, $metaOption);
+        }
+        if(isset($product->Meta_3))
+        {
+            $metaOption = new \stdClass();
+            $metaOption->key = 'Meta_3';
+            $metaOption->value = $product->Meta_3;
+            array_push($meta, $metaOption);
+        }
+        return $meta;
+    }
 }
 ?>
