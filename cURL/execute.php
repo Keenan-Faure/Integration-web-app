@@ -43,6 +43,15 @@ if($_SESSION['connection']->active == true)
         $query = "SELECT * FROM Inventory WHERE SKU='GenImp-V-AA'";
 
         $output = $connection->converterObject($rawConnection, $query);
+        if(sizeof($output->result) == 0)
+        {
+            $variable = new \stdClass();
+            $variable->return = false;
+            $variable->error = "No products found in Database > Inventory table";
+            $variable->message = "Cannot push null in Inventory table";
+            echo(json_encode($variable));
+            exit();
+        }
         mysqli_close($rawConnection);
 
         //gets the source information, we'll only use the flatfile

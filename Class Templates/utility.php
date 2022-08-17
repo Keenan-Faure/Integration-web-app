@@ -326,10 +326,13 @@ Class Utility
             }
             else if($product['option2Name'] == null || $product['option2Value'] == null)
             {
-                $variable = new \stdClass();
-                $variable->return = false;
-                $variable->message = 'Attempting to create variable product without Options';
-                return $variable;
+                if($product['optionName'] == null || $product['optionValue'] == null)
+                {
+                    $variable = new \stdClass();
+                    $variable->return = false;
+                    $variable->message = 'Attempting to create variable product without Options';
+                    return $variable;
+                }
             }
         }
     }
