@@ -218,6 +218,7 @@ Class vProducts
         $query = "UPDATE Inventory 
 
         SET 
+            Type = 'Variant',
             Active = 'true',
             Title = '$product->title',
             Description = '$product->description',

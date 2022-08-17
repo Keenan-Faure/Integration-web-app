@@ -189,6 +189,7 @@ Class sProducts
         $query = "UPDATE Inventory 
 
         SET 
+            Type = 'Simple',
             Active = 'true',
             Title = '$product->title',
             Description = '$product->description',
