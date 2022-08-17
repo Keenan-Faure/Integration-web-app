@@ -22,10 +22,9 @@ if($_SESSION['connection']->active == true)
         $_SESSION['token'] = $result->system_user->token;
         echo(json_encode($result));
     }
-    else if($_POST['endpoint'] == 'validateToken')
+    else if($_POST['endpoint'] == 'validToken')
     {
         echo(json_encode($curl->validateToken($_SESSION['token'],'keenan.faure', 'Re_Ghoul')));
-
     }
     else if($_POST['endpoint'] == 'getSources')
     {
