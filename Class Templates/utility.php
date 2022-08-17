@@ -300,6 +300,13 @@ Class Utility
                 $variable->message = 'Error: Variant option name is defined but no value has been set';
                 return $variable;
             }
+            else if($product['groupingCode'] == null)
+            {
+                $variable = new \stdClass();
+                $variable->return = false;
+                $variable->message = 'Error: Group Code has not been defined or is empty';
+                return $variable;
+            }
             else
             {
                 $variable = new \stdClass();
