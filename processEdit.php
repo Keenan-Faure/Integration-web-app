@@ -49,6 +49,7 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
                     {
                         echo(json_encode($result));
                         header('Refresh:2, url=editProduct.php');
+                        exit();
                     }
                     $result = $product->updateProduct($result, $util, $connection);
                     echo(json_encode($result));
