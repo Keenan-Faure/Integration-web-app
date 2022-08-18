@@ -259,5 +259,15 @@ Class CURL
         }
         return $meta;
     }
+    function push($products, $source, $token, $username, $password)
+    {
+        //uses json object retrieved from $products
+
+        $request = json_encode($products);
+
+        //url to send request
+        $url = 'https://app.stock2shop.com/v1/products/queue?token=' . $token . '&source_id=' . $source->id;
+        return $this->cURLRequest($request, $url, $username, $password);
+    }
 }
 ?>

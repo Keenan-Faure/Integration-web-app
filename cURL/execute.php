@@ -24,15 +24,15 @@ if($_SESSION['connection']->active == true)
     }
     else if($_POST['endpoint'] == 'validToken')
     {
-        echo(json_encode($curl->validateToken($_SESSION['token'],'keenan.faure', 'Re_Ghoul')));
+        echo(json_encode($curl->validateToken($_SESSION['token'],$_POST['username'], $_POST['password'])));
     }
     else if($_POST['endpoint'] == 'getSources')
     {
-        echo(json_encode($curl->getSources($_SESSION['token'],'keenan.faure', 'Re_Ghoul')));
+        echo(json_encode($curl->getSources($_SESSION['token'],$_POST['username'], $_POST['password'])));
     }
     else if($_POST['endpoint'] == 'getChannels')
     {
-        echo(json_encode($curl->getChannels($_SESSION['token'],'keenan.faure', 'Re_Ghoul')));
+        echo(json_encode($curl->getChannels($_SESSION['token'],$_POST['username'], $_POST['password'])));
     }
     else if($_POST['endpoint'] == 'pushProducts')
     {
@@ -55,7 +55,7 @@ if($_SESSION['connection']->active == true)
         mysqli_close($rawConnection);
 
         //gets the source information, we'll only use the flatfile
-        $sources = ($curl->getSources($_SESSION['token'],'keenan.faure', 'Re_Ghoul'));
+        $sources = ($curl->getSources($_SESSION['token'],$_POST['username'], $_POST['password']));
         if($sources->httpcode == '200')
         {
             $pushed = new \stdClass();
@@ -79,7 +79,7 @@ if($_SESSION['connection']->active == true)
                     }
                 }
             }
-            echo(json_encode($pushed));
+            echo(json_encode($curl->push($pushed, $sources->system_sources[0], $_SESSION['token'], $_POST['username'], $_POST['password'])));
         }
         else
         {
