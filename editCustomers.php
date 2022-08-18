@@ -74,8 +74,8 @@
                 
                 $_SESSION['edit_cust'] = new \stdClass();
                 
-                $customerTemplateDB = array('ID','Name', 'Surname', 'Email', 'Address_1', 'Address_2', 'Address_3', 'Address_4', 'submit');
-                $customerTemplateForm = array('id','name', 'surname', 'email', 'address1', 'address2', 'address3', 'address4', 'submit');
+                $customerTemplateDB = array('Active', 'ID','Name', 'Surname', 'Email', 'Address_1', 'Address_2', 'Address_3', 'Address_4', 'submit');
+                $customerTemplateForm = array('active', 'id','name', 'surname', 'email', 'address1', 'address2', 'address3', 'address4', 'submit');
 
                 //loop through template list...
                 $notUsed = array();
