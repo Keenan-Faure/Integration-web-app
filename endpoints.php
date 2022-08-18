@@ -23,6 +23,7 @@
             <h1>Available Endpoints</h1>
             <div class='line'></div>
             <img src='./Images/custom.png' title = "Query custom Sql" class='custom'>
+            <a title = "Push Products" href='cURL/app.html' class='s2s'></a>
             <div class='container' id='container-1'>
                 <h2 class='h2-hidden'>General</h2>
                 <div class='line' id='line-1'></div>
@@ -36,6 +37,7 @@
                     <br><br>
                     <button name='checkTables' class='button' id='b4'><p class='buttonText'>Check Tables in Database</p></button>
                 </form>
+                <button class='button' id='b4'><p class='buttonText'>Check Tables in Database</p></button>
             </div>
 
             <div class='container' id='container-2'>
@@ -82,9 +84,7 @@
                 <form method='post' action='endpoint_handler.php'>
                     <button class='button' name='editCustomer' id='b15'><p class='buttonText'>Edit Customer</p></button> 
                 </form>
-            </div>
-                
-            <a href='cURL/app.html' style='right: 0;bottom: 0;position: absolute;'>Push Products</a>     
+            </div>     
     </body>
         <script src='Scripts/scripts2.js'></script>
 </html>
