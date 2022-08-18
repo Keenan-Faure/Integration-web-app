@@ -40,7 +40,7 @@ if($_SESSION['connection']->active == true)
         $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
         //creates query
         
-        $query = "SELECT * FROM Inventory WHERE SKU='GenImp-V-AA'";
+        $query = "SELECT * FROM Inventory";
 
         $output = $connection->converterObject($rawConnection, $query);
         if(sizeof($output->result) == 0)
@@ -58,13 +58,33 @@ if($_SESSION['connection']->active == true)
         $sources = ($curl->getSources($_SESSION['token'],'keenan.faure', 'Re_Ghoul'));
         if($sources->httpcode == '200')
         {
-            echo(json_encode($curl->addProduct($output->result[0], $sources->system_sources[0])));
+            $pushed = new \stdClass();
+            $pushed->system_products = array();
+            for($i = 0; $i < sizeof($output->result); ++$i)
+            {
+                $data = $curl->addProduct($output->result[$i], $sources->system_sources[0]);
+                if($data != null)
+                {
+                    array_push($pushed->system_products, $data);
+                }
+                else
+                {
+                    if(isset($_SESSION['log']))
+                    {
+                        $variable = new \stdClass();
+                        $variable->result = false;
+                        $variable->message = "Product with SKU " . $output->result[$i]->SKU . " was not processed";
+                        $variable->data = $data;
+                        array_push($_SESSION['log'], $variable);
+                    }
+                }
+            }
+            echo(json_encode($pushed));
         }
         else
         {
-            $result = $curl->authenticate($_POST['username'], $_POST['password']);
-            $_SESSION['token'] = $result->system_user->token;
-            echo(json_encode($curl->addProduct($output->result[0], $sources->system_sources[0])));
+            json_encode($curl->getSources($_SESSION['token'],'keenan.faure', 'Re_Ghoul'));
+            exit();
         }
     }
 }
@@ -77,10 +97,6 @@ else
     $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
     echo(json_encode($variable));
 }
-
-
-$token = null;
-$delay = 3;
 
 //should check at post form already, if the credentials are valid
 //$username = $_POST['username'];

@@ -125,7 +125,7 @@ Class CURL
             $Product = new \stdClass();
             $Product->source = new \stdClass();
             $Product->source->source_id = $source->id;
-            $Product->source->product_active = true; //hard coded to be true for now
+            $Product->source->product_active = $product->Active; //hard coded to be true for now
             $Product->source->source_product_code = $product->Group_Code;
             $Product->source->sync_token = $source->sync_token;
             $Product->source->fetch_token = 0;
