@@ -75,10 +75,10 @@
 
                 $_SESSION['edit_prod'] = new \stdClass();
 
-                $productTemplateDB = array('Title', 'Description', 'Category', 'Product_Type', 'Brand', 'SKU', 'Group_Code', 'Variant_Code', 'Barcode', 'Weight', 'CostPrice', 'SellingPrice',
+                $productTemplateDB = array('Active', 'Title', 'Description', 'Category', 'Product_Type', 'Brand', 'SKU', 'Group_Code', 'Variant_Code', 'Barcode', 'Weight', 'CostPrice', 'SellingPrice',
                                         'CapeTown_Warehouse', 'Option_1_Name', 'Option_1_Value', 'Option_2_Name', 'Option_2_Value', 'Meta_1', 'Meta_2', 'Meta_3', 'submit');
 
-                $productTemplateForm = array('title', 'description', 'category', 'productType', 'brand', 'sku', 'groupingCode', 'variantCode', 'barcode', 'weight', 'costPrice', 'sellingPrice',
+                $productTemplateForm = array('active', 'title', 'description', 'category', 'productType', 'brand', 'sku', 'groupingCode', 'variantCode', 'barcode', 'weight', 'costPrice', 'sellingPrice',
                 'quantity', 'optionName', 'optionValue', 'option2Name', 'option2Value', 'meta1', 'meta2', 'meta3', 'submit');
                 //loop through template list...
                 

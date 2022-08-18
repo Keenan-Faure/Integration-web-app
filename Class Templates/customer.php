@@ -27,7 +27,7 @@ Class Customers
         if($update == 'edit')
         {
             //creates the customer
-            $customerTemplate = array('id','name', 'surname', 'email', 'address1', 'address2', 'address3', 'address4');
+            $customerTemplate = array('active', 'id','name', 'surname', 'email', 'address1', 'address2', 'address3', 'address4');
 
             $customer['id'] = strtolower($customer['name']) . '-' . strtolower($customer['surname']);
             //creates as a standard class
@@ -43,6 +43,11 @@ Class Customers
                     //converts to a string
                     $variable = $customerTemplate[$i];
                     $this->customer->$variable = $customer[$customerTemplate[$i]];
+                }
+                else
+                {
+                    $variable = $customerTemplate[$i];
+                    $this->customer->$variable = null;
                 }
             }
             return $this->customer;
@@ -138,12 +143,20 @@ Class Customers
             unset($_SESSION['edit_cust']);
             return $variable;
         }
+        if($customer->active != 'true' && $customer->active != 'false')
+        {
+            $variable = new \stdClass();
+            $variable->result = false;
+            $variable->message = 'Unsupported value';
+            $variable->supportedValues = array(true, false);
+            return $variable;
+        }
         unset($_SESSION['edit_prod']);
 
         $query = "UPDATE Client 
 
         SET 
-            Active = 'true',
+            Active = '$customer->active',
             ID = '$customer->id',
             Name = '$customer->name',
             Surname = '$customer->surname',

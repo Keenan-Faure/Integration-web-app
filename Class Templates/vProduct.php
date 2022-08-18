@@ -38,7 +38,7 @@ Class vProducts
         if($update == 'edit')
         {           
             //creates the product
-            $productTemplate = array('title', 'description', 'category', 'productType', 'brand', 'sku', 'groupingCode', 'variantCode', 'barcode', 'weight', 'costPrice', 'sellingPrice',
+            $productTemplate = array('active', 'title', 'description', 'category', 'productType', 'brand', 'sku', 'groupingCode', 'variantCode', 'barcode', 'weight', 'costPrice', 'sellingPrice',
             'quantity', 'optionName', 'optionValue', 'option2Name', 'option2Value', 'meta1', 'meta2', 'meta3');
 
             if($util->optionCheck($product))
@@ -211,6 +211,15 @@ Class vProducts
         {
             return $util->existOptionse($product, $rawConnection, $connection);
         }
+        //checks if the product has a valid active field
+        if($product->active != 'true' && $product->active != 'false')
+        {
+            $variable = new \stdClass();
+            $variable->result = false;
+            $variable->message = 'Unsupported value';
+            $variable->supportedValues = array(true, false);
+            return $variable;
+        }
 
         if($_SESSION['edit_prod'] == $product)
         {
@@ -226,7 +235,7 @@ Class vProducts
 
         SET 
             Type = 'Variant',
-            Active = 'true',
+            Active = '$product->active',
             Title = '$product->title',
             Description = '$product->description',
             Category = '$product->category',

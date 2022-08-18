@@ -38,7 +38,7 @@ Class sProducts
         if($update == 'edit')
         {
             //creates the product
-            $productTemplate = array('title', 'description', 'category', 'productType', 'brand', 'sku', 'groupingCode', 'variantCode', 'barcode', 'weight', 'costPrice', 'sellingPrice',
+            $productTemplate = array('active', 'title', 'description', 'category', 'productType', 'brand', 'sku', 'groupingCode', 'variantCode', 'barcode', 'weight', 'costPrice', 'sellingPrice',
             'quantity', 'meta1', 'meta2', 'meta3');
 
             //creates as a standard class
@@ -184,6 +184,14 @@ Class sProducts
         {
             return $util->existVariantCodee($product, $rawConnection, $connection);
         }
+        if($product->active != 'true' && $product->active != 'false')
+        {
+            $variable = new \stdClass();
+            $variable->result = false;
+            $variable->message = 'Unsupported value';
+            $variable->supportedValues = array(true, false);
+            return $variable;
+        }
         if($_SESSION['edit_prod'] == $product)
         {
             $variable = new \stdClass();
@@ -196,7 +204,7 @@ Class sProducts
 
         SET 
             Type = 'Simple',
-            Active = 'true',
+            Active = '$product->active',
             Title = '$product->title',
             Description = '$product->description',
             Category = '$product->category',
