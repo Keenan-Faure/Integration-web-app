@@ -1,9 +1,58 @@
 <html>
+    <link rel='stylesheet' href='../Styles/addItem.css'>
     <body>
-        <form action='productImport.php' method='post' enctype="multipart/form-data">
-            Select a csv file to upload:
-            <input type="file" name="file" id="file">
-            <input type="submit" value="Upload Image" name="submit">
-        </form>
+        <div class="backgroundImport">
+            <div class="navBar">
+                <div class="overlay">
+                    <div class='imageNav'></div>
+                    <h1>Import</h1>
+                    <div class='buttonContainer2'>
+                        <div class="dropDown">
+                        <button class="dropDownBtn">Home</button>
+                            <div class="dropDownContent">
+                                <a href="../serverData.php">Dashboard</a>
+                            </div>
+                        </div>
+    
+                        <div class="dropDown">
+                        <button class="dropDownBtn">Endpoints</button>
+                            <div class="dropDownContent">
+                                <a href="../endpoints.php">View Endpoints</a>
+                                <a href="../API/document.html" target='_blank'>API</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='buttonContainer'>
+                        <div class="dropDown">
+                        <button class="dropDownBtn">Products</button>
+                            <div class="dropDownContent">
+                                <a href="../addItem.html">Add Product</a>
+                                <a href="../editProduct.php">View all products</a>
+                            </div>
+                        </div>
+    
+                        <div class="dropDown">
+                        <button class="dropDownBtn">Customers</button>
+                            <div class="dropDownContent">
+                                <a href="../addCustomer.html">Add Customer</a>
+                                <a href="../editCustomer.php">View Customers</a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="../Import utilities/import.html" class="buttonOption"></a>
+    
+                    </div>
+            </div>
+            <div class="container">
+                <form action='upload.php' method='post' enctype="multipart/form-data">
+                    <img class='importP' src="../Images/import.png">
+                    <label class="buttonImport">
+                        <input type="file" name='file'/>
+                        Select File
+                    </label>
+                    <input type="submit" class='buttonImport' value="uploadFile" name="submit">
+                </form>
+            </div>
+        </div>
     </body>
 </html>
