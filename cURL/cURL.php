@@ -131,7 +131,7 @@ Class CURL
             $Product->source->fetch_token = 0;
             $Product->product = new \stdClass();
             $Product->product->options = $this->addOptions($product);
-            $Product->product->body_html = $product->Description;
+            $Product->product->body_html = htmlspecialchars_decode($product->Description); //decodes it 
             $Product->product->collection = $product->Category;
             $Product->product->product_type = $product->Product_Type;
             $Product->product->tags = null;
