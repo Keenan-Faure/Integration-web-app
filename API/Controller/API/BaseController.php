@@ -116,7 +116,7 @@ class Controller
                     $output = $connection->converterObject($rawConnection, $query);
                     return $output;
                 }
-                $query = "SELECT * FROM Client WHERE Name='" . $segment . "'";
+                $query = "SELECT * FROM Client WHERE ID='" . $segment . "'";
                 $output = $connection->converterObject($rawConnection, $query);
                 return $output;
             }

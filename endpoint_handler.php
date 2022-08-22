@@ -170,7 +170,7 @@
                     $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
                     //creates query
                     
-                    $query = "SELECT * FROM Client WHERE Name='" . $_POST['getCustomerByID'] . "'";
+                    $query = "SELECT * FROM Client WHERE ID='" . $_POST['getCustomerByID'] . "'";
 
                     $output = $connection->converterObject($rawConnection, $query);
                     mysqli_close($rawConnection);
