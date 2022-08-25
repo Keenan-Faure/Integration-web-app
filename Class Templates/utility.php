@@ -336,7 +336,44 @@ Class Utility
             }
         }
     }
-
+    //stdClass
+    function checkRequired($product)
+    {
+        $required = array('active', 'sku', 'groupingCode', 'variantCode');
+        for($i = 0; $i < sizeof($required); ++$i)
+        {
+            if(!isset($product->required[$i]))
+            {
+                $variable = new \stdClass();
+                $variable->result = false;
+                $variable->header = $required[$i];
+                return $variable;
+            }
+        }
+        $variable = new \stdClass();
+        $variable->result = true;
+        return $variable;
+    }
+    
+    //array
+    function checkRequiredH($product)
+    {
+        $required = array('active', 'sku', 'groupingCode', 'variantCode');
+        for($i = 0; $i < sizeof($required); ++$i)
+        {
+            $index = $required[$i];
+            if(!isset($product[$index]))
+            {
+                $variable = new \stdClass();
+                $variable->result = false;
+                $variable->header = $index;
+                return $variable;
+            }
+        }
+        $variable = new \stdClass();
+        $variable->result = true;
+        return $variable;
+    }
 }
 
 ?>

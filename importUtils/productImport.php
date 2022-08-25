@@ -21,11 +21,13 @@ if(!isset($_SESSION['connection']))
 include('../Class Templates/customer.php');
 include('../Class Templates/sProduct.php');
 include('../Class Templates/vProduct.php');
+include('../Class Templates/utility.php');
 include('../createConnection.php');
 
 use utils\Utility as util;
 use sProducts\sProducts as sproduct;
 use vProducts\vProducts as vproduct;
+use customer\Customers as customer;
 use Connection\Connection as connect;
 
 $fileToUse = 'operaPasswords.csv';
@@ -49,6 +51,7 @@ if(isset($file))
 $directory = $directory . $fileToUse;
 if(in_array($fileToUse, $file))
 {
+    $util = new util();
     $openFile = fopen($directory, 'r');
     while(!feof($openFile))
     {
@@ -84,6 +87,16 @@ if(in_array($fileToUse, $file))
                     $template[$productTemplate[$i]] = array_keys($headers, $productTemplate[$i])[0];
                 }
             }
+            //checkRequired headers
+            $check = $util->checkRequiredH($template);
+            if($check->result == false)
+            {
+                $variable = new \stdClass();
+                $variable->return = false;
+                $variable->message = $check->header . ' header not defined';
+                return $variable;
+                exit();
+            }
             
             //gets the array key where the headers are defined
             
@@ -92,6 +105,10 @@ if(in_array($fileToUse, $file))
         //check if the product exists already, if it does then just update the values
         $rawValue = explode(',', fgets($openFile));
         $connection2 = new connect();
+
+        //add the errors in the logs using IO_logs
+        $IO_logs = array();
+
         $rawConnection = $connection2->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
         if(isset($rawValue[$template['sku']]))
         {
@@ -102,32 +119,103 @@ if(in_array($fileToUse, $file))
             $output2 = $connection2->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
             if($output2->result == null)
             {
-                //creates the product
-                $result = new \stdClass();
+                //creates the product with available headers
+                //sets undefined values to null
+                $Product = new \stdClass();
                 for($i = 0; $i < sizeof($headers); ++$i)
                 {
                     $index = array_keys($template, $i)[0];
                     if(isset($rawValue[$template[array_keys($template, $i)[0]]]))
                     {
-                        $result->$index = $rawValue[$template[array_keys($template, $i)[0]]];
+                        $Product->$index = $rawValue[$template[array_keys($template, $i)[0]]];
                     }
                     else
                     {
-                        $result->$index = null;
+                        $Product->$index = null;
+                    }
+                }
+                $check = $util->checkRequired($Product);
+                if($check->result == false)
+                {
+                    $variable = new \stdClass();
+                    $variable->return = false;
+                    $variable->message = $check->header . ' data value null or empty';
+                    return $variable;
+                    continue;
+                }
+                //check if the value is set
+                
+                $Product = json_decode(json_encode($Product), true);
+                //variable product
+                if(isset($result['optionName']) && isset($result['optionValue']))
+                {
+                    $product = new vproduct();
+                    $result = $product->createProduct($Product, $util, $connection2);
+                    if(isset($result->return))
+                    {
+                        array_push($IO_logs, $result);
+                    }
+                    $result = $product->addProduct($result, $connection2);
+                }
+                //simple product
+                else
+                {
+                    //simple product
+                    $product = new sproduct();
+                    $result = $product->createProduct($Product, $util, $connection2);
+                    if(isset($result->return))
+                    {
+                        array_push($IO_logs, $result);
+                    }
+                    $result = $product->addProduct($result, $connection2);
+                }
+            }
+            //otherwise we must edit the existing product and update its values
+            else
+            {
+                //UPDATE
+                //creates the product with available headers
+                //sets undefined values to null
+                $Product = new \stdClass();
+                for($i = 0; $i < sizeof($headers); ++$i)
+                {
+                    $index = array_keys($template, $i)[0];
+                    if(isset($rawValue[$template[array_keys($template, $i)[0]]]))
+                    {
+                        $Product->$index = $rawValue[$template[array_keys($template, $i)[0]]];
+                    }
+                    else
+                    {
+                        $Product->$index = null;
                     }
                     
                 }
-                print_r(json_encode($result));
-                
-                exit();
+                //variable product
+                if(isset($result['optionName']) && isset($result['optionValue']))
+                {
+                    $product = new vproduct();
+                    $result = $product->createProduct($Product, $util, $connection2, 'edit');
+                    if(isset($result->return))
+                    {
+                        array_push($IO_logs, $result);
+                    }
+                    $result = $product->addProduct($result, $connection2, 'edit');
+                }
+                //simple product
+                else
+                {
+                    //simple product
+                    $product = new sproduct();
+                    $result = $product->createProduct($Product, $util, $connection2, 'edit');
+                    if(isset($result->return))
+                    {
+                        array_push($IO_logs, $result);
+                    }
+                    $result = $product->addProduct($result, $connection2, 'edit');
+                }
 
             }
-            else
-            {
-                
-            }
         }
-        //otherwise we must edit the existing product and update its values
         
         break;
     }
