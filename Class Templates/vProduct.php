@@ -8,6 +8,8 @@ Class vProducts
 
     function createProduct($product, $util, $connection, $update = '')
     {
+        print_r(json_encode($product));
+        exit();
         //checks if all the numeric values entered are numeric...
         $numeric = array("barcode", "weight", "costPrice", "sellingPrice", "quantity"); //array of numeric values
         for($j = 0; $j < sizeof($numeric); ++$j)

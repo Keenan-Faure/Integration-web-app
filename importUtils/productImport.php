@@ -18,9 +18,9 @@ if(!isset($_SESSION['connection']))
     exit();
 }
 
-include('../classTemplates/customer.php');
-include('../classTemplates/sProduct.php');
-include('../classTemplates/vProduct.php');
+include('../Class Templates/customer.php');
+include('../Class Templates/sProduct.php');
+include('../Class Templates/vProduct.php');
 include('../createConnection.php');
 
 use utils\Utility as util;
@@ -68,7 +68,8 @@ if(in_array($fileToUse, $file))
                     $variable = new \stdClass();
                     $variable->return = false;
                     $variable->message = 'Unknown column header ' . $headers[$i];
-                    break;
+                    return $variable;
+                    exit();
                 }
                 else if(in_array(ltrim(rtrim($headers[$i])), $productTemplate))
                 {
@@ -85,16 +86,13 @@ if(in_array($fileToUse, $file))
             }
             
             //gets the array key where the headers are defined
-            print_r($template);
-            print("<br>");
+            
         }
         //create product and add it to the database
         //check if the product exists already, if it does then just update the values
         $rawValue = explode(',', fgets($openFile));
-
         $connection2 = new connect();
         $rawConnection = $connection2->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
-
         if(isset($rawValue[$template['sku']]))
         {
             $sku = $rawValue[$template['sku']]; 
@@ -104,9 +102,30 @@ if(in_array($fileToUse, $file))
             $output2 = $connection2->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
             if($output2->result == null)
             {
-                //add product
+                //creates the product
+                $result = new \stdClass();
+                for($i = 0; $i < sizeof($headers); ++$i)
+                {
+                    $index = array_keys($template, $i)[0];
+                    if(isset($rawValue[$template[array_keys($template, $i)[0]]]))
+                    {
+                        $result->$index = $rawValue[$template[array_keys($template, $i)[0]]];
+                    }
+                    else
+                    {
+                        $result->$index = null;
+                    }
+                    
+                }
+                print_r(json_encode($result));
+                
+                exit();
+
             }
-            exit();
+            else
+            {
+                
+            }
         }
         //otherwise we must edit the existing product and update its values
         
