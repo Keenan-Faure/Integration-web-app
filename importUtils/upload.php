@@ -10,10 +10,10 @@ if(isset($_POST['submit']))
     $file = new \stdClass();
     $file->fileName = basename($_FILES['file']['name']);
     $file->path = $targetDirectory . basename($_FILES['file']['name']);
-    $file->extension = strtolower(pathinfo($file->fileName, PATHINFO_EXTENSION));
+    $file->extension = "." . strtolower(pathinfo($file->fileName, PATHINFO_EXTENSION));
     if($file->fileName != null)
     {
-        if($file->extension == 'csv')
+        if($file->extension != 'csv')
         {
             $variable = new \stdClass();
             $variable->return = false;
@@ -31,7 +31,7 @@ if(isset($_POST['submit']))
             print_r(json_encode($variable));
             return $variable;
         }
-        if ($_FILES["file"]["size"] > 10000000) 
+        if($_FILES["file"]["size"] > 10000000)
         {
             $variable = new \stdClass();
             $variable->return = false;
@@ -46,7 +46,6 @@ if(isset($_POST['submit']))
         //uploadsFile
         print_r($_FILES["file"]["tmp_name"]);
         
-        exit();
         if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) 
         {
             echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
