@@ -64,6 +64,8 @@
     <?php 
         if(isset($_SESSION['products']))
         {
+            print_r($_POST);
+            exit();
             $sku = array_keys($_POST)[0];
             unset($_POST);
             if($_SESSION['connection'])

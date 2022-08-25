@@ -190,6 +190,20 @@ if(in_array($fileToUse, $file))
                     }
                     
                 }
+
+                $check = $util->checkRequired($Product);
+                if($check->result == false)
+                {
+                    $variable = new \stdClass();
+                    $variable->return = false;
+                    $variable->message = $check->header . ' data value null or empty';
+                    return $variable;
+                    continue;
+                }
+                //check if the value is set
+                
+                $Product = json_decode(json_encode($Product), true);
+
                 //variable product
                 if(isset($result['optionName']) && isset($result['optionValue']))
                 {
