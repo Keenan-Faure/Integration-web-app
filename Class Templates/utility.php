@@ -342,7 +342,8 @@ Class Utility
         $required = array('active', 'sku', 'groupingCode', 'variantCode');
         for($i = 0; $i < sizeof($required); ++$i)
         {
-            if(!isset($product->required[$i]))
+            $index = $required[$i];
+            if(!isset($product->$index))
             {
                 $variable = new \stdClass();
                 $variable->result = false;
