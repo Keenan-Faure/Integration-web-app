@@ -1,0 +1,367 @@
+Active,Product code,SKU,Description,Collection,Type,Brand Name,Barcode,Cost Price,Selling Price,Compare to Price,CPT_Warehouse,JHB_Warehouse,D_Warehouse,html,Image-1 URL,b2b_active,product_type,vision,version_released,Costume
+TRUE,GenImp-V-AA,GenImp-V-AA,Ballad in Goblets - Venti,Genshin Impact,Character,Mihoyo,001,1350,1500.00,1600,1,0,1,"<p>Venti is a free spirited, wine-loving bard in Mondstadt and the current mortal vessel of Barbatos, the Anemo Archon.</p>
+<ul>
+<li>Bow user</li>
+<li>5 star</li>
+<li>Anemo Vision</li>
+</ul>",https://s2s-image.s3.amazonaws.com/7308376e69cfc176b155e21d7d64ff89.png,In stock,Archer,Anemo,1.0,
+TRUE,GenImp-Amos,GenImp-Amos,Amos Bow,Genshin Impact,Weapon,Mihoyo,002,1170,1300.00,1400,1,0,1,"<p>An extremely ancient bow that has retained its power despite its original master being long gone. It draws power from everyone and everything in the world, and the further away you are from that which your heart desires, the more powerful it is.</p>
+<ul>
+<li>Bow Weapon</li>
+<li>5 star</li>
+<li>Base stat - Attack</li>
+</ul>",https://s2s-image.s3.amazonaws.com/0b7b64bd10c15e52fc37a5cd7dceb907.png,In stock,Weapon,,1.0,
+TRUE,GenImp-AquilaFavonia,GenImp-AquilaFavonia,Aquila Favonia,Genshin Impact,Weapon,Mihoyo,043,1170,1300.00,1400,1,0,1,"<p>The soul of the Knights of Favonius. Millennia later, it still calls on the winds of swift justice to vanquish all evil&mdash;just like the last heroine who wielded it.</p>
+<ul>
+<li>Sword Weapon</li>
+<li>5 star</li>
+<li>Base stat - Phy. damage</li>
+</ul>",https://s2s-image.s3.amazonaws.com/84192b64ca685326a3c6a0b75e7fcca5.png,In stock,Weapon,,1.0,
+TRUE,GenImp-SkywardPride,GenImp-SkywardPride,Skyward Pride,Genshin Impact,Weapon,Mihoyo,042,1170,1300.00,1400,1,0,1,"<p>A claymore that symbolizes the pride of Dvalin soaring through the skies. When swung, it emits a deep hum as the full force of Dvalin's command of the sky and the wind is unleashed.</p>
+<ul>
+<li>Greatsword weapon</li>
+<li>5 star</li>
+<li>Base stat - Energy recharge</li>
+</ul>",https://s2s-image.s3.amazonaws.com/f28fc7b37c4d84b59c405e2c9d2ff063.png,In stock,Weapon,,1.2,
+TRUE,GenImp-SkywardAtlas,GenImp-SkywardAtlas,Skyward Atlas,Genshin Impact,Weapon,Mihoyo,041,1170,1300.00,1400,1,0,1,"<p>A cloud atlas symbolizing Dvalin and its former master, the Anemo Archon. It details the winds and clouds of the northern regions and contains the powers of the sky and wind.</p>
+<ul>
+<li>Catalyst weapon</li>
+<li>5 star</li>
+<li>Base stat - Attack</li>
+</ul>",https://s2s-image.s3.amazonaws.com/c4720dbffa6dd22ebba2180d976f4cfe.png,In stock,Weapon,,1.2,
+TRUE,GenImp-SkywardBlade,GenImp-SkywardBlade,Skyward Blade,Genshin Impact,Weapon,Mihoyo,040,1170,1300.00,1400,1,0,1,"<p>The sword of a knight that symbolizes the restored honor of Dvalin. The blessings of the Anemo Archon rest on the fuller of the blade, imbuing the sword with the powers of the sky and the wind.</p>
+<ul>
+<li>Sword weapon</li>
+<li>5 star</li>
+<li>Base stat - Energy recharge</li>
+</ul>",https://s2s-image.s3.amazonaws.com/4d18f8ecc2f4789289e2bccea2f17757.png,In stock,Weapon,,1.4,
+TRUE,GenImp-SkywardSpine,GenImp-SkywardSpine,Skyward Spine,Genshin Impact,Weapon,Mihoyo,039,1170,1300.00,1400,1,0,1,"<p>A polearm that symbolizes Dvalin's fire resolve. The upright shaft of this weapon points towards the heavens, clad in the might of sky and wind.</p>
+<ul>
+<li>Polearm weapon</li>
+<li>5 star</li>
+<li>Base stat - Energy recharge</li>
+</ul>",https://s2s-image.s3.amazonaws.com/2ad847566ee165ffb8509999fd65de01.png,In stock,Weapon,,2.0,
+TRUE,GenImp-Wolfsgravestone,GenImp-Wolfsgravestone,Wolfs Gravestone,Genshin Impact,Weapon,Mihoyo,038,1170,1300.00,1400,1,0,1,"<p>A longsword used by the Wolf Knight. Originally just a heavy sheet of iron given to the knight by a blacksmith from the city, it became endowed with legendary power owing to his friendship with the wolves.</p>
+<ul>
+<li>Greatsword weapon</li>
+<li>5 star</li>
+<li>Base stat - Attack</li>
+</ul>",https://s2s-image.s3.amazonaws.com/214d8beb9f3f43059e66fbde389c701c.png,In stock,Weapon,,1.0,
+TRUE,GenImp-KaguraVerity,GenImp-KaguraVerity,Kagura's Verity,Genshin Impact,Weapon,Mihoyo,037,1170,1300.00,1400,1,0,1,"<p>The bells used when performing the Kagura Dance, blessed by the Guuji herself. The scent of the Sacred Sakura tree lingers on it.</p>
+<ul>
+<li>Catalyst&nbsp;weapon</li>
+<li>5 star</li>
+<li>Base stat - Crit Damage</li>
+</ul>",https://s2s-image.s3.amazonaws.com/33267a3df20a67f287da5afd69e46d9d.png,In stock,Weapon,,2.5,
+TRUE,GenImp-Y-EC,GenImp-Y-EC,Everbloom Violet - Yae Miko,Genshin Impact,Character,Mihoyo,036,1350,1500.00,1600,1,0,1,"<p>Miko oversees the Grand Narukami Shrine and is the owner of the Yae Publishing House.</p>
+<ul>
+<li>Catalyst user</li>
+<li>5 star</li>
+<li>Electro Vision</li>
+</ul>",https://s2s-image.s3.amazonaws.com/9811c78f066227e23d73e1e8ef35c5e7.png,In stock,Catalyst,Electro,2.5,
+TRUE,GenImp-CalamityQueller,GenImp-CalamityQueller,Calamity Queller,Genshin Impact,Weapon,Mihoyo,035,1170,1300.00,1400,1,0,1,"<p>A keenly honed weapon forged from some strange crystal. Its faint blue light seems to whisper of countless matters now past.</p>
+<ul>
+<li>Polearm&nbsp;weapon</li>
+<li>5 star</li>
+<li>Base stat - Attack</li>
+</ul>",https://s2s-image.s3.amazonaws.com/64ffed9c626e7253a362c1936f23fb9a.png,In stock,Weapon,,2.4,
+TRUE,GenImp-A-GC,GenImp-A-GC,Oni's Royale - Arataki Itto,Genshin Impact,Character,Mihoyo,032,1350,1500.00,1600,1,0,1,"<p>A descendant of the crimson oni, Itto is also the leader and founder of the Arataki Gang</p>
+<ul>
+<li>Claymore user</li>
+<li>5 star</li>
+<li>Geo Vision</li>
+</ul>",https://s2s-image.s3.amazonaws.com/1bc6361652d4e66170ebcdea513d05e9.png,In stock,GreatSword,Geo,2.3,
+TRUE,GenImp-S-CP,GenImp-S-CP,The Transcendent One Returns - Shenhe,Genshin Impact,Character,Mihoyo,034,1350,1500.00,1600,1,0,1,"<p>The daughter of an unnamed exorcist couple, Shenhe was taken in by Cloud Retainer as a disciple following a traumatic incident during her childhood.</p>
+<ul>
+<li>Polearm user</li>
+<li>5 star</li>
+<li>Cyro Vision</li>
+</ul>",https://s2s-image.s3.amazonaws.com/7781f996a65c137587fe043c96502284.png,In stock,Polearm,Cyro,2.4,
+TRUE,GenImp-RedHornStone,GenImp-RedHornStone,Redhorn Stonethresher,Genshin Impact,Weapon,Mihoyo,033,1170,1300.00,1400,1,0,1,"<p>According to its previous owner, this weapon is the 'Mighty Redhorn Stoic Stonethreshing Gilded Goldcrushing Lion Lord' that can send any monster packing with its tail between its legs.</p>
+<ul>
+<li>Claymore weapon</li>
+<li>5 star</li>
+<li>Base stat - Crit damage</li>
+</ul>",https://s2s-image.s3.amazonaws.com/95112cace390ac33d9914cc0f5c1b2d6.png,In stock,Weapon,,2.3,
+TRUE,GenImp-MemoryDust,GenImp-MemoryDust,Memory of Dust,Genshin Impact,Weapon,Mihoyo,031,1170,1300.00,1400,1,0,1,"<p>A stone dumbbell containing distant memories. Its endless transformations reveal the power within.</p>
+<ul>
+<li>Catalyst weapon</li>
+<li>5 star</li>
+<li>Base stat - Attack</li>
+</ul>",https://s2s-image.s3.amazonaws.com/a06458fe75b7224a74e4f98e2385d5cf.png,In stock,Weapon,,1.1,
+TRUE,GenImp-PolarStar,GenImp-PolarStar,Polar Star,Genshin Impact,Weapon,Mihoyo,030,1170,1300.00,1400,1,0,1,"<p>A pristine bow that is as sharp as the glaciers of the far north.</p>
+<ul>
+<li>Bow weapon</li>
+<li>5 star</li>
+<li>Base stat -&nbsp;Attack</li>
+</ul>",https://s2s-image.s3.amazonaws.com/44fbb5f004dbd32ce8ccdbd37f28dda5.png,In stock,Weapon,,2.2,
+TRUE,GenImp-EverlastingMoonglow,GenImp-EverlastingMoonglow,Everlasting Moonglow,Genshin Impact,Weapon,Mihoyo,029,1170,1300.00,1400,1,0,1,"<p>A string of lovely jasper from the deep sea. It shines with a pure radiance like that of the moon, and just as ever-distant.</p>
+<ul>
+<li>Catalyst&nbsp;weapon</li>
+<li>5 star</li>
+<li>Base stat - Hp</li>
+</ul>",https://s2s-image.s3.amazonaws.com/f9f8f071f401616fbeae6f920ab88d9b.png,In stock,Weapon,,2.1,
+TRUE,GenImp-S-HC,GenImp-S-HC,Drifting Luminescence - Sangonomiya Kokomi,Genshin Impact,Character,Mihoyo,028,1350,1500.00,1600,1,0,1,"<p>The young Divine Priestess of Watatsumi Island and a descendant of the Sangonomiya Clan. Kokomi is in charge of most of Watatsumi's affairs, shouldering heavy responsibilities alone in hopes for giving Watatsumi Island's people the hopes and happiness that they desire.</p>
+<ul>
+<li>Catalyst user</li>
+<li>5 star</li>
+<li>Hydro Vision</li>
+</ul>",https://s2s-image.s3.amazonaws.com/0438c253ee566b27fed570bda0370fba.png,In stock,Catalyst,Hydro,2.1,
+TRUE,GenImp-EngulfingLightning,GenImp-EngulfingLightning,Engulfing Lightning,Genshin Impact,Weapon,Mihoyo,027,1170,1300.00,1400,1,0,1,"<p>A naginata used to 'cut grass'. Any army that stands before this weapon will probably be likewise cut down...</p>
+<ul>
+<li>Polearm weapom</li>
+<li>5 star</li>
+<li>Base stat - Energy Recharge</li>
+</ul>",https://s2s-image.s3.amazonaws.com/2e7ee5606e4f6d3bf57e43767492cc6b.png,In stock,Weapon,,2.1,
+TRUE,GenImp-R-EP,GenImp-R-EP,Reign of Serenity - Raiden Shogun,Genshin Impact,Character,Mihoyo,026,1350,1500.00,1600,1,0,1,"<p>She is the vessel of Beelzebul, the current Electro Archon of Inazuma.</p>
+<ul>
+<li>Polearm user</li>
+<li>5 star</li>
+<li>Electro Vision</li>
+</ul>",https://s2s-image.s3.amazonaws.com/459b96aef24e5d341023cc51d9cef49c.png,In stock,Polearm,Electro,2.1,
+TRUE,GenImp-ThunderingPulse,GenImp-ThunderingPulse,Thundering Pulse,Genshin Impact,Weapon,Mihoyo,025,1170,1300.00,1400,1,0,1,"<p>A longbow that was a gift from the Shogun. Eternal lightning crackles all around it.</p>
+<ul>
+<li>Bow weapon</li>
+<li>5 star</li>
+<li>Base stat - Crit Damage</li>
+</ul>",https://s2s-image.s3.amazonaws.com/70c1e8c921065dd7a13b12e64943862e.png,In stock,Weapon,,2.0,
+TRUE,GenImp-Y-PA,GenImp-Y-PA,Tapestry of Golden Flames - Yoimiya,Genshin Impact,Character,Mihoyo,024,1350,1500.00,1600,1,0,1,"<p>She is the daughter of Naganohara Ryuunosuke and the current owner of Naganohara Fireworks. With her colorful fireworks and outgoing personality, Yoimiya is beloved by everyone on Narukami Island, who believes summer is not the same without her.</p>
+<ul>
+<li>Bow user</li>
+<li>5 star</li>
+<li>Pyro Vision</li>
+</ul>",https://s2s-image.s3.amazonaws.com/00507d45eceaa0438d47fa8158476b41.png,In stock,Archer,Pyro,2.0,
+TRUE,GenImp-MistReforged,GenImp-MistReforged,Mistsplitter Reforged,Genshin Impact,Weapon,Mihoyo,023,1170,1300.00,1400,1,0,1,"<p>A sword that blazes with a fierce violet light. The name 'Reforged' comes from it having been broken once before.</p>
+<ul>
+<li>Sword&nbsp;weapon</li>
+<li>5 star</li>
+<li>Base stat - Crit damage</li>
+</ul>",https://s2s-image.s3.amazonaws.com/01e97e0f826452e711ea5959e6c4270f.png,In stock,Weapon,,2.0,
+TRUE,GenImp-K-CS,GenImp-K-CS,The Heron's Court - Kamisato Ayaka,Genshin Impact,Character,Mihoyo,022,1350,1500.00,1600,1,0,1,"<p>She is the oldest daughter of the Kamisato Clan and sister of Kamisato Ayato. Being beautiful, elegant, and graceful, the common folk have nothing to bad-mouth Ayaka about. Because of her social status as the eldest daughter of the Kamisato Clan of the Yashiro Commission and as the Shirasagi Himegimi, Ayaka is seen as a model of perfection.</p>
+<ul>
+<li>Sword user</li>
+<li>5 star</li>
+<li>Cyro Vision</li>
+</ul>",https://s2s-image.s3.amazonaws.com/350e6e8cc589fb24c4952ed02a58ba58.png,In stock,Sword,Cyro,2.0,
+TRUE,GenImp-FreedomSworn,GenImp-FreedomSworn,Freedom Sworn,Genshin Impact,Weapon,Mihoyo,021,1170,1300.00,1400,1,0,1,"<p>A straight sword, azure as antediluvian song, and as keen as the oaths of freedom taken in the Land of Wind.</p>
+<ul>
+<li>Sword&nbsp;weapon</li>
+<li>5 star</li>
+<li>Base stat - Elemental mastery</li>
+</ul>",https://s2s-image.s3.amazonaws.com/4bf0987125f588af53fc66cd24848908.png,In stock,Weapon,,1.6,
+TRUE,GenImp-K-AS,GenImp-K-AS,Leaves in the Wind - Kaedehara Kazuya,Genshin Impact,Character,Mihoyo,020,1350,1500.00,1600,1,0,1,"<p>A wandering samurai of the once-famed Kaedehara Clan, Kazuha is a temporary crewmember of The Crux.</p>
+<ul>
+<li>Sword user</li>
+<li>5 star</li>
+<li>Anemo Vision</li>
+</ul>",https://s2s-image.s3.amazonaws.com/fddebeca92509b0028fc884f4be4d70e.png,In stock,Sword,Anemo,1.6,
+TRUE,GenImp-SongPines,GenImp-SongPines,Song of Broken Pines,Genshin Impact,Weapon,Mihoyo,020,1170,1300.00,1400,1,0,1,"<p>A greatsword as light as the sigh of grass in the breeze, yet as merciless to the corrupt as a typhoon.</p>
+<ul>
+<li>Claymore weapon</li>
+<li>5 star</li>
+<li>Base stat - Phys. damage</li>
+</ul>",https://s2s-image.s3.amazonaws.com/0912ce48d6e18ceac1c88753fe94c4bf.png,In stock,Weapon,,1.5,
+TRUE,GenImp-X-AP,GenImp-X-AP,Invitation to Mundane Life - Xiao,Genshin Impact,Character,Mihoyo,012,1350,1500.00,1600,1,0,1,"<p>He is an adeptus, under the name Alatus, and the only known remaining member of the five foremost Yakshas dispatched by Morax to subdue the demonic spirits that plagued Liyue. He currently resides in Wangshu Inn and mostly secludes himself from crowds and human interactions.</p>
+<ul>
+<li>Polearm user</li>
+<li>5 star</li>
+<li>Anemo Vision</li>
+</ul>",https://s2s-image.s3.amazonaws.com/12d8f9a23e4c17b63c3b4bac53fa6a1b.png,In stock,Polearm,Anemo,1.3,
+TRUE,GenImp-H-PP,GenImp-H-PP,Moment of Bloom - Hu Tao,Genshin Impact,Character,Mihoyo,017,1350,1500.00,1600,1,0,1,"<p>She is the 77th Director of the Wangsheng Funeral Parlor.</p>
+<ul>
+<li>Polearm user</li>
+<li>5 star</li>
+<li>Pyro Vision</li>
+</ul>",https://s2s-image.s3.amazonaws.com/8529c5e451cf49b6150b98e2b739f3dc.png,In stock,Polearm,Pyro,1.3,
+TRUE,GenImp-G-CA,GenImp-G-CA,Adrift in the Harbor - Ganyu,Genshin Impact,Character,Mihoyo,011,1350,1500.00,1600,1,0,1,"<p>She is a half-qilin Adeptus under contract with the Geo Archon Morax and serves as the general secretary of the Liyue Qixing.</p>
+<ul>
+<li>Bow user</li>
+<li>5 star</li>
+<li>Cyro Vision</li>
+</ul>",https://s2s-image.s3.amazonaws.com/3adabd05f6e668605ab76031b36f9ce6.png,In stock,Archer,Cyro,1.2,
+TRUE,GenImp-A-HA,GenImp-A-HA,Farewell Snezhnaya - Tartaglia,Genshin Impact,Character,Mihoyo,005,1350,1500.00,1600,1,0,1,"<p>He is the Eleventh of the Fatui Harbingers. Following danger wherever he goes, Childe is always eager for a challenge, making him extremely dangerous despite being the youngest member.</p>
+<ul>
+<li>Bow user</li>
+<li>5 star</li>
+<li>Hydro Vision</li>
+</ul>",https://s2s-image.s3.amazonaws.com/ad7038e7e237ea18c6c3c30bc1721a7e.png,In stock,Archer,Hydro,1.1,
+TRUE,GenImp-K-PC,GenImp-K-PC,Sparkling Steps - Klee,Genshin Impact,Character,Mihoyo,003,1350,1500.00,1600,1,0,1,"<p>The daughter of the intrepid and often quite destructive adventurer Alice, Klee takes after her mother in many ways, much to the dismay of the Knights of Favonius whom she has been entrusted to.</p>
+<ul>
+<li>Catalyst user</li>
+<li>5 star</li>
+<li>Pyro Vision</li>
+</ul>",https://s2s-image.s3.amazonaws.com/d57e35755f908dc1ff537d5e743a2582.png,In stock,Catalyst,Pyro,1.0,
+TRUE,GenImp-E-CC,GenImp-E-CC,Born of Ocean Swell - Eula,Genshin Impact,Character,Mihoyo,019,1350,1500.00,1600,1,0,1,"<p>A descendant of the infamous and tyrannical Lawrence Clan, Eula is the captain of the Reconnaissance Company with the Knights of Favonius.</p>
+<ul>
+<li>Claymore user</li>
+<li>5 star</li>
+<li>Cyro Vision</li>
+</ul>",https://s2s-image.s3.amazonaws.com/8af1be0572387b156429b0f8802309f1.png,In stock,GreatSword,Cyro,1.5,
+TRUE,GenImp-StaffHoma,GenImp-StaffHoma,Staff of Homa,Genshin Impact,Weapon,Mihoyo,018,1170,1300.00,1400,1,0,1,"<p>A 'firewood staff' that was once used in ancient and long-lost rituals.</p>
+<ul>
+<li>Polearm weapon</li>
+<li>5 star</li>
+<li>Base stat - Crit damage</li>
+</ul>",https://s2s-image.s3.amazonaws.com/c76c5f2ef5e908fff04b443628f8afdf.png,In stock,Weapon,,1.3,
+TRUE,GenImp-ElegyEnd,GenImp-ElegyEnd,Elegy for the End,Genshin Impact,Weapon,Mihoyo,016,1170,1300.00,1400,1,0,1,"<p>A bow as lovely as any bard's lyre, its arrows pierce the heart like a lamenting sigh.</p>
+<ul>
+<li>Bow weapon</li>
+<li>5 star</li>
+<li>Base stat - Energy recharge</li>
+</ul>",https://s2s-image.s3.amazonaws.com/114649a03a88fbde6e262d56b3962cdf.png,In stock,Weapon,,1.4,
+TRUE,GenImp-K-ES,GenImp-K-ES,Dance of Lanterns - Keqing,Genshin Impact,Character,Mihoyo,014,1350,1500.00,1600,1,0,1,"<p>As the Yuheng of the Liyue Qixing, she is someone who seeks her own answers instead of idly letting chaos run amok in Liyue. She chooses her own path with her own power and ability, instead of letting the gods determine her fate.</p>
+<ul>
+<li>Sword user</li>
+<li>5 star</li>
+<li>Electro Vision</li>
+</ul>",https://s2s-image.s3.amazonaws.com/6e5deabf6d6cbbb23f0173e15aa670cd.png,In stock,Sword,Electro,1.3,Piercing Thunderbolt
+TRUE,GenImp-K-ES,GenImp-K-ES-1,Dance of Lanterns - Keqing,Genshin Impact,Character,Mihoyo,014 - 1,1440,1600.00,1700,1,0,1,"<p>As the Yuheng of the Liyue Qixing, she is someone who seeks her own answers instead of idly letting chaos run amok in Liyue. She chooses her own path with her own power and ability, instead of letting the gods determine her fate.</p>
+<ul>
+<li>Sword user</li>
+<li>5 star</li>
+<li>Electro Vision</li>
+</ul>",https://s2s-image.s3.amazonaws.com/6e5deabf6d6cbbb23f0173e15aa670cd.png,In stock,Sword,Electro,1.3,Opulent Splendor
+TRUE,GenImp-PrimodialSpear,GenImp-PrimodialSpear,Primordial Jade Winged Spear,Genshin Impact,Weapon,Mihoyo,013,1170,1300.00,1400,1,0,1,"<p>A jade polearm made by the archons, capable of slaying ancient beasts.</p>
+<ul>
+<li>Polearm weapon</li>
+<li>5 star</li>
+<li>Base stat - Crit rate</li>
+</ul>",https://s2s-image.s3.amazonaws.com/df0570198f6d9448f20d162e031d1d66.png,In stock,Weapon,,1.3,
+TRUE,GenImp-SummitShaper,GenImp-SummitShaper,Summit Shaper,Genshin Impact,Weapon,Mihoyo,010,1170,1300.00,1400,1,0,1,"<p>A symbol of a legendary pact, this sharp blade once cut off the peak of a mountain.</p>
+<ul>
+<li>Sword weapon</li>
+<li>5 star</li>
+<li>Base stat - Attack</li>
+</ul>",https://s2s-image.s3.amazonaws.com/5968130f429742bb68c04c8c8dd74bb6.png,In stock,Weapon,,1.2,
+TRUE,GenImp-A-GS,GenImp-A-GS,Secretum Secretorum - Albedo,Genshin Impact,Sword,Mihoyo,009,1350,1500.00,1600,1,0,1,"<p>A synthetic human made by the alchemist Rhinedottir, the mysterious Albedo is the Chief Alchemist and Captain of the Investigation Team of the Knights of Favonius. Through a recommendation from the adventurer Alice, with Sucrose as his assistant, he holds an infinite desire to learn about the world of Teyvat, carefully studying every object around him.</p>
+<ul>
+<li>Sword user</li>
+<li>5 star</li>
+<li>Geo Vision</li>
+</ul>",https://s2s-image.s3.amazonaws.com/cadccd30f3841d74446b4738c9e03536.png,In stock,Sword,Geo,1.2,
+TRUE,GenImp-PrimordialSword,GenImp-PrimordialSword,Primordial Jade Sword,Genshin Impact,Weapon,Mihoyo,015,1170,1300.00,1400,1,0,1,"<p>A ceremonial sword masterfully carved from pure jade. There almost seems to be an audible sigh in the wind as it is swung.</p>
+<ul>
+<li>Sword weapon</li>
+<li>5 star</li>
+<li>Base stat - Crit rate</li>
+</ul>",https://s2s-image.s3.amazonaws.com/0bb3e143843678217fe280652d6d9c80.png,In stock,Weapon,,1.3,
+TRUE,GenImp-VortexVanquisher,GenImp-VortexVanquisher,Vortex Vanquisher,Genshin Impact,Weapon,Mihoyo,008,1170,1300.00,1400,1,0,1,"<p>This sharp polearm can seemingly pierce through anything. When swung, one can almost see the rift it tears in the air.</p>
+<ul>
+<li>Polearm weapon</li>
+<li>5 star</li>
+<li>Base stat - Attack</li>
+</ul>",https://s2s-image.s3.amazonaws.com/8c786665af295a51c27ad769effc797c.png,In stock,Weapon,,1.1,
+TRUE,GenImp-Z-GP,GenImp-Z-GP,Gentry of Hermitage - Zhongli,Genshin Impact,Character,Mihoyo,007,1350,1500.00,1600,1,0,1,"<p>He is a consultant of the Wangsheng Funeral Parlor. He is later revealed to be the current vessel of the Geo Archon, Morax, who has decided to experience the world from the perspective of a mortal.</p>
+<ul>
+<li>Polearm user</li>
+<li>5 star</li>
+<li>Geo Vision</li>
+</ul>",https://s2s-image.s3.amazonaws.com/a6e6c70d5c0258a65a186c47dd2ad2f6.png,In stock,Polearm,Geo,1.1,
+TRUE,GenImp-SkywardHarp,GenImp-SkywardHarp,Skyward Harp,Genshin Impact,Weapon,Mihoyo,006,1170,1300.00,1400,1,0,1,"<p>A greatbow that symbolizes Dvalin's affiliation with the Anemo Archon. The sound of the bow firing is music to the Anemo Archon's ears. It contains the power of the sky and wind within.</p>
+<ul>
+<li>Bow weapon</li>
+<li>5 star</li>
+<li>Base stat - Crit rate</li>
+</ul>",https://s2s-image.s3.amazonaws.com/9337f68dfaad77749907201d5aa18547.png,In stock,Weapon,,1.1,
+TRUE,GenImp-LostPrayers,GenImp-LostPrayers,Lost Prayers to the Sacred Winds,Genshin Impact,Weapon,Mihoyo,004,1170,1300.00,1400,1,0,1,"<p>An educational tome written by anonymous early inhabitants who worshiped the wind. It has been blessed by the wind for its faithfulness and influence over the millennia.</p>
+<ul>
+<li>Catalyst weapon</li>
+<li>5 star</li>
+<li>Base stat - Crit rate</li>
+</ul>",https://s2s-image.s3.amazonaws.com/dd198c38102584b714c731184890bee1.png,In stock,Weapon,,1.0,
+TRUE,GenImp-Unforged,GenImp-Unforged,The Unforged,Genshin Impact,Weapon,Mihoyo,046,1170,1300,1400,1,0,1,"<p>Capable of driving away evil spirits and wicked people alike, this edgeless claymore seems to possess divine might.</p>
+<ul>
+<li>Greatsword weapon</li>
+<li>5 star</li>
+<li>Base stat - Attack</li>
+</ul>",,In stock,Weapon,,1.1,
+TRUE,GenImp-K-HS,GenImp-K-HS,Azure Excersion - Kamisato Ayato,Genshin Impact,Character,Mihoyo,047,1350,1500,1600,1,1,1,"<p>He is the current head of the Kamisato Clan, the older brother of Kamisato Ayaka, and the Yashiro Commissioner</p>
+<ul>
+<li>Sword user</li>
+<li>5 star</li>
+<li>Hydro Vision</li>
+</ul>",,In stock,Character,Hydro,2.6,
+TRUE,GenImp-A-CA,GenImp-A-CA,Savior From Another World - Aloy,Genshin Impact,Character,Mihoyo,048,1350,1500,1600,1,0,1,"<p>She is the heroine from Horizon Zero Dawn and savior of her world</p>
+<ul>
+<li>Archer</li>
+<li>5 star</li>
+<li>Cyro Vision</li>
+</ul>",,In Stock,Character,Cyro,2.2,
+TRUE,GenImp-R-EC,GenImp-R-EC,Agile Lightning - Razor,Genshin Impact,Character,Mihoyo,049,720,800,900,1,0,1,"<p>Abandoned as an infant, Razor was taken in by the Wolf of the North, Andrius, and raised by his wolf pack in Wolvendom. After a chance encounter with Varka, the current Grand Master of the Knights of Favonius and the Knight of Boreas, he has slowly started integrating with humans again</p>
+<ul>
+<li>Claymore user</li>
+<li>4 star</li>
+<li>Electro Vision</li>
+</ul>",,In Stock,Character,Electro,1.0,
+TRUE,GenImp-A-PA,GenImp-A-PA,Outrider Knight - Amber,Genshin Impact,Character,Mihoyo,050,720,800,900,1,0,1,"<p>As the only remaining Outrider of the Knights of Favonius, she is always ready to help the citizens of Mondstadt — whether it be something simple or perhaps a more challenging task</p>
+<ul>
+<li>Archer</li>
+<li>4 star</li>
+<li>Pyro Vision</li>
+</ul>",,In Stock,Character,Pyro,1.0,
+TRUE,GenImp-B-HC,GenImp-B-HC,Shining Idol - Barbara,Genshin Impact,Character,Mihoyo,051,720,800,900,1,0,1,"<p>She is the deaconess of the Church of Favonius and a self-proclaimed ""idol"" after learning about them from the intrepid adventurer Alice. She is also the daughter of Frederica Gunnhildr and Seamus Pegg, and the younger sister of Jean. Through Frederica she is a descendant of the prestigious Gunnhildr Clan</p>
+<ul>
+<li>Catalyst</li>
+<li>4 star</li>
+<li>Hydro Vision</li>
+</ul>",,In Stock,Character,Hydro,1.0,
+TRUE,GenImp-Haran,GenImp-Haran,Haran Geppaku Futsu,Genshin Impact,Weapon,Mihoyo,052,1350,1500,1600,1,0,1,"<p>A famed work by the Futsu line of smiths. The name ""Haran"" comes from the manner in which it resembles the violent, roiling waves.</p>
+<ul>
+<li>Sword</li>
+<li>5 star</li>
+<li>Base stat - Crit rate</li>
+</ul>",,In Stock,Weapon,,2.6,
+TRUE,GenImp-Y-HA,GenImp-Y-HA,Valley Orchid - Yelan,Genshin Impact,Character,Mihoyo,053,1350,1500,1600,1,0,1,"<p>She is a mysterious person who claims to work for the Ministry of Civil Affairs. While she says she works for them, She is actually the head of the Yanshang Teahouse.</p>
+<ul>
+<li>Archer</li>
+<li>5 star</li>
+<li>Hydro Vision</li>
+</ul>",,In Stock,Character,Hydro,2.7,
+TRUE,GenImp-KS-ES,GenImp-KS-ES,Mender of Tribulations - Kuki,Genshin Impact,Character,Mihoyo,054,702,780,880,1,0,1,"<p>She is the sidekick of Arataki Itto and Deputy Leader of the Arataki Gang</p>
+<ul>
+<li>Sword</li>
+<li>4 star</li>
+<li>Electro Vision</li>
+</ul>",,In Stock,Character,Electro,2.7,
+TRUE,GenImp-J-AS,GenImp-J-AS,Dandelion Knight - Jean,Genshin Impact,Character,Mihoyo,055,1350,1500,1600,1,0,1,"<p>The daughter of Frederica Gunnhildr and Seamus Pegg, the older sister of Barbara, and a descendant of the prestigious Gunnhildr Clan, Jean is the Acting Grand Master of the Knights of Favonius. She is always busy handling unrest across Mondstadt and tirelessly working to maintain the City of Freedom</p>
+<ul>
+<li>Sword</li>
+<li>5 star</li>
+<li>Anemo Vision</li>
+</ul>",,In Stock,Character,Anemo,1.0,Favonian Devotion
+TRUE,GenImp-J-AS,GenImp-J-AS-1,Dandelion Knight - Jean,Genshin Impact,Character,Mihoyo,055-1,1350,1500,1600,1,0,1,"<p>The daughter of Frederica Gunnhildr and Seamus Pegg, the older sister of Barbara, and a descendant of the prestigious Gunnhildr Clan, Jean is the Acting Grand Master of the Knights of Favonius. She is always busy handling unrest across Mondstadt and tirelessly working to maintain the City of Freedom</p>
+<ul>
+<li>Sword</li>
+<li>5 star</li>
+<li>Anemo Vision</li>
+</ul>",,In Stock,Character,Anemo,1.0,Sea Breeze Dandelion
+TRUE,GenImp-J-AS,GenImp-J-AS-2,Dandelion Knight - Jean,Genshin Impact,Character,Mihoyo,055-2,1350,1500,1600,1,0,1,"<p>The daughter of Frederica Gunnhildr and Seamus Pegg, the older sister of Barbara, and a descendant of the prestigious Gunnhildr Clan, Jean is the Acting Grand Master of the Knights of Favonius. She is always busy handling unrest across Mondstadt and tirelessly working to maintain the City of Freedom</p>
+<ul>
+<li>Sword</li>
+<li>5 star</li>
+<li>Anemo Vision</li>
+</ul>",,In Stock,Character,Anemo,1.0,Gunnhildr's Legacy
+TRUE,GenImp-D-PC,GenImp-D-PC,The Dark Side of Dawn - Diluc,Genshin Impact,Character,Mihoyo,056,1350,1500,1600,1,0,1,"<p>Born into the affluent Ragnvindr Clan, Diluc is the current owner of the Dawn Winery and a nobleman of high esteem in Mondstadt society. While a past incident caused him to split ways with the Knights of Favonius, he continues to protect Mondstadt in his own way</p>
+<ul>
+<li>Claymore</li>
+<li>5 star</li>
+<li>Pyro Vision</li>
+</ul>",,In Stock,Character,Pyro,1.0,
+TRUE,GenImp-Q-CS,GenImp-Q-CS,Icy Resurrection - Qiqi,Genshin Impact,Character,Mihoyo,057,1350,1500,1600,1,0,1,"<p>Resurrected as a zombie by the adepti, she has ended up in Baizhu's care and now works at Bubu Pharmacy in Liyue Harbor.</p>
+<ul>
+<li>Sword</li>
+<li>5 star</li>
+<li>Cyro Vision</li>
+</ul>",,In Stock,Character,Cyro,1.0,
+TRUE,GenImp-M-HC,GenImp-M-HC,Astral Reflection - Mona,Genshin Impact,Character,Mihoyo,058,1350,1500,1600,1,0,1,"<p>An astrologist of knowledgeable skill and high pride, Mona has settled in Mondstadt to avoid suffering the ire of her master after unwittingly reading the latter's diary</p>
+<ul>
+<li>Catalyst</li>
+<li>5 star</li>
+<li>Hydro Vision</li>
+</ul>",,In Stock,Character,Hydro,1.0,Flowing Fate
+TRUE,GenImp-M-HC,GenImp-M-HC-1,Astral Reflection - Mona,Genshin Impact,Character,Mihoyo,059,1440,1600,1700,1,0,1,"<p>An astrologist of knowledgeable skill and high pride, Mona has settled in Mondstadt to avoid suffering the ire of her master after unwittingly reading the latter's diary</p>
+<ul>
+<li>Catalyst</li>
+<li>5 star</li>
+<li>Hydro Vision</li>
+</ul>",,In Stock,Character,Hydro,1.0,Pact of Stars and Moon

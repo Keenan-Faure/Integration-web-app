@@ -1,9 +1,37 @@
 <?php
 
+session_start();
+
+if(!isset($_SESSION['connection']))
+{
+    $variable = new \stdClass();
+    $variable->active = false;
+    $variable->message = 'No connection found in current session, please re-connect';
+    $variable->failedPage = 'productImport.php';
+    $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+    if(isset($_SESSION['log']))
+    {
+        array_push($_SESSION['log'], $variable);
+    }
+    echo(json_encode($variable));
+    header("Refresh:0,url=../addItem.html");
+    exit();
+}
+
+include('../classTemplates/customer.php');
+include('../classTemplates/sProduct.php');
+include('../classTemplates/vProduct.php');
+include('../createConnection.php');
+
+use utils\Utility as util;
+use sProducts\sProducts as sproduct;
+use vProducts\vProducts as vproduct;
+use Connection\Connection as connect;
+
 $fileToUse = 'operaPasswords.csv';
 $containHeaders = true;
 
-$directory = 'Uploads/';
+$directory = 'uploads/';
 
 $file = scandir($directory);
 
@@ -42,6 +70,11 @@ if(in_array($fileToUse, $file))
                     $variable->message = 'Unknown column header ' . $headers[$i];
                     break;
                 }
+                else if(in_array(ltrim(rtrim($headers[$i])), $productTemplate))
+                {
+                    //strips the spaces
+                    $headers[$i] = ltrim(rtrim($headers[$i]));
+                }
             }
             for($i = 0; $i < sizeof($productTemplate); ++$i)
             {
@@ -53,16 +86,35 @@ if(in_array($fileToUse, $file))
             
             //gets the array key where the headers are defined
             print_r($template);
-            break;
+            print("<br>");
         }
         //create product and add it to the database
         //check if the product exists already, if it does then just update the values
         $rawValue = explode(',', fgets($openFile));
-        print_r($rawValue);
+
+        $connection2 = new connect();
+        $rawConnection = $connection2->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+
+        if(isset($rawValue[$template['sku']]))
+        {
+            $sku = $rawValue[$template['sku']]; 
+
+            //gets the SKU
+            $query2 = 'select * from Inventory where SKU = "' . $sku .  '"';
+            $output2 = $connection2->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
+            if($output2->result == null)
+            {
+                //add product
+            }
+            exit();
+        }
+        //otherwise we must edit the existing product and update its values
+        
         break;
     }
 }
 
 fclose($openFile);
+mysqli_close($rawConnection);
 
 ?>
