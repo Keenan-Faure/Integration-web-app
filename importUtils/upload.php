@@ -13,7 +13,7 @@ if(isset($_POST['submit']))
     $file->extension = "." . strtolower(pathinfo($file->fileName, PATHINFO_EXTENSION));
     if($file->fileName != null)
     {
-        if($file->extension != 'csv')
+        if($file->extension != '.csv')
         {
             $variable = new \stdClass();
             $variable->return = false;
@@ -43,16 +43,24 @@ if(isset($_POST['submit']))
         }
         $check = getimagesize($_FILES['file']['tmp_name']);
 
-        //uploadsFile
-        print_r($_FILES["file"]["tmp_name"]);
-        
-        if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) 
+        //uploadsFile     
+        if(move_uploaded_file($_FILES["file"]["tmp_name"], $targetFile)) 
         {
-            echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
+            $variable = new \stdClass();
+            $variable->return = true;
+            $variable->file = $file;
+            $variable->message = $_FILES['file']['name'] . ' has been successfully uploaded';
+            print_r(json_encode($variable));
+            return $variable;
         } 
         else 
         {
-            echo "Sorry, there was an error uploading your file.";
+            $variable = new \stdClass();
+            $variable->return = false;
+            $variable->file = $file;
+            $variable->message = $_FILES['file']['name'] . ' could not be uploaded.';
+            print_r(json_encode($variable));
+            return $variable;
         }
     }
     else
