@@ -52,7 +52,6 @@
             </div>
             <div class='containers' id='main'>
                 <textarea id = 'smaller' class='typeE'>Product Attribute</textarea>
-                <textarea id = 'smaller' class='prev'>Current Value</textarea>
                 <textarea id = 'smaller' class='current'>Editable Value</textarea>
                 <form id='form' action='processEdit.php' method='post'></form>
             </div>
@@ -64,9 +63,8 @@
     <?php 
         if(isset($_SESSION['products']))
         {
-            print_r($_POST);
-            exit();
             $sku = array_keys($_POST)[0];
+            $sku = ltrim(rtrim($_POST[$sku]));
             unset($_POST);
             if($_SESSION['connection'])
             {
@@ -85,7 +83,12 @@
                 //loop through template list...
                 
                 for($j = 0; $j < sizeof($productTemplateDB); ++ $j)
-                {                    
+                {   
+                    $style = '';
+                    if($j % 2 == 0)
+                    {
+                        $style = 'value';
+                    }                 
                     $templateDB = $productTemplateDB[$j];
                     $template = $productTemplateForm[$j];
 
@@ -105,20 +108,20 @@
                                 //fixes the html
                                 $var = str_replace(["\r\n", "\r", "\n"], '', $var);
                                 $_SESSION['edit_prod']->$template = $var;
-                                echo("<script>createTA('prev', 'current','" . $var . "','" . $template . "','" . $templateDB . "');</script>");
+                                echo("<script>createTA('prev', 'current','" . $var . "','" . $template . "','" . $templateDB . "','" . $style . "');</script>");
                             }
                             else
                             {
                                 //if its the last item in the list
                                 $_SESSION['edit_prod']->$template = $output2->result[0]->$templateDB;
-                                echo("<script>createTA('prev', 'current','" . $output2->result[0]->$templateDB . "','" . $template . "','" . $templateDB . "');</script>");
+                                echo("<script>createTA('prev', 'current','" . $output2->result[0]->$templateDB . "','" . $template . "','" . $templateDB . "', '" . $style . "');</script>");
                             }
                         }
                         else
                         {
                             $var = 'null';
                             $_SESSION['edit_prod']->$template = $output2->result[0]->$templateDB;
-                            echo("<script>createTA('prevNA', 'currentNA','" . $var . "','" . $template . "','" . $templateDB . "');</script>");
+                            echo("<script>createTA('prevNA', 'currentNA','" . $var . "','" . $template . "','" . $templateDB . "','" . $style . "');</script>");
                         }
                     }
                 }

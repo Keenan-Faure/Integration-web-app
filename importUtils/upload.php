@@ -1,5 +1,27 @@
 <?php
 
+session_start();
+include("productImport.php");
+include("customerImport.php");
+
+use pImport\pImport as import;
+
+if(!isset($_SESSION['connection']))
+{
+    $variable = new \stdClass();
+    $variable->active = false;
+    $variable->message = 'No connection found in current session, please re-connect';
+    $variable->failedPage = 'productImport.php';
+    $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+    if(isset($_SESSION['log']))
+    {
+        array_push($_SESSION['log'], $variable);
+    }
+    echo(json_encode($variable));
+    header("Refresh:2,url=../login.php");
+    exit();
+}
+
 $targetDirectory = 'uploads/'; //folder must exist
 $targetFile = $targetDirectory . basename($_FILES['file']['name']); //its an array
 
@@ -50,7 +72,9 @@ if(isset($_POST['submit']))
             $variable->return = true;
             $variable->file = $file;
             $variable->message = $_FILES['file']['name'] . ' has been successfully uploaded';
-            print_r(json_encode($variable));
+            $import = new import();
+            $result = $import->importProduct($variable->file->fileName);
+            print_r(json_encode($result));
             return $variable;
         } 
         else 
@@ -81,3 +105,4 @@ else
 }
 
 ?>
+

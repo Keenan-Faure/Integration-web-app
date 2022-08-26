@@ -1,19 +1,21 @@
-function createTA(classNamePrev, classNameCurrent, text = null, name = null, vName = '')
+function createTA(classNamePrev, classNameCurrent, text = null, name = null, vName = '', style='')
 {
     let form = document.getElementById('form');
 
     let div = document.createElement('div');
-    div.className = 'item';
+    if(style == '')
+    {
+        div.className = 'item1';  
+    }
+    else
+    {
+        div.className = 'item';
+    }
 
     what = document.createElement('textarea');
     what.className = 'typeE';
     what.readOnly = true;
     what.value = vName;
-
-    prev = document.createElement('textarea');
-    prev.className = classNamePrev;
-    prev.readOnly = true;
-    prev.value = text;
 
     //check if container to be created is in the required title
     // code //
@@ -26,12 +28,10 @@ function createTA(classNamePrev, classNameCurrent, text = null, name = null, vNa
     if(name != 'description')
     {
         current.id = 'shrink';
-        prev.id = 'shrink';
         what.id = 'shrink';
     }
 
     div.appendChild(what);
-    div.appendChild(prev);
     div.appendChild(current);
 
     form.appendChild(div);
@@ -40,7 +40,7 @@ function createTA(classNamePrev, classNameCurrent, text = null, name = null, vNa
     main.appendChild(form);
 }
 
-function createPLV(t1, t2, t3, t4, sku)
+function createPLV(t1, t2, t3, t4, sku, skuValue)
 {
     /*
     <form method='post' target='_blank' action='editProducts.php'>
@@ -58,6 +58,7 @@ function createPLV(t1, t2, t3, t4, sku)
     let div = document.createElement('button');
 
     div.className = 'fullsize';
+    div.value = skuValue;
     div.name = sku;
 
     //can be done in loop
