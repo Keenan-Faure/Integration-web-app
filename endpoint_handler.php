@@ -158,10 +158,11 @@
 
                     $variable->countProducts = new \stdClass();
                     $variable->countProducts->query = "SELECT COUNT(*) as 'Count' FROM Inventory";
-                    $variable->countProducts->result = 'returns the amount of products in the ' . $_SESSION['tablecurrent'] . ' table';
+                    $variable->countProducts->result = 'returns the amount of products in the Inventory table';
                     $variable->countProducts->accepts_data = false;
-
-                    echo(json_encode($variable));
+                    $data = new \stdClass();
+                    $data->return = $variable;
+                    echo(json_encode($data));
                     unset($_POST['viewProductSql']);
                 }
                 else if(isset($_POST['getCustomerByID']))
@@ -202,7 +203,9 @@
                     $variable->countCustomer->query = "SELECT COUNT(*) as 'Count' FROM Client";
                     $variable->countCustomer->result = 'returns the amount of customers in the Client table';
                     $variable->countCustomer->accepts_data = false;
-                    echo(json_encode($variable));
+                    $data = new \stdClass();
+                    $data->return = $variable;
+                    echo(json_encode($data));
                     unset($_POST['viewCustomerSql']);
                 }
                 else
