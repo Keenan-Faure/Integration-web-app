@@ -16,7 +16,16 @@ use Connection\Connection as connect;
 
 Class pImport
 {
-
+    function deleteFile($file)
+    {
+        $dir = 'uploads/';
+        $filer = scandir($dir);
+        if(in_array($file, $filer))
+        {
+            $file = $dir . $file;
+            unlink($file);
+        }
+    }
     function importProduct($fileToUse)
     {
         $containHeaders = true;
@@ -230,6 +239,7 @@ Class pImport
         }
         fclose($openFile);
         mysqli_close($rawConnection);
+        $this->deleteFile($fileToUse);
     }
 }
 ?>
