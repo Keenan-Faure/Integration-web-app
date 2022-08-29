@@ -164,7 +164,7 @@ Class vProducts
             $product->weight . "','" .
             $product->costPrice . "','" .
             $product->sellingPrice . "','" .
-            $product->quantity . "','" .
+            round($product->quantity, 0) . "','" .
             $product->optionName . "','" .
             $product->optionValue . "','" .
             $product->option2Name . "','" .

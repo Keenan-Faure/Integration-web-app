@@ -1,0 +1,2 @@
+active,title,description,category,productType,brand,sku,groupingCode,variantCode,barcode,weight,costPrice,sellingPrice,quantity,optionName,optionValue,option2Name,option2Value,meta1,meta2,meta3
+true,TestTitle,TestDescription,TestCategory,TestproductType,TestBrand,SKU,TestGroupCode,TestVariantCode,101,2,1222,1333,3,Costume,Easy,Color,Blue,,,exampleMeta

@@ -110,7 +110,6 @@ Class sProducts
         $password = $_SESSION['connection']->credentials->password;
         $dbName = $_SESSION['connection']->credentials->dbname;
         $rawConnection = $connection->createConnection($username, $password,"localhost", $dbName)->rawValue;
-        
         $query = "INSERT INTO Inventory 
         (
             Type,
@@ -148,7 +147,7 @@ Class sProducts
             $product->weight . "','" .
             $product->costPrice . "','" .
             $product->sellingPrice . "','" .
-            $product->quantity . "','" .
+            round($product->quantity, 0) . "','" .
             $product->meta1 . "','" .
             $product->meta2 . "',"
             . "'" . $product->meta3 . "');"

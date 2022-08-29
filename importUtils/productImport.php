@@ -29,10 +29,14 @@ Class pImport
     function importProduct($fileToUse)
     {
         $containHeaders = true;
-
         $directory = 'uploads/';
-
         $file = scandir($directory);
+
+        $output = new \stdClass();
+        $output->existingProductsUpdated = 0;
+        $output->newProductsAdded = 0;
+        $output->rowsProcessed = 0;
+        $output->productsSkipped = 0;
 
         if(isset($file))
         {
@@ -53,6 +57,7 @@ Class pImport
             $variable = new \stdClass();
             while(!feof($openFile))
             {
+                $output->rowsProcessed = $output->rowsProcessed + 1;
                 if($containHeaders == true)
                 {
                     $containHeaders = false;
@@ -151,10 +156,11 @@ Class pImport
                             $result = $product->createProduct($Product, $util, $connection2);
                             if(isset($result->return))
                             {
+                                $output->productsSkipped = $output->ProductsSkipped + 1;
                                 array_push($IO_logs, $result);
                                 break;
                             }
-                            
+                            $output->newProductsAdded = $output->newProductsAdded + 1;
                             $result = $product->addProduct($result, $connection2);
                         }
                         //simple product
@@ -165,9 +171,11 @@ Class pImport
                             $result = $product->createProduct($Product, $util, $connection2);
                             if(isset($result->return))
                             {
+                                $output->productsSkipped = $output->ProductsSkipped + 1;
                                 array_push($IO_logs, $result);
                                 break;
                             }
+                            $output->newProductsAdded = $output->newProductsAdded + 1;
                             $result = $product->addProduct($result, $connection2);
                         }
                     }
@@ -212,9 +220,11 @@ Class pImport
                             $result = $product->createProduct($Product, $util, $connection2, 'edit');
                             if(isset($result->return))
                             {
+                                $output->productsSkipped = $output->ProductsSkipped + 1;
                                 array_push($IO_logs, $result);
                                 break;
                             }
+                            $output->existingProductsUpdated = $output->existingProductsUpdated + 1;
                             $result = $product->updateProduct($result, $util, $connection2);
                         }
                         //simple product
@@ -225,9 +235,11 @@ Class pImport
                             $result = $product->createProduct($Product, $util, $connection2, 'edit');
                             if(isset($result->return))
                             {
+                                $output->productsSkipped = $output->ProductsSkipped + 1;
                                 array_push($IO_logs, $result);
                                 break;
                             }
+                            $output->existingProductsUpdated = $output->existingProductsUpdated + 1;
                             $result = $product->updateProduct($result, $util, $connection2);
                         }
 
@@ -240,6 +252,9 @@ Class pImport
         fclose($openFile);
         mysqli_close($rawConnection);
         $this->deleteFile($fileToUse);
+        $result = new \stdClass();
+        $result->result = $output;
+        return $result;
     }
 }
 ?>

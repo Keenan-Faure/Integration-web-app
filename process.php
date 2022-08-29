@@ -31,6 +31,7 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
                 {
                     echo(json_encode($result));
                     header('Refresh:2,url=endpoints.php');
+                    unset($_POST);
                     exit();
                 }
                 $result = $customer->addCustomer($result, $connection);
@@ -48,6 +49,7 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
                     {
                         echo(json_encode($result));
                         header('Refresh:2,url=endpoints.php');
+                        unset($_POST);
                         exit();
                     }
                     $result = $product->addProduct($result, $connection);
@@ -64,6 +66,7 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
                     {
                         echo(json_encode($result));
                         header('Refresh:2,url=endpoints.php');
+                        unset($_POST);
                         exit();
                     }
                     $result = $product->addProduct($result, $connection);
