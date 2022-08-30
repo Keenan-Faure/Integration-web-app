@@ -61,8 +61,7 @@ Class pImport
                 if($containHeaders == true)
                 {
                     $containHeaders = false;
-                    $headers = explode(',', fgets($openFile));
-
+                    $headers = fgetcsv($openFile);
                     $productTemplate = array('active', 'title', 'description', 'category', 'productType', 'brand', 'sku', 'groupingCode', 'variantCode', 'barcode', 'weight', 'costPrice', 'sellingPrice',
                     'quantity', 'optionName', 'optionValue', 'option2Name', 'option2Value', 'meta1', 'meta2', 'meta3');
 
@@ -74,6 +73,7 @@ Class pImport
                             $variable = new \stdClass();
                             $variable->return = false;
                             $variable->message = 'Unknown column header ' . $headers[$i];
+                            $this->deleteFile($fileToUse);
                             return $variable;
                             exit();
                         }
@@ -97,16 +97,16 @@ Class pImport
                         $variable = new \stdClass();
                         $variable->return = false;
                         $variable->message = $check->header . ' header not defined';
+                        $this->deleteFile($fileToUse);
                         return $variable;
                         exit();
                     }
-                    
                     //gets the array key where the headers are defined
                     
                 }
                 //create product and add it to the database
                 //check if the product exists already, if it does then just update the values
-                $rawValue = explode(',', fgets($openFile));
+                $rawValue = fgetcsv($openFile);
                 $connection2 = new connect();
 
                 //add the errors in the logs using IO_logs
@@ -119,7 +119,8 @@ Class pImport
                     $sku = ltrim(rtrim($rawValue[$template['sku']])); 
 
                     //gets the SKU
-                    $query2 = 'select * from Inventory where SKU = "' . $sku .  '"';
+                    $query2 = "select * from Inventory where SKU = '" . $sku .  "'";
+                    
                     $output2 = $connection2->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
                     if($output2->result == null)
                     {
@@ -156,9 +157,9 @@ Class pImport
                             $result = $product->createProduct($Product, $util, $connection2);
                             if(isset($result->return))
                             {
-                                $output->productsSkipped = $output->ProductsSkipped + 1;
+                                $output->productsSkipped = $output->productsSkipped + 1;
                                 array_push($IO_logs, $result);
-                                break;
+                                continue;
                             }
                             $output->newProductsAdded = $output->newProductsAdded + 1;
                             $result = $product->addProduct($result, $connection2);
@@ -171,9 +172,9 @@ Class pImport
                             $result = $product->createProduct($Product, $util, $connection2);
                             if(isset($result->return))
                             {
-                                $output->productsSkipped = $output->ProductsSkipped + 1;
+                                $output->productsSkipped = $output->productsSkipped + 1;
                                 array_push($IO_logs, $result);
-                                break;
+                                continue;
                             }
                             $output->newProductsAdded = $output->newProductsAdded + 1;
                             $result = $product->addProduct($result, $connection2);
@@ -220,9 +221,9 @@ Class pImport
                             $result = $product->createProduct($Product, $util, $connection2, 'edit');
                             if(isset($result->return))
                             {
-                                $output->productsSkipped = $output->ProductsSkipped + 1;
+                                $output->productsSkipped = $output->productsSkipped + 1;
                                 array_push($IO_logs, $result);
-                                break;
+                                continue;
                             }
                             $output->existingProductsUpdated = $output->existingProductsUpdated + 1;
                             $result = $product->updateProduct($result, $util, $connection2);
@@ -235,9 +236,9 @@ Class pImport
                             $result = $product->createProduct($Product, $util, $connection2, 'edit');
                             if(isset($result->return))
                             {
-                                $output->productsSkipped = $output->ProductsSkipped + 1;
+                                $output->productsSkipped = $output->productsSkipped + 1;
                                 array_push($IO_logs, $result);
-                                break;
+                                continue;
                             }
                             $output->existingProductsUpdated = $output->existingProductsUpdated + 1;
                             $result = $product->updateProduct($result, $util, $connection2);

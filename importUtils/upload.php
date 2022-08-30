@@ -75,7 +75,7 @@ if(isset($_POST['submit']))
             $import = new import();
             $result = $import->importProduct($variable->file->fileName);
             print_r(json_encode($result));
-            header('Refresh:2,url=../addItem.html');
+            header('Refresh:2,url=import.html');
             return $variable;
         } 
         else 
