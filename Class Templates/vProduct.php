@@ -59,7 +59,7 @@ Class vProducts
                 {
                     //converts to a string
                     $variable = $productTemplate[$i];
-                    $this->product->$variable = $product[$productTemplate[$i]];
+                    $this->product->$variable = addslashes($product[$productTemplate[$i]]);
                 }
                 else
                 {
@@ -104,7 +104,7 @@ Class vProducts
                 {
                     //converts to a string
                     $variable = $productTemplate[$i];
-                    $this->product->$variable = $product[$productTemplate[$i]];
+                    $this->product->$variable = addslashes($product[$productTemplate[$i]]);
                 }
                 else
                 {
@@ -153,7 +153,7 @@ Class vProducts
             'Variant',
             'true','" .
             $product->title . "','" .
-            $product->description . "','" .
+            addslashes($product->description) . "','" .
             $product->category . "','" .
             $product->productType . "','" .
             $product->brand . "','" .
@@ -237,7 +237,7 @@ Class vProducts
             Type = 'Variant',
             Active = '$product->active',
             Title = '$product->title',
-            Description = '$product->description',
+            Description = '" . addslashes($product->description) . "',
             Category = '$product->category',
             Product_Type = '$product->productType',
             Brand = '$product->brand',
