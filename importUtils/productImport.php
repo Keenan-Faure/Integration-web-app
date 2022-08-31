@@ -37,6 +37,13 @@ Class pImport
         $output->newProductsAdded = 0;
         $output->rowsProcessed = 0;
         $output->productsSkipped = 0;
+        $undefinedHeaders = array();
+        $template = array();
+
+
+        //add the errors in the logs using IO_logs
+        $Log = new \stdClass();
+        $IO_logs = array();
 
         if(isset($file))
         {
@@ -89,6 +96,10 @@ Class pImport
                         {
                             $template[$productTemplate[$i]] = array_keys($headers, $productTemplate[$i])[0];
                         }
+                        else
+                        {
+                            array_push($undefinedHeaders, $productTemplate[$i]);
+                        }
                     }
                     //checkRequired headers
                     $check = $util->checkRequiredH($template);
@@ -109,10 +120,6 @@ Class pImport
                 $rawValue = fgetcsv($openFile);
                 $connection2 = new connect();
 
-                //add the errors in the logs using IO_logs
-                $Log = new \stdClass();
-                $IO_logs = array();
-
                 $rawConnection = $connection2->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
                 if(isset($rawValue[$template['sku']]))
                 {
@@ -120,15 +127,15 @@ Class pImport
 
                     //gets the SKU
                     $query2 = "select * from Inventory where SKU = '" . $sku .  "'";
-                    
                     $output2 = $connection2->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
                     if($output2->result == null)
                     {
                         //creates the product with available headers
                         //sets undefined values to null
                         $Product = new \stdClass();
-                        for($i = 0; $i < sizeof($headers); ++$i)
+                        for($i = 0; $i < sizeof($template); ++$i)
                         {
+                            //because it uses the keys (the numbers) we cant set anything.
                             $index = array_keys($template, $i)[0];
                             if(isset($rawValue[$template[array_keys($template, $i)[0]]]))
                             {
@@ -138,6 +145,13 @@ Class pImport
                             {
                                 $Product->$index = null;
                             }
+                        }
+
+                        //sets undefinedHeaders values to null
+                        for($i = 0; $i < sizeof($undefinedHeaders); ++$i)
+                        {
+                            $variable = $undefinedHeaders[$i];
+                            $Product->$variable = null;
                         }
                         $check = $util->checkRequired($Product);
                         if($check->result == false)
@@ -151,7 +165,7 @@ Class pImport
                         
                         $Product = json_decode(json_encode($Product), true);
                         //variable product
-                        if(isset($Product['optionName']) && isset($Product['optionValue']))
+                        if($Product['optionName'] != null && $Product['optionValue'] != null)
                         {
                             $product = new vproduct();
                             $result = $product->createProduct($Product, $util, $connection2);
@@ -200,6 +214,12 @@ Class pImport
                             }
                             
                         }
+                        //sets undefined headers values to null
+                        for($i = 0; $i < sizeof($undefinedHeaders); ++$i)
+                        {
+                            $variable = $undefinedHeaders[$i];
+                            $Product->$variable = null;
+                        }
 
                         $check = $util->checkRequired($Product);
                         if($check->result == false)
@@ -215,7 +235,7 @@ Class pImport
                         $Product = json_decode(json_encode($Product), true);
 
                         //variable product
-                        if(isset($Product['optionName']) && isset($Product['optionValue']))
+                        if($Product['optionName'] != null && $Product['optionValue'] != null)
                         {
                             $product = new vproduct();
                             $result = $product->createProduct($Product, $util, $connection2, 'edit');
