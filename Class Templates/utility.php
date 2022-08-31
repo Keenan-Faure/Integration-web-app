@@ -113,9 +113,8 @@ Class Utility
         $rawConnection = $connect->createConnection($username, $password,"localhost", $dbName)->rawValue;
 
         //checks how many times it has been repeated in current group code
-        $query = "SELECT COUNT(*) AS total FROM Inventory WHERE Option_1_Value = '" . $product['optionValue'] . "' && Group_Code = '" . $product['groupingCode'] . "'";
+        $query = 'SELECT COUNT(*) AS total FROM Inventory WHERE Option_1_Value = "' . $product['optionValue'] . '" && Group_Code = "' . $product['groupingCode'] . '"';
         $result = $connect->converterObject($rawConnection, $query);
-
         if($result->result[0]->total == 1)
         {
             $variable = new \stdClass();
@@ -126,11 +125,11 @@ Class Utility
         }
         else if(isset($product['option2Name']) && $product['option2Name'] != '' && isset($product['option2Value']) && $product['option2Value'] != '')
         {
-            $query = "SELECT Group_Code FROM Inventory WHERE Option_2_Name = '" . $product['option2Name'] . "'";
+            $query = 'SELECT Group_Code FROM Inventory WHERE Option_2_Name = "' . $product['option2Name'] . '"';
             $result = $connect->converterObject($rawConnection, $query);
 
             //checks how many times it has been repeated in current group code
-            $query = "SELECT COUNT(*) AS total FROM Inventory WHERE Option_2_Value = '" . $product['option2Value'] . "' && Group_Code = '" . $product['groupingCode'] . "'";
+            $query = 'SELECT COUNT(*) AS total FROM Inventory WHERE Option_2_Value = "' . $product['option2Value'] . '" && Group_Code = "' . $product['groupingCode'] . '"';
             $result = $connect->converterObject($rawConnection, $query);
 
             if($result->result[0]->total == 1)
@@ -331,6 +330,20 @@ Class Utility
                     $variable = new \stdClass();
                     $variable->return = false;
                     $variable->message = 'Attempting to create variable product without Options';
+                    return $variable;
+                }
+                else if($product['option2Name'] == null && $product['option2Value'] != null)
+                {
+                    $variable = new \stdClass();
+                    $variable->return = false;
+                    $variable->message = 'Attempting to create variable product without Option Name';
+                    return $variable;
+                }
+                else if($product['option2Name'] != null && $product['option2Value'] == null)
+                {
+                    $variable = new \stdClass();
+                    $variable->return = false;
+                    $variable->message = 'Attempting to create variable product without Option Value';
                     return $variable;
                 }
             }
