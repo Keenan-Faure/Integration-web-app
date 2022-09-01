@@ -79,7 +79,7 @@
             $sku = $_SESSION['products']->result[$i]->SKU;
             $active = $_SESSION['products']->result[$i]->Active;
             $brand = $_SESSION['products']->result[$i]->Brand;
-            echo("<script>createPLV('". $active . "','" . $sku . "','" . $title . "','" . $brand . "','" . $sku . "','" . $sku ."');</script>");
+            echo("<script>createPLV('". $active . "','" . $sku . "','" . $title . "','" . $brand . "','" . $sku . "','" . $sku . "');</script>");
         }
         $_SESSION['products'] = sizeof($_SESSION['products']->result);
     ?>

@@ -1021,8 +1021,3 @@ input[type=text]:focus, input[type=password]:focus
 {
     background-color:rgba(50, 160, 151, 0.8);
 }
-
-input[type='file']
-{
-    display: none;
-}
