@@ -6,6 +6,7 @@
 ?>
 <html>
     <head>
+        <link rel="icon" type="image/x-icon" href="Images/logo.png"/>
         <link rel='stylesheet' href='Styles/addItem.css'>
     </head>
     <body>
