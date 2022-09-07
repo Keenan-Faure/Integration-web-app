@@ -12,8 +12,8 @@ Class pExport
     //uses the createFile and getProducts output as parameters
     function writeOutput($products = array())
     {
-        $headers = array('Token', 'Type', 'Active', 'Grouping Code', 'Title', 'Description', 'Sku', 'Category', 'Product Type', 'Brand', 'Variant Code', 'Barcode', 'Weight', 
-        'Cost Price', 'Selling Price', 'Quantity', 'Option Name', 'Option Value', 'Option2Name', 'Option2Value', 'Meta1', 'Meta2', 'Meta3');
+        $headers = array('token', 'type', 'active', 'groupingCode', 'title', 'description', 'sku', 'category', 'productType', 'brand', 'variantCode', 'barcode', 'weight', 
+        'costPrice', 'sellingPrice', 'quantity', 'optionName', 'optionValue', 'option2Name', 'option2Value', 'meta1', 'meta2', 'meta3');
 
         $name = 'Product Export.csv';
         if(isset($_SESSION['connection']))
@@ -42,7 +42,7 @@ Class pExport
     }
     function deleteFile($file)
     {
-        $dir = 'uploads/';
+        $dir = './';
         $filer = scandir($dir);
         if(in_array($file, $filer))
         {

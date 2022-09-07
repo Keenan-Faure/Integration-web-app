@@ -75,16 +75,7 @@ Class pImport
                     for($i = 0; $i < sizeof($headers); ++$i)
                     {
                         $headers[$i] = ltrim(rtrim($headers[$i]));
-                        if(!in_array($headers[$i], $productTemplate))
-                        {
-                            $variable = new \stdClass();
-                            $variable->return = false;
-                            $variable->message = 'Unknown column header ' . $headers[$i];
-                            $this->deleteFile($fileToUse);
-                            return $variable;
-                            exit();
-                        }
-                        else if(in_array(ltrim(rtrim($headers[$i])), $productTemplate))
+                        if(in_array(ltrim(rtrim($headers[$i])), $productTemplate))
                         {
                             //strips the spaces
                             $headers[$i] = ltrim(rtrim($headers[$i]));
