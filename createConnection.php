@@ -203,8 +203,12 @@ class Connection
         
         return $variable;
     }
+    //function to return the databases or tables inside the database 
+    //depending on which key is used
+    //$key = Databases / Tables_in_$databaseName 
     function converterArray($rawConnection, $query, $key)
     {
+        $key = $key;
         $resultArray = array();
         $output = array();
         if($result = mysqli_query($rawConnection, $query))

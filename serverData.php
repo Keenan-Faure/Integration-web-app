@@ -99,7 +99,7 @@
             $output = array_diff($output, $knownDbs);
             $_SESSION['databases'] = $output;
 
-
+            //displays the tables found in that specific database
             for($p = 0; $p < sizeof($output); ++$p)
             {
                 if(isset($_SESSION['connection']))
@@ -107,7 +107,7 @@
                     $connection2 = new connect();
                     $rawConnection = $connection2->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
                     $query2 = 'show tables';
-                    $output2 = $connection2->converterArray($rawConnection, $query2, "Tables_in_" . $_SESSION['connection']->credentials->dbname);
+                    $output2 = $connection2->converterArray($rawConnection, $query2, "Tables_in_" . strtolower($_SESSION['connection']->credentials->dbname));
                 }
                 echo("<script>createContainer('$output[$p]');</script>");
                 echo("<br>");

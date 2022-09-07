@@ -117,7 +117,7 @@ if(isset($_SESSION['rawconnection']) && isset($_SESSION['connection']))
                 $connection2 = new connect();
                 $rawConnection = $connection2->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
                 $query2 = 'show tables';
-                $output2 = $connection2->converterArray($rawConnection, $query2, "Tables_in_" . $_SESSION['connection']->credentials->dbname);
+                $output2 = $connection2->converterArray($rawConnection, $query2, "Tables_in_" . strtolower($_SESSION['connection']->credentials->dbname));
                 for($i = 0; $i < sizeof($output2); ++$i)
                 {
                     $output2[$i] = strtolower($output2[$i]);
