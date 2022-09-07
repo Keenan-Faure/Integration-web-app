@@ -3,7 +3,6 @@
 namespace pExport;
 
 session_start();
-
 include('../createConnection.php');
 
 use Connection\Connection as connect;
@@ -28,10 +27,11 @@ Class pExport
             fputcsv($myFile, $headers);
 
             $products = $this->getProducts();
-            if($products->result != null)
+            if($products != null)
             {
                 for($i = 0; $i < sizeof($products); ++$i)
                 {
+                    $products[$i]['Description'] = htmlspecialchars_decode($products[$i]['Description']);
                     fputcsv($myFile, $products[$i]);
                 }
             }
