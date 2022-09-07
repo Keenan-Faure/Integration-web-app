@@ -4,30 +4,12 @@ namespace pExport;
 
 session_start();
 
-<<<<<<< HEAD
-include('../Class Templates/customer.php');
-include('../Class Templates/sProduct.php');
-include('../Class Templates/vProduct.php');
-include('../Class Templates/utility.php');
 include('../createConnection.php');
 
-use utils\Utility as util;
-use sProducts\sProducts as sproduct;
-use vProducts\vProducts as vproduct;
-use customer\Customers as customer;
-=======
-include('../createConnection.php');
-
->>>>>>> 33b1d619fc039d40105bb237e5198ad355758d96
 use Connection\Connection as connect;
 
 Class pExport
 {
-<<<<<<< HEAD
-    //creates a connection
-    //then gets all the products in the database - ALL
-    //returns an array
-=======
     //uses the createFile and getProducts output as parameters
     function writeOutput($products = array())
     {
@@ -68,36 +50,11 @@ Class pExport
             unlink($file);
         }
     }
->>>>>>> 33b1d619fc039d40105bb237e5198ad355758d96
     function getProducts()
     {
         $connection = new connect();
         $conn = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password,'localhost',$_SESSION['connection']->credentials->dbname);
         $query = 'select * from Inventory';
-<<<<<<< HEAD
-        $output = $connection->converterObject($conn->rawValue, $query);
-        print_r($output);
-    }
-    //uses the createFile and getProducts output as parameters
-    function writeOutput($products = array())
-    {
-        $database = $_SESSION['connection']->credentials->dbname;
-        $myFile = fopen($database . ' - product export - ' . date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'w');
-        
-
-
-        fclose($myFile);
-    }
-    function exportProducts()
-    {
-        if(isset($_SESSION['connection']))
-        {
-            //
-        }
-    }
-}
-
-=======
         $output = $this->createProductArray($conn->rawValue, $query);
         return $output->result;
     }
@@ -171,5 +128,4 @@ Class pExport
 
 $export = new pExport();
 $export->writeOutput();
->>>>>>> 33b1d619fc039d40105bb237e5198ad355758d96
 ?>
