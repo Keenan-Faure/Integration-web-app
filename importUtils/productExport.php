@@ -12,7 +12,7 @@ Class pExport
     //uses the createFile and getProducts output as parameters
     function writeOutput($products = array())
     {
-        $headers = array('token', 'type', 'active', 'groupingCode', 'title', 'description', 'sku', 'category', 'productType', 'brand', 'variantCode', 'barcode', 'weight', 
+        $headers = array('token', 'type', 'active', 'sku', 'title', 'description', 'groupingCode', 'category', 'productType', 'brand', 'variantCode', 'barcode', 'weight', 
         'costPrice', 'sellingPrice', 'quantity', 'optionName', 'optionValue', 'option2Name', 'option2Value', 'meta1', 'meta2', 'meta3');
 
         $name = 'Product Export.csv';
@@ -31,7 +31,7 @@ Class pExport
             {
                 for($i = 0; $i < sizeof($products); ++$i)
                 {
-                    $products[$i]['Description'] = htmlspecialchars_decode($products[$i]['Description']);
+                    $products[$i]['Description'] = stripslashes(htmlspecialchars_decode($products[$i]['Description']));
                     fputcsv($myFile, $products[$i]);
                 }
             }

@@ -151,7 +151,7 @@ Class Customers
             $variable->supportedValues = array(true, false);
             return $variable;
         }
-        unset($_SESSION['edit_prod']);
+        unset($_SESSION['edit_cust']);
 
         $query = "UPDATE Client 
 

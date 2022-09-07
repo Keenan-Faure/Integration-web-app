@@ -191,12 +191,17 @@ Class sProducts
             $variable->supportedValues = array(true, false);
             return $variable;
         }
-        if($_SESSION['edit_prod'] == $product)
+        if(isset($_SESSION['edit_prod']))
         {
-            $variable = new \stdClass();
-            $variable->result = false;
-            $variable->message = "No changes have been detected";
-            return $variable;
+            if($_SESSION['edit_prod'] == $product)
+            {
+                $variable = new \stdClass();
+                $variable->result = false;
+                $variable->message = "No changes have been detected";
+                unset($_SESSION['edit_prod']);
+                return $variable;
+            }
+            unset($_SESSION['edit_prod']);
         }
 
         $query = "UPDATE Inventory 

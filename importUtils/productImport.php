@@ -68,17 +68,18 @@ Class pImport
                 if($containHeaders == true)
                 {
                     $containHeaders = false;
-                    $headers = fgetcsv($openFile);
+                    $headerS = fgetcsv($openFile);
+                    $headers = array();
                     $productTemplate = array('active', 'title', 'description', 'category', 'productType', 'brand', 'sku', 'groupingCode', 'variantCode', 'barcode', 'weight', 'costPrice', 'sellingPrice',
                     'quantity', 'optionName', 'optionValue', 'option2Name', 'option2Value', 'meta1', 'meta2', 'meta3');
 
-                    for($i = 0; $i < sizeof($headers); ++$i)
+                    for($i = 0; $i < sizeof($headerS); ++$i)
                     {
-                        $headers[$i] = ltrim(rtrim($headers[$i]));
-                        if(in_array(ltrim(rtrim($headers[$i])), $productTemplate))
+                        $head = ltrim(rtrim($headerS[$i]));
+                        if(in_array($head, $productTemplate))
                         {
                             //strips the spaces
-                            $headers[$i] = ltrim(rtrim($headers[$i]));
+                            $headers[$i] = $head;
                         }
                     }
                     for($i = 0; $i < sizeof($productTemplate); ++$i)
@@ -124,7 +125,14 @@ Class pImport
                         //creates the product with available headers
                         //sets undefined values to null
                         $Product = new \stdClass();
-                        for($i = 0; $i < sizeof($template); ++$i)
+
+
+                        //ignores all the undefined headers found at the bottom
+                        //of the headers array and starts the index at the 
+                        //first defined index
+                        $min = min($template);
+
+                        for($i = $min; $i < sizeof($template); ++$i)
                         {
                             //because it uses the keys (the numbers) we cant set anything.
                             $index = array_keys($template, $i)[0];
@@ -192,9 +200,17 @@ Class pImport
                         //creates the product with available headers
                         //sets undefined values to null
                         $Product = new \stdClass();
-                        for($i = 0; $i < sizeof($headers); ++$i)
+
+                        //ignores all the undefined headers found at the bottom
+                        //of the headers array and starts the index at the 
+                        //first defined index
+                        $min = min($template);
+
+                        for($i = $min; $i < sizeof($headers); ++$i)
                         {
+                            
                             $index = array_keys($template, $i)[0];
+                            
                             if(isset($rawValue[$template[array_keys($template, $i)[0]]]))
                             {
                                 $Product->$index = ltrim(rtrim($rawValue[$template[array_keys($template, $i)[0]]]));
