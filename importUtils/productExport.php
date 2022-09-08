@@ -38,7 +38,7 @@ Class pExport
             fclose($myFile);
         }
         $this->downloadFile();
-        $this->deleteFile($myFile);
+        $this->deleteFile($name);
     }
     function deleteFile($file)
     {
