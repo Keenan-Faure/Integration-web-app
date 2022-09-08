@@ -95,20 +95,22 @@
             $cust = false;
             $knownDbs = array('information_schema', 'mysql', 'performance_schema', 'phpmyadmin', 'test', 'sys');
             $connection = new connect();
-            $output = $connection->converterArray($rawConnection, $query, "Database");
+            $output = $connection->converterArray($rawConnection, $query);
             $output = array_diff($output, $knownDbs);
             $_SESSION['databases'] = $output;
-
             //displays the tables found in that specific database
             for($p = 0; $p < sizeof($output); ++$p)
             {
+                /*
+                //displays the tables found in that specific database
                 if(isset($_SESSION['connection']))
                 {
                     $connection2 = new connect();
                     $rawConnection = $connection2->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
                     $query2 = 'show tables';
-                    $output2 = $connection2->converterArray($rawConnection, $query2, "Tables_in_" . strtolower($_SESSION['connection']->credentials->dbname));
+                    $output2 = $connection2->converterArray($rawConnection, $query2);
                 }
+                */
                 echo("<script>createContainer('$output[$p]');</script>");
                 echo("<br>");
             }

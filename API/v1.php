@@ -51,11 +51,11 @@
                 $connection = new connect();
                 $serverConnection = $connection->connectServer($_SESSION['apicredentials']->credentials->token, $_SESSION['apicredentials']->credentials->secret, 'localhost')->rawValue;
                 $query = 'show DATABASES';
-                $output = $connection->converterArray($serverConnection, $query, "Database");
+                $output = $connection->converterArray($serverConnection, $query);
 
                 //closes connection
                 mysqli_close($serverConnection);
-                $knownDbs = array('information_schema', 'mysql', 'performance_schema', 'phpmyadmin', 'test');
+                $knownDbs = array('information_schema', 'mysql','sys', 'performance_schema', 'phpmyadmin', 'test');
                 $output = array_diff($output, $knownDbs);
 
                 //checks if there are more than one Databases on server

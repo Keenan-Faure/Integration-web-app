@@ -206,9 +206,8 @@ class Connection
     //function to return the databases or tables inside the database 
     //depending on which key is used
     //$key = Databases / Tables_in_$databaseName 
-    function converterArray($rawConnection, $query, $key)
+    function converterArray($rawConnection, $query)
     {
-        $key = $key;
         $resultArray = array();
         $output = array();
         if($result = mysqli_query($rawConnection, $query))
@@ -216,35 +215,37 @@ class Connection
             $array = array();
             while($row = $result->fetch_object())
             {
-                $array = $row;
-                array_push($resultArray, $array);
-            }            
-            for($i = 0; $i < sizeof($resultArray); ++$i)
-            {
-                array_push($output, $resultArray[$i]->$key);
-            } 
+                    
+                //converts it into a php array
+                $row = json_decode(json_encode($row), true);
+                //gets the first element of the associative array
+                $row = array_shift($row);
+                
+                array_push($output, $row);    
+            }
         }
         return $output;
     }
+
     //accessor methods
-    public function getUsername()
+    function getUsername()
     {
         return $this->username;
     }
 
-    public function getPassword()
+    function getPassword()
     {
         return $this->password;
     }
 
-    public function getHost()
+    function getHost()
     {
         return $this->host;
     }
 
-    public function getDbname()
+    function getDbname()
     {
-       return $this->dbName; 
+       return $this->dbName;
     }
 }
 
