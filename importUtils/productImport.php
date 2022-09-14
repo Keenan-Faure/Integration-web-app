@@ -84,6 +84,7 @@ Class pImport
                     }
                     for($i = 0; $i < sizeof($productTemplate); ++$i)
                     {
+                        $var = $productTemplate[$i];
                         if(in_array($productTemplate[$i], $headers))
                         {
                             $template[$productTemplate[$i]] = array_keys($headers, $productTemplate[$i])[0];
@@ -206,7 +207,7 @@ Class pImport
                         //first defined index
                         $min = min($template);
 
-                        for($i = $min; $i < sizeof($headers); ++$i)
+                        for($i = $min; $i < sizeof($headers) + $min; ++$i)
                         {
                             
                             $index = array_keys($template, $i)[0];
