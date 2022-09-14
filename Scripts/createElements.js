@@ -186,10 +186,13 @@ function convertJsonToArray(texter)
     }
     return result;
 }
+
 function getClassNames(text)
 {
     $(document).ready(()=>
     {
+        //parallel array containing all the 
+        //classNames defined in the DOM
         let generalClassNames = [null, null, null, 's', 'titleContainer', 'longDescriptionContainer', 'pc', 'cl', 'pt', 'vd', 'vc', 'bc', 
         'wv', 'ctp', 'sp', 'q', 'on1', 'ov1', 'on2', 'ov2', 'm1', 'm2', 'm3'];
         let valueArray = convertJsonToArray(text);
