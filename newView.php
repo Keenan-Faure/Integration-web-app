@@ -27,7 +27,7 @@
                 $query2 = 'select * from Inventory where SKU = "' . $sku .  '"';
                 $output2 = $connection2->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
                 $body_html = 'Description';
-                $output2->result[0]->$body_html = html_entity_decode($output2->result[0]->$body_html);
+                $output2->result[0]->$body_html = stripslashes(html_entity_decode($output2->result[0]->$body_html));
                 $result = json_encode($output2->result[0]);
             }
             //passes the text as a json object
