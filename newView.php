@@ -14,7 +14,7 @@
         <script src="Scripts/createElements.js"></script>
         <?php 
         
-        if(isset($_POST))
+        if(isset($_POST) && (sizeof($_POST) != 0))
         {
             $sku = array_keys($_POST)[0];
             $sku = ltrim(rtrim($_POST[$sku]));

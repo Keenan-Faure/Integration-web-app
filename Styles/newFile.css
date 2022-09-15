@@ -145,6 +145,7 @@ h1:hover
     position: relative;
     width: 100%;
     height: 70px;
+    cursor: pointer;
     transition-duration: 0.4s;
 }
 .lineItems:hover
@@ -156,7 +157,6 @@ h1:hover
 
 .image
 {
-    background-color: black;
     width: 10%;
     left: 0;
     text-align: center;
@@ -166,18 +166,19 @@ h1:hover
 }
 .sku
 {
-    background-color: black;
     width: 20%;
     left: 10%;
+    text-align: center;
+    padding: 10px 0 10px 0px;
     height: 100%;
     position: absolute;
     display: inline-block;
 }
 .title
 {
-    background-color: black;
     width: 30%;
     left: 30%;
+    text-align: center;
     height: 100%;
     position: absolute;
     display: inline-block;
@@ -185,18 +186,18 @@ h1:hover
 
 .category
 {
-    background-color: black;
     width: 20%;
     left: 60%;
+    text-align: center;
     height: 100%;
     position: absolute;
     display: inline-block;
 }
 .vendor
 {
-    background-color: black;
     width: 20%;
     left: 80%;
+    text-align: center;
     height: 100%;
     position: absolute;
     display: inline-block;
