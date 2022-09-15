@@ -90,7 +90,9 @@
                 <div class="vData" id="gData"><p>Variant</p></div>
             </div>
             <div class="GeneralContentContainer" id="general">
-                <div class="imageContainer"></div>
+                <div class="imageSider">
+                </div>
+                <div class='imageContainer'></div>
                 <div class="titleContainer"></div>
                 <div class="generalInfoContainer">
                     <div id="gap">
