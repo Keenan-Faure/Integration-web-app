@@ -231,7 +231,7 @@ function setText(classNames, text)
         }
         else if(text[i][0] == 'Description')
         {
-            document.querySelector('.' + classNames[i]).insertAdjacentHTML("afterbegin", text[i][1]);
+            document.querySelector('.' + classNames[i]).insertAdjacentHTML("beforeend", text[i][1]);
             continue;
         }
         else
