@@ -241,9 +241,15 @@ h1:hover
 textarea
 {
     overflow: auto;
+    border: none;
     font-family: "Times New Roman", Times, serif;  
     resize: none;
     box-sizing: border-box;
+    transition-duration: 0.4s;
+}
+textarea:hover
+{
+    background-color: #3b3b3b;
 }
 .titleContainer
 {
@@ -309,6 +315,8 @@ li
 {
     position: relative;
     padding-top: 10px;
+    display: flex;
+    justify-content: center;
 }
 .dataContainer
 {
@@ -325,10 +333,10 @@ li
 .dataValue
 {
     width: 64%;
+    padding: 10px 0px 0px 10px;
     font-size: 14px;
-    padding: 10px 0%;
     color: white;
-    text-align: center;
+    text-align: left;
     display: inline-block;
     background-color: #1f1f1f;
 }
@@ -359,17 +367,13 @@ li
 {
     background-color: #2b2c2c;
     color: white;
-    padding: 10px;
     cursor: pointer;
-    width: 30%;
+    height: 35px;
+    padding-top: 10px;
+    width: 33%;
     font-size: 15px;
     border: none;
     display: inline-block;
-    transition-duration: 0.4s
-}
-.meta1:hover
-{
-    background-color: #3b3b3b;
 }
 .variantData
 {

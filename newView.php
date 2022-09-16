@@ -102,31 +102,31 @@
                         <div class="dataContainer">
                             Vendor
                         </div>
-                        <div id='textarea' class="dataValue vd"></div>
+                        <textarea id='textarea' class="dataValue vd"></textarea>
                     </div>
 
                     <div id="gap">
                         <div class="dataContainer">
                             Collection
                         </div>
-                        <div id='textarea' class="dataValue cl"></div>
+                        <textarea id='textarea' class="dataValue cl"></textarea>
                     </div>
                     
                     <div id="gap">
                         <div class="dataContainer">
                             Product Type
                         </div>
-                        <div id='textarea' class="dataValue pt"></div>
+                        <textarea id='textarea' class="dataValue pt"></textarea>
                     </div>
                 </div>
                 <div class="metaHeader">Attributes</div>
                 <div class="Meta">
-                    <div id='textarea' class="meta1 m1"></div>
-                    <div id='textarea' class="meta1 m2"></div>
-                    <div id='textarea' class="meta1 m3"></div>
+                    <textarea id='textarea' class="meta1 m1"></textarea>
+                    <textarea id='textarea' class="meta1 m2"></textarea>
+                    <textarea id='textarea' class="meta1 m3"></textarea>
                 </div>
                 <div class="longDescHeader">Long Description</div>
-                <div id='textarea' class="longDescriptionContainer"></div>
+                <textarea id='textarea' class="longDescriptionContainer"></textarea>
             </div>
             <!-- Variant -->
             <div class="GeneralContentContainer" id="variant">
