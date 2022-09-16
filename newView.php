@@ -91,9 +91,12 @@
             </div>
             <div class="GeneralContentContainer" id="general">
                 <div class="imageSider">
+                <a class='imageText' title='imageContainer.png' target='_black' href='../Images/imageContainer.png'>Demo Image</a>
                 </div>
-                <div class='imageContainer'></div>
-                <div class="titleContainer"></div>
+                <div id='imageCompressor'>
+                    <div class='imageContainer'></div>
+                </div>
+                <textarea class="titleContainer"></textarea>
                 <div class="generalInfoContainer">
                     <div id="gap">
                         <div class="dataContainer">
