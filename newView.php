@@ -126,7 +126,7 @@
                     <textarea id='textarea' class="meta1 m3"></textarea>
                 </div>
                 <div class="longDescHeader">Long Description</div>
-                <textarea id='textarea' class="longDescriptionContainer"></textarea>
+                <div contenteditable="true" id='textarea' class="longDescriptionContainer"></div>
             </div>
             <!-- Variant -->
             <div class="GeneralContentContainer" id="variant">
