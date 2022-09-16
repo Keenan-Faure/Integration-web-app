@@ -132,38 +132,38 @@
             <div class="GeneralContentContainer" id="variant">
                 <div class="variantData">
                     <div class="headers">SKU</div>
-                    <div id='textarea' class="sku s"></div>
+                    <div contenteditable="true" id='textarea' class="sku s"></div>
                     <br><br>
                     <div class="headers">Variant Code</div>
-                    <div id='textarea' class="sku vc"></div>
+                    <div contenteditable="true" id='textarea' class="sku vc"></div>
                     <br><br>
                     <div class="headers">Product Code</div>
-                    <div id='textarea' class="sku pc"></div>
+                    <div contenteditable="true" id='textarea' class="sku pc"></div>
                     <br><br>
                     <div class="headers">Barcode</div>
-                    <div id='textarea' class="sku bc"></div>
+                    <div contenteditable="true" id='textarea' class="sku bc"></div>
                 </div>
                 <div class="priceQuantityHeader">Price and Quantity</div>
                 <div class="priceQuantity">
                     <div class="priceQ">Compare To Price</div>
-                    <div id='textarea' class="priceQValue ctp"></div>
+                    <div contenteditable="true" id='textarea' class="priceQValue ctp"></div>
                     <div class="priceQ">Selling Price</div>
-                    <div id='textarea' class="priceQValue sp"></div>
+                    <div contenteditable="true" id='textarea' class="priceQValue sp"></div>
                     <br><br>
                     <div class="priceQ ">Cape Town Warehouse</div>
-                    <div id='textarea' class="priceQValue q"></div>
+                    <div contenteditable="true" id='textarea' class="priceQValue q"></div>
                 </div>
                 <div class="weightHeader">Weight (grams)</div>
                 <div class="weight">
                     <div class="weighter">Weight</div>
-                    <div id='textarea' class="weightValue wv"></div>
+                    <div contenteditable="true" id='textarea' class="weightValue wv"></div>
                 </div>
                 <div class="optionHeader">Options</div>
                 <div class="Option">
-                    <div id='textarea' class="option1 on1"></div>
-                    <div id='textarea' class="option1 on2"></div>
-                    <div id='textarea' class="option1 ov1"></div>
-                    <div id='textarea' class="option1 ov2"></div>
+                    <div contenteditable="true" id='textarea' class="option1 on1"></div>
+                    <div contenteditable="true" id='textarea' class="option1 on2"></div>
+                    <div contenteditable="true" id='textarea' class="option1 ov1"></div>
+                    <div contenteditable="true" id='textarea' class="option1 ov2"></div>
                 </div>
             </div>
         </div>
