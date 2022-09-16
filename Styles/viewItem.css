@@ -238,6 +238,13 @@ h1:hover
     left: 0%;
     position: absolute;
 }
+textarea
+{
+    overflow: auto;
+    font-family: "Times New Roman", Times, serif;  
+    resize: none;
+    box-sizing: border-box;
+}
 .titleContainer
 {
     width: 50%;
@@ -246,13 +253,14 @@ h1:hover
     top: 5%;
     text-align: center;
     position: absolute;
-    padding: 18px 0px 18px 0px;
+    padding: 8px 0px 8px 0px;
     background-color: black;
     /* Used to cut text if it exceeds length */
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden; 
     /*   */
+
 }
 
 .longDescHeader

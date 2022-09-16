@@ -96,74 +96,74 @@
                 <div id='imageCompressor'>
                     <div class='imageContainer'></div>
                 </div>
-                <textarea class="titleContainer"></textarea>
+                <textarea id='textarea' class="titleContainer"></textarea>
                 <div class="generalInfoContainer">
                     <div id="gap">
                         <div class="dataContainer">
                             Vendor
                         </div>
-                        <div class="dataValue vd"></div>
+                        <div id='textarea' class="dataValue vd"></div>
                     </div>
 
                     <div id="gap">
                         <div class="dataContainer">
                             Collection
                         </div>
-                        <div class="dataValue cl"></div>
+                        <div id='textarea' class="dataValue cl"></div>
                     </div>
                     
                     <div id="gap">
                         <div class="dataContainer">
                             Product Type
                         </div>
-                        <div class="dataValue pt"></div>
+                        <div id='textarea' class="dataValue pt"></div>
                     </div>
                 </div>
                 <div class="metaHeader">Attributes</div>
                 <div class="Meta">
-                    <div class="meta1 m1"></div>
-                    <div class="meta1 m2"></div>
-                    <div class="meta1 m3"></div>
+                    <div id='textarea' class="meta1 m1"></div>
+                    <div id='textarea' class="meta1 m2"></div>
+                    <div id='textarea' class="meta1 m3"></div>
                 </div>
                 <div class="longDescHeader">Long Description</div>
-                <div class="longDescriptionContainer"></div>
+                <div id='textarea' class="longDescriptionContainer"></div>
             </div>
             <!-- Variant -->
             <div class="GeneralContentContainer" id="variant">
                 <div class="variantData">
                     <div class="headers">SKU</div>
-                    <div class="sku s"></div>
+                    <div id='textarea' class="sku s"></div>
                     <br><br>
                     <div class="headers">Variant Code</div>
-                    <div class="sku vc"></div>
+                    <div id='textarea' class="sku vc"></div>
                     <br><br>
                     <div class="headers">Product Code</div>
-                    <div class="sku pc"></div>
+                    <div id='textarea' class="sku pc"></div>
                     <br><br>
                     <div class="headers">Barcode</div>
-                    <div class="sku bc"></div>
+                    <div id='textarea' class="sku bc"></div>
                 </div>
                 <div class="priceQuantityHeader">Price and Quantity</div>
                 <div class="priceQuantity">
                     <div class="priceQ">Compare To Price</div>
-                    <div class="priceQValue ctp"></div>
+                    <div id='textarea' class="priceQValue ctp"></div>
                     <div class="priceQ">Selling Price</div>
-                    <div class="priceQValue sp"></div>
+                    <div id='textarea' class="priceQValue sp"></div>
                     <br><br>
                     <div class="priceQ ">Cape Town Warehouse</div>
-                    <div class="priceQValue q"></div>
+                    <div id='textarea' class="priceQValue q"></div>
                 </div>
                 <div class="weightHeader">Weight (grams)</div>
                 <div class="weight">
                     <div class="weighter">Weight</div>
-                    <div class="weightValue wv"></div>
+                    <div id='textarea' class="weightValue wv"></div>
                 </div>
                 <div class="optionHeader">Options</div>
                 <div class="Option">
-                    <div class="option1 on1"></div>
-                    <div class="option1 on2"></div>
-                    <div class="option1 ov1"></div>
-                    <div class="option1 ov2"></div>
+                    <div id='textarea' class="option1 on1"></div>
+                    <div id='textarea' class="option1 on2"></div>
+                    <div id='textarea' class="option1 ov1"></div>
+                    <div id='textarea' class="option1 ov2"></div>
                 </div>
             </div>
         </div>
