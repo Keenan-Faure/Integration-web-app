@@ -145,7 +145,9 @@ h1:hover
     position: relative;
     width: 100%;
     height: 70px;
+    display: flex;
     cursor: pointer;
+    border: none;
     transition-duration: 0.4s;
 }
 .lineItems:hover
@@ -170,10 +172,11 @@ h1:hover
 }
 .image
 {
-    width: 70px;
+    top: 5px;
+    width: 60px;
     left: 0;
     text-align: center;
-    height: 70px;
+    height: 60px;
     position: absolute;
     display: inline-block;
 }
