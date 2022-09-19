@@ -1,170 +1,158 @@
-function createTA(classNamePrev, classNameCurrent, text = null, name = null, vName = '', style='')
+//Run-format of the functions
+//getClassNames -> convertJsonToArray -> setText (Filters) -> applyText
+
+
+//id is the id of the element
+//either variant or general
+function convertJsonToArray(texter)
 {
-    let form = document.getElementById('form');
-
-    let div = document.createElement('div');
-    if(style == '')
+    //converts json object into an array
+    let result = [];
+    for(let i in texter)
     {
-        div.className = 'item1';  
+        result.push([i, texter[i]]);
     }
-    else
-    {
-        div.className = 'item';
-    }
-
-    what = document.createElement('textarea');
-    what.className = 'typeE';
-    what.readOnly = true;
-    what.value = vName;
-
-    //check if container to be created is in the required title
-    // code //
-
-    current = document.createElement('textarea');
-    current.className = classNameCurrent;
-    current.value = text;
-    current.name = name;
-
-    if(name != 'description')
-    {
-        current.id = 'shrink';
-        what.id = 'shrink';
-    }
-
-    div.appendChild(what);
-    div.appendChild(current);
-
-    form.appendChild(div);
-    main = document.getElementById("main");
-
-    main.appendChild(form);
+    return result;
 }
 
-function createPLV(t1, t2, t3, t4, sku, skuValue)
+function getClassNames(text)
+{
+    $(document).ready(()=>
+    {
+        //parallel array containing all the 
+        //classNames defined in the DOM
+        let generalClassNames = [null, null, null, 's', 'titleContainer', 'longDescriptionContainer', 'pc', 'cl', 'pt', 'vd', 'vc', 'bc', 
+        'wv', 'ctp', 'sp', 'q', 'on1', 'ov1', 'on2', 'ov2', 'm1', 'm2', 'm3'];
+        let valueArray = convertJsonToArray(text);
+        //console.log(valueArray[valueArray.length - 1]); //23
+        //console.log(generalClassNames.length); //20
+        setText(generalClassNames, valueArray);
+    });
+}
+
+//applies a text node to a certain element
+//className => is the name of the element in HTML
+//text => is the array containing the values that will be  assigned to the element
+function applyText(className, Text)
+{
+    //queries className
+    let object = document.querySelector('.' + className);
+    
+    //creates text node
+    let text = document.createTextNode(Text);
+    //objects text to parent
+    object.appendChild(text);
+}
+
+//Uses parallel arrays to loop through the text array
+//If it's values are part of the ignore array - predefined in method
+//Then skip that iteration
+//otherwise add the text to the class
+//added to text to add the body_html
+function setText(classNames, text)
+{
+    let ignore = ['Token', 'Type', 'Active'];
+    for(let i = 0; i < text.length; ++i)
+    {
+        if(ignore.includes(text[i][0]))
+        {
+            continue;
+        }
+        else if(text[i][0] == 'Description')
+        {
+            document.querySelector('.' + classNames[i]).insertAdjacentHTML("beforeend", text[i][1]);
+            continue;
+        }
+        else
+        {
+            if(text[i][1] == null || text[i][1] == '')
+            {
+                text[i][1] = null;
+            }
+            applyText(classNames[i], text[i][1]);
+        }
+    }
+}
+
+//Run-format of the functions 
+// initiatorCreateProducts -> createProducts -> convertJsonToArray
+
+function initiatorCreateProducts(products)
+{
+    $(document).ready(()=>
+    {
+        createProducts(products);
+    });
+}
+function createProducts(products)
 {
     /*
-    <form method='post' target='_blank' action='editProducts.php'>
-        <div class='fullSize'>
-            <div class='entry1'></div>
-            <div class='entry1' id = 'entry2'></div>
-            <div class='entry1' id = 'entry3'></div>
-            <div class='entry1' id = 'entry4'></div>
-        </div>
-    </form>
+        <button class="lineItems" name='{{SKU}}' value='{{SKU}}'>
+            <div class="imageContainer" id="imageContainertwo" >
+                <img class='image' src="../Images/imageContainer.png">
+            </div>
+            <div class="sku">SKUasdapsdojapsdjkas;ldkaspdja</div>
+            <div class="title">title</div>
+            <div class="category">collection</div>
+            <div class="vendor">Vendor</div>
+        </button>
     */
-    let form = document.createElement('form');
-    form.method = 'post';
-    form.action = 'editProducts.php';
-    let div = document.createElement('button');
 
-    div.className = 'fullsize';
-    div.value = skuValue;
-    div.name = sku;
+    // 1.) Get SKU, Title, Vedor, Category from iteration of product
+    // 2.) Create the DOM Elements
+    // 3.) Append the values to the DOM elements
+    // 4.) Append the DOM elements to the Document
 
-    //can be done in loop
-    //1.) creates entry div -> 2.) creates text Node with text parameter
-    //3.) Appends the text node to the entry div -> 4.) appends the entry div to the main div
-    //--done--//
+    let form = document.getElementById('productForm');
 
-    let entry1 = document.createElement('div');
-    entry1.className = 'entry1';
-    let text = document.createTextNode(t1);
-    entry1.appendChild(text);
-    div.appendChild(entry1);
+    //converts to javascriptArray
+    let returns = convertJsonToArray(products);
+    let productSKU = returns[3][1];
+    let productTitle = returns[4][1];
+    let productCategory = returns[7][1];
+    let productVendor = returns[9][1];
 
-    let entry2 = document.createElement('div'); 
-    entry2.className = 'entry1';
-    entry2.id = 'entry2';
-    let text2 = document.createTextNode(t2);
-    entry2.appendChild(text2);
-    div.appendChild(entry2);
 
-    let entry3 = document.createElement('div'); 
-    entry3.className = 'entry1';
-    entry3.id = 'entry3';
-    let text3 = document.createTextNode(t3);
-    entry3.appendChild(text3);
-    div.appendChild(entry3);
+    let lineItem = document.createElement('button');
+    lineItem.value = productSKU;
+    lineItem.name = productSKU; //set the SKU as the name
+    lineItem.className = 'lineItems';
 
-    let entry4 = document.createElement('div'); 
-    entry4.className = 'entry1';
-    entry4.id = 'entry4';
-    let text4 = document.createTextNode(t4);
-    entry4.appendChild(text4);
-    div.appendChild(entry4);
+    let imageContainer = document.createElement('div');
+    imageContainer.className = 'imageContainer';
+    imageContainer.id = 'imageContainertwo';
 
-    //appends to container
-    form.appendChild(div);
-    main = document.getElementById("maine");
+    let image = document.createElement('img');
+    image.className = 'image';
+    image.src = '../Images/imageContainer.png';
 
-    main.appendChild(form);
-}
+    imageContainer.appendChild(image);
 
-function createCLV(t1, t2, t3, t4, id)
-{
-    /*
-    <form method='post' target='_blank' action='editCustomers.php'>
-        <div class='fullSize'>
-            <div class='entry1'></div>
-            <div class='entry1' id = 'entry2'></div>
-            <div class='entry1' id = 'entry3'></div>
-            <div class='entry1' id = 'entry4'></div>
-        </div>
-    </form>
-    */
-    let form = document.createElement('form');
-    form.method = 'post';
-    form.action = 'editCustomers.php';
-    let div = document.createElement('button');
+    let sku = document.createElement('div');
+    sku.className = 'sku';
+    let skuText = document.createTextNode(productSKU); //set Text by taking them from the product
+    sku.appendChild(skuText);
 
-    div.className = 'fullsize';
-    div.name = id;
+    let title = document.createElement('div');
+    title.className = 'title';
+    let titleText = document.createTextNode(productTitle); //set Text by taking them from the product
+    title.appendChild(titleText);
 
-    //can be done in loop
-    //1.) creates entry div -> 2.) creates text Node with text parameter
-    //3.) Appends the text node to the entry div -> 4.) appends the entry div to the main div
-    //--done--//
+    let category = document.createElement('div');
+    category.className = 'category';
+    let categoryText = document.createTextNode(productCategory); //set Text by taking them from the product
+    category.appendChild(categoryText);
 
-    let entry1 = document.createElement('div');
-    entry1.className = 'entry1';
-    let text = document.createTextNode(t1);
-    entry1.appendChild(text);
-    div.appendChild(entry1);
+    let vendor = document.createElement('div');
+    vendor.className = 'vendor';
+    let vendorText = document.createTextNode(productVendor); //set Text by taking them from the product
+    vendor.appendChild(vendorText);
 
-    let entry2 = document.createElement('div'); 
-    entry2.className = 'entry1';
-    entry2.id = 'entry2';
-    let text2 = document.createTextNode(t2);
-    entry2.appendChild(text2);
-    div.appendChild(entry2);
+    lineItem.appendChild(imageContainer);
+    lineItem.appendChild(sku);
+    lineItem.appendChild(title);
+    lineItem.appendChild(category);
+    lineItem.appendChild(vendor);
 
-    let entry3 = document.createElement('div'); 
-    entry3.className = 'entry1';
-    entry3.id = 'entry3';
-    let text3 = document.createTextNode(t3);
-    entry3.appendChild(text3);
-    div.appendChild(entry3);
-
-    let entry4 = document.createElement('div'); 
-    entry4.className = 'entry1';
-    entry4.id = 'entry4';
-    let text4 = document.createTextNode(t4);
-    entry4.appendChild(text4);
-    div.appendChild(entry4);
-
-    //appends to container
-    form.appendChild(div);
-    main = document.getElementById("maine");
-
-    main.appendChild(form);
-}
-
-function createSumbit()
-{
-    let button = document.createElement('input');
-    button.className = 'eButton';
-    button.type = 'submit';
-
-    form = document.getElementById('form');
-    form.appendChild(button);
+    form.appendChild(lineItem);
 }
