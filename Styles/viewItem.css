@@ -131,7 +131,7 @@ h1:hover
     width: 80%;
     height: 80%;
     left: 50%;
-    top: 54%;
+    top: 52%;
     transform: translate(-50%, -50%);
     border: 2px solid rgba(34, 123, 134, 0.2);
     box-shadow: 0px 10px 20px 15px rgb(77 77 77 / 20%);
@@ -140,15 +140,51 @@ h1:hover
 {
     position: relative;
     width: 100%;
-    background-color: black;
-    top: 0;
-    left: 0;
+    display: flex;
 }
+
+.saveCloseContainer
+{
+    position: relative;
+    width: 100%;
+    height: 30px;
+    background-color: rgba(0,0,0,0.1);
+}
+
+.save
+{
+    position: absolute;
+    background-color: green;
+    right: 35px;
+    top:0;
+    width: 30px;
+    height: 100%;
+    background-image: url('../Images/save.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.close
+{
+    position: absolute;
+    right: 0px;
+    top:0;
+    border-radius: 15px;
+    width: 30px;
+    height: 100%;
+    background-color: red;
+    background-image: url('../Images/close.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
 .vData
 {
     position: relative;
     display: inline-block;
-    width: 49%;
+    width: 50%;
     color: white;
     text-align: center;
     cursor: pointer;
@@ -161,7 +197,7 @@ h1:hover
 }
 #gData
 {
-    width: 50.4%;
+    width: 50%;
 }
 .GeneralContentContainer
 {

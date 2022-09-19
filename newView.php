@@ -85,6 +85,11 @@
         <!-- Content -->
         <!-- General -->
         <div class="content">
+            <div class='saveCloseContainer'>
+                
+                <div class='save'></div>
+                <div class='close'></div>
+            </div>
             <div class="General">
                 <div class="vData" id="vDatad"><p>General</p></div>
                 <div class="vData" id="gData"><p>Variant</p></div>
