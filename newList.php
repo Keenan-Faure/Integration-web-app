@@ -1,8 +1,27 @@
+<?php 
+    session_start(); 
+    include("createConnection.php");
+    use Connection\Connection as connect;
+
+?>
 <!DOCTYPE html>
 <html>
     <head>
         <link rel="stylesheet" href="Styles/newFile.css">
         <link rel="icon" type="image/x-icon" href="Images/logo.png"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="Scripts/createElements.js"></script>
+        <?php 
+        if($_SESSION['connection'])
+        {
+            $connection2 = new connect();
+            $rawConnection = $connection2->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+            $query2 = 'select * from Inventory';
+            $output2 = $connection2->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
+            $result = json_encode($output2->result[0]);
+            echo("<script>initiatorCreateProducts($result);</script>");
+        }
+        ?>
     </head>
     <body>
         <div class='backgroundtwo' style="opacity: 1;">
@@ -58,19 +77,17 @@
             </div>
             
             <hr>
-            <div class="lineItems">
-                <div class="imageContainer" id="imageContainertwo" >
-                    <img class='image' src="../Images/imageContainer.png">
+            <form method='post' target='_blank' action='newView.php' id='productForm'>
+                <div class="lineItems">
+                    <div class="imageContainer" id="imageContainertwo" >
+                        <img class='image' src="../Images/imageContainer.png">
+                    </div>
+                    <div class="sku">SKUasdapsdojapsdjkas;ldkaspdja</div>
+                    <div class="title">title</div>
+                    <div class="category">collection</div>
+                    <div class="vendor">Vendor</div>
                 </div>
-                <div class="sku">SKUasdapsdojapsdjkas;ldkaspdja</div>
-                <div class="title">title</div>
-                <div class="category">collection</div>
-                <div class="vendor">Vendor</div>
-            </div>
-            <div class="lineItems"></div>
-            <div class="lineItems"></div>
-            <div class="lineItems"></div>
-            
+            </form>
         </div>
     </body>
 </html>
