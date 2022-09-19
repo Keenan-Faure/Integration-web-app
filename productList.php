@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="Styles/newFile.css">
         <link rel="icon" type="image/x-icon" href="Images/logo.png"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="Scripts/fade.js"></script>
         <script src="Scripts/createElements.js"></script>
         <?php 
         if($_SESSION['connection'])
@@ -24,7 +25,7 @@
         ?>
     </head>
     <body>
-        <div class='backgroundtwo' style="opacity: 1;">
+        <div class='backgroundtwo'>
             <div class="navBar">
                 <div class="overlay">
                     <div class='imageNav'></div>
@@ -63,7 +64,6 @@
                         </div>
                     </div>
                     <a href="importUtils/import.html" class="buttonOption"></a>
-    
                     </div>
                 </div>
             </div>

@@ -27,5 +27,13 @@ $(document).ready(()=>
     }, 2000);
 });
 
+$(document).ready(()=>
+{
+    setTimeout(()=>
+    {
+        $('.containerNew').fadeTo(500, 1);
+    }, 1000);
+});
+
 
 

@@ -112,7 +112,6 @@ h1:hover
 /* Background */
 .backgroundtwo
 {
-    opacity: 0;
     background-image: url(/Images/add.png);
     background-size: cover;
     position: fixed;
@@ -126,6 +125,7 @@ h1:hover
 .containerNew
 {
     position: fixed;
+    opacity: 0;
     background-color: rgba(255,255,255,0.9);
     left: 50%;
     padding: 10px;
