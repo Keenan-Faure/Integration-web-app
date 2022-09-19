@@ -24,7 +24,7 @@ $(document).ready(()=>
     setTimeout(()=>
     {
         $('.backgroundtwo').fadeTo(1500, 1);
-    }, 1000);
+    }, 2000);
 });
 
 
