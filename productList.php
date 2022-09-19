@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="Styles/newFile.css">
+        <link rel="stylesheet" href="Styles/productList.css">
         <link rel="icon" type="image/x-icon" href="Images/logo.png"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="Scripts/fade.js"></script>

@@ -8,7 +8,7 @@
 <html>
     <head>
         <link rel="icon" type="image/x-icon" href="Images/logo.png"/>
-        <link rel='stylesheet' href='Styles/viewItem.css'>
+        <link rel='stylesheet' href='Styles/productView.css'>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="Scripts/fade.js"></script>
         <script src="Scripts/createElements.js"></script>
