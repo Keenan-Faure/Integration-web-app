@@ -87,8 +87,8 @@
         <div class="content">
             <div class='saveCloseContainer'>
                 
-                <div class='save'></div>
-                <div class='close'></div>
+                <div class='save' title='Save current product'></div>
+                <div class='close' title='Close and return'></div>
             </div>
             <div class="General">
                 <div class="vData" id="vDatad"><p>General</p></div>
