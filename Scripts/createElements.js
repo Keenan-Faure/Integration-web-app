@@ -23,23 +23,34 @@ function getClassNames(text)
         //classNames defined in the DOM
         let generalClassNames = [null, null, null, 's', 'titleContainer', 'longDescriptionContainer', 'pc', 'cl', 'pt', 'vd', 'vc', 'bc', 
         'wv', 'ctp', 'sp', 'q', 'on1', 'ov1', 'on2', 'ov2', 'm1', 'm2', 'm3'];
+        let formNames = [null, null, null, 'sku', 'title', 'description', 'groupingCode', 'category', 'productType', 'brand', 'variantCode', 'barcode', 'weight', 
+        'comparePrice', 'sellingPrice', 'quantity', 'optionName', 'optionValue', 'option2Name', 'option2Value', 'meta1', 'meta2', 'meta3'];
         let valueArray = convertJsonToArray(text);
         //console.log(valueArray[valueArray.length - 1]); //23
         //console.log(generalClassNames.length); //20
-        setText(generalClassNames, valueArray);
+        setText(generalClassNames, valueArray, formNames);
     });
+    
 }
 
 //applies a text node to a certain element
 //className => is the name of the element in HTML
 //text => is the array containing the values that will be  assigned to the element
-function applyText(className, Text)
+function applyText(className, Text, name)
 {
     //queries className
     let object = document.querySelector('.' + className);
-    
+
+    //create required field list
+    let required = ['sku', 'variantCode', 'groupingCode'];
+    let requiredVariable = ['sku', 'variantCode', 'groupingCode'];
+
+    //sets the name for the form
+    object.name = name;
+
     //creates text node
     let text = document.createTextNode(Text);
+
     //objects text to parent
     object.appendChild(text);
 }
@@ -49,7 +60,7 @@ function applyText(className, Text)
 //Then skip that iteration
 //otherwise add the text to the class
 //added to text to add the body_html
-function setText(classNames, text)
+function setText(classNames, text, formNames)
 {
     let ignore = ['Token', 'Type', 'Active'];
     for(let i = 0; i < text.length; ++i)
@@ -61,6 +72,7 @@ function setText(classNames, text)
         else if(text[i][0] == 'Description')
         {
             document.querySelector('.' + classNames[i]).insertAdjacentHTML("beforeend", text[i][1]);
+            document.querySelector('.' + classNames[i]).name = 'description';
             continue;
         }
         else
@@ -69,7 +81,7 @@ function setText(classNames, text)
             {
                 text[i][1] = null;
             }
-            applyText(classNames[i], text[i][1]);
+            applyText(classNames[i], text[i][1], formNames[i]);
         }
     }
 }
