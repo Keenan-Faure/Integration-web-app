@@ -102,57 +102,62 @@ function createProducts(products)
     // 2.) Create the DOM Elements
     // 3.) Append the values to the DOM elements
     // 4.) Append the DOM elements to the Document
-
     let form = document.getElementById('productForm');
+    for(let i = 0; i < products.length; ++i)
+    {
+        //converts to javascriptArray
+        //skips first iteration - headers
+        let returns = convertJsonToArray(products[i]);
+        for(let j = 1; j < 2; ++j)
+        {
 
-    //converts to javascriptArray
-    let returns = convertJsonToArray(products);
-    let productSKU = returns[3][1];
-    let productTitle = returns[4][1];
-    let productCategory = returns[7][1];
-    let productVendor = returns[9][1];
+            let productSKU = returns[3][j];
+            let productTitle = returns[4][j];
+            let productCategory = returns[7][j];
+            let productVendor = returns[9][j];
 
 
-    let lineItem = document.createElement('button');
-    lineItem.value = productSKU;
-    lineItem.name = productSKU; //set the SKU as the name
-    lineItem.className = 'lineItems';
+            let lineItem = document.createElement('button');
+            lineItem.value = productSKU;
+            lineItem.name = productSKU; //set the SKU as the name
+            lineItem.className = 'lineItems';
 
-    let imageContainer = document.createElement('div');
-    imageContainer.className = 'imageContainer';
-    imageContainer.id = 'imageContainertwo';
+            let imageContainer = document.createElement('div');
+            imageContainer.className = 'imageContainer';
+            imageContainer.id = 'imageContainertwo';
 
-    let image = document.createElement('img');
-    image.className = 'image';
-    image.src = '../Images/imageContainer.png';
+            let image = document.createElement('img');
+            image.className = 'image';
+            image.src = '../Images/imageContainer.png';
 
-    imageContainer.appendChild(image);
+            imageContainer.appendChild(image);
 
-    let sku = document.createElement('div');
-    sku.className = 'sku';
-    let skuText = document.createTextNode(productSKU); //set Text by taking them from the product
-    sku.appendChild(skuText);
+            let sku = document.createElement('div');
+            sku.className = 'sku';
+            let skuText = document.createTextNode(productSKU); //set Text by taking them from the product
+            sku.appendChild(skuText);
 
-    let title = document.createElement('div');
-    title.className = 'title';
-    let titleText = document.createTextNode(productTitle); //set Text by taking them from the product
-    title.appendChild(titleText);
+            let title = document.createElement('div');
+            title.className = 'title';
+            let titleText = document.createTextNode(productTitle); //set Text by taking them from the product
+            title.appendChild(titleText);
 
-    let category = document.createElement('div');
-    category.className = 'category';
-    let categoryText = document.createTextNode(productCategory); //set Text by taking them from the product
-    category.appendChild(categoryText);
+            let category = document.createElement('div');
+            category.className = 'category';
+            let categoryText = document.createTextNode(productCategory); //set Text by taking them from the product
+            category.appendChild(categoryText);
 
-    let vendor = document.createElement('div');
-    vendor.className = 'vendor';
-    let vendorText = document.createTextNode(productVendor); //set Text by taking them from the product
-    vendor.appendChild(vendorText);
+            let vendor = document.createElement('div');
+            vendor.className = 'vendor';
+            let vendorText = document.createTextNode(productVendor); //set Text by taking them from the product
+            vendor.appendChild(vendorText);
 
-    lineItem.appendChild(imageContainer);
-    lineItem.appendChild(sku);
-    lineItem.appendChild(title);
-    lineItem.appendChild(category);
-    lineItem.appendChild(vendor);
-
-    form.appendChild(lineItem);
+            lineItem.appendChild(imageContainer);
+            lineItem.appendChild(sku);
+            lineItem.appendChild(title);
+            lineItem.appendChild(category);
+            lineItem.appendChild(vendor);
+            form.appendChild(lineItem);
+        }
+    }
 }
