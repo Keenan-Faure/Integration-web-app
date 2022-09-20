@@ -13,7 +13,7 @@ Class pExport
     function writeOutput($products = array())
     {
         $headers = array('token', 'type', 'active', 'sku', 'title', 'description', 'groupingCode', 'category', 'productType', 'brand', 'variantCode', 'barcode', 'weight', 
-        'costPrice', 'sellingPrice', 'quantity', 'optionName', 'optionValue', 'option2Name', 'option2Value', 'meta1', 'meta2', 'meta3');
+        'comparePrice', 'sellingPrice', 'quantity', 'optionName', 'optionValue', 'option2Name', 'option2Value', 'meta1', 'meta2', 'meta3');
 
         $name = 'Product Export.csv';
         if(isset($_SESSION['connection']))

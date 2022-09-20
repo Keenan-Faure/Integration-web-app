@@ -61,11 +61,13 @@
                     </div>
                 </div>
                 <div class='buttonContainer'>
-                    <div class="dropDown">
+                <div class="dropDown">
                     <button class="dropDownBtn">Products</button>
                         <div class="dropDownContent">
                             <a href="addItem.html">Add Product</a>
-                            <a href="editProduct.php">View all products</a>
+                            <a href="productList.php">View all products</a>
+                            <a href="importUtils/import.html">Import Products</a>
+                            <a href="importUtils/productExport.php">Export Products</a>
                         </div>
                     </div>
 

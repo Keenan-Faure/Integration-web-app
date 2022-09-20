@@ -43,10 +43,10 @@
                 unset($_POST['addProduct']);
                 exit();
             }
-            if(isset($_POST['editProduct']))
+            if(isset($_POST['productList']))
             {
-                header('Refresh:0, url=editProduct.php');
-                unset($_POST['editProduct']);
+                header('Refresh:0, url=productList.php');
+                unset($_POST['productList']);
                 exit();
             }
             if(isset($_POST['editCustomer']))

@@ -192,11 +192,11 @@ Class CURL
     function addPrices($product)
     {
         $price = array();
-        if($product->CostPrice != null)
+        if($product->ComparePrice != null)
         {
             $priceTier = new \stdClass();
             $priceTier->tier = 'Cost Price';
-            $priceTier->price = $product->CostPrice;
+            $priceTier->price = $product->ComparePrice;
             array_push($price, $priceTier);
         }
         if($product->SellingPrice != null)
