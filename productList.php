@@ -79,15 +79,6 @@
                     
                     <hr>
                     <form method='post' target='_blank' action='productView.php' id='productForm'>
-                        <div class="lineItems">
-                            <div class="imageContainer" id="imageContainertwo" >
-                                <img class='image' src="../Images/imageContainer.png">
-                            </div>
-                            <div class="sku">SKUasdapsdojapsdjkas;ldkaspdja</div>
-                            <div class="title">title</div>
-                            <div class="category">collection</div>
-                            <div class="vendor">Vendor</div>
-                        </div>
                     </form>
                 </div>
             </div>
