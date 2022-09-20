@@ -85,7 +85,7 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
 
                 echo(json_encode($variable));
                 array_push($_SESSION['log'], $variable);
-                header('Refresh:2,url=editProduct.php');
+                header('Refresh:2,url=productList.php');
             }
         }
         else
