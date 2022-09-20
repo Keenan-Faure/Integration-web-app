@@ -87,10 +87,11 @@
         <!-- Content -->
         <!-- General -->
         <div class="content">
+        <form method='post' action='processEdit.php'>
             <div class='saveCloseContainer'>
                 
                 <div class='save' title='Save current product'></div>
-                <div class='close' title='Close and return'></div>
+                <button class='close' type='submit' title='Close and return'></button>
             </div>
             <div class="General">
                 <div class="vData" id="vDatad"><p>General</p></div>
@@ -132,7 +133,7 @@
                     <textarea id='textarea' class="meta1 m2"></textarea>
                     <textarea id='textarea' class="meta1 m3"></textarea>
                 </div>
-                <div contenteditable="true" id='textarea' class="longDescriptionContainer">
+                <div contenteditable="true" id='textarea' name='description' class="longDescriptionContainer">
                     <div class="longDescHeader">Long Description</div>
                 </div>
             </div>
@@ -140,42 +141,43 @@
             <div class="GeneralContentContainer" id="variant">
                 <div class="variantData">
                     <div class="headers">SKU</div>
-                    <div contenteditable="true" id='textarea' class="sku s"></div>
+                    <textarea contenteditable="true" id='textarea' class="sku s"></textarea>
                     <br><br>
                     <div class="headers">Variant Code</div>
-                    <div contenteditable="true" id='textarea' class="sku vc"></div>
+                    <textarea contenteditable="true" id='textarea' class="sku vc"></textarea>
                     <br><br>
                     <div class="headers">Product Code</div>
-                    <div contenteditable="true" id='textarea' class="sku pc"></div>
+                    <textarea contenteditable="true" id='textarea' class="sku pc"></textarea>
                     <br><br>
                     <div class="headers">Barcode</div>
-                    <div contenteditable="true" id='textarea' class="sku bc"></div>
+                    <textarea contenteditable="true" id='textarea' class="sku bc"></textarea>
                 </div>
                 <div class="priceQuantity">
                 <div class="priceQuantityHeader">Price and Quantity</div>
                 <br><br>
                     <div class="priceQ">Compare To Price</div>
-                    <div contenteditable="true" id='textarea' class="priceQValue ctp"></div>
+                    <textarea contenteditable="true" id='textarea' class="priceQValue ctp"></textarea>
                     <div class="priceQ">Selling Price</div>
-                    <div contenteditable="true" id='textarea' class="priceQValue sp"></div>
+                    <textarea contenteditable="true" id='textarea' class="priceQValue sp"></textarea>
                     <div class="priceQ ">Cape Town Warehouse</div>
-                    <div contenteditable="true" id='textarea' class="priceQValue q"></div>
+                    <textarea contenteditable="true" id='textarea' class="priceQValue q"></textarea>
                 </div>
                 <div class="weight">
                     <div class="weightHeader">Weight (grams)</div>
                     <br><br>
                     <div class="weighter">Weight</div>
-                    <div contenteditable="true" id='textarea' class="weightValue wv"></div>
+                    <textarea contenteditable="true" id='textarea' class="weightValue wv"></textarea>
                 </div>
                 <div class="Option">
                     <div class="optionHeader">Options</div>
                     <br><br>
-                    <div contenteditable="true" id='textarea' class="option1 on1"></div>
-                    <div contenteditable="true" id='textarea' class="option1 on2"></div>
-                    <div contenteditable="true" id='textarea' class="option1 ov1"></div>
-                    <div contenteditable="true" id='textarea' class="option1 ov2"></div>
+                    <textarea contenteditable="true" id='textarea' class="option1 on1"></textarea>
+                    <textarea contenteditable="true" id='textarea' class="option1 on2"></textarea>
+                    <textarea contenteditable="true" id='textarea' class="option1 ov1"></textarea>
+                    <textarea contenteditable="true" id='textarea' class="option1 ov2"></textarea>
                 </div>
             </div>
         </div>
+        </form>
     </body>
 </html>
