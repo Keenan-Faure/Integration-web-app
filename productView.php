@@ -88,9 +88,9 @@
         <!-- Content -->
         <!-- General -->
         <div class="content">
-        <form method='post' action='processEdit.php'>
+        <form method='post' action='processEdit.php' id='form'>
             <div class='active'>
-                <input type='checkbox' class='act' checked='true'>
+                <input type='checkbox' class='act'>
                 <label for='active'>Product Active</label>
             </div>
             <div class='saveCloseContainer'>
@@ -183,6 +183,7 @@
                 </div>
             </div>
         </div>
+        <textarea id='holder' style='width: 0;height:0' name='description'></textarea>
         </form>
     </body>
 </html>

@@ -25,22 +25,24 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
             $connection = new connect();
             if(isset($_POST['name']) && isset($_POST['surname']))
             {
-                //customer
-                $customer = new customer();
-                $result = $customer->createCustomer($_POST, $util, $connection, 'edit');
-                if(isset($result->return))
+                if($_POST['name'] != null && $_POST['surname'] != null)
                 {
+                    $customer = new customer();
+                    $result = $customer->createCustomer($_POST, $util, $connection, 'edit');
+                    if(isset($result->return))
+                    {
+                        echo(json_encode($result));
+                        exit();
+                    }
+                    $result = $customer->updateCustomer($result, $util, $connection);
                     echo(json_encode($result));
-                    exit();
+                    header('Refresh:2, url=editCustomer.php');
+                    unset($_POST);
                 }
-                $result = $customer->updateCustomer($result, $util, $connection);
-                echo(json_encode($result));
-                header('Refresh:2, url=editCustomer.php');
-                unset($_POST);
             }
-            else if(!isset($_POST['name']) && isset($_POST['sku']))
+            else if(isset($_POST['name']) && isset($_POST['sku']))
             {
-                if(isset($_POST['optionName']) && isset($_POST['optionValue']))
+                if($_POST['optionName'] != null && $_POST['optionValue'] != null)
                 {
                     //variable product
                     $product = new vproduct();
@@ -53,7 +55,7 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
                     }
                     $result = $product->updateProduct($result, $util, $connection);
                     echo(json_encode($result));
-                    header('Refresh:2, url=productList.php');
+                    //header('Refresh:2, url=productList.php');
                     unset($_POST);
                 }
                 else

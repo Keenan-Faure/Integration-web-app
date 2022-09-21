@@ -78,7 +78,7 @@
                     </div>
                     
                     <hr>
-                    <form method='post' target='_blank' action='productView.php' id='productForm'>
+                    <form method='post' action='productView.php' id='productForm'>
                     </form>
                 </div>
             </div>

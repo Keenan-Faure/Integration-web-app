@@ -102,8 +102,16 @@ function setText(classNames, text, formNames, type)
         }
         else if (text[i][0] == 'Active')
         {
+
             document.querySelector('.' + classNames[i]).value = text[i][1];
-            document.querySelector('.' + classNames[i]).checked = text[i][1];
+            if(text[i][1] == 'true')
+            {
+                document.querySelector('.' + classNames[i]).checked = true;
+            }
+            else
+            {
+                document.querySelector('.' + classNames[i]).checked = false;
+            }
             document.querySelector('.' + classNames[i]).name = 'active';
             continue;
         }
@@ -211,3 +219,19 @@ function createProducts(products)
         }
     }
 }
+
+
+$(document).ready(()=>
+{
+    document.getElementById('form').addEventListener('submit', ()=>
+    {
+        let description = document.getElementById('holder');
+        let text = '';
+        let Nodes = document.querySelector('.longDescriptionContainer').children;
+        for(let i = 1; i < Nodes.length; ++i)
+        {
+            text = text + Nodes[i].outerHTML;
+        }
+        description.value = text;
+    });
+});
