@@ -154,7 +154,6 @@ Class sProducts
         ;
         $output = $connection->converterObject($rawConnection, $query);
         $result = new \stdClass();
-        $result->result = $output;
         $result->data = $product;
         return $result;
 
@@ -231,7 +230,6 @@ Class sProducts
 
         $output = $connection->converterObject($rawConnection, $query);
         $result = new \stdClass();
-        $result->result = $output;
         $result->data = $product;
         return $result;
     }
