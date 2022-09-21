@@ -28,10 +28,11 @@
                 $output2 = $connection2->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
                 $body_html = 'Description';
                 $output2->result[0]->$body_html = stripslashes(html_entity_decode($output2->result[0]->$body_html));
+                $type = $output2->result[0]->Type;
                 $result = json_encode($output2->result[0]);
             }
             //passes the text as a json object
-            echo("<script>getClassNames($result);</script>");
+            echo("<script>getClassNames($result, '$type');</script>");
         }
         
         ?>
@@ -88,10 +89,14 @@
         <!-- General -->
         <div class="content">
         <form method='post' action='processEdit.php'>
+            <div class='active'>
+                <label for='active'>Product Active</label>
+                <input type='checkbox' checked='true' name='active' value='true'>
+            </div>
             <div class='saveCloseContainer'>
                 
-                <div class='save' title='Save current product'></div>
-                <button class='close' type='submit' title='Close and return'></button>
+                <button class='save' type='submit' title='Save current product'></button>
+                <div class='close' type='submit' title='Close and return'></div>
             </div>
             <div class="General">
                 <div class="vData" id="vDatad"><p>General</p></div>

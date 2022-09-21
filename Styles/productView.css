@@ -142,13 +142,28 @@ h1:hover
     width: 100%;
     display: flex;
 }
-
+.active
+{
+    width: 120px;
+    background-color: #343635;
+    height: 20px;
+    position: absolute;
+    top: 2.5%;
+    left: 13%;
+    z-index: 5;
+    transform: translate(-50%, -50%);
+    color: white;
+}
 .saveCloseContainer
 {
     position: relative;
     width: 100%;
     height: 30px;
     background-color: rgba(0,0,0,0.1);
+}
+button
+{
+    border: none;
 }
 
 .save

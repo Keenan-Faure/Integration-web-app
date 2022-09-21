@@ -13,9 +13,6 @@ use utils\Utility as util;
 use Connection\Connection as connect;
 header("Content-Type: application/json");
 
-print_r($_POST);
-exit();
-
 if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
 {
     if($_SESSION['credentials']->active == true)
