@@ -12,6 +12,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="Scripts/fade.js"></script>
         <script src="Scripts/createElements.js"></script>
+        <script src="Scripts/formTransform.js"></script>
         <?php 
         
         if(isset($_POST) && (sizeof($_POST) != 0))
