@@ -144,8 +144,9 @@ h1:hover
 }
 .active
 {
-    width: 120px;
-    background-color: #343635;
+    width: 125px;
+    background-color: rgba(0,0,0,0.7);
+    border-radius: 10px;
     height: 20px;
     position: absolute;
     top: 2.5%;

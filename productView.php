@@ -90,8 +90,8 @@
         <div class="content">
         <form method='post' action='processEdit.php'>
             <div class='active'>
+                <input type='checkbox' class='act' checked='true'>
                 <label for='active'>Product Active</label>
-                <input type='checkbox' checked='true' name='active' value='true'>
             </div>
             <div class='saveCloseContainer'>
                 

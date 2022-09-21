@@ -29,9 +29,9 @@ function getClassNames(text, type)
     {
         //parallel array containing all the 
         //classNames defined in the DOM
-        let generalClassNames = [null, null, null, 's', 'titleContainer', 'longDescriptionContainer', 'pc', 'cl', 'pt', 'vd', 'vc', 'bc', 
+        let generalClassNames = [null, null, 'act', 's', 'titleContainer', 'longDescriptionContainer', 'pc', 'cl', 'pt', 'vd', 'vc', 'bc', 
         'wv', 'ctp', 'sp', 'q', 'on1', 'ov1', 'on2', 'ov2', 'm1', 'm2', 'm3'];
-        let formNames = [null, null, null, 'sku', 'title', 'description', 'groupingCode', 'category', 'productType', 'brand', 'variantCode', 'barcode', 'weight', 
+        let formNames = [null, null, 'active', 'sku', 'title', 'description', 'groupingCode', 'category', 'productType', 'brand', 'variantCode', 'barcode', 'weight', 
         'comparePrice', 'sellingPrice', 'quantity', 'optionName', 'optionValue', 'option2Name', 'option2Value', 'meta1', 'meta2', 'meta3'];
         let valueArray = convertJsonToArray(text);
         //console.log(valueArray[valueArray.length - 1]); //23
@@ -93,11 +93,18 @@ function setRequired(object, type)
 //added to text to add the body_html
 function setText(classNames, text, formNames, type)
 {
-    let ignore = ['Token', 'Type', 'Active'];
+    let ignore = ['Token', 'Type'];
     for(let i = 0; i < text.length; ++i)
     {
         if(ignore.includes(text[i][0]))
         {
+            continue;
+        }
+        else if (text[i][0] == 'Active')
+        {
+            document.querySelector('.' + classNames[i]).value = text[i][1];
+            document.querySelector('.' + classNames[i]).checked = text[i][1];
+            document.querySelector('.' + classNames[i]).name = 'active';
             continue;
         }
         else if(text[i][0] == 'Description')
