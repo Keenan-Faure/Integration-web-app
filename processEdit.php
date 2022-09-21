@@ -40,9 +40,9 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
                     unset($_POST);
                 }
             }
-            else if(isset($_POST['name']) && isset($_POST['sku']))
+            else if(!isset($_POST['name']) && isset($_POST['sku']))
             {
-                if($_POST['optionName'] != null && $_POST['optionValue'] != null)
+                if(($_POST['optionName'] != null && $_POST['optionValue'] != null) && ($_POST['optionName'] != 'null' && $_POST['optionValue'] != 'null'))
                 {
                     //variable product
                     $product = new vproduct();
@@ -55,7 +55,7 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
                     }
                     $result = $product->updateProduct($result, $util, $connection);
                     echo(json_encode($result));
-                    //header('Refresh:2, url=productList.php');
+                    header('Refresh:2, url=productList.php');
                     unset($_POST);
                 }
                 else
