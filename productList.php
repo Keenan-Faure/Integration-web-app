@@ -17,9 +17,9 @@
         {
             $connection2 = new connect();
             $rawConnection = $connection2->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
-            $query2 = 'select * from Inventory';
+            $query2 = 'SELECT * FROM Inventory';
             $output2 = $connection2->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
-            $result = json_encode($output2->result[0]);
+            $result = json_encode($output2->result);
             echo("<script>initiatorCreateProducts($result);</script>");
         }
         ?>
@@ -47,13 +47,15 @@
                         </div>
                     </div>
                     <div class='buttonContainer'>
-                        <div class="dropDown">
-                        <button class="dropDownBtn">Products</button>
-                            <div class="dropDownContent">
-                                <a href="addItem.html">Add Product</a>
-                                <a href="editProduct.php">View all products</a>
-                            </div>
+                    <div class="dropDown">
+                    <button class="dropDownBtn">Products</button>
+                        <div class="dropDownContent">
+                            <a href="addItem.html">Add Product</a>
+                            <a href="productList.php">View all products</a>
+                            <a href="importUtils/import.html">Import Products</a>
+                            <a href="importUtils/productExport.php">Export Products</a>
                         </div>
+                    </div>
     
                         <div class="dropDown">
                         <button class="dropDownBtn">Customers</button>
@@ -66,28 +68,19 @@
                     <a href="importUtils/import.html" class="buttonOption"></a>
                     </div>
                 </div>
-            </div>
-        <div class="containerNew">
-            <div class="containerHeaders">
-                <div class="imageContainer">Image</div>
-                <div class="sku">sku</div>
-                <div class="title">title</div>
-                <div class="category">collection</div>
-                <div class="vendor">Vendor</div>
-            </div>
-            
-            <hr>
-            <form method='post' target='_blank' action='newView.php' id='productForm'>
-                <div class="lineItems">
-                    <div class="imageContainer" id="imageContainertwo" >
-                        <img class='image' src="../Images/imageContainer.png">
+                <div class="containerNew">
+                    <div class="containerHeaders">
+                        <div class="imageContainer">Image</div>
+                        <div class="sku">sku</div>
+                        <div class="title">title</div>
+                        <div class="category">collection</div>
+                        <div class="vendor">Vendor</div>
                     </div>
-                    <div class="sku">SKUasdapsdojapsdjkas;ldkaspdja</div>
-                    <div class="title">title</div>
-                    <div class="category">collection</div>
-                    <div class="vendor">Vendor</div>
+                    
+                    <hr>
+                    <form method='post' action='productView.php' id='productForm'>
+                    </form>
                 </div>
-            </form>
-        </div>
+            </div>
     </body>
 </html>

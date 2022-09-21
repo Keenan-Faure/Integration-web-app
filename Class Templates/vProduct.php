@@ -9,7 +9,7 @@ Class vProducts
     function createProduct($product, $util, $connection, $update = '')
     {
         //checks if all the numeric values entered are numeric...
-        $numeric = array("barcode", "weight", "costPrice", "sellingPrice", "quantity"); //array of numeric values
+        $numeric = array("barcode", "weight", "comparePrice", "sellingPrice", "quantity"); //array of numeric values
         for($j = 0; $j < sizeof($numeric); ++$j)
         {
             if(isset($product[$numeric[$j]]))
@@ -38,7 +38,7 @@ Class vProducts
         if($update == 'edit')
         {           
             //creates the product
-            $productTemplate = array('active', 'title', 'description', 'category', 'productType', 'brand', 'sku', 'groupingCode', 'variantCode', 'barcode', 'weight', 'costPrice', 'sellingPrice',
+            $productTemplate = array('active', 'title', 'description', 'category', 'productType', 'brand', 'sku', 'groupingCode', 'variantCode', 'barcode', 'weight', 'comparePrice', 'sellingPrice',
             'quantity', 'optionName', 'optionValue', 'option2Name', 'option2Value', 'meta1', 'meta2', 'meta3');
 
             
@@ -90,7 +90,7 @@ Class vProducts
                 return $util->existOptions($product, $rawConnection, $connection);
             }
             //creates the product
-            $productTemplate = array('title', 'description', 'category', 'productType', 'brand', 'sku', 'groupingCode', 'variantCode', 'barcode', 'weight', 'costPrice', 'sellingPrice',
+            $productTemplate = array('title', 'description', 'category', 'productType', 'brand', 'sku', 'groupingCode', 'variantCode', 'barcode', 'weight', 'comparePrice', 'sellingPrice',
             'quantity', 'optionName', 'optionValue', 'option2Name', 'option2Value', 'meta1', 'meta2', 'meta3');
 
             //creates as a standard class
@@ -137,7 +137,7 @@ Class vProducts
             Variant_Code,
             Barcode,
             Weight,
-            CostPrice,
+            ComparePrice,
             SellingPrice,
             CapeTown_Warehouse,
             Option_1_Name,
@@ -163,7 +163,7 @@ Class vProducts
             $product->variantCode . "','" .
             $product->barcode . "','" .
             $product->weight . "','" .
-            $product->costPrice . "','" .
+            $product->comparePrice . "','" .
             $product->sellingPrice . "','" .
             round($product->quantity, 0) . "','" .
             $product->optionName . "','" .
@@ -176,7 +176,6 @@ Class vProducts
         ;
         $output = $connection->converterObject($rawConnection, $query);
         $result = new \stdClass();
-        $result->result = $output;
         $result->data = $product;
         return $result;
 
@@ -250,7 +249,7 @@ Class vProducts
             Variant_Code = '$product->variantCode',
             Barcode = '$product->barcode',
             Weight = '$product->weight',
-            CostPrice = '$product->costPrice',
+            ComparePrice = '$product->comparePrice',
             SellingPrice = '$product->sellingPrice',
             CapeTown_Warehouse = '$product->quantity',
             Option_1_Name = '$product->optionName',
@@ -266,7 +265,6 @@ Class vProducts
 
         $output = $connection->converterObject($rawConnection, $query);
         $result = new \stdClass();
-        $result->result = $output;
         $result->data = $product;
         return $result;
     }

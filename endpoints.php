@@ -62,7 +62,7 @@
                     <button class='button' name='addProduct' id='b9'><p class='buttonText'>Add Product to Database</p></button>               
                 </form>
                 <form method='post' action='endpoint_handler.php'>
-                    <button class='button' name='editProduct' id='b10'><p class='buttonText'>Edit Products</p></button>               
+                    <button class='button' name='productList' id='b10'><p class='buttonText'>Edit Products</p></button>               
                 </form>
             </div>
 
@@ -151,7 +151,7 @@ if(isset($_SESSION['rawconnection']) && isset($_SESSION['connection']))
                     Variant_Code varchar(255),
                     Barcode varchar(10),
                     Weight varchar(10),
-                    CostPrice varchar(10),
+                    ComparePrice varchar(10),
                     SellingPrice varchar(10), 
                     CapeTown_Warehouse varchar(10),
                     Option_1_Name varchar(255),

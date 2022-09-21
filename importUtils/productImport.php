@@ -70,7 +70,7 @@ Class pImport
                     $containHeaders = false;
                     $headerS = fgetcsv($openFile);
                     $headers = array();
-                    $productTemplate = array('active', 'title', 'description', 'category', 'productType', 'brand', 'sku', 'groupingCode', 'variantCode', 'barcode', 'weight', 'costPrice', 'sellingPrice',
+                    $productTemplate = array('active', 'title', 'description', 'category', 'productType', 'brand', 'sku', 'groupingCode', 'variantCode', 'barcode', 'weight', 'comparePrice', 'sellingPrice',
                     'quantity', 'optionName', 'optionValue', 'option2Name', 'option2Value', 'meta1', 'meta2', 'meta3');
 
                     for($i = 0; $i < sizeof($headerS); ++$i)
