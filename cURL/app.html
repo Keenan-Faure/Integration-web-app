@@ -1,12 +1,40 @@
 <html>
-    <link rel="icon" type="image/x-icon" href="Images/logo.png"/>
-    <link rel='stylesheet' href='../Styles/addItem.css'>
+    <head>
+        <link rel="icon" type="image/x-icon" href="Images/logo.png"/>
+        <link rel='stylesheet' href='../Styles/addItem.css'>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="../Scripts/app.js"></script>
+    </head>
     <body>
     <div class='backgroundApp'>
     <div class="errorTable">
         <div class="errors"><p class="align">Credentials must be validated</p></div>
         <br>
         <div class="errors"><p class="align">Hover for more information</p></div>
+        <br>
+        <div class="errors" id="push"><p class="align">Add Conditions for push</p></div>
+        <br>
+        <form>
+            <div class="conditions">
+            <p style="color:black">Add conditions below</p>
+            <select class='condition-select' name="dataValue">
+                <option value="active">Active</option>
+                <option value="vendor">Brand</option>
+                <option value="productType">Product Type</option>
+                <option value="price">Selling Price</option>
+                <option value="qty">Quantity</option>
+            </select>
+            <select class='condition-select' name="dataValue">
+                <option value="equal">=</option>
+                <option value="moreThan">></option>
+                <option value="lessThan"><</option>
+                <option value="moreThanE">>=</option>
+                <option value="lessThanE"><=</option>
+            </select>
+            <input type="text" placeholder='Value' class="condition-select">
+            <input class='conditionSubmit' type="submit">
+            </div>
+        </form>
     </div>
     <div class="navBar">
                 <div class="overlay">
@@ -55,15 +83,15 @@
             <form action="execute.php" method='post' target='_blank'>
                 <div class="containerText">Username</div>
                 <div class="line"></div>
-                <input type='text' id = 'appTitle' autocomplete="on" name='username' title='Stock2Shop valid username' required>
+                <input type='text' class = 'appTitle' autocomplete="on" name='username' title='Stock2Shop valid username' required>
                 
                 <div class="containerText">Password</div>
                 <div class="line"></div>
-                <input type='password' id = 'appTitle' autocomplete="off" name='password' title='Stock2Shop user password' required>
+                <input type='password' class = 'appTitle' autocomplete="off" name='password' title='Stock2Shop user password' required>
                 <br><br><br>
                 <div class="containerText">Endpoint</div>
                 <div class="line"></div>
-                <select id="appTitle" name="endpoint">
+                <select class="appTitle" name="endpoint">
                     <option value="authenticate">Authenticate User</option>
                     <option value="validToken">Validate Current Token</option>
                     <option value="getSources">Get Sources</option>
