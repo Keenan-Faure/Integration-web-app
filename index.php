@@ -40,6 +40,12 @@
         transform: translate(-50%, -50%);
         width: 30%;
         height: 30%;
+        transition-duration: 0.5s;
+    }
+    .background:hover
+    {
+        width: 70%;
+        height: 70%;
     }
     </style>
 </head>
