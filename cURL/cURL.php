@@ -28,7 +28,7 @@ Class CURL
             }
         }
     }
-    function get_web_page($url, $request = null, $username, $password) 
+    function get_web_page($url, $request = null, $username = '', $password = '') 
     {
         $options = array(
             CURLOPT_USERPWD => $username . ":" . $password, 
@@ -80,7 +80,7 @@ Class CURL
         return $this->cURLRequest(null, $url, $username, $password);
     }
 
-    function cURLRequest($request = new \stdClass(), $url, $username, $password)
+    function cURLRequest($request = new \stdClass(), $url = '', $username = '', $password = '')
     {
         $response = $this->get_web_page($url, $request, $username, $password);
         $resArr = array();
