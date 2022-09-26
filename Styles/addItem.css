@@ -677,11 +677,13 @@ a
 {
     background-color:rgb(255, 255, 255, 0.6);
     width: 90%;
+    opacity:0;
     padding: 10px;
     resize: none;
     border: none;
     border-radius: 5px;
-    top: 0; left: 0; 
+    top: 0; 
+    left: 0; 
     position: relative;
     color: black;
     font-size: 12px;
