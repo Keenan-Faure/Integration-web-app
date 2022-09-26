@@ -14,7 +14,7 @@
         <br>
         <div class="errors" id="push"><p class="align">Add Conditions for push</p></div>
         <br>
-        <form>
+        <form action="addCondition.php" method="post">
             <div class="conditions">
             <p style="color:black">Add conditions below</p>
             <select class='condition-select' name="dataValue">
@@ -24,14 +24,14 @@
                 <option value="price">Selling Price</option>
                 <option value="qty">Quantity</option>
             </select>
-            <select class='condition-select' name="dataValue">
+            <select class='condition-select' name="condition">
                 <option value="equal">=</option>
                 <option value="moreThan">></option>
                 <option value="lessThan"><</option>
                 <option value="moreThanE">>=</option>
                 <option value="lessThanE"><=</option>
             </select>
-            <input type="text" placeholder='Value' class="condition-select">
+            <input type="text" name='value' autocomplete="off" placeholder='value' class="condition-select">
             <input class='conditionSubmit' type="submit">
             </div>
         </form>
