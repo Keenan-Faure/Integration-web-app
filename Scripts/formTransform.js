@@ -13,6 +13,13 @@ $(document).ready(()=>
 
         //gets the active;
         let active = document.querySelector('.act');
-        active.value = 'ABO';
+        if(active.checked == true)
+        {
+            active.value = 'true';
+        }
+        else
+        {
+            active.value = 'false'
+        }
     });
 });

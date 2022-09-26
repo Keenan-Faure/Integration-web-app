@@ -103,7 +103,7 @@ function setText(classNames, text, formNames, type)
         else if (text[i][0] == 'Active')
         {
             
-            document.querySelector('.' + classNames[i]).value = text[i][1];
+            document.querySelector('.' + classNames[i]).value;
             if(text[i][1] == 'true')
             {
                 document.querySelector('.' + classNames[i]).checked = true;

@@ -42,8 +42,10 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
             }
             else if(!isset($_POST['name']) && isset($_POST['sku']))
             {
-                print_r($_POST);
-                exit();
+                if(!isset($_POST['active']))
+                {
+                    $_POST['active'] = 'false';
+                }
                 if(($_POST['optionName'] != null && $_POST['optionValue'] != null) && ($_POST['optionName'] != 'null' && $_POST['optionValue'] != 'null'))
                 {
                     //variable product
