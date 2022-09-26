@@ -38,11 +38,16 @@ if($_SESSION['connection']->active == true)
     {
         $connection = new connect();
         $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+        
         //creates query
-
-        
-        
-        $query = "SELECT * FROM Inventory";
+        //filters the query with conditions from the conditions table
+        $queryCondition = "SELECT * FROM Conditions";
+        $output = $connection->converterObject($rawConnection, $queryCondition);
+        if(sizeof($output->result) == 0)
+        {
+            $query = "SELECT * FROM Inventory";
+        }
+        $query = $curl->createQuery($output);
 
         $output = $connection->converterObject($rawConnection, $query);
         if(sizeof($output->result) == 0)
