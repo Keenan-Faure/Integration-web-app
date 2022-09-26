@@ -125,13 +125,14 @@ Class CURL
         $duplicateValues = array();
         $query = "SELECT * FROM Inventory WHERE ";
         $condition = $conditions->result;
+        $additional = '';
+        $Clause = '';
         if(sizeof($condition) == 0)
         {
             return "SELECT * FROM Inventory";
         }
         else
         {
-            $Clause = '';
             $conditionIndex = 0;
             for($i = 0; $i < sizeof($condition); ++$i)
             {
@@ -151,7 +152,6 @@ Class CURL
             //Then it adds the query: duplicate in ('duplicatevalue[0]', 'duplicatevalue[1]');
             for($j = 0; $j < sizeof($duplicates); ++$j)
             {
-                $additional = '';
                 if($j > 0)
                 {
                     $additional = $additional . ' && ';

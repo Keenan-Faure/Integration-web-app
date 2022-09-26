@@ -10,5 +10,9 @@ $(document).ready(()=>
             text = text + Nodes[i].outerHTML;
         }
         description.value = text;
+
+        //gets the active;
+        let active = document.querySelector('.act');
+        active.value = 'ABO';
     });
 });
