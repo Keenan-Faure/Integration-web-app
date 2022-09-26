@@ -106,6 +106,7 @@ if(isset($_SESSION['rawconnection']) && isset($_SESSION['connection']))
     {
         $counter = false;
         $cust = false;
+        $cond = false;
         $knownDbs = array('information_schema','sys', 'mysql', 'performance_schema', 'phpmyadmin', 'test');
         $connection = new connect();
 
@@ -129,6 +130,10 @@ if(isset($_SESSION['rawconnection']) && isset($_SESSION['connection']))
                 if(!in_array("client", $output2))
                 {
                     $cust = true;
+                }
+                if(!in_array("conditions", $output2))
+                {
+                    $cond = true;
                 }
             }
         }
@@ -188,7 +193,21 @@ if(isset($_SESSION['rawconnection']) && isset($_SESSION['connection']))
         $output = $connection2->converterObject($rawConnection, $query4);
         $cust = false;
         }
+        if($cond)
+        {
+            echo('<div class="errors"><p class="align">Conditions table created</p></div>');
+            $query4 = " CREATE TABLE Conditions(
+
+                Token int AUTO_INCREMENT primary key NOT NULL,
+                DataValue varchar(10),
+                Conditions varchar(2),
+                Value varchar(20)
+            );
+            ";
         
+        $output = $connection2->converterObject($rawConnection, $query4);
+        $cond = false;
+        }
     }
     echo('</div>');
     }

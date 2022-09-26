@@ -39,6 +39,8 @@ if($_SESSION['connection']->active == true)
         $connection = new connect();
         $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
         //creates query
+
+        
         
         $query = "SELECT * FROM Inventory";
 
