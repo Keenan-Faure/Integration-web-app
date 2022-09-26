@@ -12,14 +12,6 @@
         $query = 'show DATABASES';
 
     }
-    else
-    {
-        if(!isset($_SESSION['credentials']))
-        {
-            echo('<script>console.log("No connection to MySql detected");</script>');
-        }
-    }
-    
 ?>
 <html>
     <head>
