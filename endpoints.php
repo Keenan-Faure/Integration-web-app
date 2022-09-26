@@ -106,6 +106,7 @@ if(isset($_SESSION['rawconnection']) && isset($_SESSION['connection']))
     {
         $counter = false;
         $cust = false;
+        $cond = false;
         $knownDbs = array('information_schema','sys', 'mysql', 'performance_schema', 'phpmyadmin', 'test');
         $connection = new connect();
 
@@ -121,6 +122,10 @@ if(isset($_SESSION['rawconnection']) && isset($_SESSION['connection']))
                 for($i = 0; $i < sizeof($output2); ++$i)
                 {
                     $output2[$i] = strtolower($output2[$i]);
+                }
+                if(!in_array("conditions", $output2))
+                {
+                    $cond = true;
                 }
                 if(!in_array("inventory", $output2))
                 {
@@ -170,7 +175,7 @@ if(isset($_SESSION['rawconnection']) && isset($_SESSION['connection']))
         if($cust)
         {
             echo('<div class="errors"><p class="align">Client table created</p></div>');
-            $query4 = " CREATE TABLE Client(
+            $query3 = " CREATE TABLE Client(
 
                 Token int AUTO_INCREMENT primary key NOT NULL,
                 Active varchar(6),
@@ -182,11 +187,25 @@ if(isset($_SESSION['rawconnection']) && isset($_SESSION['connection']))
                 Address_2 varchar(255),
                 Address_3 varchar(255),
                 Address_4 varchar(255)
+                );
+            ";
+        
+            $output = $connection2->converterObject($rawConnection, $query3);
+            $cust = false;
+        }
+        if($cond)
+        {
+            echo('<div class="errors"><p class="align">Conditions table created</p></div>');
+            $query3 = " CREATE TABLE Conditions (
+                Token int AUTO_INCREMENT primary key NOT NULL,
+                DataValue varchar(10),
+                Statement varchar(2),
+                Value varchar(30)
             );
             ";
         
-        $output = $connection2->converterObject($rawConnection, $query4);
-        $cust = false;
+            $output = $connection2->converterObject($rawConnection, $query3);
+            $cond = false;
         }
         
     }
