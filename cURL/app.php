@@ -1,3 +1,16 @@
+<?php
+
+    session_start();
+    include("../createConnection.php");
+    use Connection\Connection as connect;
+
+    $connect = new connect();
+    $credentials = $_SESSION['connection']->credentials;
+    $connection = $connect->createConnection($credentials->username, $credentials->password, $credentials->host, $credentials->dbname)->rawValue;
+    $query = 'SELECT * FROM Conditions';
+    $output = $connect->converterObject($connection, $query);
+    //displays the conditions found in Conditions
+?>
 <html>
     <head>
         <link rel="icon" type="image/x-icon" href="Images/logo.png"/>
@@ -12,29 +25,62 @@
         <br>
         <div class="errors"><p class="align">Hover for more information</p></div>
         <br>
-        <div class="errors" id="push"><p class="align">Add Conditions for push</p></div>
+        <div class="errors" id="push"><p class="align">Configure Conditions for push</p></div>
         <br>
-        <form action="addCondition.php" method="post">
+        <form method="post" action="addCondition.php">
             <div class="conditions">
             <p style="color:black">Add conditions below</p>
             <select class='condition-select' name="dataValue">
-                <option value="active">Active</option>
-                <option value="vendor">Brand</option>
-                <option value="productType">Product Type</option>
-                <option value="price">Selling Price</option>
-                <option value="qty">Quantity</option>
+                <option value="Active">Active</option>
+                <option value="Brand">Brand</option>
+                <option value="Product_Type">Product Type</option>
+                <option value="SellingPrice">Selling Price</option>
+                <option value="CapeTown_Warehouse">Quantity</option>
             </select>
             <select class='condition-select' name="condition">
-                <option value="equal">=</option>
-                <option value="moreThan">></option>
-                <option value="lessThan"><</option>
-                <option value="moreThanE">>=</option>
-                <option value="lessThanE"><=</option>
+                <option value="=">=</option>
+                <option value=">">></option>
+                <option value="<"><</option>
+                <option value=">=">>=</option>
+                <option value="<=>"><=</option>
             </select>
-            <input type="text" name='value' autocomplete="off" placeholder='value' class="condition-select">
+            <input type="text" name='value' placeholder='Value' class="condition-select">
             <input class='conditionSubmit' type="submit">
             </div>
         </form>
+        <br>
+        <form method="post" action="addCondition.php">
+            <div class="conditions">
+            <p style="color:black">Remove Condition</p>
+            <select class='condition-select' name="dataValueRemove">
+                <option value="Active">Active</option>
+                <option value="Brand">Brand</option>
+                <option value="Product_Type">Product Type</option>
+                <option value="SellingPrice">Selling Price</option>
+                <option value="CapeTown_Warehouse">Quantity</option>
+            </select>
+            <select class='condition-select' name="conditionRemove">
+                <option value="=">=</option>
+                <option value=">">></option>
+                <option value="<"><</option>
+                <option value=">=">>=</option>
+                <option value="<=>"><=</option>
+            </select>
+            <input type="text" name='valueRemove' placeholder='Value' class="condition-select">
+            <input class='conditionSubmit' type="submit">
+            </div>
+        </form>
+    </div>
+    <div class='conditionTable'>
+        <h1 class='header'>Conditions</h1>
+        <?php
+            for($i = 0; $i < sizeof($output->result); ++$i)
+            {
+                $iteration = $output->result[$i];
+                echo("<div class='condition'><p class='align'>$iteration->DataValue $iteration->Conditions $iteration->Value</p></div>");
+                echo("<br>");
+            }
+        ?>
     </div>
     <div class="navBar">
                 <div class="overlay">
@@ -83,7 +129,7 @@
             <form action="execute.php" method='post' target='_blank'>
                 <div class="containerText">Username</div>
                 <div class="line"></div>
-                <input type='text' class = 'appTitle' autocomplete="on" name='username' title='Stock2Shop valid username' required>
+                <input type='text' class = 'appTitle' name='username' title='Stock2Shop valid username' required>
                 
                 <div class="containerText">Password</div>
                 <div class="line"></div>

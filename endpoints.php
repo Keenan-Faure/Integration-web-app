@@ -24,7 +24,7 @@
             <h1>Available Endpoints</h1>
             <div class='line'></div>
             <img src='./Images/custom.png' title = "Query custom Sql" class='custom'>
-            <a title = "Push Products" href='cURL/app.html' class='s2s'></a>
+            <a title = "Push Products" href='cURL/app.php' class='s2s'></a>
             <div class='container' id='container-1'>
                 <h2 class='h2-hidden'>General</h2>
                 <div class='line' id='line-1'></div>
