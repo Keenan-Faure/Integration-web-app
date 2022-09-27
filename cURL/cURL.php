@@ -275,7 +275,7 @@ Class CURL
         if($product->ComparePrice != null)
         {
             $priceTier = new \stdClass();
-            $priceTier->tier = 'Cost Price';
+            $priceTier->tier = 'Compare To Price';
             $priceTier->price = $product->ComparePrice;
             array_push($price, $priceTier);
         }

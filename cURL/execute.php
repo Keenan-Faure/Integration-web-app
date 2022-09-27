@@ -54,7 +54,7 @@ if($_SESSION['connection']->active == true)
         {
             $variable = new \stdClass();
             $variable->return = false;
-            $variable->error = "No products found in Database > Inventory table";
+            $variable->error = "No products found in Database > Inventory table. Check conditions and try again";
             $variable->message = "Cannot push null in Inventory table";
             echo(json_encode($variable));
             exit();
