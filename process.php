@@ -48,14 +48,14 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
                     if(isset($result->return))
                     {
                         echo(json_encode($result));
-                        header('Refresh:2,url=endpoints.php');
+                        header('Refresh:2,url=productList.php');
                         unset($_POST);
                         exit();
                     }
                     $result = $product->addProduct($result, $connection);
                     echo(json_encode($result));
                     unset($_POST);
-                    header('Refresh:2,url=endpoints.php');
+                    header('Refresh:2,url=productList.php');
                 }
                 else
                 {
@@ -65,14 +65,14 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
                     if(isset($result->return))
                     {
                         echo(json_encode($result));
-                        header('Refresh:2,url=endpoints.php');
+                        header('Refresh:2,url=productList.php');
                         unset($_POST);
                         exit();
                     }
                     $result = $product->addProduct($result, $connection);
                     echo(json_encode($result));
                     unset($_POST);
-                    header('Refresh:2,url=endpoints.php');
+                    header('Refresh:2,url=productList.php');
                 }
             }
             else
