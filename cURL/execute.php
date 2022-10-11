@@ -50,7 +50,7 @@ if($_SESSION['connection']->active == true)
         $query = $curl->createQuery($output);
 
         $output = $connection->converterObject($rawConnection, $query);
-        if(sizeof($output->result) == 0)
+        if(!isset($output->result))
         {
             $variable = new \stdClass();
             $variable->return = false;

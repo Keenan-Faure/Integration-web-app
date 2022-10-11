@@ -227,7 +227,6 @@ Class sProducts
             
         WHERE SKU = '$product->sku'"
         ;
-
         $output = $connection->converterObject($rawConnection, $query);
         $result = new \stdClass();
         $result->data = $product;
