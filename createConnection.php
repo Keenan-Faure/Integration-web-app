@@ -167,7 +167,7 @@ class Connection
                         {
                             if(isset($row->Description))
                             {
-                                $var = htmlspecialchars($row->Description);
+                                $var = htmlspecialchars(stripslashes($row->Description));
                                 $row->Description = $var;
                             }
                             $array = $row;
