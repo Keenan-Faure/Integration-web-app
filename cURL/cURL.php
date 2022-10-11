@@ -142,11 +142,11 @@ Class CURL
                     $conditionIndex = $conditionIndex + 1;
                     continue;
                 }
-                if($i > 0)
+                if(($i - $conditionIndex) > 0)
                 {
                     $Clause = $Clause . ' && ';
                 }
-                $Clause = $Clause . $condition[$i]->DataValue . $condition[$i]->Conditions . "'" . $condition[$i]->Value . "'"; 
+                $Clause = $condition[$i]->DataValue . $condition[$i]->Conditions . "'" . $condition[$i]->Value . "'"; 
             }
             //When the above is done
             //Then it adds the query: duplicate in ('duplicatevalue[0]', 'duplicatevalue[1]');
@@ -210,7 +210,7 @@ Class CURL
             $Product->source->fetch_token = 0;
             $Product->product = new \stdClass();
             $Product->product->options = $this->addOptions($product);
-            $Product->product->body_html = htmlspecialchars_decode($product->Description); //decodes it 
+            $Product->product->body_html = htmlspecialchars_decode(stripslashes($product->Description)); //decodes it 
             $Product->product->collection = $product->Category;
             $Product->product->product_type = $product->Product_Type;
             $Product->product->tags = null;
