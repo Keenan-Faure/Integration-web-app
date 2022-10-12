@@ -118,7 +118,30 @@ class Connection
 
         return $serverConnection;
     }
-    
+    //function for pagination
+    //1.) Gets the total number of products in the Database
+    //2.) Divided it by 10 (10 products per page) 
+    //3.) Then returns that number which will be used
+    //    To create the amount of <a> tags
+    //type can be 'Inventory' or 'Client'
+    function pagination($rawConnection, $type)
+    {
+        $query = "SELECT COUNT(*) AS total FROM " . $type;
+        $result = $this->converterObject($rawConnection, $query);
+        if($result->result[0]->total < 11)
+        {
+            return 1;
+        }
+        else
+        {
+            $amount = $result->result[0]->total;
+            $pages = $amount / 10;
+            return round($pages);
+        }
+    }
+
+    //uses pagination function to 
+
     //converts mysqli object to php object
     function converterObject($rawConnection, $query, $parameter=null)
     {
@@ -135,7 +158,7 @@ class Connection
                 $variable = new \stdClass();
                 $variable->return = false;
                 $variable->raw_query = $query;
-                $variable->message = "Not allowed via Custom Query, contact Admin!";
+                $variable->message = "Not allowed via Custom Query";
 
                 return $variable;
             }
@@ -167,7 +190,7 @@ class Connection
                         {
                             if(isset($row->Description))
                             {
-                                $var = htmlspecialchars(stripslashes($row->Description));
+                                $var = htmlspecialchars(stripslashes(str_replace('"', "'", $row->Description)));
                                 $row->Description = $var;
                             }
                             $array = $row;

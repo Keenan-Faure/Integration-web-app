@@ -22,7 +22,30 @@ h1:hover
 {
     border-bottom: 1px solid red;
 }
+/* Pagination */
+.pagination 
+{
+    display: inline-block;
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.7);
+    top: 140px;
+    border-radius: 5px;
+    left: 35%;
+    transform: translate(0px, -50%);
+    transition-duration: 0.4s;
+}
 
+.pagination a 
+{
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+.pagination a:hover
+{
+    background-color: rgba(255, 255, 255, 0.9);
+}
 /* Navigation Bar */
 .navBar
 {
@@ -124,7 +147,7 @@ h1:hover
 /* Content */
 .containerNew
 {
-    position: absolute;
+    position: relative;
     opacity: 0;
     background-color: rgba(255,255,255,0.9);
     left: 50%;

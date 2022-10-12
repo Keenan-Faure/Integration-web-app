@@ -136,7 +136,7 @@ Class sProducts
             'Simple',
             'true','" .
             $product->title . "','" .
-            addslashes($product->description) . "','" .
+            addslashes(str_replace('"', "", $product->description)) . "','" .
             $product->category . "','" .
             $product->productType . "','" .
             $product->brand . "','" .
@@ -209,7 +209,7 @@ Class sProducts
             Type = 'Simple',
             Active = '$product->active',
             Title = '$product->title',
-            Description = '" . addslashes($product->description) . "',
+            Description = '" . addslashes(str_replace('"', "", $product->description)) . "',
             Category = '$product->category',
             Product_Type = '$product->productType',
             Brand = '$product->brand',

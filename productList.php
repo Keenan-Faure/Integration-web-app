@@ -81,6 +81,25 @@
                     <form method='post' action='productView.php' id='productForm'>
                     </form>
                 </div>
+                <div class='pagination'>
+                    <?php
+                        //create the <a> tags using php - first check if the value returned is defined
+
+                        //calculate the number of page numbers
+                        $output = $connection2->pagination($rawConnection, "Inventory");
+                    ?>
+                <!--
+                </div>
+                    <a href="#">&laquo;</a>
+                    <a href="#">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">4</a>
+                    <a href="#">5</a>
+                    <a href="#">6</a>
+                    <a href="#">&raquo;</a>
+                </div>
+                -->
             </div>
     </body>
 </html>
