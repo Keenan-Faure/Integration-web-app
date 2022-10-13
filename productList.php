@@ -2,7 +2,6 @@
     session_start(); 
     include("createConnection.php");
     use Connection\Connection as connect;
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -51,7 +50,7 @@
                     <button class="dropDownBtn">Products</button>
                         <div class="dropDownContent">
                             <a href="addItem.html">Add Product</a>
-                            <a href="productList.php">View all products</a>
+                            <a href="productList.php?page=1">View all products</a>
                             <a href="importUtils/import.html">Import Products</a>
                             <a href="importUtils/productExport.php">Export Products</a>
                         </div>
@@ -76,30 +75,29 @@
                         <div class="category">collection</div>
                         <div class="vendor">Vendor</div>
                     </div>
-                    
                     <hr>
                     <form method='post' action='productView.php' id='productForm'>
                     </form>
                 </div>
-                <div class='pagination'>
-                    <?php
-                        //create the <a> tags using php - first check if the value returned is defined
-
-                        //calculate the number of page numbers
-                        $output = $connection2->pagination($rawConnection, "Inventory");
-                    ?>
-                <!--
+                <div class="bottom">
+                    <div class='pagination'></div>
                 </div>
-                    <a href="#">&laquo;</a>
-                    <a href="#">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <a href="#">6</a>
-                    <a href="#">&raquo;</a>
-                </div>
-                -->
             </div>
+            <?php
+
+                $host = "http://" . $_SERVER['HTTP_HOST']; //needs to be defined
+                $url = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
+                $url = $host . $url;
+                //create the <a> tags using php - first check if the value returned is defined
+                //calculate the number of page numbers
+                $_SESSION['pagination'] = $connection2->pagination($rawConnection, "Inventory");
+
+                if(isset($_SESSION['pagination']))
+                {
+                    //SELECT * FROM Inventory LIMIT [$number], $number+10;
+                    $number = $_SESSION['pagination'];
+                    echo("<script>createPagination($number, '$url')</script>");
+                }
+            ?>
     </body>
 </html>

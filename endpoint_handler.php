@@ -45,7 +45,7 @@
             }
             if(isset($_POST['productList']))
             {
-                header('Refresh:0, url=productList.php');
+                header('Refresh:0, url=productList.php?page=1');
                 unset($_POST['productList']);
                 exit();
             }

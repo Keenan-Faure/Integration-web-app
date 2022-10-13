@@ -48,14 +48,14 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
                     if(isset($result->return))
                     {
                         echo(json_encode($result));
-                        header('Refresh:2,url=productList.php');
+                        header('Refresh:2,url=productList.php?page=1');
                         unset($_POST);
                         exit();
                     }
                     $result = $product->addProduct($result, $connection);
                     echo(json_encode($result));
                     unset($_POST);
-                    header('Refresh:2,url=productList.php');
+                    header('Refresh:2,url=productList.php?page=1');
                 }
                 else
                 {
@@ -65,14 +65,14 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
                     if(isset($result->return))
                     {
                         echo(json_encode($result));
-                        header('Refresh:2,url=productList.php');
+                        header('Refresh:2,url=productList.php?page=1');
                         unset($_POST);
                         exit();
                     }
                     $result = $product->addProduct($result, $connection);
                     echo(json_encode($result));
                     unset($_POST);
-                    header('Refresh:2,url=productList.php');
+                    header('Refresh:2,url=productList.php?page=1');
                 }
             }
             else
@@ -85,7 +85,7 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
 
                 echo(json_encode($variable));
                 array_push($_SESSION['log'], $variable);
-                header('Refresh:2,url=productList.php');
+                header('Refresh:2,url=productList.php?page=1');
             }
         }
         else

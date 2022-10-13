@@ -107,7 +107,7 @@
                         <button class="dropDownBtn">Products</button>
                             <div class="dropDownContent">
                                 <a href="../addItem.html">Add Product</a>
-                                <a href="../productList.php">View all products</a>
+                                <a href="../productList.php?page=1">View all products</a>
                                 <a href="../importUtils/import.html">Import Products</a>
                                 <a href="../importUtils/productExport.php">Export Products</a>
                             </div>

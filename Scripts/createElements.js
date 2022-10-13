@@ -2,7 +2,7 @@ $(document).ready(()=>
 {
     $('.close').click(()=>
     {
-        window.location.href = "productList.php";
+        window.location.href = "productList.php?page=1";
     });
 });
 
@@ -218,4 +218,43 @@ function createProducts(products)
             form.appendChild(lineItem);
         }
     }
+}
+
+//creates the pagination containers
+//using the amount returned from the php function
+function createPagination(number, url)
+{
+    // <div class='pagination'>
+    //     <a href="#">&laquo;</a>
+    //     <a href="#">1</a>
+    //     <a href="#">2</a>
+    //     <a href="#">3</a>
+    //     <a href="#">4</a>
+    //     <a href="#">5</a>
+    //     <a href="#">6</a>
+    //     <a href="#">&raquo;</a>
+    // </div>
+    let pagination = document.querySelector('.pagination')
+
+    //creates the back button
+    let back = document.createElement('a');
+    let backText = document.createTextNode('«');
+    back.appendChild(backText);
+    pagination.appendChild(back);
+
+    for(let i = 0; i < number; ++i)
+    {
+        let page = document.createElement('a');
+        let pageText = document.createTextNode(i+1);
+        page.appendChild(pageText);
+        page.href= url + "?page=" + (i+1);
+        pagination.appendChild(page);
+    }
+
+    //creates the front button
+    let front = document.createElement('a');
+    let frontText = document.createTextNode('»');
+    front.appendChild(frontText);
+    pagination.appendChild(front);
+
 }
