@@ -21,7 +21,7 @@
             $host = "http://" . $_SERVER['HTTP_HOST']; //needs to be defined
             $fullUrl = $_SERVER["REQUEST_URI"];
             $fullUrl = $host . $fullUrl;
-            $page = $connection2->queryParams($fullUrl);
+            $page = ($connection2->queryParams($fullUrl))['page'];
 
             //Queries the param found in the URL
             $query2 = 'SELECT * FROM Inventory LIMIT ' . ($page * 10) . ', ' . ($page * 10) +10;
