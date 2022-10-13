@@ -140,7 +140,30 @@ class Connection
         }
     }
 
-    //uses pagination function to 
+    //returns the query params as a php array
+    //using the URL provided
+    //has to be entire URL
+    function queryParams($url)
+    {
+        $partitions = parse_url($url);
+        if(isset($partitions['query']))
+        {
+            $queryParams = array();
+            $query = parse_str($partitions['query'], $queryParams);
+            if(isset($queryParams['page']))
+            {
+                return $queryParams['page'];
+            }
+            else
+            {
+                return 1;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
 
     //converts mysqli object to php object
     function converterObject($rawConnection, $query, $parameter=null)

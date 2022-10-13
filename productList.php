@@ -16,7 +16,15 @@
         {
             $connection2 = new connect();
             $rawConnection = $connection2->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
-            $query2 = 'SELECT * FROM Inventory';
+            
+            //gets the url
+            $host = "http://" . $_SERVER['HTTP_HOST']; //needs to be defined
+            $fullUrl = $_SERVER["REQUEST_URI"];
+            $fullUrl = $host . $fullUrl;
+            $page = $connection2->queryParams($fullUrl);
+
+            //Queries the param found in the URL
+            $query2 = 'SELECT * FROM Inventory LIMIT ' . ($page * 10) . ', ' . ($page * 10) +10;
             $output2 = $connection2->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
             $result = json_encode($output2->result);
             echo("<script>initiatorCreateProducts($result);</script>");
@@ -84,11 +92,7 @@
                 </div>
             </div>
             <?php
-
-                $host = "http://" . $_SERVER['HTTP_HOST']; //needs to be defined
-                $url = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
-                $url = $host . $url;
-                //create the <a> tags using php - first check if the value returned is defined
+                //create the <a> tags using php
                 //calculate the number of page numbers
                 $_SESSION['pagination'] = $connection2->pagination($rawConnection, "Inventory");
 
@@ -96,6 +100,7 @@
                 {
                     //SELECT * FROM Inventory LIMIT [$number], $number+10;
                     $number = $_SESSION['pagination'];
+                    $url = $host . parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
                     echo("<script>createPagination($number, '$url')</script>");
                 }
             ?>
