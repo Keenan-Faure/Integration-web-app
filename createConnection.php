@@ -152,7 +152,7 @@ class Connection
             $query = parse_str($partitions['query'], $queryParams);
             if(isset($queryParams['page']))
             {
-                return $queryParams['page'];
+                return $queryParams;
             }
             else
             {
