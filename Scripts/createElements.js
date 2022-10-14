@@ -222,7 +222,7 @@ function createProducts(products)
 
 //creates the pagination containers
 //using the amount returned from the php function
-function createPagination(number, url)
+function createPagination(number, url, pageNumber)
 {
     // <div class='pagination'>
     //     <a href="#">&laquo;</a>
@@ -238,7 +238,15 @@ function createPagination(number, url)
 
     //creates the back button
     let back = document.createElement('a');
+    back.href= url + "?page=" + (pageNumber-1);
     let backText = document.createTextNode('«');
+
+    //makes the back button inactive if first page
+    if(pageNumber == 1)
+    {
+        back.className = 'inactiveLink';
+    }
+
     back.appendChild(backText);
     pagination.appendChild(back);
 
@@ -253,7 +261,15 @@ function createPagination(number, url)
 
     //creates the front button
     let front = document.createElement('a');
+    front.href= url + "?page=" + (pageNumber+1);
     let frontText = document.createTextNode('»');
+
+    //makes the a tag inactive if the last page
+    if(pageNumber == number)
+    {
+        front.className = 'inactiveLink';
+    }
+    
     front.appendChild(frontText);
     pagination.appendChild(front);
 

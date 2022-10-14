@@ -25,7 +25,6 @@
 
             //Queries the param found in the URL
             $query2 = 'SELECT * FROM Inventory LIMIT ' . ($page * 10) . ', ' . (10);
-            print_r($query2);
             $output2 = $connection2->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
             $result = json_encode($output2->result);
             echo("<script>initiatorCreateProducts($result);</script>");
@@ -102,7 +101,7 @@
                     //SELECT * FROM Inventory LIMIT [$number], $number+10;
                     $number = $_SESSION['pagination'];
                     $url = $host . parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
-                    echo("<script>createPagination($number, '$url')</script>");
+                    echo("<script>createPagination($number, '$url', $page)</script>");
                 }
             ?>
     </body>
