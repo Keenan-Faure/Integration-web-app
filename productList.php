@@ -24,7 +24,8 @@
             $page = ($connection2->queryParams($fullUrl))['page'];
 
             //Queries the param found in the URL
-            $query2 = 'SELECT * FROM Inventory LIMIT ' . ($page * 10) . ', ' . ($page * 10) +10;
+            $query2 = 'SELECT * FROM Inventory LIMIT ' . ($page * 10) . ', ' . (10);
+            print_r($query2);
             $output2 = $connection2->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
             $result = json_encode($output2->result);
             echo("<script>initiatorCreateProducts($result);</script>");
