@@ -36,7 +36,7 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
                     }
                     $result = $customer->updateCustomer($result, $util, $connection);
                     echo(json_encode($result));
-                    header('Refresh:2, url=editCustomer.php');
+                    header('Refresh:2, url=customerList.php?page=1');
                     unset($_POST);
                 }
             }
