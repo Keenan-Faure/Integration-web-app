@@ -98,14 +98,14 @@
                     if(isset($url[5]))
                     {
                         $segment = $url[4];
-                        echo(json_encode($variable->{$segment}($url[5], $rawConnection, $connection)));
+                        echo(json_encode($variable->{$segment}($rawConnection, $connection, $url[5])));
                     }
                     
                     //gets a batch
                     else
                     {
                         $segment = $url[4];
-                        echo(json_encode($variable->{$segment}(null, $rawConnection, $connection)));
+                        echo(json_encode($variable->{$segment}($rawConnection, $connection, null)));
                     }
                 }
             }

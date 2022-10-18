@@ -4,6 +4,8 @@ namespace controller;
 
 class Controller
 {
+    private $url = '/API/v1.php';
+
     function __call($method, $args)
     {
         //wont use any of the parameter defined in $method, $args
@@ -22,44 +24,43 @@ class Controller
         {
             $variable = new \stdClass();
             $variable->result = true;
-            $variable->url = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+            $variable->url = "http://" . $_SERVER['HTTP_HOST'] . $this->baseUrl();
             $variable->description = 'MySql API';
             $variable->version = 'v1.0.1';
             $variable->accepted_headers = ['GET', 'POST'];
             
             $variable->routes = new \stdClass();
-
             //product endpoints
             $variable->routes->products = new \stdClass();
             $variable->routes->products->getProductBySKU = new \stdClass();
-            $variable->routes->products->getProductBySKU->endpoint = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/products/<sku>";
+            $variable->routes->products->getProductBySKU->endpoint = "http://" . $_SERVER['HTTP_HOST'] . $this->baseUrl() . "/products/<sku>";
             $variable->routes->products->getProductBySKU->accepts_data = true;
 
             $variable->routes->products->getProducts = new \stdClass();
-            $variable->routes->products->getProducts->endpoint = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/products";
+            $variable->routes->products->getProducts->endpoint = "http://" . $_SERVER['HTTP_HOST'] . $this->baseUrl() . "/products";
             $variable->routes->products->getProducts->accepts_data = false;
 
             $variable->routes->products->countProducts = new \stdClass();
-            $variable->routes->products->countProducts->endpoint = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/products/count";
+            $variable->routes->products->countProducts->endpoint = "http://" . $_SERVER['HTTP_HOST'] . $this->baseUrl() . "/products/count";
             $variable->routes->products->countProducts->accepts_data = false;
             //$variable->routes->products->addProduct
 
             //customer endpoints
             $variable->routes->customers = new \stdClass();
             $variable->routes->customers->getCustomerById = new \stdClass();
-            $variable->routes->customers->getCustomerById->endpoint = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/customers/<id>";
+            $variable->routes->customers->getCustomerById->endpoint = "http://" . $_SERVER['HTTP_HOST'] . $this->baseUrl() . "/customers/<id>";
             $variable->routes->customers->getCustomerById->accepts_data = true;
 
             $variable->routes->customers->countCustomers = new \stdClass();
-            $variable->routes->customers->countCustomers->endpoint = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/customers/count";
+            $variable->routes->customers->countCustomers->endpoint = "http://" . $_SERVER['HTTP_HOST'] . $this->baseUrl() . "/customers/count";
             $variable->routes->customers->countCustomers->accepts_data = false;
 
             $variable->routes->utility = new \stdClass();
-            $variable->routes->utility->checkConnection = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/checkConnection";
-            $variable->routes->utility->checkSN = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/checkSN";
-            $variable->routes->utility->checkTables = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/checkTables";
-            $variable->routes->utility->checkDatabases = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/checkDatabases";
-            $variable->routes->utility->log = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/log";
+            $variable->routes->utility->checkConnection = "http://" . $_SERVER['HTTP_HOST'] . $this->baseUrl() . "/checkConnection";
+            $variable->routes->utility->checkSN = "http://" . $_SERVER['HTTP_HOST'] . $this->baseUrl() . "/checkSN";
+            $variable->routes->utility->checkTables = "http://" . $_SERVER['HTTP_HOST'] . $this->baseUrl() . "/checkTables";
+            $variable->routes->utility->checkDatabases = "http://" . $_SERVER['HTTP_HOST'] . $this->baseUrl() . "/checkDatabases";
+            $variable->routes->utility->log = "http://" . $_SERVER['HTTP_HOST'] . $this->baseUrl() . "/log";
             $variable->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
 
             return $variable;
@@ -67,7 +68,7 @@ class Controller
     }
 
     //handles products endpoints
-    function products($segment = null, $rawConnection, $connection)
+    function products($rawConnection, $connection, $segment = null)
     {
 
         if($_SESSION['apicredentials']->active === true)
@@ -104,7 +105,7 @@ class Controller
     }
 
     //handles the customer endpoints
-    function customers($segment = null, $rawConnection, $connection)
+    function customers($rawConnection, $connection, $segment = null)
     {
         if($_SESSION['apicredentials']->active === true)
         {
@@ -140,7 +141,7 @@ class Controller
         
     }
 
-    function utility($segment = null, $rawConnection, $connection)
+    function utility($rawConnection, $connection, $segment = null)
     {
         if($_SESSION['apicredentials']->active === true)
         {
@@ -187,16 +188,16 @@ class Controller
             else
             {
                 $variable = new \stdClass();
-                $variable->url = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+                $variable->url = "http://" . $_SERVER['HTTP_HOST'] . $this->baseUrl();
                 $variable->description = 'MySql API';
                 $variable->version = 'v1.0.1';
                 $variable->result = true;
                 $variable->routes = new \stdClass();
                 $variable->routes->utility = new \stdClass();
-                $variable->routes->utility->checkConnection = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/checkConnection";
-                $variable->routes->utility->checkTables = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/checkTables";
-                $variable->routes->utility->checkDatabases = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/checkDatabases";
-                $variable->routes->utility->viewLog = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "/viewLog";
+                $variable->routes->utility->checkConnection = "http://" . $_SERVER['HTTP_HOST'] . $this->baseUrl() . "checkConnection";
+                $variable->routes->utility->checkTables = "http://" . $_SERVER['HTTP_HOST'] . $this->baseUrl() . "checkTables";
+                $variable->routes->utility->checkDatabases = "http://" . $_SERVER['HTTP_HOST'] . $this->baseUrl() . "checkDatabases";
+                $variable->routes->utility->viewLog = "http://" . $_SERVER['HTTP_HOST'] . $this->baseUrl() . "/viewLog";
                 $variable->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
                 return $variable;
             }
@@ -211,6 +212,10 @@ class Controller
             
             return $variable;
         }
+    }
+    function baseUrl()
+    {
+        return $this->url;
     }
 }
 
