@@ -255,6 +255,10 @@ Class pImport
                             }
                             $output->existingProductsUpdated = $output->existingProductsUpdated + 1;
                             $result = $product->updateProduct($result, $util, $connection2);
+                            if(!isset($result->data))
+                            {
+                                array_push($IO_logs, $result);
+                            }
                         }
                         //simple product
                         else
@@ -270,6 +274,10 @@ Class pImport
                             }
                             $output->existingProductsUpdated = $output->existingProductsUpdated + 1;
                             $result = $product->updateProduct($result, $util, $connection2);
+                            if(!isset($result->data))
+                            {
+                                array_push($IO_logs, $result);
+                            }
                         }
 
                     }

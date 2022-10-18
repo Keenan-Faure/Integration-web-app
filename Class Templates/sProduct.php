@@ -182,7 +182,7 @@ Class sProducts
         {
             return $util->existVariantCodee($product, $rawConnection, $connection);
         }
-        if($product->active != 'true' && $product->active != 'false')
+        if(strtolower($product->active) != 'true' && strtolower($product->active) != 'false')
         {
             $variable = new \stdClass();
             $variable->result = false;
