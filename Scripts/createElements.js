@@ -6,9 +6,96 @@ $(document).ready(()=>
     });
 });
 
-//Run-format of the functions
-//getClassNames -> convertJsonToArray -> setText (Filters) -> applyText
+// +----------------------------------------------+
+// | Run-format of the functions (productList.php)|
+// | initiatorCreateProducts -> createProducts -> |
+// | convertJsonToArray                           |
+// +----------------------------------------------+
+function initiatorCreateProducts(products)
+{
+    $(document).ready(()=>
+    {
+        createProducts(products);
+    });
+}
 
+function createProducts(products)
+{
+    /*
+        <button class="lineItems" name='{{SKU}}' value='{{SKU}}'>
+            <div class="imageContainer" id="imageContainertwo" >
+                <img class='image' src="../Images/imageContainer.png">
+            </div>
+            <div class="sku">SKUasdapsdojapsdjkas;ldkaspdja</div>
+            <div class="title">title</div>
+            <div class="category">collection</div>
+            <div class="vendor">Vendor</div>
+        </button>
+    */
+
+    // 1.) Get SKU, Title, Vedor, Category from iteration of product
+    // 2.) Create the DOM Elements
+    // 3.) Append the values to the DOM elements
+    // 4.) Append the DOM elements to the Document
+    let form = document.getElementById('productForm');
+    for(let i = 0; i < products.length; ++i)
+    {
+        //converts to javascriptArray
+        //skips first iteration - headers
+        let returns = convertJsonToArray(products[i]);
+        for(let j = 1; j < 2; ++j)
+        {
+
+            let productSKU = returns[3][j];
+            let productTitle = returns[4][j];
+            let productCategory = returns[7][j];
+            let productVendor = returns[9][j];
+
+
+            let lineItem = document.createElement('button');
+            lineItem.value = productSKU;
+            lineItem.name = productSKU; //set the SKU as the name
+            lineItem.className = 'lineItems';
+
+            let imageContainer = document.createElement('div');
+            imageContainer.className = 'imageContainer';
+            imageContainer.id = 'imageContainertwo';
+
+            let image = document.createElement('img');
+            image.className = 'image';
+            image.src = '../Images/imageContainer.png';
+
+            imageContainer.appendChild(image);
+
+            let sku = document.createElement('div');
+            sku.className = 'sku';
+            let skuText = document.createTextNode(productSKU); //set Text by taking them from the product
+            sku.appendChild(skuText);
+
+            let title = document.createElement('div');
+            title.className = 'title';
+            let titleText = document.createTextNode(productTitle); //set Text by taking them from the product
+            title.appendChild(titleText);
+
+            let category = document.createElement('div');
+            category.className = 'category';
+            let categoryText = document.createTextNode(productCategory); //set Text by taking them from the product
+            category.appendChild(categoryText);
+
+            let vendor = document.createElement('div');
+            vendor.className = 'vendor';
+            let vendorText = document.createTextNode(productVendor); //set Text by taking them from the product
+            vendor.appendChild(vendorText);
+
+            lineItem.appendChild(imageContainer);
+            lineItem.appendChild(sku);
+            lineItem.appendChild(title);
+            lineItem.appendChild(category);
+            lineItem.appendChild(vendor);
+            form.appendChild(lineItem);
+        }
+    }
+}
 
 //id is the id of the element
 //either variant or general
@@ -23,6 +110,11 @@ function convertJsonToArray(texter)
     return result;
 }
 
+// +----------------------------------------------+
+// | Run-format of the functions (productView.php)|
+// | getClassNames -> convertJsonToArray          |
+// | -> setText -> applyText -> setRequired       |
+// +----------------------------------------------+
 function getClassNames(text, type)
 {
     $(document).ready(()=>
@@ -132,94 +224,6 @@ function setText(classNames, text, formNames, type)
     }
 }
 
-//Run-format of the functions 
-// initiatorCreateProducts -> createProducts -> convertJsonToArray
-
-function initiatorCreateProducts(products)
-{
-    $(document).ready(()=>
-    {
-        createProducts(products);
-    });
-}
-function createProducts(products)
-{
-    /*
-        <button class="lineItems" name='{{SKU}}' value='{{SKU}}'>
-            <div class="imageContainer" id="imageContainertwo" >
-                <img class='image' src="../Images/imageContainer.png">
-            </div>
-            <div class="sku">SKUasdapsdojapsdjkas;ldkaspdja</div>
-            <div class="title">title</div>
-            <div class="category">collection</div>
-            <div class="vendor">Vendor</div>
-        </button>
-    */
-
-    // 1.) Get SKU, Title, Vedor, Category from iteration of product
-    // 2.) Create the DOM Elements
-    // 3.) Append the values to the DOM elements
-    // 4.) Append the DOM elements to the Document
-    let form = document.getElementById('productForm');
-    for(let i = 0; i < products.length; ++i)
-    {
-        //converts to javascriptArray
-        //skips first iteration - headers
-        let returns = convertJsonToArray(products[i]);
-        for(let j = 1; j < 2; ++j)
-        {
-
-            let productSKU = returns[3][j];
-            let productTitle = returns[4][j];
-            let productCategory = returns[7][j];
-            let productVendor = returns[9][j];
-
-
-            let lineItem = document.createElement('button');
-            lineItem.value = productSKU;
-            lineItem.name = productSKU; //set the SKU as the name
-            lineItem.className = 'lineItems';
-
-            let imageContainer = document.createElement('div');
-            imageContainer.className = 'imageContainer';
-            imageContainer.id = 'imageContainertwo';
-
-            let image = document.createElement('img');
-            image.className = 'image';
-            image.src = '../Images/imageContainer.png';
-
-            imageContainer.appendChild(image);
-
-            let sku = document.createElement('div');
-            sku.className = 'sku';
-            let skuText = document.createTextNode(productSKU); //set Text by taking them from the product
-            sku.appendChild(skuText);
-
-            let title = document.createElement('div');
-            title.className = 'title';
-            let titleText = document.createTextNode(productTitle); //set Text by taking them from the product
-            title.appendChild(titleText);
-
-            let category = document.createElement('div');
-            category.className = 'category';
-            let categoryText = document.createTextNode(productCategory); //set Text by taking them from the product
-            category.appendChild(categoryText);
-
-            let vendor = document.createElement('div');
-            vendor.className = 'vendor';
-            let vendorText = document.createTextNode(productVendor); //set Text by taking them from the product
-            vendor.appendChild(vendorText);
-
-            lineItem.appendChild(imageContainer);
-            lineItem.appendChild(sku);
-            lineItem.appendChild(title);
-            lineItem.appendChild(category);
-            lineItem.appendChild(vendor);
-            form.appendChild(lineItem);
-        }
-    }
-}
-
 //creates the pagination containers
 //using the amount returned from the php function
 function createPagination(number, url, pageNumber)
@@ -250,7 +254,7 @@ function createPagination(number, url, pageNumber)
     back.appendChild(backText);
     pagination.appendChild(back);
 
-    for(let i = 0; i < number; ++i)
+    for(let i = 0; i < number+1; ++i)
     {
         let page = document.createElement('a');
         let pageText = document.createTextNode(i+1);
@@ -265,7 +269,7 @@ function createPagination(number, url, pageNumber)
     let frontText = document.createTextNode('»');
 
     //makes the a tag inactive if the last page
-    if(pageNumber == number)
+    if((pageNumber-1) == number)
     {
         front.className = 'inactiveLink';
     }
@@ -273,4 +277,199 @@ function createPagination(number, url, pageNumber)
     front.appendChild(frontText);
     pagination.appendChild(front);
 
+}
+
+
+
+// +----------------------------------------------+
+// | Run-format of the functions(customerList.php)|
+// | initiatorCreateProducts -> createProducts -> |
+// | convertJsonToArray                           |
+// +----------------------------------------------+
+function initiatorCreateCustomers(customers)
+{
+    $(document).ready(()=>
+    {
+        createCustomers(customers);
+    });
+}
+
+function createCustomers(customers)
+{
+    /*
+        <button class="lineItems" name='{{id}}' value='{{id}}'>
+            <div class="imageContainer" id="imageContainertwo" >
+                <img class='image' src="../Images/customerDemo.webp">
+            </div>
+            <div class="id">ID</div>
+            <div class="Name">Name</div>
+            <div class="Surname">Surname</div>
+            <div class="Email">Email</div>
+        </button>
+    */
+
+    // 1.) Get ID, Name, Surname, Category from iteration of product
+    // 2.) Create the DOM Elements
+    // 3.) Append the values to the DOM elements
+    // 4.) Append the DOM elements to the Document
+    let form = document.getElementById('customerForm');
+    for(let i = 0; i < customers.length; ++i)
+    {
+        //converts to javascriptArray
+        //skips first iteration - headers
+        let returns = convertJsonToArray(customers[i]);
+
+        for(let j = 1; j < 2; ++j)
+        {
+
+            let customerID = returns[2][j];
+            let customerName = returns[3][j];
+            let customerSurname = returns[4][j];
+            let customerEmail = returns[5][j];
+
+
+            let lineItem = document.createElement('button');
+            lineItem.value = customerID;
+            lineItem.name = customerID; //set the SKU as the name
+            lineItem.className = 'lineItems';
+
+            let imageContainer = document.createElement('div');
+            imageContainer.className = 'imageContainer';
+            imageContainer.id = 'imageContainertwo';
+
+            let image = document.createElement('img');
+            image.className = 'image';
+            image.src = '../Images/customerDemo.webp';
+
+            imageContainer.appendChild(image);
+
+            let sku = document.createElement('div');
+            sku.className = 'sku';
+            let skuText = document.createTextNode(customerID); //set Text by taking them from the product
+            sku.appendChild(skuText);
+
+            let title = document.createElement('div');
+            title.className = 'title';
+            let titleText = document.createTextNode(customerName); //set Text by taking them from the product
+            title.appendChild(titleText);
+
+            let category = document.createElement('div');
+            category.className = 'category';
+            let categoryText = document.createTextNode(customerSurname); //set Text by taking them from the product
+            category.appendChild(categoryText);
+
+            let vendor = document.createElement('div');
+            vendor.className = 'vendor';
+            let vendorText = document.createTextNode(customerEmail); //set Text by taking them from the product
+            vendor.appendChild(vendorText);
+
+            lineItem.appendChild(imageContainer);
+            lineItem.appendChild(sku);
+            lineItem.appendChild(title);
+            lineItem.appendChild(category);
+            lineItem.appendChild(vendor);
+            form.appendChild(lineItem);
+        }
+    }
+}
+
+
+
+// +----------------------------------------------+
+// | Run-format of the functions(customerView.php)|
+// | getClassNames -> convertJsonToArray          |
+// | -> setText -> applyText -> setRequired       |
+// +----------------------------------------------+
+function getCustomerClassNames(text)
+{
+    $(document).ready(()=>
+    {
+        //parallel array containing all the 
+        //classNames defined in the DOM
+        let generalClassNames = [null, 'act', 'titleContainer', 'm1', 'm2', 'm3', 'ad1', 'ad2', 'ad3', 'ad4'];
+        let formNames = [null, 'active', 'id', 'name', 'surname', 'email', 'address1', 'address2', 'address3', 'address4'];
+        let valueArray = convertJsonToArray(text);
+        //console.log(valueArray[valueArray.length - 1]); //23
+        //console.log(generalClassNames.length); //20
+        setCustomerText(generalClassNames, valueArray, formNames);
+    });
+    
+}
+
+//applies a text node to a certain element
+//className => is the name of the element in HTML
+//text => is the array containing the values that will be  assigned to the element
+function applyCustomerText(className, Text, name)
+{
+    //queries className
+    let object = document.querySelector('.' + className);
+
+    setCustomerRequired(object);
+
+    //sets the name for the form
+    object.name = name;
+
+    //creates text node
+    let text = document.createTextNode(Text);
+
+    //objects text to parent
+    object.appendChild(text);
+}
+
+//create required field list for simple/variable products
+//depending on Type in database
+function setCustomerRequired(object)
+{
+    //create required field array
+    let required = ['name', 'surname'];
+    if(required.includes(name))
+    {
+        object.required = true;
+    }
+}
+
+//Uses parallel arrays to loop through the text array
+//If it's values are part of the ignore array - predefined in method
+//Then skip that iteration
+//otherwise add the text to the class
+//added to text to add the body_html
+function setCustomerText(classNames, text, formNames)
+{
+    let ignore = ['Token'];
+    for(let i = 0; i < text.length; ++i)
+    {
+        if(ignore.includes(text[i][0]))
+        {
+            continue;
+        }
+        else if (text[i][0] == 'Active')
+        {
+            
+            document.querySelector('.' + classNames[i]).value;
+            if(text[i][1] == 'true')
+            {
+                document.querySelector('.' + classNames[i]).checked = true;
+            }
+            else
+            {
+                document.querySelector('.' + classNames[i]).checked = false;
+            }
+            document.querySelector('.' + classNames[i]).name = 'active';
+            continue;
+        }
+        else if(text[i][0] == 'Description')
+        {
+            document.querySelector('.' + classNames[i]).insertAdjacentHTML("beforeend", text[i][1]);
+            document.querySelector('.' + classNames[i]).name = 'description';
+            continue;
+        }
+        else
+        {
+            if(text[i][1] == null || text[i][1] == '')
+            {
+                text[i][1] = null;
+            }
+            applyCustomerText(classNames[i], text[i][1], formNames[i]);
+        }
+    }
 }
