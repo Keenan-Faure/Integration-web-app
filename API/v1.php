@@ -21,7 +21,6 @@
     else 
     {
         include("Controller/API/BaseController.php");
-        header("Content-Type: application/json");
         $apiConn = new connect();
 
         $apiConn = $apiConn->connectServer($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'], 'localhost');
@@ -46,7 +45,7 @@
 
             //only if the 5th segment of the url is defined and populated
             //then run a function on it.
-            if(isset($url[4]))
+            if(isset($url[3]))
             {
                 $connection = new connect();
                 $serverConnection = $connection->connectServer($_SESSION['apicredentials']->credentials->token, $_SESSION['apicredentials']->credentials->secret, 'localhost')->rawValue;
@@ -80,7 +79,7 @@
                 $output = $connection->converterObject($rawConnection, $query);
                 $variable = new control();
                 //if the URL length is longer than expected...
-                if(sizeof($url) > 6)
+                if(sizeof($url) > 5)
                 {
                     $variable = new \stdClass();
                     $variable->data = new \stdClass();
@@ -95,16 +94,16 @@
                 else
                 {
                     //uses the 5th arrayField as a search in the database using the 4th arrayField as a reference
-                    if(isset($url[5]))
+                    if(isset($url[4]))
                     {
-                        $segment = $url[4];
-                        echo(json_encode($variable->{$segment}($rawConnection, $connection, $url[5])));
+                        $segment = $url[3];
+                        echo(json_encode($variable->{$segment}($rawConnection, $connection, $url[4])));
                     }
                     
                     //gets a batch
                     else
                     {
-                        $segment = $url[4];
+                        $segment = $url[3];
                         echo(json_encode($variable->{$segment}($rawConnection, $connection, null)));
                     }
                 }
