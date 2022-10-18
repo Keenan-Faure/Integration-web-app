@@ -134,14 +134,17 @@ Class Customers
         {
             return $util->existIDe($customer, $rawConnection, $connection);
         }
-
-        if($_SESSION['edit_cust'] == $customer)
+        
+        if(isset($_SESSION['edit_cust']))
         {
-            $variable = new \stdClass();
-            $variable->result = false;
-            $variable->message = "No changes have been detected";
-            unset($_SESSION['edit_cust']);
-            return $variable;
+            if($_SESSION['edit_cust'] == $customer)
+            {
+                $variable = new \stdClass();
+                $variable->result = false;
+                $variable->message = "No changes have been detected";
+                unset($_SESSION['edit_cust']);
+                return $variable;
+            }
         }
         if($customer->active != 'true' && $customer->active != 'false')
         {
