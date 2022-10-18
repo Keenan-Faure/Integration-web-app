@@ -130,7 +130,7 @@ class Connection
         $result = $this->converterObject($rawConnection, $query);
         if($result->result[0]->total < 11)
         {
-            return 1;
+            return 0;
         }
         else
         {
