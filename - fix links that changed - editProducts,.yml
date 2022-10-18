@@ -35,12 +35,13 @@
 
   - multiple users can login to the application (different users are stored inside a table having a column - priority) (locally)
     * This should be hard coded to be either admin or read-only
-    
+
     - find out how to make the users into a different table
       - Users details can be found in a table called `Users` in their database:
         * Create own function that will check if the users credentials exist in the table (Client/Admin)
         * After checking if the user exists it will proceed to log into the mysql database using the credentials in the config file
           * Something that should be defined prior to running web application
+        * If the user exists it will store a Token for that user inside the session/database (timeout(?)) 
       - create config file that will stores:
         * a Valid MySQL username
         * a Valid MySQL password
