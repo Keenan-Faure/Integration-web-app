@@ -136,6 +136,17 @@ h1:hover
     border: 2px solid rgba(34, 123, 134, 0.2);
     box-shadow: 0px 10px 20px 15px rgb(77 77 77 / 20%);
 }
+.contentCustomer
+{
+    position: absolute;
+    width: 80%;
+    height: 60%;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+    border: 2px solid rgba(34, 123, 134, 0.2);
+    box-shadow: 0px 10px 20px 15px rgb(77 77 77 / 20%);
+}
 .General
 {
     position: relative;
@@ -151,6 +162,19 @@ h1:hover
     position: absolute;
     top: 2.5%;
     left: 9%;
+    z-index: 5;
+    transform: translate(-50%, -50%);
+    color: white;
+}
+.activeC
+{
+    width: 145px;
+    background-color: rgba(0,0,0,0.7);
+    border-radius: 10px;
+    height: 20px;
+    position: absolute;
+    top: 2.5%;
+    left: 11%;
     z-index: 5;
     transform: translate(-50%, -50%);
     color: white;
@@ -247,12 +271,43 @@ button
     animation: 11s ease 0s normal none infinite running zoomin;
     background-image: url(../Images/imageContainer.png);
 }
+.imageContainerC
+{
+    width: 100%;
+    overflow: hidden;
+    height: 100%;
+    top: 5%;
+    left: 5%;
+    z-index: 0;
+    background-color: white;
+    position: absolute;
+    border-radius: 10px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    background-size: cover;
+    background-position: center;
+    animation: 11s ease 0s normal none infinite running zoomin;
+    background-image: url(../Images/customerDemo.webp);
+}
 #imageCompressor
 {
     width: 40%;
     overflow: hidden;
     height: 43%;
     top: 5%;
+    left: 5%;
+    z-index: 0;
+    background-color: white;
+    position: absolute;
+    border-radius: 10px;
+    display: inline-block;
+}
+#imageCompressorC
+{
+    width: 40%;
+    overflow: hidden;
+    height: 43%;
+    top: 13%;
     left: 5%;
     z-index: 0;
     background-color: white;
@@ -271,6 +326,17 @@ button
     width: 40%;
     height: 43%;
     top: 5%;
+    z-index: 1;
+    left: 5%;
+    background-color: rgba(0,0,0,0.7);
+    position: absolute;
+    border-radius: 10px;
+}
+.imageSiderC
+{
+    width: 40%;
+    height: 43%;
+    top: 13%;
     z-index: 1;
     left: 5%;
     background-color: rgba(0,0,0,0.7);
@@ -406,9 +472,21 @@ li
 }
 .Meta
 {
-    width: 96%;
-    left: 10px;
+    width: 95%;
+    left: 2%;
     top: 54.5%;
+    padding: 5px;
+    color: white;
+    text-align: center;
+    position: absolute;
+    background-color: black;
+}
+
+.MetaCustomer
+{
+    width: 95%;
+    left: 2%;
+    top: 70.5%;
     padding: 5px;
     color: white;
     text-align: center;
