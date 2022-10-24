@@ -1,44 +1,46 @@
 <?php
 session_start();
 include('createConnection.php');
+$_config = include('config/config.php');
 
 use Connection\Connection as connect;
 if(isset($_POST['uname']) && isset($_POST['psw']))
 {
-    $serverConnection = new connect();
-    $result = $serverConnection->connectServer($_POST['uname'], $_POST['psw']);
-    if($result->connection === false)
+    //uses the token to decide whether 
+    //to login or not
+    if(isset($_SESSION['connection']->token))
     {
-        $variable = new \stdClass();
-        $variable->username = $_POST['uname'];
-        $variable->password = $_POST['psw'];
-        $variable->message = $result->message;
-        $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-        if(isset($_SESSION['log']))
-        {
-            array_push($_SESSION['log'], $variable);
-        }
-        echo(json_encode($variable));
-        header('Content-Type: application/json');
-        header('Refresh:3,url=login.php');
+        header("Refresh:0, url=endpoints.php");
     }
     else
     {
-        $variable = new \stdClass();
-        $variable->active = true;
-        $variable->username = $_POST['uname'];
-        $variable->password = $_POST['psw'];
-        $_SESSION['credentials'] = $variable;
-        $variable->message = 'Connection to MySql Server Successfull';
-        $variable->redirectTime = '2 seconds';
-        $variable->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-        unset($_POST['uname']);
-        unset($_POST['psw']);
-        if(isset($_SESSION['log']))
+        $serverConnection = new connect();
+        $result = $serverConnection->connectUser($_config['host'], $_config['dbUser'], $_config['dbPass'], $_config['dbName']);
+        if($result->connection === false)
         {
-            array_push($_SESSION['log'], $variable);
+            $variable = new \stdClass();
+            $variable->username = $_POST['uname'];
+            $variable->password = $_POST['psw'];
+            $variable->message = $result->message;
+            $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+            if(isset($_SESSION['log']))
+            {
+                array_push($_SESSION['log'], $variable);
+            }
+            echo(json_encode($variable));
+            header('Content-Type: application/json');
+            header('Refresh:3,url=login.php');
         }
-        header('Refresh:0,url=serverData.php');
+        else
+        {
+            unset($_POST['uname']);
+            unset($_POST['psw']);
+            if(isset($_SESSION['log']))
+            {
+                array_push($_SESSION['log'], $result);
+            }
+            header('Refresh:0,url=endpoints.php');
+        }
     }
 }
 else

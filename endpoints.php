@@ -6,6 +6,7 @@
     <body>
             <?php 
                 session_start();
+                print_r($_SESSION);
             ?>
             <div class='background'>
             </div>
@@ -33,8 +34,6 @@
                     <button name='checkConnection' class='button' id='b1'><p class='buttonText'>Check Connection</p></button>
                     <br><br>
                     <button name='viewLog'class='button' id='b2'><p class='buttonText'>View Log</p></button>
-                    <br><br>
-                    <button name='visitS2S' class='button' id='b3'><p class='buttonText'>Visit Stock2Shop</p></button>
                     <br><br>
                     <button name='checkTables' class='button' id='b4'><p class='buttonText'>Check Tables in Database</p></button>
                 </form>

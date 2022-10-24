@@ -83,6 +83,53 @@ class Connection
             return $variable;
         }
     }
+
+    //checks if the user entered at the login page is valid
+    //and if it exists in the usertable defined in the database
+    function connectUser($host, $username, $password, $db)
+    {
+        try
+        {
+            $conn = new \mysqli($host, $username, $password, $db);
+        }
+        catch(\Exception $error)
+        {
+            $conn = new \stdClass();
+            $conn->connection = false;
+            $conn->message = $error->getMessage();
+            return $conn;
+        }
+
+        //connection successful
+        //creates a stdClass representation of the connection details
+        $this->connection = new \stdClass();
+        $this->connection->active = true;
+        $this->connection->credentials = new \stdClass();
+
+        $this->connection->credentials->username = $username;
+        $this->connection->credentials->password = '_';
+        $this->connection->credentials->host = $host; //harcoded to localhost
+        $this->connection->credentials->host = $db;
+        $this->connection->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+        $this->connection->token = $this->createToken($username . $password);
+
+        //stores it inside a session
+        $_SESSION['connection'] = $this->connection;
+        
+        $serverConnection = new \stdClass();
+        $serverConnection->connection = true;
+        $serverConnection->message = 'Connected to MySql server on ' . $host . ' successful';
+
+        return $serverConnection;
+
+    }
+
+    //connects the client to the mysql server
+    //using the username and password found 
+    //in the config.php file
+    //this is hardcoded to:
+    //username = root
+    //password = ''
     function connectServer($username='null', $password='', $host='localhost')
     {
         $serverConnections = null;
@@ -106,7 +153,6 @@ class Connection
         $this->connection->credentials->username = $username;
         $this->connection->credentials->password = '*******';
         $this->connection->credentials->host = 'localhost'; //harcoded to localhost
-        $this->connection->token = rand();
         $this->connection->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
         $this->connection->rawValue = $serverConnections;
         $_SESSION['serverconnection'] = $this->connection;
@@ -268,6 +314,14 @@ class Connection
             }
         }
         return $output;
+    }
+
+    //createToken
+    function createToken($credentials)
+    {
+        $token = rand(1000,9999); //must be a 4 digit number
+        $token = $token . '-' .  base64_encode($credentials);
+        return $token;
     }
 
     //accessor methods
