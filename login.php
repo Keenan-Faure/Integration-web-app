@@ -31,7 +31,7 @@
         }
 
         //create admin user
-        $query = 'INSERT INTO Users(Username, Password, Email) VALUES("' . $_config['dbUser'] . '", "'. $_config['dbPass'] .'")';
+        $query = 'INSERT INTO Users(Username, Password) VALUES("' . $_config['dbUser'] . '", "'. $_config['dbPass'] .'")';
         $result = $conn->preQuery($_config, $query, 'object');
     }
 ?>

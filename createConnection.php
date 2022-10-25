@@ -2,6 +2,8 @@
 namespace Connection;
 class Connection
 {
+    //creates a connection to the Database using the credentials provided
+    //to run queries
     function createConnection($host, $username, $password, $db)
     {
         $conn = null;
@@ -28,6 +30,7 @@ class Connection
         $this->connection->credentials->password = '_';
         $this->connection->credentials->host = $host; //harcoded to localhost
         $this->connection->credentials->host = $db;
+        $this->connection->rawValue = $conn;
         $this->connection->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
         $this->connection->token = $this->createToken($username . $password);
 
@@ -58,11 +61,41 @@ class Connection
         else
         {
             //create new query and check if the password corresponds to the username
-            $query = 'SELECT * FROM Users WHERE Username = "' . $client_user . '" & Password = "' . $client_pass . '"';
+            $query = 'SELECT * FROM Users Where Username = "' . $client_user . '" && Password = "' . $client_pass . '"';
             $results = $this->preQuery($_config, $query, 'object');
-            print_r($results);
+            if($results->result != null)
+            {
+                $message = 'Successfully connected to server with Username "' . $client_user . '"';
+                $solution = "Please wait until you are redirected";
+                $this->createHtmlMessages($message, $solution, 'endpoints', 'info');
+
+                //creates session variable containing connection details
+                //creates a stdClass representation of the connection details
+                $this->connection = new \stdClass();
+                $this->connection->active = true;
+                $this->connection->credentials = new \stdClass();
+
+                $this->connection->credentials->username = $client_user;
+                $this->connection->credentials->password = '_';
+                $this->connection->credentials->host = $_config['host']; //harcoded to localhost
+                $this->connection->credentials->host = $_config['dbName'];
+                $this->connection->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+                $this->connection->token = $this->createToken($client_user . $client_pass);
+
+                //stores it inside a session
+                $_SESSION['connection'] = $this->connection;
+
+                $variable = new \stdClass();
+                $variable->connection = true; 
+                return $variable;
+            }
+            else
+            {
+                $variable = new \stdClass();
+                $variable->connection = false; 
+                return $variable;
+            }
         }
-        exit();
     }
 
     //creates html markup which uses the same

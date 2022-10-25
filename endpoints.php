@@ -6,7 +6,6 @@
     <body>
             <?php 
                 session_start();
-                print_r($_SESSION);
             ?>
             <div class='background'>
             </div>

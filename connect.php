@@ -14,13 +14,13 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
     }
     else
     {
-        $serverConnection = new connect();
-        $result = $serverConnection->connectUser($_config, $_POST['uname'], $_POST['psw']);
-        if($result->connection === false)
+        $conn = new connect();
+        $result = $conn->connectUser($_config, $_POST['uname'], $_POST['psw']);
+        if($result->connection == false)
         {
             $variable = new \stdClass();
             $variable->username = $_POST['uname'];
-            $variable->password = $_POST['psw'];
+            $variable->password = "_";
             $variable->message = $result->message;
             $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
             if(isset($_SESSION['log']))
@@ -39,7 +39,7 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
             {
                 array_push($_SESSION['log'], $result);
             }
-            header('Refresh:0,url=endpoints.php');
+            header('Refresh:3, url=endpoints.php');
         }
     }
 }
