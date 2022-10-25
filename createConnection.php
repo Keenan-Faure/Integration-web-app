@@ -41,7 +41,7 @@ class Connection
         $serverConnection->connection = true;
         $serverConnection->message = 'Connected to MySql server on ' . $host . ' successful';
 
-        return $serverConnection;
+        return $this->connection;
     }
 
     //checks if the user entered at the login page is valid
@@ -78,7 +78,7 @@ class Connection
                 $this->connection->credentials->username = $client_user;
                 $this->connection->credentials->password = '_';
                 $this->connection->credentials->host = $_config['host']; //harcoded to localhost
-                $this->connection->credentials->host = $_config['dbName'];
+                $this->connection->credentials->dbname = $_config['dbName'];
                 $this->connection->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
                 $this->connection->token = $this->createToken($client_user . $client_pass);
 
