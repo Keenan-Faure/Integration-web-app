@@ -2,102 +2,20 @@
 namespace Connection;
 class Connection
 {
-    private $username;
-    private $password;
-    public $timestamp;
-    private $host;
-    private $dbName;
-
-    public $connection;
-
-    function createConnection($username=null, $password='', $host='localhost', $dbName='xyz987')
+    function createConnection($host, $username, $password, $db)
     {
         $conn = null;
-        try
-        {
-            $conn = new \mysqli($host, $username, $password, $dbName);
-        }
-        catch(\Exception $error)
-        {
-            $variable = new \stdClass();
-            $variable->active = false;
-            $variable->message = $error->getMessage();
-            $variable->token = rand();
-            $variable->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-            return $variable;
-        }
-
-        // connection successful
-        $this->connection = new \stdClass();
-        $this->connection->active = true;
-        $this->connection->credentials = new \stdClass();
-
-        $this->connection->credentials->username = $username;
-        $this->connection->credentials->password = $password;
-        $this->connection->credentials->host = 'localhost'; //harcoded to localhost
-        $this->connection->credentials->dbname = $dbName;
-        $this->connection->token = rand();
-        $this->connection->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-        $this->connection->rawValue = $conn;
-        $_SESSION['connection'] = $this->connection;
-        return $this->connection;
-    }
-    function connectAPI($token, $secret)
-    {
-        if(isset($_SESSION['apicredentials']))
-        {
-            if($_SESSION['apicredentials']->credentials->token == $token)
-            {
-                if($_SESSION['apicredentials']->credentials->secret == $secret)
-                {
-                    $variable = new \stdClass();
-                    $variable->active = true;
-                    $variable->message = 'Valid API credentials';
-                    $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-                    return $variable;
-                }
-                else
-                {
-                    $variable = new \stdClass();
-                    $variable->active = false;
-                    $variable->message = 'Invalid API secret';
-                    $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-                    return $variable;
-                }
-            }
-            else
-            {
-                $variable = new \stdClass();
-                $variable->active = false;
-                $variable->message = 'Invalid API token';
-                $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-                return $variable;
-            }
-        }
-        else
-        {
-            $variable = new \stdClass();
-            $variable->active = false;
-            $variable->message = 'No API credentials detected in database, contact admin!';
-            $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-            return $variable;
-        }
-    }
-
-    //checks if the user entered at the login page is valid
-    //and if it exists in the usertable defined in the database
-    function connectUser($host, $username, $password, $db)
-    {
         try
         {
             $conn = new \mysqli($host, $username, $password, $db);
         }
         catch(\Exception $error)
         {
-            $conn = new \stdClass();
-            $conn->connection = false;
-            $conn->message = $error->getMessage();
-            return $conn;
+            $variable = new \stdClass();
+            $variable->active = false;
+            $variable->message = $error->getMessage();
+            $variable->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+            return $variable;
         }
 
         //connection successful
@@ -121,7 +39,94 @@ class Connection
         $serverConnection->message = 'Connected to MySql server on ' . $host . ' successful';
 
         return $serverConnection;
+    }
 
+    //checks if the user entered at the login page is valid
+    //and if it exists in the usertable defined in the database
+    function connectUser($_config, $client_user, $client_pass)
+    {
+        $query = 'SELECT * FROM Users WHERE Username = "' . $client_user . '"';
+        $results = $this->preQuery($_config, $query, 'object');
+        if($results->result == null)
+        {
+            //then the user does not exist at all, has to be created.
+            $message = 'The Username "' . $client_user . '" does not exist.';
+            $solution = 'Kindly contact your admin or register your account';
+            $this->createHtmlMessages($message, $solution);
+            exit();
+        }
+        else
+        {
+            //create new query and check if the password corresponds to the username
+            $query = 'SELECT * FROM Users WHERE Username = "' . $client_user . '" & Password = "' . $client_pass . '"';
+            $results = $this->preQuery($_config, $query, 'object');
+            print_r($results);
+        }
+        exit();
+    }
+
+    //creates html markup which uses the same
+    //format but has different messages relative to the $error
+    function createHtmlMessages($error, $solution)
+    {
+        echo("
+            <html>
+                <head>
+                    <link rel='icon' type=image/x-icon' href='Images/logo.png'/>
+                    <link rel='stylesheet' href='Styles/login.css'>
+                </head>
+                <body>
+                   
+                    <div class='cover'>
+                    </div>
+                    <div class='con'>
+                        <h2>Error Message</h2>            
+                        <p>$error</p>
+                        <hr>
+                        <p>$solution</p>
+                        <div class='cen'>
+                            <a class='btn' href='../register.php'>Register here</a>
+                        </div>
+                    </div>
+                </body>
+            </html>
+        ");
+    }
+    //pre-conection queries
+    //made with the datafound in the config php file
+
+    function preQuery($_config, $query, $key)
+    {
+        try
+        {
+            $host = $_config['host'];
+            $username = $_config['dbUser'];
+            $password = $_config['dbPass'];
+            $db = $_config['dbName'];
+            try
+            {
+                $conn = new \mysqli($host, $username, $password, $db);
+            }
+            catch(\Exception $error)
+            {
+                $conn = new \stdClass();
+                $conn->connection = false;
+                $conn->message = $error->getMessage();
+                return $conn;
+            }
+            if($key == 'array')
+            {
+                return $this->converterArray($conn, $query);
+            }
+            return $this->converterObject($conn, $query);
+        }
+        catch(\Exception $error)
+        {
+            $variable = new \stdClass();
+            $variable->message = $error->getMessage();
+            print_r(json_encode($variable));
+            exit();
+        }
     }
 
     //connects the client to the mysql server
@@ -226,7 +231,7 @@ class Connection
             {
                 $variable = new \stdClass();
                 $variable->return = false;
-                $variable->raw_query = $query;
+                $variable->raw_query = str_replace(PHP_EOL, '', $query);;
                 $variable->message = "Not allowed via Custom Query";
 
                 return $variable;
@@ -249,7 +254,7 @@ class Connection
                         {
                             $variable = new \stdClass();
                             $variable->result = true;
-                            $variable->query = $query;
+                            $variable->query = str_replace(PHP_EOL, '', $query);;
                             $variable->duration = $duration;
                         }
                     }
@@ -271,7 +276,7 @@ class Connection
                         }    
                         $variable = new \stdClass();
                         $variable->result = $output;
-                        $variable->query = $query;
+                        $variable->query = str_replace(PHP_EOL, '', $query);
                         $variable->query_time = $duration;
                     }
                 }
@@ -280,7 +285,7 @@ class Connection
                     $variable = new \stdClass();
                     $variable->result = new \stdClass();
                     $variable->result = null;
-                    $variable->query = $query;
+                    $variable->query = str_replace(PHP_EOL, '', $query);;
                     $variable->query_time = $duration;
                 }
             }
@@ -288,7 +293,7 @@ class Connection
             {
                 $variable = new \stdClass();
                 $variable->error = $error->getMessage();
-                $variable->query = $query;
+                $variable->query = str_replace(PHP_EOL, '', $query);
                 $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
             }
         }
@@ -322,6 +327,48 @@ class Connection
         $token = rand(1000,9999); //must be a 4 digit number
         $token = $token . '-' .  base64_encode($credentials);
         return $token;
+    }
+
+    function connectAPI($token, $secret)
+    {
+        if(isset($_SESSION['apicredentials']))
+        {
+            if($_SESSION['apicredentials']->credentials->token == $token)
+            {
+                if($_SESSION['apicredentials']->credentials->secret == $secret)
+                {
+                    $variable = new \stdClass();
+                    $variable->active = true;
+                    $variable->message = 'Valid API credentials';
+                    $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+                    return $variable;
+                }
+                else
+                {
+                    $variable = new \stdClass();
+                    $variable->active = false;
+                    $variable->message = 'Invalid API secret';
+                    $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+                    return $variable;
+                }
+            }
+            else
+            {
+                $variable = new \stdClass();
+                $variable->active = false;
+                $variable->message = 'Invalid API token';
+                $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+                return $variable;
+            }
+        }
+        else
+        {
+            $variable = new \stdClass();
+            $variable->active = false;
+            $variable->message = 'No API credentials detected in database, contact admin!';
+            $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+            return $variable;
+        }
     }
 
     //accessor methods
