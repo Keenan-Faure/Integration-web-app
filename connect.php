@@ -15,7 +15,7 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
     else
     {
         $serverConnection = new connect();
-        $result = $serverConnection->connectUser($_config['host'], $_config['dbUser'], $_config['dbPass'], $_config['dbName']);
+        $result = $serverConnection->connectUser($_config, $_POST['uname'], $_POST['psw']);
         if($result->connection === false)
         {
             $variable = new \stdClass();
