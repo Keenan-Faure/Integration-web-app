@@ -12,7 +12,6 @@ var l3 = document.getElementsByClassName('line')[3];
 
 var b1 = document.getElementById('b1');
 var b2 = document.getElementById('b2');
-var b3 = document.getElementById('b3');
 var b4 = document.getElementById('b4');
 var b5 = document.getElementById('b5');
 var b6 = document.getElementById('b6');
@@ -47,10 +46,6 @@ window.addEventListener('load', ()=>
         {
             b2.classList.add('fade-in');
         }, 550);
-        setTimeout(()=>
-        {
-            b3.classList.add('fade-in');
-        }, 650);
 
         contain2.classList.add('fade-in');
         setTimeout(()=>
