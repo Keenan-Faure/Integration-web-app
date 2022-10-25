@@ -52,7 +52,7 @@ class Connection
             //then the user does not exist at all, has to be created.
             $message = 'The Username "' . $client_user . '" does not exist.';
             $solution = 'Kindly contact your admin or register your account';
-            $this->createHtmlMessages($message, $solution);
+            $this->createHtmlMessages($message, $solution, 'register', 'warn');
             exit();
         }
         else
@@ -67,7 +67,11 @@ class Connection
 
     //creates html markup which uses the same
     //format but has different messages relative to the $error
-    function createHtmlMessages($error, $solution)
+    //takes three parameters
+    // - The error message
+    // - The best solution that the user can take
+    // - and the link that redirects the user
+    function createHtmlMessages($message, $solution, $link, $type)
     {
         echo("
             <html>
@@ -77,15 +81,15 @@ class Connection
                 </head>
                 <body>
                    
-                    <div class='cover'>
+                    <div class='cover' id='$type'>
                     </div>
                     <div class='con'>
-                        <h2>Error Message</h2>            
-                        <p>$error</p>
+                        <h2>Message</h2>          
+                        <p>$message</p>
                         <hr>
                         <p>$solution</p>
                         <div class='cen'>
-                            <a class='btn' href='../register.php'>Register here</a>
+                            <a class='btn' href='../$link.php'>Click me</a>
                         </div>
                     </div>
                 </body>
@@ -200,8 +204,12 @@ class Connection
         if(isset($partitions['query']))
         {
             $queryParams = array();
-            $query = parse_str($partitions['query'], $queryParams);
+            parse_str($partitions['query'], $queryParams);
             if(isset($queryParams['page']))
+            {
+                return $queryParams;
+            }
+            if(isset($queryParams['type']))
             {
                 return $queryParams;
             }

@@ -5,39 +5,35 @@
 
     $_config = include('config/config.php');
     $_SESSION['log'] = array();
-
-    if(!isset($_SESSION['setTables']))
+    $conn = new connect(); 
+    $query = 'SHOW TABLES';
+    $result = $conn->preQuery($_config, $query, 'array');
+    for($i = 0; $i < sizeof($result); ++$i)
     {
-        $conn = new connect(); 
-        $query = 'SHOW TABLES';
-        $result = $conn->preQuery($_config, $query, 'array');
-        for($i = 0; $i < sizeof($result); ++$i)
+        $result[$i] = strtolower($result[$i]);
+    }
+    if(!in_array("users", $result))
+    {
+        //create the table
+        $query = 'CREATE TABLE Users(
+            UserID int AUTO_INCREMENT primary key NOT NULL,
+            Username varchar(255),
+            Password varchar(255),
+            Email varchar(255)
+            )';
+        $result = $conn->preQuery($_config, $query, 'object');   
+        if(isset($result->result) == true)
         {
-            $result[$i] = strtolower($result[$i]);
-        }
-        if(!in_array("users", $result))
-        {
-            //create the table
-            $query = 'CREATE TABLE Users(
-                UserID int AUTO_INCREMENT primary key NOT NULL,
-                Username varchar(255),
-                Password varchar(255),
-                Email varchar(255)
-                )';
-            $result = $conn->preQuery($_config, $query, 'object');   
-            if(isset($result->result) == true)
+            if($result->result == true)
             {
-                if($result->result == true)
-                {
-                    $_SESSION['setTables'] = true;
-                }
+                $_SESSION['setTables'] = true;
             }
         }
+
+        //create admin user
+        $query = 'INSERT INTO Users(Username, Password, Email) VALUES("' . $_config['dbUser'] . '", "'. $_config['dbPass'] .'")';
+        $result = $conn->preQuery($_config, $query, 'object');
     }
-?>
-
-
-<?php
 ?>
 <html>
     <head>

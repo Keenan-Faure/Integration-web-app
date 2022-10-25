@@ -43,6 +43,41 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
         }
     }
 }
+else if(isset($_POST['runame']) && isset($_POST['rpsw']))
+{
+
+    $conn = new connect();
+
+    $query = 'SELECT COUNT(*) as total FROM Users WHERE Username = "' . $_POST['runame'] . '"';
+    $result = $conn->preQuery($_config, $query, 'object');
+    if($result->result[0]->total > 0)
+    {
+        $message = 'User ' . $_POST['runame'] . ' already exists in database';
+        $solution = 'Click the button below to return to the login page and try again';
+        $conn->createHtmlMessages($message, $solution, 'register', 'warn');
+        exit();
+    }
+    else
+    {
+        $query = 'INSERT INTO Users(
+            Username,
+            Password,
+            Email
+        )
+        VALUES("'
+            . $_POST["runame"] . '","'
+            . $_POST["rpsw"] . '","'
+            . $_POST["mail"] . '"
+        )';
+        $conn->preQuery($_config, $query, 'object');
+    
+        //creates html message
+        $message = 'User ' . $_POST['runame'] . ' was created successfully';
+        $solution = 'Click the button below to return to the login page';
+        $conn->createHtmlMessages($message, $solution, 'login', 'info');
+        exit();
+    }
+}
 else
 {
     if(isset($_POST['token']) && isset($_POST['secret']))
