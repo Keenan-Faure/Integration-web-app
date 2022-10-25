@@ -121,3 +121,55 @@ input[type=text]:focus, input[type=password]:focus
     opacity: 0;
     
 }
+.con
+{
+    position: relative;
+    width: 300px;
+    height: 250px;
+    background-color: rgba(128, 128, 128, 0.6);
+    left: 50%;
+    transform: translate(-50%, -40%);
+    top: 40%;
+    padding: 10px;
+    border-style: inset;
+    border-width: 1px;
+    z-index: 1;
+}
+.cen
+{
+    position: relative;
+    width: 100%;
+    text-align: center;
+}
+.btn
+{
+    position: relative;
+    color: white;
+    background-color: rgb(0 0 0 / 60%);
+    padding: 7px;
+    text-decoration: none;
+    transition-duration: 0.5s;
+}
+.btn:hover
+{
+    position: relative;
+    color: white;
+    background-color: rgb(0 0 0);
+    padding: 7px;
+    text-decoration: none;
+}
+.cover
+{
+    position: absolute;
+    background-image: url(../Images/err-warn-icon.jpeg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 300px;
+    height: 250px;
+    background-color: rgba(128, 128, 128, 0.5);
+    left: 50%;
+    transform: translate(-50%, -40%);
+    top: 40%;
+    padding: 10px;
+}
