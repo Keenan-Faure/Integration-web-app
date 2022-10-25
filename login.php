@@ -1,11 +1,39 @@
 <?php 
-    if(isset($_SESSION))
-    {
-        session_destroy();
-    }
     session_start();
+    include('createConnection.php');
+    use Connection\Connection as connect;
+
+    $_config = include('config/config.php');
     $_SESSION['log'] = array();
-    $_SESSION['databases'] = array();
+
+    if(!isset($_SESSION['setTables']))
+    {
+        $conn = new connect(); 
+        $query = 'SHOW TABLES';
+        $result = $conn->preQuery($_config, $query, 'array');
+        for($i = 0; $i < sizeof($result); ++$i)
+        {
+            $result[$i] = strtolower($result[$i]);
+        }
+        if(!in_array("users", $result))
+        {
+            //create the table
+            $query = 'CREATE TABLE Users(
+                UserID int AUTO_INCREMENT primary key NOT NULL,
+                Username varchar(255),
+                Password varchar(255),
+                Email varchar(255)
+                )';
+            $result = $conn->preQuery($_config, $query, 'object');   
+            if(isset($result->result) == true)
+            {
+                if($result->result == true)
+                {
+                    $_SESSION['setTables'] = true;
+                }
+            }
+        }
+    }
 ?>
 
 
