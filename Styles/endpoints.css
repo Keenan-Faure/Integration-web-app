@@ -1,3 +1,8 @@
+
+body
+{
+    margin:0;
+}
 .background
 {
     position: absolute;
@@ -12,16 +17,118 @@
     background-image: url('../Images/dbPicture.png');
     filter: blur(8px);
 }
+
+/* Navigation Bar */
+.navBar
+{
+    position: fixed;
+    width: 100%;
+    height: 40px;
+    z-index: 10;
+    box-shadow: 0px 10px 20px 15px rgb(77 77 77 / 20%);
+    background-color: rgba(34, 34, 34, 0.98);
+    padding: 10px;   
+}
+.overlay
+{
+    width: 100%;
+    left: 50%;
+    top: 5%;
+    transform: translate(-50%, -50%);
+    position: relative;
+    height: 80px;
+}
+.buttonContainer3
+{
+    position: relative;
+    display: inline-block;
+    width: 176px;
+}
+.buttonContainer2
+{
+    position: relative;
+    display: inline-block;
+    width: 151px;
+}
+.imageNav
+{
+    width: 70px;
+    display: inline-block;
+    position: relative;
+    top: 30px;
+    height: 50px;
+    background-image: url(../Images/dbPicture.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.dropDownBtn
+{
+    background-color: #2b2c2c;
+    color: white;
+    padding: 10px;
+    font-size: 15px;
+    border: none;
+    display: inline-block;
+}
+.dropDown
+{
+    position: relative;
+    top: 12px;
+    display: inline-block;
+}
+.dropDownContent
+{
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+.dropDownContent a
+{
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropDownContent a:hover
+{
+    background-color: #ddd;
+}
+.dropDown:hover .dropDownContent
+{
+    display: block;
+}
+.dropDown:hover .dropDownBtn
+{
+    background-color:rgba(35, 120, 131, 0.9);
+}
+/*****/
 .errorTable
 {
     width: 210px;
     height: 200px;
-    top: 0;
+    top: 60px;
     z-index: 10;
     left: 0;
     border-radius: 5px;
     position: absolute;
 }
+.navBarHeader
+{
+    text-shadow: 1px 2px 6px rgb(0 0 0);
+    position: relative;
+    display: inline-block;
+    width: 140px;
+    font-size: 15px;
+    left: 0%;
+    text-align: center;
+    top: 15px;
+    color: white;
+    transition-duration: 0.1s
+}
+
 .errors
 {
     text-align: center;
@@ -46,16 +153,6 @@
 {
     padding-top: 10px;
 }
-h1
-{
-    text-shadow: 1px 1px 4px rgb(42 150 201);
-    position: absolute;
-    text-align: center;
-    top: 3%;
-    left: 50%;
-    color: white;
-    transform: translate(-50%, -50%);
-}
 
 h2
 {
@@ -68,24 +165,24 @@ h2
 .container
 {
     width: 25%;
-    height: 70.5%;
     left: 5%;
+    height: 70.5%;
     box-shadow: -5px 6px 6px #888888;
     position: absolute;
-    top: 17%;
+    top: 10%;
     background: rgba(0,0,0,0.3);
 }
 #container-2
 {
     position: absolute;
-    top: 17%;
+    top: 10%;
     height: 70.5%;
     left: 37.5%;
 }
 #container-3
 {
     position: absolute;
-    top: 17%;
+    top: 10%;
     height: 70.5%;
     left: 70%;
 }
@@ -121,7 +218,7 @@ h2
     width: 85%;
     display: inline-block;
     opacity: 0;
-    height: 10%;
+    height: 50px;
     box-sizing: border-box;
     left: 7%;
     top: 10%;
@@ -161,7 +258,7 @@ h2
     width: 85%;
     display: inline-block;
     opacity: 0;
-    height: 10%;
+    height: 50px;
     box-sizing: border-box;
     left: 7%;
     box-shadow: -2px 2px 4px #1d1f20;
@@ -229,8 +326,9 @@ h2
 }
 .selfBackground
 {
-    background-image: url('../Images/backgroundself.jpg');
+    background-image: url('../Images/dbPicture.png');
     background-size: cover;
+    background-color: grey;
     background-position: center;
     position: fixed;
     width: 100%;
@@ -311,8 +409,8 @@ h2
 .custom
 {
     position: fixed;
-    top: 3%;
-    right: 5%;
+    top: 30px;
+    right: 20px;
     width: 50px;
     height: 50px;
     border-radius: 25px;
@@ -348,12 +446,12 @@ h2
 }
 .s2s
 {
-    right: 11%;
+    right: 75px;
     background-image: url(../Images/s2s.png);
     background-position: center;
     background-size: cover;
     position: fixed;
-    top: 3%;
+    top: 30px;
     width: 50px;
     height: 50px;
     border-radius: 25px;
@@ -363,4 +461,32 @@ h2
     box-shadow: 1px 2px 6px #888888;
     cursor: pointer;
     background-color: rgb(45, 197, 218);
+}
+.info-report
+{
+    width: 100%;
+    background-color: orange;
+    position: absolute;
+    bottom: 0;
+}
+.rowHeader
+{
+    width: 100%;
+    background-color: #ceac6d;
+    height: 25px;
+    text-align: center;
+    font-size: 20px;
+    color: white;
+    border-style: inset;
+    border-width: 1px;
+    cursor: pointer;
+    transition-duration: 0.2s;
+}
+.rowHeader:hover
+{
+    color: black;
+}
+.row-item
+{
+    width: 100%;
 }

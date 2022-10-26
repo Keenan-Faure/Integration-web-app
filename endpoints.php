@@ -4,86 +4,132 @@
         <link rel='stylesheet' href='Styles/endpoints.css'>
     </head>
     <body>
-            <?php 
-                session_start();
-            ?>
-            <div class='background'>
-            </div>
-            <div class='selfBackground top'>
-                <div class='buttonContainer'></div>
-                <button class='closeButton'>&times;</button>
-                
-                <h1>Custom Query</h1>
-                <div class='line-2'></div>
-                <form method='post' target='_blank' action='endpoint_handler.php'>
-                        <br><br><br>
-                        <textarea class='textarea' name='selfquery' placeholder='Enter your query here'></textarea>
-                        <button type = 'submit' class='enter'>Submit</button>
-                </form>
-            </div>
-            <h1>Available Endpoints</h1>
-            <div class='line'></div>
-            <img src='./Images/custom.png' title = "Query custom Sql" class='custom'>
-            <a title = "Push Products" href='cURL/app.php' class='s2s'></a>
-            <div class='container' id='container-1'>
-                <h2 class='h2-hidden'>General</h2>
-                <div class='line' id='line-1'></div>
-                <form method='post' target='_blank' action='endpoint_handler.php'>
-                    <br><br><br>
-                    <button name='checkConnection' class='button' id='b1'><p class='buttonText'>Check Connection</p></button>
-                    <br><br>
-                    <button name='viewLog'class='button' id='b2'><p class='buttonText'>View Log</p></button>
-                    <br><br>
-                    <button name='checkTables' class='button' id='b4'><p class='buttonText'>Check Tables in Database</p></button>
-                </form>
-                <button class='button' id='b4'><p class='buttonText'>Check Tables in Database</p></button>
-            </div>
+        <?php 
+            session_start();
+        ?>
+        <div class='background'>
+        </div>
+        <div class="navBar">
+            <div class="overlay">
+                <div class='imageNav'></div>
+                <h1 class='navBarHeader'>Available Endpoints</h1>
+                <div class='buttonContainer2'>
+                    <div class="dropDown">
+                    <button class="dropDownBtn">Home</button>
+                        <div class="dropDownContent">
+                            <a href="serverData.php">Dashboard</a>
+                            <a href="serverData.php">Sett</a>
 
-            <div class='container' id='container-2'>
-                <h2 class='h2-hidden'>Products</h2>
-                <div class='line' id='line-1'></div>
-                <form method='post' target='_blank' action='endpoint_handler.php'>
-                    <br><br><br>
-                    <input type='text' class='input' name='getProductBySKU' placeholder='Get Product by SKU' autocomplete="off" id='b5'></input>
-                </form>
-                <form method='post' target='_blank' action='endpoint_handler.php'>
-                    <button type='text' name='getProductsBatch' class='button' id='b6'><p class='buttonText'>Get Products (10)</p></button>
-                </form>
-                
-                <form  method='post' target='_blank' action='endpoint_handler.php'>
-                    <button class='button' name='countProduct' id='b7'><p class='buttonText'>Count Products</p></button>
-                </form>
-                <form method='post' target='_blank' action='endpoint_handler.php'>
-                    <button class='button' name='viewProductSql' id='b8'><p class='buttonText'>View Product Sql queries</p></button>
-                </form>
-                <form method='post' action='endpoint_handler.php'>
-                    <button class='button' name='addProduct' id='b9'><p class='buttonText'>Add Product to Database</p></button>               
-                </form>
-                <form method='post' action='endpoint_handler.php'>
-                    <button class='button' name='productList' id='b10'><p class='buttonText'>Edit Products</p></button>               
-                </form>
-            </div>
+                        </div>
+                    </div>
 
-            <div class='container' id='container-3'>
-                <h2 class='h2-hidden'>Customers</h2>
-                <div class='line' id='line-1'></div>
-                <form method='post' target='_blank' action='endpoint_handler.php'>
+                    <div class="dropDown">
+                    <button class="dropDownBtn">Endpoints</button>
+                        <div class="dropDownContent">
+                            <a href="endpoints.php">View Endpoints</a>
+                            <a href="API/document.html" target='_blank'>API</a>
+                        </div>
+                    </div>
+                </div>
+                <div class='buttonContainer3'>
+                    <div class="dropDown">
+                    <button class="dropDownBtn">Products</button>
+                        <div class="dropDownContent">
+                            <a href="addItem.html">Add Product</a>
+                            <a href="productList.php?page=1">View all products</a>
+                        </div>
+                    </div>
+
+                    <div class="dropDown">
+                    <button class="dropDownBtn">Customers</button>
+                        <div class="dropDownContent">
+                            <a href="addCustomer.html">Add Customer</a>
+                            <a href="editCustomer.php">View Customers</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="importUtils/import.html" class="buttonOption"></a>
+                <img src='./Images/custom.png' title = "Query custom Sql" class='custom'>
+                <a title = "Push Products" href='cURL/app.php' class='s2s'></a>
+            </div>
+        </div>
+        <div class='selfBackground top'>
+            <div class='buttonContainer'></div>
+            <button class='closeButton'>&times;</button>
+            
+            <h1>Custom Query</h1>
+            <form method='post' target='_blank' action='endpoint_handler.php'>
                     <br><br><br>
-                    <input type='text' name='getCustomerByID' class='input' placeholder='Get Customer by ID' autocomplete="off" id='b11'></input>
-                </form>
-                <form method='post' target='_blank' action='endpoint_handler.php'>
-                    <button class='button' name='countCustomer' id='b12'><p class='buttonText'>Count Customers</p></button>
-                </form>
-                <form method='post' target='_blank' action='endpoint_handler.php'>
-                    <button class='button' name='viewCustomerSql' id='b13'><p class='buttonText'>View Customer Sql queries</p></button>
-                </form>
-                <form method='post' action='endpoint_handler.php'>
-                    <button class='button' name='addCustomer' id='b14'><p class='buttonText'>Add Customer to Database</p></button> 
-                </form>
-                <form method='post' action='endpoint_handler.php'>
-                    <button class='button' name='editCustomer' id='b15'><p class='buttonText'>Edit Customer</p></button> 
-                </form>
-            </div>     
+                    <textarea class='textarea' name='selfquery' placeholder='Enter your query here'></textarea>
+                    <button type = 'submit' class='enter'>Submit</button>
+            </form>
+        </div>
+        <div class='container' id='container-1'>
+            <h2 class='h2-hidden'>General</h2>
+            <div class='line' id='line-1'></div>
+            <form method='post' target='_blank' action='endpoint_handler.php'>
+                <br><br><br>
+                <button name='checkConnection' class='button' id='b1'><p class='buttonText'>Check Connection</p></button>
+                <br><br>
+                <button name='viewLog'class='button' id='b2'><p class='buttonText'>View Log</p></button>
+                <br><br>
+                <button name='checkTables' class='button' id='b4'><p class='buttonText'>Check Tables in Database</p></button>
+            </form>
+        </div>
+
+        <div class='container' id='container-2'>
+            <h2 class='h2-hidden'>Products</h2>
+            <div class='line' id='line-1'></div>
+            <form method='post' target='_blank' action='endpoint_handler.php'>
+                <br><br><br>
+                <input type='text' class='input' name='getProductBySKU' placeholder='Get Product by SKU' autocomplete="off" id='b5'></input>
+            </form>
+            <form method='post' target='_blank' action='endpoint_handler.php'>
+                <button type='text' name='getProductsBatch' class='button' id='b6'><p class='buttonText'>Get Products (10)</p></button>
+            </form>
+            
+            <form  method='post' target='_blank' action='endpoint_handler.php'>
+                <button class='button' name='countProduct' id='b7'><p class='buttonText'>Count Products</p></button>
+            </form>
+            <form method='post' target='_blank' action='endpoint_handler.php'>
+                <button class='button' name='viewProductSql' id='b8'><p class='buttonText'>View Product Sql queries</p></button>
+            </form>
+            <form method='post' action='endpoint_handler.php'>
+                <button class='button' name='addProduct' id='b9'><p class='buttonText'>Add Product to Database</p></button>               
+            </form>
+            <form method='post' action='endpoint_handler.php'>
+                <button class='button' name='productList' id='b10'><p class='buttonText'>Edit Products</p></button>               
+            </form>
+        </div>
+
+        <div class='container' id='container-3'>
+            <h2 class='h2-hidden'>Customers</h2>
+            <div class='line' id='line-1'></div>
+            <form method='post' target='_blank' action='endpoint_handler.php'>
+                <br><br><br>
+                <input type='text' name='getCustomerByID' class='input' placeholder='Get Customer by ID' autocomplete="off" id='b11'></input>
+            </form>
+            <form method='post' target='_blank' action='endpoint_handler.php'>
+                <button class='button' name='countCustomer' id='b12'><p class='buttonText'>Count Customers</p></button>
+            </form>
+            <form method='post' target='_blank' action='endpoint_handler.php'>
+                <button class='button' name='viewCustomerSql' id='b13'><p class='buttonText'>View Customer Sql queries</p></button>
+            </form>
+            <form method='post' action='endpoint_handler.php'>
+                <button class='button' name='addCustomer' id='b14'><p class='buttonText'>Add Customer to Database</p></button> 
+            </form>
+            <form method='post' action='endpoint_handler.php'>
+                <button class='button' name='editCustomer' id='b15'><p class='buttonText'>Edit Customer</p></button> 
+            </form>
+        </div>   
+        <div class='info-report'>
+            <div class='rowHeader'>
+                ▶ View Current Log
+            </div>
+            <div class='row-item'>
+
+            </div>
+        </div>  
     </body>
         <script src='Scripts/scripts2.js'></script>
 </html>

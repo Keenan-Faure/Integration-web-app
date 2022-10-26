@@ -36,10 +36,10 @@
       - $_SESSION['connection'] = $configData? - done
 
 
-  - multiple users can login to the application (different users are stored inside a table having a column - priority) (locally)
-    * This should be hard coded to be either admin or read-only
+  - multiple users can login to the application (different users are stored inside a table having a column - priority) (locally)  - review
+    * This should be hard coded to be either admin or read-only - No - done
 
-    - find out how to make the users into a different table
+    - find out how to make the users into a different table - done
       - Users details can be found in a table called `Users` in their database:
         * Create own function that will check if the users credentials exist in the table (Client/Admin)
         * After checking if the user exists it will proceed to log into the mysql database using the credentials in the config file
@@ -54,6 +54,10 @@
 
   - after the user login to the database he gets redirected to the endpoints.php page where he can see all the endpoints.
   - After this, if the user 
+
+  - create dashboard
+    - create a location where all data (logs) are found. (user can manually clear them)
+      - they have to appear on the logs in session 
 
 - Re-do API
   - understand how previous API works (what is it based on) - done
