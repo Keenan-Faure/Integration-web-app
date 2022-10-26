@@ -440,6 +440,33 @@ class Connection
             return $variable;
         }
     }
+    
+    //creates the stdClass required when storing data 
+    //in the logs session - some are inserted into the database?
+    //where head -> message head (topic)
+    //body -> main message 
+    //type -> information, warning etc
+    function addLogs($head, $body, $_time, $_type, $saved)
+    {
+        $_config = include('config/config.php');
+        if(!isset($_SESSION))
+        {
+            session_start();
+        }
+        $variable = new \stdClass();
+        $variable->head = $head;
+        $variable->body = $body;
+        $variable->time = $_time;
+        $variable->type = $_type;
+
+        array_push($_SESSION, $variable);
+        if($saved == true)
+        {
+            $query = 'INSERT INTO Logs(Head, Body, T_ime , T_ype) Values ("'. $head . '","' . $body . '","' . $time . '" ,"' . $_type . '")';
+            $this->preQuery($_config, $query, 'object');
+        }
+
+    }
 
     //accessor methods
     function getUsername()

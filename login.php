@@ -21,8 +21,8 @@
             Username varchar(255),
             Password varchar(255),
             Email varchar(255),
-            Notes TEXT
-            )';
+            Notes TEXT)';
+
         $result = $conn->preQuery($_config, $query, 'object');   
         if(isset($result->result) == true)
         {
@@ -31,6 +31,20 @@
                 $_SESSION['setTables'] = true;
             }
         }
+
+        //create admin user
+        $query = 'INSERT INTO Users(Username, Password) VALUES("' . $_config['dbUser'] . '", "'. $_config['dbPass'] .'")';
+        $result = $conn->preQuery($_config, $query, 'object');
+    }
+    if(!in_array("logs", $result))
+    {
+        //create the table
+        $query = 'CREATE TABLE Logs(
+            Head varchar(255),
+            Body varchar(255),
+            T_ime varchar(255),
+            T_ype varchar(255))';
+        $result = $conn->preQuery($_config, $query, 'object');
 
         //create admin user
         $query = 'INSERT INTO Users(Username, Password) VALUES("' . $_config['dbUser'] . '", "'. $_config['dbPass'] .'")';

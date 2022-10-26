@@ -124,10 +124,19 @@
         </div>   
         <div class='info-report'>
             <div class='rowHeader'>
-                ▶ View Current Log
+                ▶ View logs
+            </div>
+            <span class='closebtn'>&times;</span>
+            <div class='row-item'>
+                
             </div>
             <div class='row-item'>
-
+            </div>
+            <div class='row-item'>
+            </div>
+            <div class='row-item'>
+            </div>
+            <div class='row-item'>
             </div>
         </div>  
     </body>

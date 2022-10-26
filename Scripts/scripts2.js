@@ -48,7 +48,7 @@ window.addEventListener('load', ()=>
         }, 550);
 
         contain2.classList.add('fade-in');
-        
+
         setTimeout(()=>
         {
             h2.classList.add('fade-in');
@@ -138,4 +138,21 @@ document.querySelector('.custom').addEventListener('click', ()=>
     
 });
 
+document.querySelector('.rowHeader').addEventListener('click', ()=>
+{
+    let elements = document.getElementsByClassName('row-item');
+    for(let i = 0; i < elements.length; ++i)
+    {
+        elements[i].classList.remove('increaser');
+        elements[i].classList.add('increaser');
+    }
+});
 
+document.querySelector('.closebtn').addEventListener('click', ()=>
+{
+    let elements = document.getElementsByClassName('row-item');
+    for(let i = 0; i < elements.length; ++i)
+    {
+        elements[i].classList.remove('increaser');
+    }
+});
