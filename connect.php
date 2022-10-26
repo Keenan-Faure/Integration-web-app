@@ -10,7 +10,40 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
     //to login or not
     if(isset($_SESSION['connection']->token))
     {
-        header("Refresh:0, url=endpoints.php");
+        if($_SESSION['connection']->credentials->username == $_POST['uname'] && $_SESSION['connection']->credentials->password == $_POST['psw'])
+        {
+            header("Refresh:0, url=endpoints.php");
+        }
+        else
+        {
+            //removes all previous data of login
+            session_destroy();
+            $conn = new connect();
+            $result = $conn->connectUser($_config, $_POST['uname'], $_POST['psw']);
+            if($result->connection == false)
+            {
+                $variable = new \stdClass();
+                $variable->username = $_POST['uname'];
+                $variable->password = "_";
+                $variable->message = $result->message;
+                $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+                if(isset($_SESSION['log']))
+                {
+                    array_push($_SESSION['log'], $variable);
+                }
+                header('Refresh:3,url=login.php');
+            }
+            else
+            {
+                unset($_POST['uname']);
+                unset($_POST['psw']);
+                if(isset($_SESSION['log']))
+                {
+                    array_push($_SESSION['log'], $result);
+                }
+                header('Refresh:3, url=endpoints.php');
+            }
+        }
     }
     else
     {
@@ -27,8 +60,6 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
             {
                 array_push($_SESSION['log'], $variable);
             }
-            echo(json_encode($variable));
-            header('Content-Type: application/json');
             header('Refresh:3,url=login.php');
         }
         else
@@ -60,14 +91,18 @@ else if(isset($_POST['runame']) && isset($_POST['rpsw']))
     else
     {
         $query = 'INSERT INTO Users(
+            Active,
             Username,
             Password,
-            Email
+            Email,
+            Notes
         )
-        VALUES("'
+        VALUES(
+            "False", "'
             . $_POST["runame"] . '","'
             . $_POST["rpsw"] . '","'
-            . $_POST["mail"] . '"
+            . $_POST["mail"] . '","'
+            . $_POST["note"] . '"
         )';
         $conn->preQuery($_config, $query, 'object');
     
