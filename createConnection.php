@@ -4,7 +4,7 @@ class Connection
 {
     //creates a connection to the Database using the credentials provided
     //to run queries
-    function createConnection($host, $username, $password, $db)
+    function createConnection($username, $password, $host, $db)
     {
         $conn = null;
         try
@@ -27,16 +27,18 @@ class Connection
         $this->connection->credentials = new \stdClass();
 
         $this->connection->credentials->username = $username;
-        $this->connection->credentials->password = '_';
+        $this->connection->credentials->password = $password;
         $this->connection->credentials->host = $host; //harcoded to localhost
-        $this->connection->credentials->host = $db;
+        $this->connection->credentials->dbname = $db;
         $this->connection->rawValue = $conn;
         $this->connection->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
         $this->connection->token = $this->createToken($username . $password);
-
-        //stores it inside a session
-        $_SESSION['connection'] = $this->connection;
         
+        if(!isset($_SESSION['connection']))
+        {
+            $_SESSION['connection'] = $this->connection;
+        }
+
         $serverConnection = new \stdClass();
         $serverConnection->connection = true;
         $serverConnection->message = 'Connected to MySql server on ' . $host . ' successful';
@@ -65,34 +67,58 @@ class Connection
             $results = $this->preQuery($_config, $query, 'object');
             if($results->result != null)
             {
-                $message = 'Successfully connected to server with Username "' . $client_user . '"';
-                $solution = "Please wait until you are redirected";
-                $this->createHtmlMessages($message, $solution, 'endpoints', 'info');
+                if($results->result[0]->Active == null || $results->result[0]->Active == 'true')
+                {
+                    $message = 'Successfully connected to server with Username "' . $client_user . '"';
+                    $solution = "Please wait until you are redirected";
+                    $this->createHtmlMessages($message, $solution, 'endpoints', 'info');
 
-                //creates session variable containing connection details
-                //creates a stdClass representation of the connection details
-                $this->connection = new \stdClass();
-                $this->connection->active = true;
-                $this->connection->credentials = new \stdClass();
+                    //creates session variable containing connection details
+                    //creates a stdClass representation of the connection details
+                    $this->connection = new \stdClass();
+                    $this->connection->active = true;
+                    $this->connection->credentials = new \stdClass();
 
-                $this->connection->credentials->username = $client_user;
-                $this->connection->credentials->password = '_';
-                $this->connection->credentials->host = $_config['host']; //harcoded to localhost
-                $this->connection->credentials->dbname = $_config['dbName'];
-                $this->connection->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-                $this->connection->token = $this->createToken($client_user . $client_pass);
+                    $this->connection->credentials->username = $client_user;
+                    $this->connection->credentials->password = '_';
+                    $this->connection->credentials->host = $_config['host']; //harcoded to localhost
+                    $this->connection->credentials->dbname = $_config['dbName'];
+                    $this->connection->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+                    $this->connection->token = $this->createToken($client_user . $client_pass);
 
-                //stores it inside a session
-                $_SESSION['connection'] = $this->connection;
+                    //stores it inside a session
+                    $_SESSION['clientConn'] = $this->connection;
 
-                $variable = new \stdClass();
-                $variable->connection = true; 
-                return $variable;
+                    //stores connection credentials in session variable
+                    $this->createConnection($_config['dbUser'], $_config['dbPass'], $_config['host'], $_config['dbName']);
+
+                    $variable = new \stdClass();
+                    $variable->connection = true; 
+                    $variable->message = $message;
+                    return $variable;
+                }
+                else
+                {
+                    $message = 'This account with Username "' . $client_user . '" is currently Inactive';
+                    $solution = "Please wait until you are redirected";
+                    $this->createHtmlMessages($message, $solution, 'endpoints', 'info');
+
+                    $variable = new \stdClass();
+                    $variable->connection = false; 
+                    $variable->message = $message;
+
+                    return $variable;
+                }
             }
             else
             {
+                $message = 'Incorrect credentials entered with Username: "' . $client_user . '"';
+                $solution = "Please try again";
+                $this->createHtmlMessages($message, $solution, 'login', 'warn');
+
                 $variable = new \stdClass();
                 $variable->connection = false; 
+                $variable->message = $message;
                 return $variable;
             }
         }
@@ -113,16 +139,19 @@ class Connection
                     <link rel='stylesheet' href='Styles/login.css'>
                 </head>
                 <body>
-                   
-                    <div class='cover' id='$type'>
+                    <div class='background-cover'>
                     </div>
-                    <div class='con'>
-                        <h2>Message</h2>          
-                        <p>$message</p>
-                        <hr>
-                        <p>$solution</p>
-                        <div class='cen'>
-                            <a class='btn' href='../$link.php'>Click me</a>
+                    <div class='background-reg'>
+                        <div class='cover' id='$type'>
+                        </div>
+                        <div class='con'>
+                            <h2>Message</h2>          
+                            <p>$message</p>
+                            <hr>
+                            <p>$solution</p>
+                            <div class='cen'>
+                                <a class='btn' href='../$link.php'>Click me</a>
+                            </div>
                         </div>
                     </div>
                 </body>
