@@ -120,9 +120,9 @@
                 else if(isset($_POST['getProductsBatch']))
                 {
                     $connection = new connect();
-                    $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
-                    //creates query
                     
+                    //creates connection and query
+                    $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
                     $query = "SELECT * FROM Inventory LIMIT 15";
 
                     $output = $connection->converterObject($rawConnection, $query);

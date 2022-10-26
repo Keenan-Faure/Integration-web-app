@@ -16,10 +16,12 @@
     {
         //create the table
         $query = 'CREATE TABLE Users(
+            Active varchar(5),
             UserID int AUTO_INCREMENT primary key NOT NULL,
             Username varchar(255),
             Password varchar(255),
-            Email varchar(255)
+            Email varchar(255),
+            Notes TEXT
             )';
         $result = $conn->preQuery($_config, $query, 'object');   
         if(isset($result->result) == true)
@@ -42,10 +44,9 @@
     </head>
     <body>
         <div class = 'background'>
-        <div class = 'background-cover'>
+        <div class = 'background-cover'></div>
             <h1 id='header1'>Login to MySql Server</h1>
             <div class='line' id='line'></div>
-            </div>
             <div class="modalContainer">
                 <form method='post' action='connect.php'>
                     <input type='text' autocomplete="off" name='uname' placeholder='Enter Username' id='f1' required>

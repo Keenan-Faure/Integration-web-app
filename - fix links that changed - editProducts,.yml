@@ -32,8 +32,8 @@
   - will you use a local database to store the users that can access it (admin users, and regular users) - YES - done
   - Once on the website will you you a config file to store that database information? - YES - done 
     - decide which session variables will you use to store the connection data (config data) and which you will use for client data
-      - $_SESSION['clientConn'] = $clientData?
-      - $_SESSION['connection'] = $configData?
+      - $_SESSION['clientConn'] = $clientData? - done
+      - $_SESSION['connection'] = $configData? - done
 
 
   - multiple users can login to the application (different users are stored inside a table having a column - priority) (locally)
