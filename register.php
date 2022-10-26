@@ -29,6 +29,8 @@
                     <br><br>
                     <input type='email' autocomplete="off" name='mail' placeholder='Enter Email Address'>
                     <br><br>
+                    <textarea type='text' class='textarea' autocomplete="off" name='note' placeholder='Additional Information'></textarea>
+                    <br><br>
                     <input class = 'button' type='submit' id='f4'>
                 </form>
                 <button onclick="window.location.href='login.php'" class='back'>Return</button>
