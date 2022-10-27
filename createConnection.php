@@ -70,9 +70,6 @@ class Connection
                 if($results->result[0]->Active == null || $results->result[0]->Active == 'true')
                 {
                     $message = 'Successfully connected to server with Username "' . $client_user . '"';
-                    $solution = "Please wait until you are redirected";
-                    $this->createHtmlMessages($message, $solution, 'endpoints', 'info');
-
                     //creates session variable containing connection details
                     //creates a stdClass representation of the connection details
                     $this->connection = new \stdClass();
@@ -101,7 +98,7 @@ class Connection
                 {
                     $message = 'This account with Username "' . $client_user . '" is currently Inactive';
                     $solution = "Please wait until you are redirected";
-                    $this->createHtmlMessages($message, $solution, 'endpoints', 'info');
+                    $this->createHtmlMessages($message, $solution, 'login', 'info');
 
                     $variable = new \stdClass();
                     $variable->connection = false; 
@@ -273,6 +270,10 @@ class Connection
                 return $queryParams;
             }
             if(isset($queryParams['type']))
+            {
+                return $queryParams;
+            }
+            if(isset($queryParams['logout']))
             {
                 return $queryParams;
             }
@@ -460,13 +461,12 @@ class Connection
         $variable->time = $_time;
         $variable->type = $_type;
 
-        array_push($_SESSION, $variable);
+        array_push($_SESSION['log'], $variable);
         if($saved == true)
         {
-            $query = 'INSERT INTO Logs(Head, Body, T_ime , T_ype) Values ("'. $head . '","' . $body . '","' . $time . '" ,"' . $_type . '")';
+            $query = 'INSERT INTO Logs(Head, Body, T_ime , T_ype)VALUES("' . $head . '","' . $body . '","' . $_time . '","' . $_type . '")';
             $this->preQuery($_config, $query, 'object');
         }
-
     }
 
     //accessor methods

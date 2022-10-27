@@ -1,12 +1,21 @@
+<?php 
+    session_start();
+    include("createConnection.php");
+    use Connection\Connection as connect;
+
+    if(!(isset($_SESSION['connection']) && isset($_SESSION['clientConn'])))
+    {
+        $conn = new connect();
+        $conn->createHtmlMessages('No Login details found in current session', 'Please relog', 'login', false);
+        exit();
+    }
+?>
 <html>
     <head>
         <link rel="icon" type="image/x-icon" href="Images/logo.png"/>
         <link rel='stylesheet' href='Styles/endpoints.css'>
     </head>
     <body>
-        <?php 
-            session_start();
-        ?>
         <div class='background'>
         </div>
         <div class="navBar">
@@ -51,6 +60,7 @@
                 <a href="importUtils/import.html" class="buttonOption"></a>
                 <img src='./Images/custom.png' title = "Query custom Sql" class='custom'>
                 <a title = "Push Products" href='cURL/app.php' class='s2s'></a>
+                <a class='logoutButton' href='output.php?logout=true'></a>
             </div>
         </div>
         <div class='selfBackground top'>
@@ -128,7 +138,6 @@
             </div>
             <span class='closebtn'>&times;</span>
             <div class='row-item'>
-                
             </div>
             <div class='row-item'>
             </div>
@@ -150,11 +159,6 @@ if(!isset($_SESSION['connection']))
     echo('<div class="errors"><p class="align">No Connection found in current session</p></div>');
 }
 
-include("createConnection.php");
-use Connection\Connection as connect;
-
-print_r($_SESSION);
-
 if(isset($_SESSION['clientConn']) && isset($_SESSION['connection']))
 {
     if(isset($_SESSION['clientConn']->credentials) && $_SESSION['connection']->active == true)
@@ -162,10 +166,17 @@ if(isset($_SESSION['clientConn']) && isset($_SESSION['connection']))
         $counter = false;
         $cust = false;
         $cond = false;
-        $knownDbs = array('information_schema','sys', 'mysql', 'performance_schema', 'phpmyadmin', 'test');
+
+        //saves known databases inside session
         $connection = new connect();
+        $knownDbs = array('information_schema', 'mysql', 'performance_schema', 'phpmyadmin', 'test', 'sys');
+        $conn = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+        $output = $connection->converterArray($conn, 'SHOW DATABASES');
+        $output = array_diff($output, $knownDbs);
+        $_SESSION['databases'] = $output;
 
         $output = $_SESSION['databases'];
+
         for($p = 0; $p < sizeof($output); ++$p)
         {
             if(isset($_SESSION['connection']))

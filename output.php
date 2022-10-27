@@ -17,18 +17,15 @@ if(isset($_SESSION['clientConn']) && isset($_POST['dbName']))
 }
 else
 {
-    if(!isset($_SESSION['clientConn']))
+    $host = "http://" . $_SERVER['HTTP_HOST']; //needs to be defined
+    $fullUrl = $_SERVER["REQUEST_URI"];
+    $fullUrl = $host . $fullUrl;
+    $params = $conn->queryParams($fullUrl)['logout'];
+    if($params == true)
     {
-        $conn->createHtmlMessages('No connection to MySql server found in current session', 'Please relog', 'login', 'warn');
-        header('Refresh:2,url=login.php');
-    }
-    else
-    {
-        $_SESSION['clearCache'] = true;
         session_destroy();
-        $conn->addLogs('Logout', 'Session Data cleared', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'info', true);
-        $conn->createHtmlMessages('Session data cleared', 'Logging-out', 'login', 'info');
-        header("Refresh:3,url=login.php");
+        $conn->createHtmlMessages('User logged out', 'Returning to login page', 'login', 'info');
+        header('Refresh:2, url=login.php');
     }
 }
 ?>

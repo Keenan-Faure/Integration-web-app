@@ -23,18 +23,24 @@
             Email varchar(255),
             Notes TEXT)';
 
-        $result = $conn->preQuery($_config, $query, 'object');   
-        if(isset($result->result) == true)
+        $result2 = $conn->preQuery($_config, $query, 'object');   
+        if(isset($result2->result) == true)
         {
-            if($result->result == true)
+            if($result2->result == true)
             {
                 $_SESSION['setTables'] = true;
             }
         }
 
         //create admin user
-        $query = 'INSERT INTO Users(Username, Password) VALUES("' . $_config['dbUser'] . '", "'. $_config['dbPass'] .'")';
-        $result = $conn->preQuery($_config, $query, 'object');
+        $query = 'SELECT COUNT(*) as total FROM Users WHERE Username = "' . $_config['dbName'] . '" & Password = "' . $_config['dbPass'] . '"';
+        $result3 = $conn->preQuery($_config, $query, 'object');
+        if($result3->result[0]->total == 0)
+        {
+            //create admin user
+            $query = 'INSERT INTO Users(Username, Password) VALUES("' . $_config['dbUser'] . '", "'. $_config['dbPass'] .'")';
+            $result3 = $conn->preQuery($_config, $query, 'object');
+        }
     }
     if(!in_array("logs", $result))
     {
@@ -65,7 +71,7 @@
                 <form method='post' action='connect.php'>
                     <input type='text' autocomplete="off" name='uname' placeholder='Enter Username' id='f1' required>
                     <br><br>
-                    <input type='password' autocomplete="off" name='psw' placeholder='Enter Password' id='f2'>
+                    <input type='password' autocomplete="off" name='psw' placeholder='Enter Password' id='f2' required>
                     <br><br>
                     <input type='text' name='host' placeholder='Localhost' id='f3' readonly>
                     <br><br>

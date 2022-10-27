@@ -26,7 +26,7 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
                 {
                     $conn->addLogs('Connection failed', $result->message, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', false);
                 }
-                header('Refresh:3,url=login.php');
+                header('Refresh:2,url=login.php');
             }
             else
             {
@@ -36,7 +36,7 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
                 {
                     $conn->addLogs('Connection successful', $result->message, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'info', false);
                 }
-                header('Refresh:3, url=endpoints.php');
+                header('Refresh:0, url=endpoints.php');
             }
         }
     }
@@ -50,7 +50,7 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
             {
                 $conn->addLogs('Connection failed', $result->message, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', false);
             }
-            header('Refresh:3,url=login.php');
+            header('Refresh:2,url=login.php');
         }
         else
         {
@@ -60,7 +60,7 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
             {
                 $conn->addLogs('Connection successful', $result->message, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'info', false);
             }
-            header('Refresh:3, url=endpoints.php');
+            header('Refresh:0, url=endpoints.php');
         }
     }
 }
@@ -102,7 +102,7 @@ else if(isset($_POST['runame']) && isset($_POST['rpsw']))
         $conn->createHtmlMessages($message, $solution, 'login', 'info');
         if(isset($_SESSION['log']))
         {
-            $conn->addLogs('User creation', 'Please review user: "' . $_POST['runame'] . '" before activation', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'info', true);
+            $conn->addLogs("User creation", "Please review user: '" . $_POST['runame'] . "' before activation", date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), "info", true);
         }
         exit();
     }

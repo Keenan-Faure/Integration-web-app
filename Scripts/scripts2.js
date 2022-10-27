@@ -141,6 +141,7 @@ document.querySelector('.custom').addEventListener('click', ()=>
 document.querySelector('.rowHeader').addEventListener('click', ()=>
 {
     let elements = document.getElementsByClassName('row-item');
+    document.querySelector('.closebtn').style.zIndex = 1;
     for(let i = 0; i < elements.length; ++i)
     {
         elements[i].classList.remove('increaser');

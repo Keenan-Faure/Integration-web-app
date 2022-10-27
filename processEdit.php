@@ -13,9 +13,9 @@ use utils\Utility as util;
 use Connection\Connection as connect;
 header("Content-Type: application/json");
 
-if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
+if(isset($_SESSION['connection']) && isset($_SESSION['connection']))
 {
-    if($_SESSION['credentials']->active == true)
+    if($_SESSION['connection']->active == true)
     {
 
         if($_SESSION['connection']->active == true)
