@@ -141,21 +141,84 @@ document.querySelector('.custom').addEventListener('click', ()=>
 document.querySelector('.rowHeader').addEventListener('click', ()=>
 {
     let elements = document.getElementsByClassName('row-item');
-    document.querySelector('.closebtn').style.zIndex = 1;
     for(let i = 0; i < elements.length; ++i)
     {
-        elements[i].classList.remove('increaser');
-        elements[i].classList.remove('decreaser');
-        elements[i].classList.add('increaser');
+        if(elements[i].classList.contains('decreaser'))
+        {
+            elements[i].classList.remove('decreaser');
+            elements[i].classList.add('increaser');
+        }
+        else if(elements[i].classList.contains('increaser'))
+        {
+            elements[i].classList.remove('increaser');
+            elements[i].classList.add('decreaser');
+        }
+        else
+        {
+            elements[i].classList.add('increaser');
+        }
     }
 });
 
-document.querySelector('.closebtn').addEventListener('click', ()=>
+
+//creates the row-items which displays each log item
+//can be closed (and removed) (tbi)
+function createLog(json)
 {
-    let elements = document.getElementsByClassName('row-item');
-    for(let i = 0; i < elements.length; ++i)
-    {
-        elements[i].classList.remove('increaser');
-        elements[i].classList.add('decreaser');
-    }
-});
+    // <div class='row-item'>
+    //     <div class='type-msg'>
+    //         <img class='type-msg-image' src='Images/info-icon.png'>
+    //     </div>
+    //     <div class='head'>Hi am am the head</div>
+    //     <div class='body'>I am a very very very very very very veyr very long body</div>
+    //     <div class='time'>I am the time </div>
+    //     <div class='closer'>&times;</div>
+    // </div>
+
+    let row = '';
+
+    let rowItem = document.createElement('div');
+    rowItem.className = 'row-item';
+
+        let typeMsg = document.createElement('div');
+        typeMsg.className = 'type-msg';
+    
+            let typeMsgImg = document.createElement('img');
+            typeMsgImg.className = 'type-msg-image';
+            if(row['type'] == 'info')
+            {
+                typeMsgImg.src = 'Images/info-icon.png';
+            }
+            else if(row['type'] == 'warn')
+            {
+                typeMsgImg.src = 'Images/err-warn-icon.png';
+            }
+        typeMsg.appendChild(typeMsgImg);
+        rowItem.appendChild(typeMsg);
+        
+        let head = document.createElement('div');
+        head.className = 'head';
+            let text = document.createTextNode(row['head']);
+        head.appendChild('text');
+        rowItem.appendChild(head);
+
+        let body = document.createElement('div');
+        body.className = 'body';
+            text = document.createTextNode(row['body']);
+        body.appendChild('text');
+        rowItem.appendChild(body);
+
+        let time = document.createElement('div');
+        time.className = 'time';
+            text = document.createTextNode(row['time']);
+        time.appendChild('text');
+        rowItem.appendChild(time);
+
+        let closer = document.createElement('div');
+        closer.className = 'closer';
+            text = document.createTextNode(row['closer']);
+        closer.appendChild('text');
+        rowItem.appendChild(closer);
+
+    document.querySelector('.info-report').appendChild(rowItem);
+}

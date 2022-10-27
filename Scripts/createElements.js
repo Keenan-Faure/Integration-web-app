@@ -97,7 +97,6 @@ function createProducts(products)
     }
 }
 
-//id is the id of the element
 //either variant or general
 function convertJsonToArray(texter)
 {

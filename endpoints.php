@@ -136,10 +136,9 @@
             <div class='rowHeader'>
                 ▶ View logs
             </div>
-            <span class='closebtn'>&times;</span>
             <div class='row-item'>
                 <div class='type-msg'>
-                    <img class='type-msg-image' src='Images/info-icon.png'>
+                    <img class='type-msg-image' src='Images/err-warn-icon.jpeg'>
                 </div>
                 <div class='head'>Hi am am the head</div>
                 <div class='body'>I am a very very very very very very veyr very long body</div>
@@ -148,6 +147,11 @@
             </div>
             <?php
                 //query and print data inside logs using javascript
+                $conn = new connect();
+
+                $rawConnection = $conn->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+                $jsonLogs = json_encode($conn->converterObject($rawConnection, 'SELECT * FROM Logs'));
+                
             ?>
         </div>  
     </body>
