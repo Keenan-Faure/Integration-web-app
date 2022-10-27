@@ -138,15 +138,17 @@
             </div>
             <span class='closebtn'>&times;</span>
             <div class='row-item'>
+                <div class='type-msg'>
+                    <img class='type-msg-image' src='Images/info-icon.png'>
+                </div>
+                <div class='head'>Hi am am the head</div>
+                <div class='body'>I am a very very very very very very veyr very long body</div>
+                <div class='time'>I am the time </div>
+                <div class='closer'>&times;</div>
             </div>
-            <div class='row-item'>
-            </div>
-            <div class='row-item'>
-            </div>
-            <div class='row-item'>
-            </div>
-            <div class='row-item'>
-            </div>
+            <?php
+                //query and print data inside logs using javascript
+            ?>
         </div>  
     </body>
         <script src='Scripts/scripts2.js'></script>
