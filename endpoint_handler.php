@@ -120,7 +120,7 @@
                 else if(isset($_POST['getProductsBatch']))
                 {
                     $connection = new connect();
-                    
+
                     //creates connection and query
                     $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
                     $query = "SELECT * FROM Inventory LIMIT 15";
@@ -214,7 +214,7 @@
                     $variable->error = 'No table selected';
                     $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
                     $variable->message = 'Warning: Undefined array key "tablecurrent"';
-                    array_push($_SESSION['log'], $variable);
+                    $conn->addLogs('No table selected', 'Undefined table', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
         
                     echo(json_encode($variable));
                 }
@@ -230,7 +230,7 @@
         $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
         if(isset($_SESSION['log']))
         {
-            array_push($_SESSION['log'], $variable);
+            $conn->addLogs('No Session', 'Attempted to connect but no session was found', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'info', false);
         }
         echo(json_encode($variable));
     }

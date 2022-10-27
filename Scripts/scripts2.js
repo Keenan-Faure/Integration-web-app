@@ -144,6 +144,7 @@ document.querySelector('.rowHeader').addEventListener('click', ()=>
     for(let i = 0; i < elements.length; ++i)
     {
         elements[i].classList.remove('increaser');
+        elements[i].classList.remove('decreaser');
         elements[i].classList.add('increaser');
     }
 });
@@ -154,5 +155,6 @@ document.querySelector('.closebtn').addEventListener('click', ()=>
     for(let i = 0; i < elements.length; ++i)
     {
         elements[i].classList.remove('increaser');
+        elements[i].classList.add('decreaser');
     }
 });

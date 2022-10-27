@@ -12,7 +12,7 @@
         <script src="Scripts/fade.js"></script>
         <script src="Scripts/createElements.js"></script>
         <?php 
-        if($_SESSION['connection'])
+        if($_SESSION['connection']->active == true)
         {
             $connection2 = new connect();
             $rawConnection = $connection2->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;

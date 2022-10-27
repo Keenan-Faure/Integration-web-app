@@ -24,7 +24,7 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
             {
                 if(isset($_SESSION['log']))
                 {
-                    $conn->addLogs('Connection failed', $result->message, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', 'not');
+                    $conn->addLogs('Connection failed', $result->message, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', false);
                 }
                 header('Refresh:3,url=login.php');
             }
@@ -34,8 +34,7 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
                 unset($_POST['psw']);
                 if(isset($_SESSION['log']))
                 {
-                    $conn->addLogs('Connection successful', $result->message, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'info', 'not');
-
+                    $conn->addLogs('Connection successful', $result->message, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'info', false);
                 }
                 header('Refresh:3, url=endpoints.php');
             }
@@ -47,14 +46,9 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
         $result = $conn->connectUser($_config, $_POST['uname'], $_POST['psw']);
         if($result->connection == false)
         {
-            $variable = new \stdClass();
-            $variable->username = $_POST['uname'];
-            $variable->password = "_";
-            $variable->message = $result->message;
-            $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
             if(isset($_SESSION['log']))
             {
-                array_push($_SESSION['log'], $variable);
+                $conn->addLogs('Connection failed', $result->message, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', false);
             }
             header('Refresh:3,url=login.php');
         }
@@ -64,7 +58,7 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
             unset($_POST['psw']);
             if(isset($_SESSION['log']))
             {
-                array_push($_SESSION['log'], $result);
+                $conn->addLogs('Connection successful', $result->message, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'info', false);
             }
             header('Refresh:3, url=endpoints.php');
         }
@@ -108,7 +102,7 @@ else if(isset($_POST['runame']) && isset($_POST['rpsw']))
         $conn->createHtmlMessages($message, $solution, 'login', 'info');
         if(isset($_SESSION['log']))
         {
-            array_push($_SESSION['log'], $variable);
+            $conn->addLogs('User creation', 'Please review user: "' . $_POST['runame'] . '" before activation', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'info', true);
         }
         exit();
     }
@@ -162,7 +156,7 @@ else
                     echo(json_encode($connection));
                     if(isset($_SESSION['log']))
                     {
-                        array_push($_SESSION['log'], $connection);
+                        $conn->addLogs('API Connection unsuccessful', 'Username: ' . $username . ' Password: ' . $password, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', false);
                     }
                     die();
                 }
@@ -170,7 +164,7 @@ else
                 {
                     if(isset($_SESSION['log']))
                     {
-                        array_push($_SESSION['log'], $connection);
+                        $conn->addLogs('API Connection successful', 'Username: ' . $username . ' Password: ' . $password, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'info', false);
                     }
                     header('location: endpoints.php');
                 }
@@ -187,7 +181,7 @@ else
                 echo(json_encode($variable));
                 if(isset($_SESSION['log']))
                 {
-                    array_push($_SESSION['log'], $variable);
+                    $conn->addLogs('No Session', 'Attempted to connect but no session was found', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'info', false);
                 }
             }
             else if(!isset($_SESSION['serverconnection']))
@@ -198,7 +192,7 @@ else
                 echo(json_encode($variable));
                 if(isset($_SESSION['log']))
                 {
-                    array_push($_SESSION['log'], $variable);
+                    $conn->addLogs('No Session', 'Attempted to connect but no session was found', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'info', false);
                 }    
             }
         }

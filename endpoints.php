@@ -12,7 +12,7 @@
         <div class="navBar">
             <div class="overlay">
                 <div class='imageNav'></div>
-                <h1 class='navBarHeader'>Available Endpoints</h1>
+                <h1 class='navBarHeader'>Dashboard</h1>
                 <div class='buttonContainer2'>
                     <div class="dropDown">
                     <button class="dropDownBtn">Home</button>
@@ -152,10 +152,12 @@ if(!isset($_SESSION['connection']))
 
 include("createConnection.php");
 use Connection\Connection as connect;
-if(isset($_SESSION['rawconnection']) && isset($_SESSION['connection']))
+
+print_r($_SESSION);
+
+if(isset($_SESSION['clientConn']) && isset($_SESSION['connection']))
 {
-    $rawConnection = $_SESSION['rawconnection'];
-    if(isset($_SESSION['credentials']) && $_SESSION['credentials']->active == true)
+    if(isset($_SESSION['clientConn']->credentials) && $_SESSION['connection']->active == true)
     {
         $counter = false;
         $cust = false;

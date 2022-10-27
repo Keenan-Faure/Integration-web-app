@@ -1,63 +1,33 @@
 <?php
 session_start();
+include('createConnection.php');
+use Connection\Connection as connect;
+$conn = new connect();
 
 if(isset($_SESSION['credentials']) && isset($_POST['dbName']))
 {   
     if(isset($_SESSION['connection']))
     {
-        echo(json_encode($_SESSION['connection']));
+        $conn->createHtmlMessages('Connected to ' . $_POST['dbName'], 'Status: Connection', 'endpoints', 'info');
     }
     else
     {
-        $result = new \stdClass();
-        $result->active=false;
-        $result->message='No connection to ' . $_POST['dbName'] . ' found in current session';
-        $result->token = rand();
-        $result->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);;
-        echo(json_encode($result));
+        $conn->createHtmlMessages('No connection to ' . $_POST['dbName'] . ' found in current session', 'Please relog', 'login', 'warn');
     }
 }
 else
 {
-    if(!isset($_SESSION['serverconnection']))
+    if(!isset($_SESSION['clientConn']))
     {
-        $result = new \stdClass();
-        $result->active=false;
-        $result->message='No connection to MySql server found in current session';
-        $result->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);;
-        echo(json_encode($result));
+        $conn->createHtmlMessages('No connection to MySql server found in current session', 'Please relog', 'login', 'warn');
         header('Refresh:2,url=login.php');
     }
     else
     {
         $_SESSION['clearCache'] = true;
-        $variable = new \stdClass();
-        $variable->clearCache = new \stdClass();
-        $variable->clearCache->result = $_SESSION['clearCache'];
-        $variable->clearCache->token = rand();
-        $variable->message = 'Session data cleared';
-        echo(json_encode($variable));
-        if(isset($_SESSION['connection']))
-        {
-            if($_SESSION['connection']->active === true)
-            {
-                $result = new \stdClass();
-                $result->active=false;
-                $result->message='No connection found in current session';
-                $result->token = rand();
-                $result->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);;
-
-                $_SESSION['connection'] = $result;
-            }
-        }
-        $variable = new \stdClass();
-        $variable->message = 'Session data destroyed';
-        $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);;
-        if(isset($_SESSION['log']))
-        {
-            array_push($_SESSION['log'], $variable);
-        }
         session_destroy();
+        $conn->addLogs('Logout', 'Session Data cleared', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'info', true);
+        $conn->createHtmlMessages('Session data cleared', 'Logging-out', 'login', 'info');
         header("Refresh:3,url=login.php");
     }
 }

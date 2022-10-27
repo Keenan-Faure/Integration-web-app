@@ -78,11 +78,8 @@ if($_SESSION['connection']->active == true)
                 {
                     if(isset($_SESSION['log']))
                     {
-                        $variable = new \stdClass();
-                        $variable->result = false;
-                        $variable->message = "Product with SKU " . $output->result[$i]->SKU . " was not processed";
-                        $variable->data = $data;
-                        array_push($_SESSION['log'], $variable);
+                        $conn = new connect();
+                        $conn->addLogs('Update Product', "Product with SKU " . $output->result[$i]->SKU . " was not processed", date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
                     }
                 }
             }
@@ -97,11 +94,7 @@ if($_SESSION['connection']->active == true)
 }
 else
 {
-    $variable = new \stdClass();
-    $variable->active = false;
-    $variable->message = 'No connection found in current session, please re-connect';
-    $variable->failedPage = 'execute.php';
-    $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-    echo(json_encode($variable));
+    $conn = new connect();
+    $conn->createHtmlMessages('Error connecting to user session', 'No connection found in current session, please re-connect', 'login', 'info');
 }
 ?>

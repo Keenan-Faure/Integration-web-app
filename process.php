@@ -13,9 +13,9 @@ use utils\Utility as util;
 use Connection\Connection as connect;
 header("Content-Type: application/json");
 
-if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
+if(isset($_SESSION['clientConn']) && isset($_SESSION['connection']))
 {
-    if($_SESSION['credentials']->active == true)
+    if($_SESSION['clientConn']->active == true)
     {
 
         if($_SESSION['connection']->active == true)
@@ -77,53 +77,34 @@ if(isset($_SESSION['credentials']) && isset($_SESSION['connection']))
             }
             else
             {
-                $variable = new \stdClass();
-                $variable->active = false;
-                $variable->message = 'No POST Data found, please re-select';
-                $variable->failedPage = 'process.php';
-                $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-
-                echo(json_encode($variable));
-                array_push($_SESSION['log'], $variable);
+                $conn = new connect();
+                $conn->addLogs('Error loading post data', 'No POST Data found, please re-select', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                $conn->createHtmlMessages('Error: Post Data', 'Error loading post data', 'endpoints', 'warn');
                 header('Refresh:2,url=productList.php?page=1');
             }
         }
         else
         {
-            $variable = new \stdClass();
-            $variable->active = false;
-            $variable->message = 'No connection found in current session, please re-connect or no pro';
-            $variable->failedPage = 'process.php';
-            $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+            $conn = new connect();
+            $conn->addLogs('Error connecting', 'No connection found in current session, please re-connect', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', false);
+            $conn->createHtmlMessages('Error connecting', 'No Session was detected', 'login', 'info');
 
-            echo(json_encode($variable));
-            array_push($_SESSION['log'], $variable);
-            header('Refresh:2,url=serverData.php');
+            header('Refresh:2,url=login.php');
         }
     }
     else
     {
-        $variable = new \stdClass();
-        $variable->active = false;
-        $variable->message = 'No connection to MySQL server detected!';
-        $variable->failedPage = 'process.php';
-        $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-
-        echo(json_encode($variable));
-        array_push($_SESSION['log'], $variable);
+        $conn = new connect();
+        $conn->addLogs('Error connecting', 'No login data found for current user', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', false);
+        $conn->createHtmlMessages('Error connecting to user session', 'No Session User was detected', 'login', 'info');
         header('Refresh:2,url=login.php');
     }
 }
 else
 {
-    $variable = new \stdClass();
-    $variable->active = false;
-    $variable->message = 'No connection to MySQL server detected!';
-    $variable->failedPage = 'process.php';
-    $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-
-    echo(json_encode($variable));
-    array_push($_SESSION['log'], $variable);
+    $conn = new connect();
+    $conn->addLogs('Error connecting', 'No login data found for current user', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', false);
+    $conn->createHtmlMessages('Error connecting to user session', 'No Session User was detected', 'login', 'info');
     header('Refresh:2,url=login.php');
 }
 

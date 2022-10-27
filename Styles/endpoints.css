@@ -471,13 +471,13 @@ h2
 .rowHeader
 {
     width: 100%;
-    background-color: #ceac6d;
+    background-color: rgba(34, 34, 34, 0.98);
     height: 25px;
     text-align: center;
     font-size: 20px;
     color: white;
-    border-style: inset;
-    border-width: 1px;
+    /* border-style: inset; */
+    /* border-width: 1px; */
     cursor: pointer;
     transition-duration: 0.2s;
 }
@@ -494,7 +494,7 @@ h2
 }
 .rowHeader:hover
 {
-    color: black;
+    color: rgb(250, 142, 0);
 }
 .rows
 {
@@ -524,4 +524,21 @@ h2
 .increaser
 {
     animation: increase 0.5s ease-in forwards;
+}
+
+@keyframes decrease
+{
+    from
+    {
+        height: 40px;
+    }
+    to
+    {
+        height: 0px;
+    }
+}
+
+.decreaser
+{
+    animation: decrease 0.5s ease-in forwards;
 }

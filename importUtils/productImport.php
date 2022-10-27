@@ -28,6 +28,7 @@ Class pImport
     }
     function importProduct($fileToUse)
     {
+        $conn = new connect();
         $containHeaders = true;
         $directory = 'uploads/';
         $file = scandir($directory);
@@ -40,19 +41,12 @@ Class pImport
         $undefinedHeaders = array();
         $template = array();
 
-
-        //add the errors in the logs using IO_logs
-        $Log = new \stdClass();
-        $IO_logs = array();
-
         if(isset($file))
         {
             if(sizeof($file) < 3)
             {
-                $variable = new \stdClass();
-                $variable->return = false;
-                $variable->message = "Empty Directory";
-                print_r(json_encode($variable));
+                $conn->createHtmlMessages('File Upload', 'Empty Directory', '../ImportUtils/import.html', 'info');
+                header('Refresh:2,url=import.html');
                 exit();
             }
         }
@@ -113,7 +107,7 @@ Class pImport
                 $rawValue = fgetcsv($openFile);
                 $connection2 = new connect();
 
-                $rawConnection = $connection2->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+                $rawConnection = $connection2->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
                 if(isset($rawValue[$template['sku']]))
                 {
                     $sku = ltrim(rtrim($rawValue[$template['sku']])); 
@@ -172,11 +166,15 @@ Class pImport
                             if(isset($result->return))
                             {
                                 $output->productsSkipped = $output->productsSkipped + 1;
-                                array_push($IO_logs, $result);
+                                $conn->addLogs('Import product', 'Product Skipped: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
                                 continue;
                             }
                             $output->newProductsAdded = $output->newProductsAdded + 1;
                             $result = $product->addProduct($result, $connection2);
+                            if(!isset($result->data))
+                            {
+                                $conn->addLogs('Add Product Failed:', 'Product: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                            }
                         }
                         //simple product
                         else
@@ -187,11 +185,15 @@ Class pImport
                             if(isset($result->return))
                             {
                                 $output->productsSkipped = $output->productsSkipped + 1;
-                                array_push($IO_logs, $result);
+                                $conn->addLogs('Import product', 'Product Skipped: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
                                 continue;
                             }
                             $output->newProductsAdded = $output->newProductsAdded + 1;
                             $result = $product->addProduct($result, $connection2);
+                            if(!isset($result->data))
+                            {
+                                $conn->addLogs('Add Product Failed:', 'Product: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                            }
                         }
                     }
                     //otherwise we must edit the existing product and update its values
@@ -250,14 +252,14 @@ Class pImport
                             if(isset($result->return))
                             {
                                 $output->productsSkipped = $output->productsSkipped + 1;
-                                array_push($IO_logs, $result);
+                                $conn->addLogs('Import product', 'Product Skipped: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
                                 continue;
                             }
                             $output->existingProductsUpdated = $output->existingProductsUpdated + 1;
                             $result = $product->updateProduct($result, $util, $connection2);
                             if(!isset($result->data))
                             {
-                                array_push($IO_logs, $result);
+                                $conn->addLogs('Update Failed:', 'Product: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
                             }
                         }
                         //simple product
@@ -269,22 +271,20 @@ Class pImport
                             if(isset($result->return))
                             {
                                 $output->productsSkipped = $output->productsSkipped + 1;
-                                array_push($IO_logs, $result);
+                                $conn->addLogs('Import Product', 'Product Skipped: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
                                 continue;
                             }
                             $output->existingProductsUpdated = $output->existingProductsUpdated + 1;
                             $result = $product->updateProduct($result, $util, $connection2);
                             if(!isset($result->data))
                             {
-                                array_push($IO_logs, $result);
+                                $conn->addLogs('Update Failed:', 'Product: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
                             }
                         }
 
                     }
                 }
             }
-            $Log->ImportProducts = $IO_logs;
-            array_push($_SESSION['log'], $Log);
         }
         fclose($openFile);
         mysqli_close($rawConnection);
