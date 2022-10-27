@@ -195,6 +195,7 @@ class Connection
         }
     }
 
+    //-- ONLY USED BY API (legacy) --//
     //connects the client to the mysql server
     //using the username and password found 
     //in the config.php file

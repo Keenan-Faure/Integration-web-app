@@ -2,9 +2,9 @@
     session_start();
     if(isset($_SESSION['apicredentials']))
     {
-        if(isset($_SESSION['serverconnection']))
+        if(isset($_SESSION['clientConn']))
         {
-            if($_SESSION['serverconnection']->active === true && $_SESSION['credentials']->active === true)
+            if($_SESSION['clientConn']->active === true && $_SESSION['connection']->active === true)
             {
                 $variable = new \stdClass();
                 $variable->apiCredentials = new \stdClass();
@@ -25,9 +25,9 @@
     }
     else
     {
-        if(isset($_SESSION['serverconnection']))
+        if(isset($_SESSION['clientConn']))
         {
-            if($_SESSION['serverconnection']->active === true && $_SESSION['credentials']->active === true)
+            if($_SESSION['clientConn']->active === true && $_SESSION['connection']->active === true)
             {
                 $token = 'token_' . bin2hex(openssl_random_pseudo_bytes(10));
                 $secret = 'secret_' . bin2hex(openssl_random_pseudo_bytes(10));

@@ -139,12 +139,12 @@ else
     }
     else
     {
-        if(isset($_SESSION['credentials']) && $_SESSION['serverconnection']->active === true)
+        if(isset($_SESSION['clientConn']->credentials) && $_SESSION['connection']->active === true)
         {
-            if($_SESSION['serverconnection']->active === true)
+            if($_SESSION['connection']->active === true)
             {
-                $username = $_SESSION['credentials']->username;
-                $password = $_SESSION['credentials']->password;
+                $username = $_SESSION['clientConn']->credentials->username;
+                $password = $_SESSION['clientConn']->credentials->password;
                 $host = $_POST['host'];
                 $dbname = $_POST['dbName'];
 
@@ -173,7 +173,7 @@ else
         else
         {
             $variable = new \stdClass();
-            if(!isset($_SESSION['credentials']))
+            if(!isset($_SESSION['clientConn']))
             {
                 $variable->message = "No login details found in current session";
                 $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
@@ -184,7 +184,7 @@ else
                     $conn->addLogs('No Session', 'Attempted to connect but no session was found', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'info', false);
                 }
             }
-            else if(!isset($_SESSION['serverconnection']))
+            else if(!isset($_SESSION['connection']))
             {
                 $variable->message = "No connection to database found in current session";
                 $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);

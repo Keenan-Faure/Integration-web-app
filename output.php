@@ -4,7 +4,7 @@ include('createConnection.php');
 use Connection\Connection as connect;
 $conn = new connect();
 
-if(isset($_SESSION['credentials']) && isset($_POST['dbName']))
+if(isset($_SESSION['clientConn']) && isset($_POST['dbName']))
 {   
     if(isset($_SESSION['connection']))
     {

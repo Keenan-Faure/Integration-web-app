@@ -15,7 +15,7 @@
         if($_SESSION['connection']->active == true)
         {
             $connection2 = new connect();
-            $rawConnection = $connection2->createConnection($_SESSION['credentials']->username, $_SESSION['credentials']->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+            $rawConnection = $connection2->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
             
             //gets the url
             $host = "http://" . $_SERVER['HTTP_HOST']; //needs to be defined
