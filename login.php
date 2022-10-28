@@ -8,6 +8,14 @@
     $conn = new connect(); 
     $query = 'SHOW TABLES';
     $result = $conn->preQuery($_config, $query, 'array');
+    if(isset($result->connection))
+    {
+        if($result->connection == false)
+        {
+            $conn->createHtmlMessages($result->message, "Please ensure:<br> - MySQL is installed <br> - MySQL is running <br> - Credentials are configured in the config file", 'login', 'warn');
+            exit();
+        }
+    }
     for($i = 0; $i < sizeof($result); ++$i)
     {
         $result[$i] = strtolower($result[$i]);
@@ -71,7 +79,7 @@
                 <form method='post' action='connect.php'>
                     <input type='text' autocomplete="off" name='uname' placeholder='Enter Username' id='f1' required>
                     <br><br>
-                    <input type='password' autocomplete="off" name='psw' placeholder='Enter Password' id='f2' required>
+                    <input type='password' autocomplete="off" name='psw' placeholder='Enter Password' id='f2'>
                     <br><br>
                     <input type='text' name='host' placeholder='Localhost' id='f3' readonly>
                     <br><br>

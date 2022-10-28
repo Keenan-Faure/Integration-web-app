@@ -14,6 +14,8 @@
     <head>
         <link rel="icon" type="image/x-icon" href="Images/logo.png"/>
         <link rel='stylesheet' href='Styles/endpoints.css'>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src='Scripts/createElements.js'></script>
     </head>
     <body>
         <div class='background'>
@@ -150,12 +152,13 @@
                 $conn = new connect();
 
                 $rawConnection = $conn->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
-                $jsonLogs = json_encode($conn->converterObject($rawConnection, 'SELECT * FROM Logs'));
+                $jsonLogs = json_encode($conn->converterObject($rawConnection, 'SELECT * FROM Logs')->result);
+                echo("<script>initiatorCreateLogs($jsonLogs);</script>");
                 
             ?>
         </div>  
     </body>
-        <script src='Scripts/scripts2.js'></script>
+    <script src='Scripts/scripts2.js'></script>
 </html>
 <?php
 

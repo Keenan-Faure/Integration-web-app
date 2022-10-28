@@ -7,6 +7,101 @@ $(document).ready(()=>
 });
 
 // +----------------------------------------------+
+// | Run-format of the functions (endpoints.php)  |
+// | initiatorCreateLogs -> createLogs ->         |
+// | convertJsonToArray                           |
+// +----------------------------------------------+
+function initiatorCreateLogs(logs)
+{
+    {
+        $(document).ready(()=>
+        {
+            createLogs(logs);
+        });
+    }
+}
+
+//creates the row-items which displays each log item
+//can be closed (and removed) (tbi)
+function createLogs(logsJson)
+{
+    // <div class='row-item'>
+    //     <div class='type-msg'>
+    //         <img class='type-msg-image' src='Images/info-icon.png'>
+    //     </div>
+    //     <div class='head'>Hi am am the head</div>
+    //     <div class='body'>I am a very very very very very very veyr very long body</div>
+    //     <div class='time'>I am the time </div>
+    //     <div class='closer'>&times;</div>
+    // </div>
+
+
+
+
+
+    let logContainer = document.querySelector('.info-report');
+    for(let i = 0; i < logsJson.length; ++i)
+    {
+        let returns = convertJsonToArray(logsJson[i]);
+
+        //Skips the headers and starts the iteration at 1
+        for(let j = 1; j < 2; ++j)
+        {
+            // console.log(returns[0][j]); //heads
+            // console.log(returns[1][j]); //body
+            // console.log(returns[2][j]); //time
+            // console.log(returns[3][j]); //type
+
+            let rowItem = document.createElement('div');
+            rowItem.className = 'row-item';
+
+                let typeMsg = document.createElement('div');
+                typeMsg.className = 'type-msg';
+            
+                    let typeMsgImg = document.createElement('img');
+                    typeMsgImg.className = 'type-msg-image';
+                    if(returns[3][j] == 'info')
+                    {
+                        typeMsgImg.src = 'Images/info-icon.png';
+                    }
+                    else if(returns[3][j] == 'warn')
+                    {
+                        typeMsgImg.src = 'Images/err-warn-icon.png';
+                    }
+                typeMsg.appendChild(typeMsgImg);
+                rowItem.appendChild(typeMsg);
+                
+                let head = document.createElement('div');
+                head.className = 'head';
+                    let text = document.createTextNode(returns[0][j]);
+                head.appendChild(text);
+                rowItem.appendChild(head);
+
+                let body = document.createElement('div');
+                body.className = 'body';
+                    text = document.createTextNode(returns[1][j]);
+                body.appendChild(text);
+                rowItem.appendChild(body);
+
+                let time = document.createElement('div');
+                time.className = 'time';
+                    text = document.createTextNode(returns[2][j]);
+                time.appendChild(text);
+                rowItem.appendChild(time);
+
+                let closer = document.createElement('div');
+                closer.className = 'closer';
+                    text = document.createTextNode('×');
+                closer.appendChild(text);
+                rowItem.appendChild(closer);
+
+            document.querySelector('.info-report').appendChild(rowItem);
+        }
+    }
+}
+
+
+// +----------------------------------------------+
 // | Run-format of the functions (productList.php)|
 // | initiatorCreateProducts -> createProducts -> |
 // | convertJsonToArray                           |
