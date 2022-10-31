@@ -37,6 +37,7 @@
                     <div class="dropDown">
                     <button class="dropDownBtn">View API</button>
                         <div class="dropDownContent">
+                            <a href='API/v1.php'>Visit API</a>
                             <a href="API/document.html" target='_blank'>Documentation</a>
                             <a href='API/API-collection.json' download='collection.json'>Postman collection</a>
                         </div>

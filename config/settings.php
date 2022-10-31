@@ -24,7 +24,6 @@ return array(
     
     //API settings
     'api_enabled' => 'true'
-
 );
 
 ?>
