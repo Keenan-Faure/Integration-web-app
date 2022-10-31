@@ -73,24 +73,13 @@ function createLogs(logsJson)
                 
                 let head = document.createElement('div');
                 head.className = 'head';
-                    let text = document.createTextNode(returns[0][j]);
+                    let text = document.createTextNode(returns[0][j] + ' - ' + returns[1][j] + ' - ' + returns[2][j]);
                 head.appendChild(text);
                 rowItem.appendChild(head);
 
-                let body = document.createElement('div');
-                body.className = 'body';
-                    text = document.createTextNode(returns[1][j]);
-                body.appendChild(text);
-                rowItem.appendChild(body);
-
-                let time = document.createElement('div');
-                time.className = 'time';
-                    text = document.createTextNode(returns[2][j]);
-                time.appendChild(text);
-                rowItem.appendChild(time);
-
                 let closer = document.createElement('div');
                 closer.className = 'closer';
+                closer.classList.add(j);
                     text = document.createTextNode('×');
                 closer.appendChild(text);
                 rowItem.appendChild(closer);
@@ -567,3 +556,18 @@ function setCustomerText(classNames, text, formNames)
         }
     }
 }
+
+setTimeout(()=>
+{
+    $(document).ready(()=>
+    {
+        logs = document.getElementsByClassName("closer");
+        for(let i = 0; i < logs.length; ++i)
+        {
+            logs[i].addEventListener('click', ()=>
+            {
+                logs[i].parentNode.style.display = 'none';
+            });
+        }
+    });
+}, 1500);

@@ -142,9 +142,7 @@
                 <div class='type-msg'>
                     <img class='type-msg-image' src='Images/err-warn-icon.jpeg'>
                 </div>
-                <div class='head'>Hi am am the head</div>
-                <div class='body'>I am a very very very very very very veyr very long body</div>
-                <div class='time'>I am the time </div>
+                <div class='head'>Hi am am the head - I am a very very very very very very veyr very long body : I am the time</div>
                 <div class='closer'>&times;</div>
             </div>
             <?php

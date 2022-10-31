@@ -12,6 +12,7 @@
     {
         if($result->connection == false)
         {
+            print_r($result);
             $conn->createHtmlMessages($result->message, "Please ensure:<br> - MySQL is installed <br> - MySQL is running <br> - Credentials are configured in the config file", 'login', 'warn');
             exit();
         }
