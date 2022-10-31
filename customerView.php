@@ -47,15 +47,7 @@
                     <div class="dropDown">
                     <button class="dropDownBtn">Home</button>
                         <div class="dropDownContent">
-                            <a href="serverData.php">Dashboard</a>
-                        </div>
-                    </div>
-
-                    <div class="dropDown">
-                    <button class="dropDownBtn">Endpoints</button>
-                        <div class="dropDownContent">
-                            <a href="endpoints.php">View Endpoints</a>
-                            <a href="API/document.html" target='_blank'>API</a>
+                            <a href="endpoints.php">Dashboard</a>
                         </div>
                     </div>
                 </div>
