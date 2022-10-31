@@ -7,9 +7,9 @@ $conn = new connect();
 $host = "http://" . $_SERVER['HTTP_HOST']; //needs to be defined
 $fullUrl = $_SERVER["REQUEST_URI"];
 $fullUrl = $host . $fullUrl;
-$query = ($conn->queryParams($fullUrl))['q'];
-if(isset($query))
+if(isset(($conn->queryParams($fullUrl))['q']))
 {
+    $query = ($conn->queryParams($fullUrl))['q'];
     $message = 'Username: ' . $_SESSION['clientConn']->credentials->username . '<br>' . 'Password: ' . $_SESSION['clientConn']->credentials->password . '<br>' . 'dbName: ' . $_SESSION['clientConn']->credentials->dbname . '<br>' . 'Token: ' . $_SESSION['clientConn']->token;
     $conn->createHtmlMessages('Session details', $message, 'endpoints', 'info');
     exit();

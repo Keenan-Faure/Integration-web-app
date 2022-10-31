@@ -47,7 +47,7 @@
                     <div class="dropDown">
                     <button class="dropDownBtn">Settings</button>
                         <div class="dropDownContent">
-                            <a href="addItem.html">View Settings</a>
+                            <a href="endpoints/config/settings.php">View Settings</a>
                         </div>
                     </div>
                 </div>
