@@ -277,6 +277,10 @@ class Connection
             {
                 return $queryParams;
             }
+            if(isset($queryParams['q']))
+            {
+                return $queryParams;
+            }
             else
             {
                 return 1;

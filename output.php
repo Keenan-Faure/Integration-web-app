@@ -4,6 +4,17 @@ include('createConnection.php');
 use Connection\Connection as connect;
 $conn = new connect();
 
+$host = "http://" . $_SERVER['HTTP_HOST']; //needs to be defined
+$fullUrl = $_SERVER["REQUEST_URI"];
+$fullUrl = $host . $fullUrl;
+$query = ($conn->queryParams($fullUrl))['q'];
+if(isset($query))
+{
+    $message = 'Username: ' . $_SESSION['clientConn']->credentials->username . '<br>' . 'Password: ' . $_SESSION['clientConn']->credentials->password . '<br>' . 'dbName: ' . $_SESSION['clientConn']->credentials->dbname . '<br>' . 'Token: ' . $_SESSION['clientConn']->token;
+    $conn->createHtmlMessages('Session details', $message, 'endpoints', 'info');
+    exit();
+}
+
 if(isset($_SESSION['clientConn']) && isset($_POST['dbName']))
 {   
     if(isset($_SESSION['connection']))

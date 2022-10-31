@@ -4,13 +4,15 @@ $(document).ready(()=>
     {
         //gets the active;
         let active = document.querySelector('.act');
+        
         if(active.checked == true)
         {
             active.value = 'true';
         }
-        else
+        else if(active.checked == false)
         {
-            active.value = 'false'
+            active.value = 'false';
+            console.log(active);
         }
     });
 });

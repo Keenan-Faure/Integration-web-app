@@ -26,36 +26,27 @@
                 <h1 class='navBarHeader'>Dashboard</h1>
                 <div class='buttonContainer2'>
                     <div class="dropDown">
-                    <button class="dropDownBtn">Home</button>
+                    <button class="dropDownBtn">Session</button>
                         <div class="dropDownContent">
-                            <a href="serverData.php">Dashboard</a>
-                            <a href="serverData.php">Sett</a>
+                            <a href="output.php?q=session">Current session</a>
+                            <a href="output.php?logout=true">Logout</a>
 
                         </div>
                     </div>
 
                     <div class="dropDown">
-                    <button class="dropDownBtn">Endpoints</button>
+                    <button class="dropDownBtn">View API</button>
                         <div class="dropDownContent">
-                            <a href="endpoints.php">View Endpoints</a>
-                            <a href="API/document.html" target='_blank'>API</a>
+                            <a href="API/document.html" target='_blank'>Documentation</a>
+                            <a href='API/API-collection.json' download='collection.json'>Postman collection</a>
                         </div>
                     </div>
                 </div>
                 <div class='buttonContainer3'>
                     <div class="dropDown">
-                    <button class="dropDownBtn">Products</button>
+                    <button class="dropDownBtn">Settings</button>
                         <div class="dropDownContent">
-                            <a href="addItem.html">Add Product</a>
-                            <a href="productList.php?page=1">View all products</a>
-                        </div>
-                    </div>
-
-                    <div class="dropDown">
-                    <button class="dropDownBtn">Customers</button>
-                        <div class="dropDownContent">
-                            <a href="addCustomer.html">Add Customer</a>
-                            <a href="editCustomer.php">View Customers</a>
+                            <a href="addItem.html">View Settings</a>
                         </div>
                     </div>
                 </div>
@@ -137,13 +128,6 @@
         <div class='info-report'>
             <div class='rowHeader'>
                 ▶ View logs
-            </div>
-            <div class='row-item'>
-                <div class='type-msg'>
-                    <img class='type-msg-image' src='Images/err-warn-icon.jpeg'>
-                </div>
-                <div class='head'>Hi am am the head - I am a very very very very very very veyr very long body : I am the time</div>
-                <div class='closer'>&times;</div>
             </div>
             <?php
                 //query and print data inside logs using javascript

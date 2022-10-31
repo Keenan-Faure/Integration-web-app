@@ -51,7 +51,7 @@
             }
             if(isset($_POST['editCustomer']))
             {
-                header('Refresh:0, url=editCustomer.php');
+                header('Refresh:0, url=customerList.php?page=1');
                 unset($_POST['editCustomer']);
                 exit();
             }

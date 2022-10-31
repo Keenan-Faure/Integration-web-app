@@ -25,10 +25,16 @@ if(isset($_SESSION['connection']) && isset($_SESSION['connection']))
             $connection = new connect();
             if(isset($_POST['name']) && isset($_POST['surname']))
             {
+                if(!isset($_POST['active']))
+                {
+                    $_POST['active'] = 'false';
+                }
                 if($_POST['name'] != null && $_POST['surname'] != null)
                 {
                     $customer = new customer();
+                    $post = $_POST;
                     $result = $customer->createCustomer($_POST, $util, $connection, 'edit');
+
                     if(isset($result->return))
                     {
                         echo(json_encode($result));
@@ -66,6 +72,7 @@ if(isset($_SESSION['connection']) && isset($_SESSION['connection']))
                 {
                     //simple product
                     $product = new sproduct();
+                    $post = $_POST;
                     $result = $product->createProduct($_POST, $util, $connection, 'edit');
                     if(isset($result->return))
                     {

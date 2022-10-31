@@ -150,7 +150,7 @@ Class Customers
         {
             $variable = new \stdClass();
             $variable->result = false;
-            $variable->message = 'Unsupported value';
+            $variable->message = 'Unsupported value: ' . $customer->active;
             $variable->supportedValues = array(true, false);
             return $variable;
         }
@@ -174,7 +174,6 @@ Class Customers
 
         $output = $connection->converterObject($rawConnection, $query);
         $result = new \stdClass();
-        $result->result = $output;
         $result->data = $customer;
         return $result;
     }
