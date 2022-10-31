@@ -37,49 +37,50 @@
         exit();
     }
 
+    $_settings = include('../../config/settings.php');
 ?>
 
 <html>
     <head>
-        <link rel="stylesheet" href="../../Styles/productList.css">
+        <link rel="stylesheet" href="../../Styles/endpoints.css">
         <link rel="icon" type="image/x-icon" href="../../Images/logo.png"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     </head>
     <body>
-        <div class="navBar">
+    <div class="navBar">
             <div class="overlay">
                 <div class='imageNav'></div>
-                <h1>Edit Products</h1>
+                <h1 class='navBarHeader'>Dashboard</h1>
                 <div class='buttonContainer2'>
                     <div class="dropDown">
-                    <button class="dropDownBtn">Home</button>
+                    <button class="dropDownBtn">Session</button>
                         <div class="dropDownContent">
-                            <a href="endpoints.php">Dashboard</a>
+                            <a href="../../output.php?q=session">Current session</a>
+                            <a href="../../output.php?logout=true">Logout</a>
+
                         </div>
                     </div>
-                </div>
-                <div class='buttonContainer'>
-                <div class="dropDown">
-                <button class="dropDownBtn">Products</button>
-                    <div class="dropDownContent">
-                        <a href="addItem.html">Add Product</a>
-                        <a href="productList.php?page=1">View all products</a>
-                        <a href="importUtils/import.html">Import Products</a>
-                        <a href="importUtils/productExport.php">Export Products</a>
-                    </div>
-                </div>
 
                     <div class="dropDown">
-                    <button class="dropDownBtn">Customers</button>
+                    <button class="dropDownBtn">View API</button>
                         <div class="dropDownContent">
-                            <a href="addCustomer.html">Add Customer</a>
-                            <a href="editCustomer.php">View Customers</a>
+                            <a href='../../API/v1.php'>Visit API</a>
+                            <a href="../../API/document.html" target='_blank'>Documentation</a>
+                            <a href='../../API/API-collection.json' download='collection.json'>Postman collection</a>
                         </div>
                     </div>
                 </div>
-                <a href="importUtils/import.html" class="buttonOption"></a>
+                <div class='buttonContainer3'>
+                    <div class="dropDown">
+                    <button class="dropDownBtn">Settings</button>
+                        <div class="dropDownContent">
+                            <a href="../../endpoints/config/settings.php">View Settings</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
+        </div>
+        <div class='settings'>
+            
         </div>
     </body>
 </html>
