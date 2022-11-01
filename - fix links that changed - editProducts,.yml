@@ -62,5 +62,6 @@
 - Re-do API
   - understand how previous API works (what is it based on) - done
 
+- Laravel
 
 - Redo output from code (logs) (try to make the output appear on same page and make a script on the server run it and return results (AJAX))
