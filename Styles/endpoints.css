@@ -643,3 +643,54 @@ h2
 {
     background-color: red;
 }
+
+.settings
+{
+    background-color: rgba(0, 0, 0, 0.6);
+    position: relative;
+    transform: translate(-50%, 0%);
+    left: 50%;
+    width: 70%;
+}
+
+.valueSett
+{
+    background-color: rgba(99, 99, 99, 0.7);
+    width: 50%;
+    text-shadow: 1px 2px 6px rgb(0 0 0);
+    position: relative;
+    display: inline-block;
+    font-size: 12px;
+    left: 0%;
+    margin: 0;
+    text-align: center;
+    color: white;
+    transition-duration: 0.1s;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(133, 133, 133);
+    border-image: initial;
+    font-family: system-ui; 
+    resize: auto;
+    overflow: auto;
+    box-sizing: border-box;
+}
+
+.headerSett
+{
+    background-color:rgb(51, 51, 51);
+    position: relative;
+    width: 100%;
+    text-shadow: 1px 2px 6px rgb(0 0 0);
+    position: relative;
+    display: inline-block;
+    font-size: 15px;
+    left: 0%;
+    margin: 0;
+    text-align: center;
+    color: white;
+    transition-duration: 0.1s;
+    border-width: 1px;
+    border-style: solid;
+    border-image: initial;
+}
