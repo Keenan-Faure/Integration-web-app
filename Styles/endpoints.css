@@ -650,6 +650,7 @@ h2
     position: relative;
     transform: translate(-50%, 0%);
     left: 50%;
+    z-index: -1;
     width: 70%;
 }
 
