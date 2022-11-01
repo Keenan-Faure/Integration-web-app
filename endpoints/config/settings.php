@@ -13,7 +13,6 @@
             <html>
                 <head>
                     <link rel='icon' type=image/x-icon' href='Images/logo.png'/>
-                    <link rel='stylesheet' href='Styles/login.css'>
                 </head>
                 <body>
                     <div>
@@ -38,6 +37,11 @@
     }
 
     $_settings = include('../../config/settings.php');
+    function isJson($value)
+    {
+            json_decode($value);
+            return json_last_error() === JSON_ERROR_NONE;
+    }
 ?>
 
 <html>
@@ -47,10 +51,12 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     </head>
     <body>
+    <div class='background'>
+    </div>
     <div class="navBar">
             <div class="overlay">
                 <div class='imageNav'></div>
-                <h1 class='navBarHeader'>Dashboard</h1>
+                <h1 class='navBarHeader'>Settings</h1>
                 <div class='buttonContainer2'>
                     <div class="dropDown">
                     <button class="dropDownBtn">Session</button>
@@ -80,7 +86,27 @@
                 </div>
         </div>
         <div class='settings'>
-            
+            <?php
+                foreach($_settings as $x => $value)
+                {
+                    echo("<div class='headerSett'><p class='headSettText'>$x</p></div>");
+                    if(sizeof($value) > 0)
+                    {
+                        foreach($value as $y => $subValue)
+                        {
+                            echo("<textarea class='valueSett' style='resize:none' readonly>$y</textarea>");
+                            if(str_starts_with("$subValue", "{"))
+                            {
+                                echo("<textarea class='valueSett' style='text-align: left' readonly>$subValue</textarea>");
+                            }
+                            else
+                            {
+                                echo("<textarea class='valueSett' readonly>$subValue</textarea>");
+                            }
+                        }
+                    }
+                }
+            ?>
         </div>
     </body>
 </html>
