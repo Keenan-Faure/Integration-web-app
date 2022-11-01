@@ -61,6 +61,7 @@
                     <div class="dropDown">
                     <button class="dropDownBtn">Session</button>
                         <div class="dropDownContent">
+                            <a href="../../endpoints.php">Home</a>
                             <a href="../../output.php?q=session">Current session</a>
                             <a href="../../output.php?logout=true">Logout</a>
 
