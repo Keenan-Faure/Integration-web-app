@@ -4,15 +4,17 @@
     use Connection\Connection as connect;
 
     $_config = include('config/config.php');
+    $_settings = include('config/settings.php');
+    
     $_SESSION['log'] = array();
     $conn = new connect(); 
+    $_SESSION['settings'] = $conn->setSettings($_settings);
     $query = 'SHOW TABLES';
     $result = $conn->preQuery($_config, $query, 'array');
     if(isset($result->connection))
     {
         if($result->connection == false)
         {
-            print_r($result);
             $conn->createHtmlMessages($result->message, "Please ensure:<br> - MySQL is installed <br> - MySQL is running <br> - Credentials are configured in the config file", 'login', 'warn');
             exit();
         }
