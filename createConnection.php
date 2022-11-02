@@ -133,7 +133,7 @@ class Connection
             <html>
                 <head>
                     <link rel='icon' type=image/x-icon' href='Images/logo.png'/>
-                    <link rel='stylesheet' href='Styles/login.css'>
+                    <link rel='stylesheet' href='../../Styles/login.css'>
                 </head>
                 <body>
                     <div class='background-cover'>
@@ -471,6 +471,24 @@ class Connection
             $query = 'INSERT INTO Logs(Head, Body, T_ime , T_ype)VALUES("' . $head . '","' . $body . '","' . $_time . '","' . $_type . '")';
             $this->preQuery($_config, $query, 'object');
         }
+    }
+
+    //sets the settings in the session
+    function setSettings($_settings)
+    {
+        $variable = new \stdClass();
+        foreach($_settings as $x => $value)
+        {
+            $variable->$x = new \stdClass;
+            if(sizeof($value) > 0)
+            {
+                foreach($value as $y => $subValue)
+                {
+                    $variable->$x->$y = $subValue;
+                }
+            }
+        }
+        return $variable;
     }
 
     //accessor methods
