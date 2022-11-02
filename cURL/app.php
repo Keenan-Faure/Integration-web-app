@@ -21,8 +21,6 @@
     <body>
     <div class='backgroundApp'>
     <div class="errorTable">
-        <div class="errors"><p class="align">Credentials must be validated</p></div>
-        <br>
         <div class="errors"><p class="align">Hover for more information</p></div>
         <br>
         <div class="errors" id="push"><p class="align">Configure Conditions for push</p></div>
@@ -121,11 +119,11 @@
             <form action="execute.php" method='post' target='_blank'>
                 <div class="containerText">Username</div>
                 <div class="line"></div>
-                <input type='text' class = 'appTitle' name='username' title='Stock2Shop valid username' required>
+                <textarea type='text' class = 'appTitle-textarea' name='username' title='Stock2Shop valid username' required></textarea>
                 
                 <div class="containerText">Password</div>
                 <div class="line"></div>
-                <input type='password' class = 'appTitle' autocomplete="off" name='password' title='Stock2Shop user password' required>
+                <textarea type='password' class = 'appTitle-textarea' autocomplete="off" name='password' title='Stock2Shop user password' required></textarea>
                 <br><br><br>
                 <div class="containerText">Endpoint</div>
                 <div class="line"></div>
