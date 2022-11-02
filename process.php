@@ -41,6 +41,11 @@ if(isset($_SESSION['clientConn']) && isset($_SESSION['connection']))
             }
             else if(!isset($_POST['name']) && !isset($_POST['surname']))
             {
+                if($_SESSION['settings']->App_settings->app_add_products != 'true')
+                {
+                    $connection->createHtmlMessages('Add Products disabled', 'Please contact admin', 'endpoints', 'info');
+                    exit();
+                }
                 if(isset($_POST['optionName']) && isset($_POST['optionValue']))
                 {
                     $product = new vproduct();
@@ -60,6 +65,7 @@ if(isset($_SESSION['clientConn']) && isset($_SESSION['connection']))
                 else
                 {
                     //simple product
+                    
                     $product = new sproduct();
                     $result = $product->createProduct($_POST, $util, $connection);
                     if(isset($result->return))

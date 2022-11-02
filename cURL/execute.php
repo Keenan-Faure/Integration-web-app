@@ -74,6 +74,9 @@ if($_SESSION['connection']->active == true)
             $pushed->system_products = array();
             for($i = 0; $i < sizeof($output->result); ++$i)
             {
+                //converts the description to HTML decodes, strips slashes
+                $output->result[$i]->Description = htmlspecialchars_decode(stripslashes($output->result[$i]->Description));
+                
                 $data = $curl->addProduct($output->result[$i], $sources->system_sources[0], $_SESSION['settings']);
                 if($data != null)
                 {

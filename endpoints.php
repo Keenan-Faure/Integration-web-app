@@ -52,7 +52,12 @@
                     </div>
                 </div>
                 <a href="importUtils/import.html" class="buttonOption"></a>
-                <img src='./Images/custom.png' title = "Query custom Sql" class='custom'>
+                <?php
+                    if($_SESSION['settings']->App_settings->app_enable_self_query == 'true')
+                    {
+                        echo("<img src='./Images/custom.png' title = 'Query custom Sql' class='custom'>");
+                    }
+                ?>
                 <a title = "Push Products" href='cURL/app.php' class='s2s'></a>
                 <a class='logoutButton' href='output.php?logout=true'></a>
             </div>
@@ -61,12 +66,17 @@
             <div class='buttonContainer'></div>
             <button class='closeButton'>&times;</button>
             
-            <h1>Custom Query</h1>
-            <form method='post' target='_blank' action='endpoint_handler.php'>
-                    <br><br><br>
-                    <textarea class='textarea' name='selfquery' placeholder='Enter your query here'></textarea>
-                    <button type = 'submit' class='enter'>Submit</button>
-            </form>
+            <?php
+                if($_SESSION['settings']->App_settings->app_enable_self_query == 'true')
+                {
+                    echo("<h1>Custom Query</h1>
+                    <form method='post' target='_blank' action='endpoint_handler.php'>
+                            <br><br><br>
+                            <textarea class='textarea' name='selfquery' placeholder='Enter your query here'></textarea>
+                            <button type = 'submit' class='enter'>Submit</button>
+                    </form>");
+                }
+            ?>
         </div>
         <div class='container' id='container-1'>
             <h2 class='h2-hidden'>General</h2>
