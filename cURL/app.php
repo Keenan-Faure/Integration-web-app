@@ -119,11 +119,26 @@
             <form action="execute.php" method='post' target='_blank'>
                 <div class="containerText">Username</div>
                 <div class="line"></div>
-                <textarea type='text' class = 'appTitle-textarea' name='username' title='Stock2Shop valid username' required></textarea>
-                
+                <textarea type='text' class = 'appTitle-textarea' name='username' title='Stock2Shop valid username' required><?php 
+                        if(isset($_SESSION['settings']))
+                        {
+                            if(isset($_SESSION['settings']->Stock2Shop_Credentials))
+                            {
+                                echo($_SESSION['settings']->Stock2Shop_Credentials->s2s_user);
+                            }
+                        }
+                    ?></textarea>
                 <div class="containerText">Password</div>
                 <div class="line"></div>
-                <textarea type='password' class = 'appTitle-textarea' autocomplete="off" name='password' title='Stock2Shop user password' required></textarea>
+                <textarea type='password' class = 'appTitle-textarea' autocomplete="off" name='password' title='Stock2Shop user password' required><?php 
+                        if(isset($_SESSION['settings']))
+                        {
+                            if(isset($_SESSION['settings']->Stock2Shop_Credentials))
+                            {
+                                echo($_SESSION['settings']->Stock2Shop_Credentials->s2s_password);
+                            }
+                        }
+                    ?></textarea>
                 <br><br><br>
                 <div class="containerText">Endpoint</div>
                 <div class="line"></div>
