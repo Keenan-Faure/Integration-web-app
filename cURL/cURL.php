@@ -194,10 +194,17 @@ Class CURL
         return $output;
     }
 
-    function addProduct($product, $source)
+    function addProduct($product, $source, $_settings)
     {
         if(isset($product))
         {
+            if($_settings->S2S_settings->s2s_delete_products == 'false')
+            {
+                if($product->Active == 'false')
+                {
+                    return null;
+                }
+            }
             $Product = new \stdClass();
 
             //creates the product not the array called system_products in the request

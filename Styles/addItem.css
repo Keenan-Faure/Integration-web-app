@@ -306,6 +306,7 @@ p
     width: 80%;
     height: 42px;
     position: relative;
+    font-family: Arial, sans-serif;
     left: 10%;
     border-radius: 20px;
     display: inline-block;
