@@ -196,6 +196,33 @@ Class CURL
 
     function addProduct($product, $source, $_settings)
     {
+        $array = [
+            '$source->id' => $source->id,
+            '$product->Active' => $product->Active,
+            'source_product_code'=> $product->Group_Code,
+            'sync_token'=> $source->sync_token,
+            'fetch_token'=> 0,
+
+            '$product->Title' => $product->Title,
+            '$product->Description' => $product->Description,
+            '$product->Category' => $product->Category,
+            '$product->Product_Type' => $product->Product_Type,
+            '$product->Brand' => $product->Brand,
+            '$product->SKU' => $product->SKU,
+            '$product->Group_Code' => $product->Group_Code,
+            '$product->Variant_Code' => $product->Variant_Code,
+            '$product->Barcode' => $product->Barcode,
+            '$product->Weight' => $product->Weight,
+            '$product->ComparePrice' => $product->ComparePrice,
+            '$product->SellingPrice' => $product->SellingPrice,
+            '$product->CapeTown_Warehouse' => $product->CapeTown_Warehouse,
+            '$product->Option_1_Value' => $product->Option_1_Value,
+            '$product->Option_2_Value' => $product->Option_2_Value,
+            '$product->Meta_1' => $product->Meta_1,
+            '$product->Meta_2' => $product->Meta_2,
+            '$product->Meta_3' => $product->Meta_3
+        ];
+
         if(isset($product))
         {
             if($_settings->S2S_settings->s2s_delete_products == 'false')
@@ -205,41 +232,99 @@ Class CURL
                     return null;
                 }
             }
-            $Product = new \stdClass();
 
-            //creates the product not the array called system_products in the request
-            $Product = new \stdClass();
-            $Product->source = new \stdClass();
-            $Product->source->source_id = $source->id;
-            $Product->source->product_active = $product->Active; //hard coded to be true for now
-            $Product->source->source_product_code = $product->Group_Code;
-            $Product->source->sync_token = $source->sync_token;
-            $Product->source->fetch_token = 0;
-            $Product->product = new \stdClass();
-            $Product->product->options = $this->addOptions($product);
-            $Product->product->body_html = htmlspecialchars_decode(stripslashes($product->Description)); //decodes it 
-            $Product->product->collection = $product->Category;
-            $Product->product->product_type = $product->Product_Type;
-            $Product->product->tags = null;
-            $Product->product->title = $product->Title;
-            $Product->product->vendor = $product->Brand;
-            $Product->product->variants = new \stdClass();
-            $Product->product->variants->source_variant_code = $product->Variant_Code;
-            $Product->product->variants->sku = $product->SKU;
-            $Product->product->variants->barcode = $product->Barcode;
-            $Product->product->variants->qty = null;
-            $Product->product->variants->qty_availability = $this->addQty($product);
-            $Product->product->variants->price = null;
-            $Product->product->variants->price_tiers = $this->addPrices($product);
-            $Product->product->variants->inventory_management = false;
-            $Product->product->variants->grams = $product->Weight;
-            $optionContainer = $this->addOptionValues($product, $Product->product->options);
-            for($i = 0; $i < sizeof($optionContainer); ++$i)
+            if(isset($product))
             {
-                $Product->product->variants->option1 = $optionContainer[$i];
+                if($_settings->S2S_settings->s2s_use_product_map == 'true')
+                {
+                    $product_map = $_settings->S2S_settings->s2s_product_map;
+                    if($product_map == null)
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        $product_map_array = json_decode($product_map, true);
+                        foreach($product_map_array as $key => $value)
+                        {
+                            if(is_array($value))
+                            {
+                                foreach($value as $subKey => $subValue)
+                                {
+                                    if(is_array($subValue))
+                                    {
+                                        foreach($subValue as $root => $rootValue)
+                                        {
+                                            if(is_array($rootValue))
+                                            {
+
+                                            }
+                                            else
+                                            {
+
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        print_r($key . " -- Find " . $subValue . " and replace it with " . $subValue . " inside the array ");
+                                        echo("<br>");
+                                        print_r($product_map_array[$key]);
+                                        echo("<br>");
+                                        echo("<br>");
+                                        print_r(str_replace('$source->id',$array["$subValue"],$product_map_array[$key]));
+                                        echo("<br>");
+                                        echo("<br>");
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                str_replace(['source->id', 'sync->token'],[$source->source_id, $source->sync_token],$value);
+                            }
+                        }
+                        print_r($product_map_array);
+                        exit();
+                    }
+                }
+                else
+                {
+                    exit();
+                    //creates the product not the array called system_products in the request
+                    $Product = new \stdClass();
+                    $Product->source = new \stdClass();
+                    $Product->source->source_id = $source->id;
+                    $Product->source->product_active = $product->Active; //hard coded to be true for now
+                    $Product->source->source_product_code = $product->Group_Code;
+                    $Product->source->sync_token = $source->sync_token;
+                    $Product->source->fetch_token = 0;
+                    $Product->product = new \stdClass();
+                    $Product->product->options = $this->addOptions($product);
+                    $Product->product->body_html = htmlspecialchars_decode(stripslashes($product->Description)); //decodes it 
+                    $Product->product->collection = $product->Category;
+                    $Product->product->product_type = $product->Product_Type;
+                    $Product->product->tags = null;
+                    $Product->product->title = $product->Title;
+                    $Product->product->vendor = $product->Brand;
+                    $Product->product->variants = new \stdClass();
+                    $Product->product->variants->source_variant_code = $product->Variant_Code;
+                    $Product->product->variants->sku = $product->SKU;
+                    $Product->product->variants->barcode = $product->Barcode;
+                    $Product->product->variants->qty = null;
+                    $Product->product->variants->qty_availability = $this->addQty($product);
+                    $Product->product->variants->price = null;
+                    $Product->product->variants->price_tiers = $this->addPrices($product);
+                    $Product->product->variants->inventory_management = false;
+                    $Product->product->variants->grams = $product->Weight;
+                    $optionContainer = $this->addOptionValues($product, $Product->product->options);
+                    for($i = 0; $i < sizeof($optionContainer); ++$i)
+                    {
+                        $Product->product->variants->option1 = $optionContainer[$i];
+                    }
+                    $Product->product->meta = $this->addMeta($product);
+                    return $Product;
+                }
             }
-            $Product->product->meta = $this->addMeta($product);
-            return $Product;
         }
         return null;
     }
