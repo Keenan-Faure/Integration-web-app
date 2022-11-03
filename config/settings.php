@@ -24,7 +24,7 @@ return array(
                 "product_active": "$product->Active",
                 "source_product_code": "$product->Group_Code",
                 "sync_token": "$source->sync_token",
-                "fetch_token": "0"
+                "fetch_token": "$source->fetch_token"
             },
             "product": 
             {

@@ -199,9 +199,9 @@ Class CURL
         $array = [
             '$source->id' => $source->id,
             '$product->Active' => $product->Active,
-            'source_product_code'=> $product->Group_Code,
-            'sync_token'=> $source->sync_token,
-            'fetch_token'=> 0,
+            '$source->product_code'=> $product->Group_Code,
+            '$source->sync_token'=> $source->sync_token,
+            '$source->fetch_token'=> 0,
 
             '$product->Title' => $product->Title,
             '$product->Description' => $product->Description,
@@ -257,7 +257,7 @@ Class CURL
                                         {
                                             if(is_array($rootValue))
                                             {
-
+                                                
                                             }
                                             else
                                             {
@@ -267,20 +267,16 @@ Class CURL
                                     }
                                     else
                                     {
-                                        print_r($key . " -- Find " . $subValue . " and replace it with " . $subValue . " inside the array ");
-                                        echo("<br>");
-                                        print_r($product_map_array[$key]);
-                                        echo("<br>");
-                                        echo("<br>");
-                                        print_r(str_replace('$source->id',$array["$subValue"],$product_map_array[$key]));
-                                        echo("<br>");
-                                        echo("<br>");
+                                        if(array_search($subValue, $product_map_array[$key]) && $subValue != null)
+                                        {
+                                            $product_map_array[$key] = (str_replace($subValue,$array["$subValue"],$product_map_array[$key]));
+                                        }
                                     }
                                 }
                             }
                             else
                             {
-                                str_replace(['source->id', 'sync->token'],[$source->source_id, $source->sync_token],$value);
+                                $product_map_array[$key] = (str_replace($value,$array["$value"],$product_map_array[$key]));
                             }
                         }
                         print_r($product_map_array);
