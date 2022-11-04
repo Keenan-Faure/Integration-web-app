@@ -31,11 +31,11 @@ return array(
                 "options": 
                 [
                     {
-                        "name": "Selection1",
+                        "name": "$product->Option_1_Name",
                         "position": "1"
                     },
                     {
-                        "name": "Selection2",
+                        "name": "$product->Option_2_Name",
                         "position": "2"
                     }
                 ],

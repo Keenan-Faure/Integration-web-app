@@ -197,12 +197,14 @@ Class CURL
     function addProduct($product, $source, $_settings)
     {
         $array = [
+            //source
             '$source->id' => $source->id,
             '$product->Active' => $product->Active,
             '$source->product_code'=> $product->Group_Code,
             '$source->sync_token'=> $source->sync_token,
             '$source->fetch_token'=> 0,
 
+            //product
             '$product->Title' => $product->Title,
             '$product->Description' => $product->Description,
             '$product->Category' => $product->Category,
@@ -216,7 +218,9 @@ Class CURL
             '$product->ComparePrice' => $product->ComparePrice,
             '$product->SellingPrice' => $product->SellingPrice,
             '$product->CapeTown_Warehouse' => $product->CapeTown_Warehouse,
+            '$product->Option_1_Name' => $product->Option_1_Name,
             '$product->Option_1_Value' => $product->Option_1_Value,
+            '$product->Option_2_Name' => $product->Option_2_Name,
             '$product->Option_2_Value' => $product->Option_2_Value,
             '$product->Meta_1' => $product->Meta_1,
             '$product->Meta_2' => $product->Meta_2,
@@ -257,19 +261,62 @@ Class CURL
                                         {
                                             if(is_array($rootValue))
                                             {
-                                                
+                                                foreach($rootValue as $raw => $rawValue)
+                                                {
+                                                    if(is_array($rawValue))
+                                                    {
+                                                        foreach($rawValue as $ori => $oriValue)
+                                                        {
+                                                            if((array_search($oriValue, $product_map_array[$key][$subKey][$root][$raw]) != false) && $oriValue != null && isset($array[$oriValue]))
+                                                            {
+                                                                $product_map_array[$key][$subKey][$root][$raw][$ori] = (str_replace($oriValue,$array["$oriValue"],$product_map_array[$key][$subKey][$root][$raw][$ori]));
+                                                            }
+                                                            else
+                                                            {
+                                                                if(!isset($array[$oriValue]) && array_key_exists($oriValue, $array))
+                                                                {
+                                                                    $product_map_array[$key][$subKey][$root][$raw][$ori] = null;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        if((array_search($rawValue, $product_map_array[$key][$subKey][$root]) != false) && $rawValue != null && isset($array[$rawValue]))
+                                                        {
+                                                            $product_map_array[$key][$subKey][$root][$raw] = (str_replace($rawValue,$array["$rawValue"],$product_map_array[$key][$subKey][$root][$raw]));
+                                                        }
+                                                        else
+                                                        {
+                                                            if(!isset($array[$rawValue]) && array_key_exists($rawValue, $array))
+                                                            {
+                                                                $product_map_array[$key][$subKey][$root][$raw] = null;
+                                                            }
+                                                        }
+                                                    }
+                                                }
                                             }
                                             else
                                             {
-
+                                                if((array_search($rootValue, $product_map_array[$key][$subKey]) != false) && $rootValue != null && isset($array[$rootValue]))
+                                                {
+                                                    $product_map_array[$key][$subKey][$root] = (str_replace($rootValue,$array["$rootValue"],$product_map_array[$key][$subKey][$root]));
+                                                }
+                                                else
+                                                {
+                                                    if(!isset($array[$rootValue]) && array_key_exists($rootValue, $array))
+                                                    {
+                                                        $product_map_array[$key][$subKey][$root] = null;
+                                                    }
+                                                }
                                             }
                                         }
                                     }
                                     else
                                     {
-                                        if(array_search($subValue, $product_map_array[$key]) && $subValue != null)
+                                        if((array_search($subValue, $product_map_array[$key]) != false) && $subValue != null && isset($array[$subValue]))
                                         {
-                                            $product_map_array[$key] = (str_replace($subValue,$array["$subValue"],$product_map_array[$key]));
+                                            $product_map_array[$key][$subKey] = (str_replace($subValue,$array["$subValue"],$product_map_array[$key][$subKey]));
                                         }
                                     }
                                 }
@@ -279,13 +326,12 @@ Class CURL
                                 $product_map_array[$key] = (str_replace($value,$array["$value"],$product_map_array[$key]));
                             }
                         }
-                        print_r($product_map_array);
-                        exit();
+                        //returns it in StdClass Format
+                        return (json_encode((object) $product_map_array));
                     }
                 }
                 else
                 {
-                    exit();
                     //creates the product not the array called system_products in the request
                     $Product = new \stdClass();
                     $Product->source = new \stdClass();
