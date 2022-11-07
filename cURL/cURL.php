@@ -156,7 +156,14 @@ Class CURL
                 {
                     $additional = $additional . ' && ';
                 }
-                $additional = " && " . $duplicates[$j] . " IN ";
+                if($Clause == "")
+                {
+                    $additional = $duplicates[$j] . " IN ";
+                }
+                else
+                {
+                    $additional = " && " . $duplicates[$j] . " IN ";
+                }
                 $values = '';
                 for($z = 0; $z < sizeof($duplicateValues); ++$z)
                 {
