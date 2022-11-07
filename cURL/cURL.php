@@ -28,6 +28,11 @@ Class CURL
             }
         }
     }
+
+    //uses cURL
+    //URL is the url that we will be initiating the cURL request against
+    //request is the data of the cURL in stdClass (object) notation
+    //username and password acts as the creentials
     function get_web_page($url, $request = null, $username = '', $password = '') 
     {
         $options = array(
@@ -45,6 +50,8 @@ Class CURL
             CURLOPT_TIMEOUT        => 120,    // time-out on response
         ); 
         
+        //Initializes a new session and return a cURL handle for use
+        //uses the URL in function parameter
         $ch = curl_init($url);
 
         if(isset($request))
@@ -62,6 +69,15 @@ Class CURL
     
         return $content;
     }
+
+    /*
+    +--------------------------------+
+    | Function call: Stock2Shop      |
+    | getSources() -> cURL request() |
+    | -> get_web_page() -> addHTTP() |
+    +--------------------------------+
+    */
+
     function getSources($token, $username, $password)
     {
         //use http_build_query here to create parameters for ep
@@ -71,6 +87,7 @@ Class CURL
         return $this->cURLRequest(null, $url, $username, $password);
 
     }
+
     function getChannels($token, $username, $password)
     {
         //use http_build_query here to create parameters for ep
@@ -78,14 +95,6 @@ Class CURL
 
         $url = 'https://app.stock2shop.com/v1/channels?' . $params;
         return $this->cURLRequest(null, $url, $username, $password);
-    }
-
-    function cURLRequest($request = new \stdClass(), $url = '', $username = '', $password = '')
-    {
-        $response = $this->get_web_page($url, $request, $username, $password);
-        $resArr = array();
-        $resArr = json_decode($response);
-        return $resArr;
     }
 
     function validateToken($token, $username, $password)
@@ -107,6 +116,17 @@ Class CURL
         $url = 'https://app.stock2shop.com/v1/users/authenticate?format=json';
         return $this->cURLRequest($request, $url, $username, $password);
     }
+
+    //Initiates the Curl Response
+    function cURLRequest($request = new \stdClass(), $url = '', $username = '', $password = '')
+    {
+        $response = $this->get_web_page($url, $request, $username, $password);
+        $resArr = array();
+        $resArr = json_decode($response);
+        return $resArr;
+    }
+
+    //adds the HTTP header to the content
     function addHTTP($content, $code)
     {
         $content = json_decode($content);
@@ -114,6 +134,17 @@ Class CURL
 
         $content = json_encode($content);
         return $content;
+    }
+
+    function push($products, $source, $token, $username, $password)
+    {
+        //uses json object retrieved from $products
+
+        $request = json_encode($products);
+
+        //url to send request
+        $url = 'https://app.stock2shop.com/v1/products/queue?token=' . $token . '&source_id=' . $source->id;
+        return $this->cURLRequest($request, $url, $username, $password);
     }
 
     //creates the query considering the conditions 
@@ -380,6 +411,8 @@ Class CURL
         return null;
     }
 
+    // Helper Functions for the internal product map
+
     //Adds options to products
     function addOptions($product)
     {
@@ -482,15 +515,20 @@ Class CURL
         }
         return $meta;
     }
-    function push($products, $source, $token, $username, $password)
+
+    /*
+    +--------------------------------+
+    | Function call: Woocommerce     |
+    | formValue() -> cURL request()  |
+    | -> get_web_page() -> addHTTP() |
+    +--------------------------------+
+    */
+
+    //displays the Woocommerce API details of the store
+    function displayApi($storeName)
     {
-        //uses json object retrieved from $products
-
-        $request = json_encode($products);
-
-        //url to send request
-        $url = 'https://app.stock2shop.com/v1/products/queue?token=' . $token . '&source_id=' . $source->id;
-        return $this->cURLRequest($request, $url, $username, $password);
+        $url = 'https://' . $storeName . '/wc-api/v3';
+        return ($this->get_web_page($url, null, $_POST['ck'], $_POST['cs']));
     }
 }
 ?>

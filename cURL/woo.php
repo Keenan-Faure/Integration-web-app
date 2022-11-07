@@ -29,7 +29,7 @@
     <div class="navBar">
                 <div class="overlay">
                     <div class='imageNav'></div>
-                    <h1>Woocommerce App</h1>
+                    <h1>Woo-App</h1>
                     <div class='buttonContainer2'>
                         <div class="dropDown">
                         <button class="dropDownBtn">Home</button>
@@ -65,7 +65,7 @@
             <form action="execute.php" method='post' target='_blank'>
                 <div class="containerText">Store Name</div>
                 <hr class='line'>
-                <textarea type='text' class = 'appTitle-textarea-Woo' name='username' title='Stock2Shop valid username' required><?php 
+                <textarea type='text' class = 'appTitle-textarea-Woo' name='store_name' title='Woocommerce Store Name' required><?php 
                         if(isset($_SESSION['woo_settings']))
                         {
                             if(isset($_SESSION['woo_settings']->Woocommerce_Store))
@@ -77,7 +77,7 @@
                 <br><br>
                 <div class="containerText">Consumer Key</div>
                 <hr class='line'>
-                <textarea type='text' class = 'appTitle-textarea-Woo' name='username' title='Stock2Shop valid username' required><?php 
+                <textarea type='text' class = 'appTitle-textarea-Woo' name='ck' title='Consumer Key' required><?php 
                         if(isset($_SESSION['woo_settings']))
                         {
                             if(isset($_SESSION['woo_settings']->Woocommerce_Store))
@@ -89,7 +89,7 @@
                 <br><br>
                 <div class="containerText">Consumer Secret</div>
                 <hr class='line'>
-                <textarea type='password' class = 'appTitle-textarea-Woo' autocomplete="off" name='password' title='Stock2Shop user password' required><?php 
+                <textarea type='password' class = 'appTitle-textarea-Woo' autocomplete="off" name='cs' title='Consumer Secret' required><?php 
                         if(isset($_SESSION['woo_settings']))
                         {
                             if(isset($_SESSION['woo_settings']->Woocommerce_Store))
@@ -102,7 +102,7 @@
                 <div class="containerText">Endpoint</div>
                 <hr class='line'>
                 <select class="appTitle-Woo" name="endpoint">
-                    <option value="authenticate">Authenticate User</option>
+                    <option value="wooAuthenticate">Check API</option>
                     <option value="validToken">Validate Current Token</option>
                     <option value="getSources">Get Sources</option>
                     <option value="getChannels">Get Channels</option>

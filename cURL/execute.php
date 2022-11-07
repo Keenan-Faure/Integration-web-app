@@ -99,6 +99,12 @@ if($_SESSION['connection']->active == true)
             exit();
         }
     }
+
+    //Woocommerce Endpoints
+    else if($_POST['endpoint'] == 'wooAuthenticate')
+    {
+        echo(stripslashes($curl->displayApi($_POST['store_name'])));
+    }
 }
 else
 {
