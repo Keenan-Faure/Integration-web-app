@@ -9,10 +9,22 @@ $fullUrl = $_SERVER["REQUEST_URI"];
 $fullUrl = $host . $fullUrl;
 if(isset(($conn->queryParams($fullUrl))['q']))
 {
-    $query = ($conn->queryParams($fullUrl))['q'];
-    $message = 'Username: ' . $_SESSION['clientConn']->credentials->username . '<br>' . 'Password: ' . $_SESSION['clientConn']->credentials->password . '<br>' . 'dbName: ' . $_SESSION['clientConn']->credentials->dbname . '<br>' . 'Token: ' . $_SESSION['clientConn']->token;
-    $conn->createHtmlMessages('Session details', $message, 'endpoints', 'info');
-    exit();
+    if(($conn->queryParams($fullUrl))['q'] == 'session')
+    {
+        $query = ($conn->queryParams($fullUrl))['q'];
+        $message = 'Username: ' . $_SESSION['clientConn']->credentials->username . '<br>' . 'Password: ' . $_SESSION['clientConn']->credentials->password . '<br>' . 'dbName: ' . $_SESSION['clientConn']->credentials->dbname . '<br>' . 'Token: ' . $_SESSION['clientConn']->token;
+        $conn->createHtmlMessages('Session details', $message, 'endpoints', 'info');
+        exit();
+    }
+    else if(($conn->queryParams($fullUrl))['q'] == 'clearLog')
+    {
+        $query = "DELETE FROM Logs";
+        $connection = $conn->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+        $output = $conn->converterObject($connection, $query);
+        $message = "Logs have been successfully cleared";
+        $conn->createHtmlMessages('Clear Logs', $message, 'endpoints', 'info');
+        exit();
+    }
 }
 
 if(isset($_SESSION['clientConn']) && isset($_POST['dbName']))
