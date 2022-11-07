@@ -327,7 +327,7 @@ Class CURL
                             }
                         }
                         //returns it in StdClass Format
-                        return (json_encode((object) $product_map_array));
+                        return json_decode(json_encode($product_map_array));
                     }
                 }
                 else
