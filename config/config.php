@@ -4,8 +4,8 @@ return array(
 
     //MySQL credentials
     'dbUser' => 'root',
-    'dbPass' => '',
-    'dbName' => 'dbclover',
+    'dbPass' => 'Re_Ghoul',
+    'dbName' => 'dbAPI',
     'host' => 'localhost'
 );
 

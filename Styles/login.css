@@ -191,5 +191,5 @@ input[type=text]:focus, input[type=password]:focus
 }
 #warn
 {
-    background-image: url(../Images/err-warn-icon.jpeg);
+    background-image: url(../Images/err-warn-icon.png);
 }
