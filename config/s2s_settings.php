@@ -2,7 +2,7 @@
 
 //user can only see current settings
 //is not allowed to alter any information
-//has to contact 'admin' to make changes to the settings.php file 
+//has to contact 'admin' to make changes to the s2s_settings.php file 
 //on the server
 
 return array(

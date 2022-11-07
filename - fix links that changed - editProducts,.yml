@@ -58,6 +58,7 @@
   - create dashboard
     - create a location where all data (logs) are found. (user can manually clear them) - done (Not removed entirely, just hidden)
       - they have to appear on the logs in session 
+      - create a way for the user to remove the logs, maybe the user can decide which he wants to remove? - no - done
 
 - Re-do API
   - understand how previous API works (what is it based on) - done

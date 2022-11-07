@@ -4,7 +4,7 @@
     use Connection\Connection as connect;
 
     $_config = include('config/config.php');
-    $_settings = include('config/settings.php');
+    $_settings = include('config/s2s_settings.php');
     
     $_SESSION['log'] = array();
     $conn = new connect(); 
