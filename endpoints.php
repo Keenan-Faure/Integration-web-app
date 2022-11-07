@@ -2,7 +2,6 @@
     session_start();
     include("createConnection.php");
     use Connection\Connection as connect;
-
     if(!(isset($_SESSION['connection']) && isset($_SESSION['clientConn'])))
     {
         $conn = new connect();
@@ -48,17 +47,24 @@
                     <button class="dropDownBtn">Settings</button>
                         <div class="dropDownContent">
                             <a href="endpoints/config/s2s_settings.php">View Settings</a>
+                            <a href="endpoints/config/woo_settings.php">Woocommerce Settings</a>
+
+                        </div>
+                    </div>
+                    <div class="dropDown">
+                    <button class="dropDownBtn">Push</button>
+                        <div class="dropDownContent">
+                            <a href='cURL/app.php'>Stock2Shop</a>
+                            <a href='cURL/woo.php'>Woocommerce</a>
+                            <?php
+                                if($_SESSION['settings']->App_settings->app_enable_self_query == 'true')
+                                {
+                                    echo("<a class='custom'>Custom Query</a>");
+                                }
+                            ?>
                         </div>
                     </div>
                 </div>
-                <a href="importUtils/import.html" class="buttonOption"></a>
-                <?php
-                    if($_SESSION['settings']->App_settings->app_enable_self_query == 'true')
-                    {
-                        echo("<img src='./Images/custom.png' title = 'Query custom Sql' class='custom'>");
-                    }
-                ?>
-                <a title = "Push Products" href='cURL/app.php' class='s2s'></a>
                 <a class='logoutButton' href='output.php?logout=true'></a>
             </div>
         </div>

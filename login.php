@@ -5,10 +5,16 @@
 
     $_config = include('config/config.php');
     $_settings = include('config/s2s_settings.php');
+    $_woocommerce = include('config/woo_settings.php');
     
     $_SESSION['log'] = array();
     $conn = new connect(); 
+
+    //saves the settings inside the session
+    //S2S && Woocommerce
     $_SESSION['settings'] = $conn->setSettings($_settings);
+    $_SESSION['woo_settings'] = $conn->setSettings($_woocommerce);
+
     $query = 'SHOW TABLES';
     $result = $conn->preQuery($_config, $query, 'array');
     if(isset($result->connection))

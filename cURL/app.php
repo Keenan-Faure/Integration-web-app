@@ -83,7 +83,7 @@
     <div class="navBar">
                 <div class="overlay">
                     <div class='imageNav'></div>
-                    <h1>App</h1>
+                    <h1>Stock2Shop App</h1>
                     <div class='buttonContainer2'>
                         <div class="dropDown">
                         <button class="dropDownBtn">Home</button>
