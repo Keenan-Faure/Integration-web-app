@@ -334,7 +334,9 @@ Class CURL
                             }
                         }
                         //returns it in StdClass Format
-                        return json_decode(json_encode($product_map_array));
+                        $product = new \stdClass();
+                        $product = json_decode(json_encode($product_map_array));
+                        return $product;
                     }
                 }
                 else
