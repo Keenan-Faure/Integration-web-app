@@ -130,6 +130,13 @@ Class CURL
     function addHTTP($content, $code)
     {
         $content = json_decode($content);
+        if(!isset($content))
+        {
+            $var = new \stdClass();
+            $var->message = 'An Error occured while trying to connect to the URL';
+            $var->http_code = $code;
+            return json_encode($var);
+        }
         $content->httpcode = $code;
 
         $content = json_encode($content);
@@ -528,7 +535,20 @@ Class CURL
     function displayApi($storeName)
     {
         $url = 'https://' . $storeName . '/wc-api/v3';
-        return ($this->get_web_page($url, null, $_POST['ck'], $_POST['cs']));
+        $result = $this->get_web_page($url, null, $_POST['ck'], $_POST['cs']);
+        if($result == null)
+        {
+            $variable = new \stdClass();
+            $variable->message = 'Incorrect store name';
+            return $variable;
+        }
+        return $result;
+    }
+
+    //GET customers from Woocommerce by ID
+    function getCustomers($id)
+    {
+        
     }
 }
 ?>
