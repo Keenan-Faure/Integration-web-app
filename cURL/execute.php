@@ -103,6 +103,7 @@ if($_SESSION['connection']->active == true)
     //Woocommerce Endpoints
     else if($_POST['endpoint'] == 'wooAuthenticate')
     {
+        header('Content-Type: application/json');
         echo(stripslashes($curl->displayApi($_POST['store_name'])));
     }
 }
