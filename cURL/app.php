@@ -143,11 +143,17 @@
                 <div class="containerText">Endpoint</div>
                 <div class="line"></div>
                 <select class="appTitle" name="endpoint">
-                    <option value="authenticate">Authenticate User</option>
-                    <option value="validToken">Validate Current Token</option>
-                    <option value="getSources">Get Sources</option>
-                    <option value="getChannels">Get Channels</option>
-                    <option value="pushProducts">Push Products</option>
+                    <optgroup label="General">
+                        <option value="authenticate">Authenticate User</option>
+                        <option value="validToken">Validate Current Token</option>
+                    </optgroup>
+                    <optgroup label="Endpoints">
+                        <option value="getSources">Get Sources</option>
+                        <option value="getChannels">Get Channels</option>
+                    </optgroup>
+                    <optgroup label="Push">
+                        <option value="pushProducts">Push Products</option>
+                    </optgroup>
                 </select>
                 <input class='button' type='submit'>
             </form>
