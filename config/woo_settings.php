@@ -17,7 +17,30 @@ return array(
         "woo_add_products" => "true",
         "woo_delete_products" => "false",
         "woo_product_map" => 
-        '{}')
+        '{}'),
+    "Woocommerce_PostMaps" =>
+    array(
+        "updateCustomer" => 
+        '{
+            "first_name": "James",
+            "billing": 
+            {
+                "first_name": "James"
+            },
+            "shipping": 
+            {
+                "first_name": "James"
+            }
+        }',
+        "updateProduct" => 
+        '{
+
+         }',
+        "updateOrder" => 
+        '{
+
+         }'
+    )
 );
 
 ?>
