@@ -101,10 +101,11 @@ if($_SESSION['connection']->active == true)
     }
 
     //Woocommerce Endpoints
-    else if($_POST['endpoint'] == 'wooAuthenticate')
+    else if(str_contains($_POST['endpoint'], 'woo_') != false)
     {
         header('Content-Type: application/json');
-        echo(stripslashes($curl->displayApi($_POST['store_name'])));
+        $func = str_replace('woo_','', $_POST['endpoint']);
+        echo(stripslashes($curl->$func()));
     }
 }
 else
