@@ -74,7 +74,7 @@
                 <div id='post'>
                     <div class="containerText">Post Data</div>
                     <hr class='line'>
-                    <textarea id='pst' type='text' class = 'postData' name='pst' title='Post Data' required><?php 
+                    <textarea id='pst' type='text' class = 'postData' name='pst' title='Post Data'><?php 
                         
                     ?></textarea>
                 </div>
@@ -125,6 +125,13 @@
                         <option value="woo_deleteCustomer">DELETE customer</option>
                         <option value="woo_updateCustomer">UPDATE customer</option>
                         <option value="woo_postCustomer">POST customer</option>
+                    </optgroup>
+                    <optgroup label="Orders">
+                        <option value="woo_getOrder">GET order</option>
+                        <option value="woo_getOrder_l">GET order list</option>
+                        <option value="woo_deleteOrder">DELETE order</option>
+                        <option value="woo_updateOrder">UPDATE order</option>
+                        <option value="woo_postOrder">POST order</option>
                     </optgroup>
                 </select>
                 <input class='button' type='submit'>

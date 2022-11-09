@@ -51,14 +51,12 @@ function changeUrl(value, storename)
 
         json = 
         {
-            "first_name": "James",
-            "billing": 
+            "customer":
             {
-                "first_name": "James"
-            },
-            "shipping": 
-            {
-                "first_name": "James"
+                "email": "keenan@stock2shop.com",
+                "first_name": "Keenan",
+                "last_name": "Faure",
+                "username": "keenan.faure"
             }
         }
         post.value = JSON.stringify(json, null, 2);
@@ -74,14 +72,54 @@ function changeUrl(value, storename)
 
         json = 
         {
-            "email": "john.doe@example.com",
-            "first_name": "John",
-            "last_name": "Doe",
-            "username": "john.doe"
+            "customer":
+            {
+                "email": "keenan@stock2shop.com",
+                "first_name": "Keenan",
+                "last_name": "Faure",
+                "username": "keenan.faure"
+            }
         }
         post.value = JSON.stringify(json, null, 2);
     }
+    if(value.value == 'woo_getOrder')
+    {
+        hideShowData($('#post'), 'hide');
+        hideShowData($('#rmv1'), 'show');
+        hideShowData($('#rmv2'), 'show');
+        urlText = 'https://' + storename + '/wc-api/v3/orders/<id>';
+        url.value = urlText;
+    }
+    if(value.value == 'woo_getOrder_l')
+    {
+        hideShowData($('#post'), 'hide');
+        hideShowData($('#rmv1'), 'show');
+        hideShowData($('#rmv2'), 'show');
+        urlText = 'https://' + storename + '/wc-api/v3/orders';
+        url.value = urlText;
+    }
+    if(value.value == 'woo_deleteOrder')
+    {
+        hideShowData($('#post'), 'hide');
+        hideShowData($('#rmv1'), 'show');
+        hideShowData($('#rmv2'), 'show');
+        urlText = 'https://' + storename + '/wc-api/v3/orders/<id>';
+        url.value = urlText;
+    }
+ 
 }
+
+document.getElementById('form').addEventListener('submit', function(event)
+{
+    console.log(document.querySelector('.appTitle-Woo').value);
+    if(['woo_deleteCustomer', 'woo_deleteOrder', 'woo_deleteProduct'].includes(document.querySelector('.appTitle-Woo').value))
+    {
+        if (!confirm('Are you sure you want to proceed?'))
+        {
+            event.preventDefault(); 
+        }
+    }
+});
 
 //displays or hides the containers
 //denpending on the value of the parameter

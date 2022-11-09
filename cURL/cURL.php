@@ -629,5 +629,44 @@ Class CURL
         return $result;
     }
 
+    //returns an order from Woocommerce
+    function getOrder()
+    {
+        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        if($result == null)
+        {
+            $variable = new \stdClass();
+            $variable->message = 'Error occured';
+            return $variable;
+        }
+        return $result;
+    }
+
+    //returns a list of orders from Woocommerce
+    function getOrder_l()
+    {
+        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        if($result == null)
+        {
+            $variable = new \stdClass();
+            $variable->message = 'Error occured';
+            return $variable;
+        }
+        return $result;
+    }
+
+    //deletes an order on Woocommerce
+    function deleteOrder()
+    {
+        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs'], 'delete');
+        if($result == null)
+        {
+            $variable = new \stdClass();
+            $variable->message = 'Error occured';
+            return $variable;
+        }
+        return $result;
+    }
+
 }
 ?>
