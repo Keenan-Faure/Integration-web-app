@@ -58,7 +58,7 @@
                     </div>
                 </div>
         <div class='modalContainer-Woo'>
-            <form action="execute.php" method='post' target='_blank'>
+            <form id='form' action="execute.php" method='post' target='_blank'>
                 <div class="containerText">Store Name</div>
                 <hr class='line'>
                 <textarea id='store_name' type='text' class = 'appTitle-textarea-Woo' name='store_name' title='Woocommerce Store Name' required><?php 
@@ -71,9 +71,23 @@
                         }
                     ?></textarea>
                 <br><br>
+                <div id='post'>
+                    <div class="containerText">Post Data</div>
+                    <hr class='line'>
+                    <textarea id='pst' type='text' class = 'postData' name='pst' title='Post Data' required><?php 
+                        if(isset($_SESSION['woo_settings']))
+                        {
+                            if(isset($_SESSION['woo_settings']->Woocommerce_PostMaps))
+                            {
+                                echo($_SESSION['woo_settings']->Woocommerce_PostMaps->updateCustomer);
+                            }
+                        }
+                    ?></textarea>
+                </div>
+                <div id='rmv1'>
                 <div class="containerText">Consumer Key</div>
                 <hr class='line'>
-                <textarea type='text' class = 'appTitle-textarea-Woo' name='ck' title='Consumer Key' required><?php 
+                <textarea id='ck' type='text' class = 'appTitle-textarea-Woo' name='ck' title='Consumer Key' required><?php 
                         if(isset($_SESSION['woo_settings']))
                         {
                             if(isset($_SESSION['woo_settings']->Woocommerce_Store))
@@ -82,10 +96,12 @@
                             }
                         }
                     ?></textarea>
-                <br><br>
+                </div>
+                <br>
+                <div id='rmv2'>
                 <div class="containerText">Consumer Secret</div>
                 <hr class='line'>
-                <textarea type='password' class = 'appTitle-textarea-Woo' autocomplete="off" name='cs' title='Consumer Secret' required><?php 
+                <textarea id='cs' type='password' class = 'appTitle-textarea-Woo' autocomplete="off" name='cs' title='Consumer Secret' required><?php 
                         if(isset($_SESSION['woo_settings']))
                         {
                             if(isset($_SESSION['woo_settings']->Woocommerce_Store))
@@ -94,10 +110,11 @@
                             }
                         }
                     ?></textarea>
-                <br><br>
+                </div>
+                <br>
                 <div class="containerText">URL</div>
                 <hr class='line'>
-                <textarea type='password' id='url' class='appTitle-textarea-Woo' autocomplete="off" name='cs' title='Consumer Secret' required><?php 
+                <textarea type='password' id='url' class='appTitle-textarea-Woo' autocomplete="off" name='url' title='Consumer Secret' required><?php 
                         
                     ?></textarea>
                 <br><br>
@@ -106,10 +123,14 @@
                 <select class="appTitle-Woo" name="endpoint" onchange="changeUrl(this, document.getElementById('store_name').value)">
                     <option value="">Select Endpoint</option>
                     <optgroup label="General">
-                        <option value="wooAuthenticate">Check API</option>
+                        <option value="woo_Auth">Check API</option>
                     </optgroup>
                     <optgroup label="Customer">
-                        <option value="getCustomer">GET customer</option>
+                        <option value="woo_getCustomer">GET customer</option>
+                        <option value="woo_getCustomer_l">GET customer list</option>
+                        <option value="woo_deleteCustomer">DELETE customer</option>
+                        <option value="woo_updateCustomer">UPDATE customer</option>
+                        <option value="woo_postCustomer">POST customer</option>
                     </optgroup>
                 </select>
                 <input class='button' type='submit'>
