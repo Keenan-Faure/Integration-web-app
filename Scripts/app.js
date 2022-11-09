@@ -11,7 +11,7 @@ $(document).ready(()=>
         }
         else
         {
-            $('.conditions').$('.conditions').css({
+            $('.conditions').css({
                 "z-index": "-1", 
                 "opacity": "0"
             })
