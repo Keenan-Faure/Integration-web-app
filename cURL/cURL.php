@@ -33,7 +33,7 @@ Class CURL
     //URL is the url that we will be initiating the cURL request against
     //request is the data of the cURL in stdClass (object) notation
     //username and password acts as the creentials
-    function get_web_page($url, $request = null, $username = '', $password = '') 
+    function get_web_page($url, $request = null, $username = '', $password = '', $customReq = null) 
     {
         $options = array(
             CURLOPT_USERPWD => $username . ":" . $password, 
@@ -57,6 +57,24 @@ Class CURL
         if(isset($request))
         {
             curl_setopt($ch, CURLOPT_POSTFIELDS, $request);
+        }
+
+        //sets the delete as a customRequest
+        //if it is anything but delete it will not be set
+        if(isset($customReq))
+        {
+            if($customReq == 'delete')
+            {
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+            }
+            else if($customReq == 'put')
+            {
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+            }
+            else if($customReq == 'post')
+            {
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+            }
         }
 
         curl_setopt_array($ch, $options);
@@ -532,10 +550,9 @@ Class CURL
     */
 
     //displays the Woocommerce API details of the store
-    function displayApi($storeName)
+    function Auth()
     {
-        $url = 'https://' . $storeName . '/wc-api/v3';
-        $result = $this->get_web_page($url, null, $_POST['ck'], $_POST['cs']);
+        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
         if($result == null)
         {
             $variable = new \stdClass();
@@ -546,9 +563,71 @@ Class CURL
     }
 
     //GET customers from Woocommerce by ID
-    function getCustomers($id)
+    function getCustomer()
     {
-        
+        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        if($result == null)
+        {
+            $variable = new \stdClass();
+            $variable->message = 'Error occured';
+            return $variable;
+        }
+        return $result;
     }
+
+    //returns a list of customers from Woocommerce
+    function getCustomer_l()
+    {
+        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        if($result == null)
+        {
+            $variable = new \stdClass();
+            $variable->message = 'Error occured';
+            return $variable;
+        }
+        return $result;
+    }
+
+    //removes the respective customer on Woocommerce
+    function deleteCustomer()
+    {
+        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs'], 'delete');
+        if($result == null)
+        {
+            $variable = new \stdClass();
+            $variable->message = 'Error occured';
+            return $variable;
+        }
+        return $result;
+    }
+
+    //updates the customer on Woocommerce, overwrites values using $post
+    function updateCustomer()
+    {
+        $post = $_POST['pst'];
+        $result = $this->get_web_page($_POST['url'], $post, $_POST['ck'], $_POST['cs'], 'put');
+        if($result == null)
+        {
+            $variable = new \stdClass();
+            $variable->message = 'Error occured';
+            return $variable;
+        }
+        return $result;
+    }
+
+    //creates new customer on Woocommerce
+    function postCustomer()
+    {
+        $post = $_POST['pst'];
+        $result = $this->get_web_page($_POST['url'], $post, $_POST['ck'], $_POST['cs'], 'post');
+        if($result == null)
+        {
+            $variable = new \stdClass();
+            $variable->message = 'Error occured';
+            return $variable;
+        }
+        return $result;
+    }
+
 }
 ?>
