@@ -2,7 +2,10 @@
 //each time the select tag is changed
 
 url = document.getElementById('url');
+post = document.getElementById('pst');
+
 document.getElementById('url').value = '';
+document.getElementById('pst').value = '';
 
 function changeUrl(value, storename)
 {
@@ -45,14 +48,38 @@ function changeUrl(value, storename)
         hideShowData($('#rmv2'), 'hide');
         urlText = 'https://' + storename + '/wc-api/v3/customers/<id>';
         url.value = urlText;
+
+        json = 
+        {
+            "first_name": "James",
+            "billing": 
+            {
+                "first_name": "James"
+            },
+            "shipping": 
+            {
+                "first_name": "James"
+            }
+        }
+        post.value = JSON.stringify(json, null, 2);
+
     }
     if(value.value == 'woo_postCustomer')
     {
         hideShowData($('#post'), 'show');
         hideShowData($('#rmv1'), 'hide');
         hideShowData($('#rmv2'), 'hide');
-        urlText = 'https://' + storename + '/wc-api/v3/customers/<id>';
+        urlText = 'https://' + storename + '/wc-api/v3/customers';
         url.value = urlText;
+
+        json = 
+        {
+            "email": "john.doe@example.com",
+            "first_name": "John",
+            "last_name": "Doe",
+            "username": "john.doe"
+        }
+        post.value = JSON.stringify(json, null, 2);
     }
 }
 

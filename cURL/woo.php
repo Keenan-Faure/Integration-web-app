@@ -75,13 +75,7 @@
                     <div class="containerText">Post Data</div>
                     <hr class='line'>
                     <textarea id='pst' type='text' class = 'postData' name='pst' title='Post Data' required><?php 
-                        if(isset($_SESSION['woo_settings']))
-                        {
-                            if(isset($_SESSION['woo_settings']->Woocommerce_PostMaps))
-                            {
-                                echo($_SESSION['woo_settings']->Woocommerce_PostMaps->updateCustomer);
-                            }
-                        }
+                        
                     ?></textarea>
                 </div>
                 <div id='rmv1'>
