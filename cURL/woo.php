@@ -53,8 +53,7 @@
                             </div>
                         </div>
                     </div>
-                    <button id='push-woo' class='buttonPush-Woo'>Push Products</button>
-
+                    <a id='push-woo' href='execute.php?endpoint=push-woo' target="_blank" class='buttonPush-Woo'>Push Products</a>
                     </div>
                 </div>
         <div class='modalContainer-Woo'>
@@ -170,4 +169,18 @@
         </div>
     </div>
     <script src='../Scripts/url_woo.js'></script>
+    <script>
+        $.ajax(
+          'cURL.php',
+          {
+              success: function(data) {
+                alert('AJAX call was successful!');
+                alert('Data from the server' + data);
+              },
+              error: function() {
+                alert('There was some error performing the AJAX call!');
+              }
+           }
+        );
+    </script>");
 </html>

@@ -516,7 +516,6 @@ function changeUrl(value, storename)
 
 document.getElementById('form').addEventListener('submit', function(event)
 {
-    console.log(document.querySelector('.appTitle-Woo').value);
     if(['woo_deleteCustomer', 'woo_deleteOrder', 'woo_deleteProduct'].includes(document.querySelector('.appTitle-Woo').value))
     {
         if (!confirm('Are you sure you want to proceed?'))
@@ -568,3 +567,18 @@ function hideShowData(id, display)
         }
     });
 }
+
+$(document).ready(()=>
+{
+    $('#push-woo').click(function(event)
+    {
+        if (!confirm('Push active products to Woocommerce?'))
+        {
+            event.preventDefault(); 
+        }
+        else
+        {
+            
+        }
+    });
+});

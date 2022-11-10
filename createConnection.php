@@ -281,6 +281,10 @@ class Connection
             {
                 return $queryParams;
             }
+            if(isset($queryParams['endpoint']))
+            {
+                return $queryParams;
+            }
             else
             {
                 return 1;
