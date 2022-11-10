@@ -27,7 +27,7 @@ if($_SESSION['connection']->active == true)
                 <body style='margin: 0;background-color: black'>
                     <div style='width:215px;top: 35%;left: 50%;transform: translate(-50%, -50%);height: 250px;position: relative;background-image: url(../Images/load.gif);'>
                     </div>
-                    <div style='color: white;text-align: center;width:200px;left: 50%;position: relative;top: 25%;transform: translate(-50%, -50%);'>Pushing Products</div>
+                    <div style='color: white;text-align: center;width:200px;left: 50%;position: relative;top: 25%;transform: translate(-50%, -50%);'>Pushing Products... please wait</div>
                 </body>
             </html>
         ");
