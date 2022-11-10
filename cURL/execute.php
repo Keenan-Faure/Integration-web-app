@@ -105,7 +105,7 @@ if($_SESSION['connection']->active == true)
     {
         header('Content-Type: application/json');
         $func = str_replace('woo_','', $_POST['endpoint']);
-        echo(stripslashes($curl->$func()));
+        echo(($curl->$func()));
     }
 }
 else

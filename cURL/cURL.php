@@ -667,6 +667,285 @@ Class CURL
         }
         return $result;
     }
+    
+    //updates an order on Woocommerce
+    function updateOrder()
+    {
+        $post = $_POST['pst'];
+        $result = $this->get_web_page($_POST['url'], $post, $_POST['ck'], $_POST['cs'], 'put');
+        if($result == null)
+        {
+            $variable = new \stdClass();
+            $variable->message = 'Error occured';
+            return $variable;
+        }
+        return $result;
+    }
 
+    //updates an order on Woocommerce
+    function postOrder()
+    {
+        $post = $_POST['pst'];
+        $result = $this->get_web_page($_POST['url'], $post, $_POST['ck'], $_POST['cs'], 'post');
+        if($result == null)
+        {
+            $variable = new \stdClass();
+            $variable->message = 'Error occured';
+            return $variable;
+        }
+        return $result;
+    }
+
+    //updates an order's notes on Woocommerce
+    function postOrderNote()
+    {
+        $post = $_POST['pst'];
+        $result = $this->get_web_page($_POST['url'], $post, $_POST['ck'], $_POST['cs'], 'post');
+        if($result == null)
+        {
+            $variable = new \stdClass();
+            $variable->message = 'Error occured';
+            return $variable;
+        }
+        return $result;
+    }
+
+    //gets an order's notes on Woocommerce
+    function getOrderNote()
+    {
+        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        if($result == null)
+        {
+            $variable = new \stdClass();
+            $variable->message = 'Error occured';
+            return $variable;
+        }
+        return $result;
+    }
+
+    //gets a list of an order's notes on Woocommerce
+    function getOrderNote_l()
+    {
+        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        if($result == null)
+        {
+            $variable = new \stdClass();
+            $variable->message = 'Error occured';
+            return $variable;
+        }
+        return $result;
+    }
+
+    //deletes an order's notes on Woocommerce
+    function deleteOrderNote()
+    {
+        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs'], 'delete');
+        if($result == null)
+        {
+            $variable = new \stdClass();
+            $variable->message = 'Error occured';
+            return $variable;
+        }
+        return $result;
+    }
+
+    //gets a product from Woocommerce
+    function getProduct()
+    {
+        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        if($result == null)
+        {
+            $variable = new \stdClass();
+            $variable->message = 'Error occured';
+            return $variable;
+        }
+        return $result;
+    }
+
+    //gets a list of products from Woocommerce
+    function getProduct_l()
+    {
+        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        if($result == null)
+        {
+            $variable = new \stdClass();
+            $variable->message = 'Error occured';
+            return $variable;
+        }
+        return $result;
+    }
+
+    //deletes a products on Woocommerce
+    function deleteProduct()
+    {
+        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs'], 'delete');
+        if($result == null)
+        {
+            $variable = new \stdClass();
+            $variable->message = 'Error occured';
+            return $variable;
+        }
+        return $result;
+    }
+
+    //updates a products on Woocommerce
+    function updateProduct()
+    {
+        $post = $_POST['pst'];
+        $result = $this->get_web_page($_POST['url'], $post, $_POST['ck'], $_POST['cs'], 'put');
+        if($result == null)
+        {
+            $variable = new \stdClass();
+            $variable->message = 'Error occured';
+            return $variable;
+        }
+        return $result;
+    }
+
+    //updates a products on Woocommerce
+    function createProduct()
+    {
+        $post = $_POST['pst'];
+        $result = $this->get_web_page($_POST['url'], $post, $_POST['ck'], $_POST['cs'], 'post');
+        if($result == null)
+        {
+            $variable = new \stdClass();
+            $variable->message = 'Error occured';
+            return $variable;
+        }
+        return $result;
+    }
+
+    //gets a product from Woocommerce
+    function getProductVariation()
+    {
+        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        if($result == null)
+        {
+            $variable = new \stdClass();
+            $variable->message = 'Error occured';
+            return $variable;
+        }
+        return $result;
+    }
+
+    //gets a list of products from Woocommerce
+    function getProductVariation_l()
+    {
+        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        if($result == null)
+        {
+            $variable = new \stdClass();
+            $variable->message = 'Error occured';
+            return $variable;
+        }
+        return $result;
+    }
+
+    //deletes a products on Woocommerce
+    function deleteProductVariation()
+    {
+        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs'], 'delete');
+        if($result == null)
+        {
+            $variable = new \stdClass();
+            $variable->message = 'Error occured';
+            return $variable;
+        }
+        return $result;
+    }
+
+    //updates a products on Woocommerce
+    function updateProductVariation()
+    {
+        $post = $_POST['pst'];
+        $result = $this->get_web_page($_POST['url'], $post, $_POST['ck'], $_POST['cs'], 'put');
+        if($result == null)
+        {
+            $variable = new \stdClass();
+            $variable->message = 'Error occured';
+            return $variable;
+        }
+        return $result;
+    }
+
+    //updates a products on Woocommerce
+    function createProductVariation()
+    {
+        $post = $_POST['pst'];
+        $result = $this->get_web_page($_POST['url'], $post, $_POST['ck'], $_POST['cs'], 'post');
+        if($result == null)
+        {
+            $variable = new \stdClass();
+            $variable->message = 'Error occured';
+            return $variable;
+        }
+        return $result;
+    }
+
+    //gets a list of products Attributes from Woocommerce
+    function getProductAttribute_l()
+    {
+        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        if($result == null)
+        {
+            $variable = new \stdClass();
+            $variable->message = 'Error occured';
+            return $variable;
+        }
+        return $result;
+    }
+
+    //gets a list of products Categories from Woocommerce
+    function getProductCategories_l()
+    {
+        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        if($result == null)
+        {
+            $variable = new \stdClass();
+            $variable->message = 'Error occured';
+            return $variable;
+        }
+        return $result;
+    }
+
+    //gets a list of shipping classes on Woocommerce
+    function getProductShipClas_l()
+    {
+        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        if($result == null)
+        {
+            $variable = new \stdClass();
+            $variable->message = 'Error occured';
+            return $variable;
+        }
+        return $result;
+    }
+
+    //gets a list of webhooks on Woocommerce
+    function getWebhook_l()
+    {
+        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        if($result == null)
+        {
+            $variable = new \stdClass();
+            $variable->message = 'Error occured';
+            return $variable;
+        }
+        return $result;
+    }
+
+    //gets the system status of the server woocommerce is found on
+    function getSystemStatus()
+    {
+        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        if($result == null)
+        {
+            $variable = new \stdClass();
+            $variable->message = 'Error occured';
+            return $variable;
+        }
+        return $result;
+    }
 }
 ?>

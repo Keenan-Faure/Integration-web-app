@@ -279,7 +279,7 @@ p
     padding: 20px;
     overflow: hidden;
     opacity: 0.95;
-    width: 400px;
+    width: 500px;
     transition-duration: 1s;
     border-left: 2px solid rgb(197, 149, 157);
 }
@@ -1194,6 +1194,31 @@ input[type=text]:focus, input[type=password]:focus
 .buttonImport:hover
 {
     background-color:rgba(50, 160, 151, 0.8);
+}
+.buttonPush-Woo
+{
+    display: inline-block;
+    box-sizing: border-box;
+    width: 15%;
+    top: 12px;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.6);
+    height: 35px;
+    text-shadow: 1px 2px 6px rgb(153 165 165);
+    text-align: center;
+    position: relative;
+    left: 20%;
+    color: white;
+    margin: 3px 0;
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    border: none;
+    border-radius: 3px;
+    transition-duration: 0.3s;
+}
+.buttonPush-Woo:hover
+{
+    background-color:rgba(156, 65, 184, 0.8);
 }
 
 .header

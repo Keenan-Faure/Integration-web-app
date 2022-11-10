@@ -53,8 +53,8 @@
                             </div>
                         </div>
                     </div>
-                    <a href="../Import utilities/import.html" class="buttonOption"></a>
-    
+                    <button id='push-woo' class='buttonPush-Woo'>Push Products</button>
+
                     </div>
                 </div>
         <div class='modalContainer-Woo'>
@@ -108,7 +108,7 @@
                 <br>
                 <div class="containerText">URL</div>
                 <hr class='line'>
-                <textarea type='password' id='url' class='appTitle-textarea-Woo' autocomplete="off" name='url' title='Consumer Secret' required><?php 
+                <textarea type='password' id='url' class='appTitle-textarea-Woo' autocomplete="off" name='url' title='URL' required><?php 
                         
                     ?></textarea>
                 <br><br>
@@ -132,6 +132,37 @@
                         <option value="woo_deleteOrder">DELETE order</option>
                         <option value="woo_updateOrder">UPDATE order</option>
                         <option value="woo_postOrder">POST order</option>
+                    </optgroup>
+                    <!--
+                    <optgroup label="Order Notes">
+                        <option value="woo_getOrderNote">GET order note</option>
+                        <option value="woo_getOrderNote_l">GET order note list</option>
+                        <option value="woo_deleteOrderNote">DELETE order note</option>
+                        <option value="woo_postOrderNote">POST order note</option>
+                    </optgroup>
+                    -->
+                    <optgroup label="Products">
+                        <option value="woo_getProduct">GET product</option>
+                        <option value="woo_getProduct_l">GET product list</option>
+                        <option value="woo_deleteProduct">DELETE product</option>
+                        <option value="woo_updateProduct">Update product</option>
+                        <option value="woo_postProduct">POST product</option>
+                    </optgroup>
+                    <!--
+                    <optgroup label="Product variations">
+                        <option value="woo_getProductVariation">GET product variation</option>
+                        <option value="woo_getProductVariation_l">GET product variation list</option>
+                        <option value="woo_deleteProductVariation">DELETE product variation</option>
+                        <option value="woo_updateProductVariation">Update product variation</option>
+                        <option value="woo_postProductVariation">POST product variation</option>
+                    </optgroup>
+                    -->
+                    <optgroup label="Other">
+                        <option value="woo_getProductAttribute_l">GET attribute list</option>
+                        <option value="woo_getProductCategories_l">GET category list</option>
+                        <option value="woo_getProductShipClas_l">GET shipping classes</option>
+                        <option value="woo_getWebhook_l">GET webhooks</option>
+                        <!-- <option value="woo_getSystemStatus">GET system status</option> -->
                     </optgroup>
                 </select>
                 <input class='button' type='submit'>
