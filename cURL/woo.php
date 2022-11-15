@@ -142,6 +142,7 @@
                     -->
                     <optgroup label="Products">
                         <option value="woo_getProduct">GET product</option>
+                        <option value="woo_getProductBySKU">GET product by SKU</option>
                         <option value="woo_getProduct_l">GET product list</option>
                         <option value="woo_deleteProduct">DELETE product</option>
                         <option value="woo_updateProduct">Update product</option>
@@ -169,18 +170,4 @@
         </div>
     </div>
     <script src='../Scripts/url_woo.js'></script>
-    <script>
-        $.ajax(
-          'cURL.php',
-          {
-              success: function(data) {
-                alert('AJAX call was successful!');
-                alert('Data from the server' + data);
-              },
-              error: function() {
-                alert('There was some error performing the AJAX call!');
-              }
-           }
-        );
-    </script>");
 </html>

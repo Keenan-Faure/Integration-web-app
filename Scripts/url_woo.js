@@ -331,6 +331,14 @@ function changeUrl(value, storename)
         urlText = 'https://' + storename + '/wc-api/v3/products/<id>';
         url.value = urlText;
     }
+    if(value.value == 'woo_getProductBySKU')
+    {
+        hideShowData($('#post'), 'hide');
+        hideShowData($('#rmv1'), 'show');
+        hideShowData($('#rmv2'), 'show');
+        urlText = 'https://' + storename + '/wc-api/v3/products?filter[sku]=<sku>';
+        url.value = urlText;
+    }
     if(value.value == 'woo_getProduct_l')
     {
         hideShowData($('#post'), 'hide');
@@ -578,7 +586,7 @@ $(document).ready(()=>
         }
         else
         {
-            
+
         }
     });
 });
