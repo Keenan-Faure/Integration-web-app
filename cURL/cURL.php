@@ -1009,5 +1009,331 @@ Class CURL
         }
         return $result;
     }
+
+    //creates WoocommerceProductMap
+    //internal map uses stdClasses
+    //external map uses map inside config
+    function woo_addProduct($product, $_wooSettings)
+    {
+        $array = [
+            //product
+            '$product->Title' => $product->Title,
+            '$product->Type' => $product->Type,
+            '$_wooSettings->Woocommerce_Settings->woo_product_status' => $_wooSettings->Woocommerce_Settings->woo_product_status,
+            '$product->Description' => $product->Description,
+            '$product->Category' => $product->Category,
+            '$product->Brand' => $product->Brand,
+            '$product->SKU' => $product->SKU,
+            '$product->Weight' => $product->Weight,
+            '$product->ComparePrice' => $product->ComparePrice,
+            '$product->SellingPrice' => $product->SellingPrice,
+            '$product->CapeTown_Warehouse' => $product->CapeTown_Warehouse,
+            '$product->Option_1_Name' => $product->Option_1_Name,
+            '$product->Option_1_Value' => $product->Option_1_Value,
+            '$product->Option_2_Name' => $product->Option_2_Name,
+            '$product->Option_2_Value' => $product->Option_2_Value,
+            '$product->Meta_1' => $product->Meta_1,
+            '$product->Meta_3' => $product->Meta_3
+        ];
+
+        if(isset($product))
+        {
+            if($_wooSettings->Woocommerce_Settings->woo_delete_products == 'false')
+            {
+                if($product->Active == 'false')
+                {
+                    return null;
+                }
+            }
+
+            if(isset($product))
+            {
+                if($_wooSettings->Woocommerce_Settings->woo_use_product_map == 'true')
+                {
+                    $product_map = $_wooSettings->Woocommerce_Settings->woo_product_map;
+                    if($product_map == null)
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        $product_map_array = json_decode($product_map, true);
+                        foreach($product_map_array as $key => $value)
+                        {
+                            if(is_array($value))
+                            {
+                                foreach($value as $subKey => $subValue)
+                                {
+                                    if(is_array($subValue))
+                                    {
+                                        foreach($subValue as $root => $rootValue)
+                                        {
+                                            if(is_array($rootValue))
+                                            {
+                                                foreach($rootValue as $raw => $rawValue)
+                                                {
+                                                    if(is_array($rawValue))
+                                                    {
+                                                        foreach($rawValue as $ori => $oriValue)
+                                                        {
+                                                            if(is_array($oriValue))
+                                                            {
+                                                                foreach($oriValue as $haji => $hajiValue)
+                                                                {
+                                                                    if((in_array($hajiValue, $product_map_array[$key][$subKey][$root][$raw][$ori]) != false) && $hajiValue != null && isset($array[$hajiValue]))
+                                                                    {
+                                                                        $product_map_array[$key][$subKey][$root][$raw][$ori][$haji] = (str_replace($hajiValue,$array["$hajiValue"],$product_map_array[$key][$subKey][$root][$raw][$ori][$haji]));
+                                                                    }
+                                                                    else if((array_search($hajiValue, $product_map_array[$key][$subKey][$root][$raw][$ori]) != false) && $hajiValue != null && isset($array[$hajiValue]))
+                                                                    {
+                                                                        $product_map_array[$key][$subKey][$root][$raw][$ori][$haji] = (str_replace($hajiValue,$array["$hajiValue"],$product_map_array[$key][$subKey][$root][$raw][$ori][$haji]));
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        if(!isset($array[$hajiValue]) && array_key_exists($hajiValue, $array))
+                                                                        {
+                                                                            $product_map_array[$key][$subKey][$root][$raw][$ori][$haji] = null;
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                if((in_array($oriValue, $product_map_array[$key][$subKey][$root][$raw]) != false) && $oriValue != null && isset($array[$oriValue]))
+                                                                {
+                                                                    $product_map_array[$key][$subKey][$root][$raw][$ori] = (str_replace($oriValue,$array["$oriValue"],$product_map_array[$key][$subKey][$root][$raw][$ori]));
+                                                                }
+                                                                else if((array_search($oriValue, $product_map_array[$key][$subKey][$root][$raw]) != false) && $oriValue != null && isset($array[$oriValue]))
+                                                                {
+                                                                    $product_map_array[$key][$subKey][$root][$raw][$ori] = (str_replace($oriValue,$array["$oriValue"],$product_map_array[$key][$subKey][$root][$raw][$ori]));
+                                                                }
+                                                                else
+                                                                {
+                                                                    if(!isset($array[$oriValue]) && array_key_exists($oriValue, $array))
+                                                                    {
+                                                                        $product_map_array[$key][$subKey][$root][$raw][$ori] = null;
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        if((in_array($rawValue, $product_map_array[$key][$subKey][$root]) != false) && $rawValue != null && isset($array[$rawValue]))
+                                                        {
+                                                            $product_map_array[$key][$subKey][$root][$raw] = (str_replace($rawValue,$array["$rawValue"],$product_map_array[$key][$subKey][$root][$raw]));
+                                                        }
+                                                        else if((array_search($rawValue, $product_map_array[$key][$subKey][$root]) != false) && $rawValue != null && isset($array[$rawValue]))
+                                                        {
+                                                            $product_map_array[$key][$subKey][$root][$raw] = (str_replace($rawValue,$array["$rawValue"],$product_map_array[$key][$subKey][$root][$raw]));
+                                                        }
+                                                        else
+                                                        {
+                                                            if(!isset($array[$rawValue]) && array_key_exists($rawValue, $array))
+                                                            {
+                                                                $product_map_array[$key][$subKey][$root][$raw] = null;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if((in_array($rootValue, $product_map_array[$key][$subKey]) != false) && $rootValue != null && isset($array[$rootValue]))
+                                                {
+                                                    $product_map_array[$key][$subKey][$root] = (str_replace($rootValue,$array["$rootValue"],$product_map_array[$key][$subKey][$root]));
+                                                }
+                                                else if((array_search($rootValue, $product_map_array[$key][$subKey]) != false) && $rootValue != null && isset($array[$rootValue]))
+                                                {
+                                                    $product_map_array[$key][$subKey][$root] = (str_replace($rootValue,$array["$rootValue"],$product_map_array[$key][$subKey][$root]));
+                                                }
+                                                else
+                                                {
+                                                    if(!isset($array[$rootValue]) && array_key_exists($rootValue, $array))
+                                                    {
+                                                        $product_map_array[$key][$subKey][$root] = null;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if((in_array($subValue, $product_map_array[$key]) != false) && $subValue != null && isset($array[$subValue]))
+                                        {
+                                            $product_map_array[$key][$subKey] = (str_replace($subValue,$array["$subValue"],$product_map_array[$key][$subKey]));
+                                        }
+                                        else if((array_search($subValue, $product_map_array[$key]) != false) && $subValue != null && isset($array[$subValue]))
+                                        {
+                                            $product_map_array[$key][$subKey] = (str_replace($subValue,$array["$subValue"],$product_map_array[$key][$subKey]));
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                $product_map_array[$key] = (str_replace($value,$array["$value"],$product_map_array[$key]));
+                            }
+                        }
+                        //returns it in StdClass Format
+                        $product = new \stdClass();
+
+                        //add the category
+                        //--check if the category is on Woocommerce
+                        $isCategory = $this->woo_checkCategory($product, $_wooSettings);
+                        if($isCategory != null)
+                        {
+                            $category = array();
+                            $category_first = new \stdClass();
+                            $category_first->id = $isCategory;
+                            array_push($category, $category_first);
+                        }
+                        else
+                        {
+                            $this->woo_createAttribute($product->Category, $_wooSettings);
+                        }
+
+                        //--otherwise we create a new category
+
+                        //add the attribute(options)
+
+                        $product = json_decode(json_encode($product_map_array));
+                        return $product;
+                    }
+                }
+                else
+                {
+                    //creates the product using internal map
+                    $Product = new \stdClass();
+                    $Product->product = new \stdClass();
+                    $Product->product->title = $product->Title;
+                    $Product->product->type = $_wooSettings->Woocommerce_Settings->woo_product_status;
+                    //Adds product options - attributes (single, variant)
+                    //Options
+                    if($product->Type != 'Simple')
+                    {
+                        $Product->product->attributes = $this->woo_addOptionAttributes($product);
+                    }
+                    else
+                    {
+                        $Product->attributes = $this->woo_addAttributes($product);
+                    }
+
+                    $Product->product->description = $product->Description; //decodes it 
+                    //Adds product to category
+                    $Product->product->categories = $this->woo_AddCategory($product);
+                    $Product->product->variants = new \stdClass();
+                    $Product->product->variants->sku = $product->SKU;
+                    $Product->product->variants->stock_quantity = $product->CapeTown_Warehouse;
+                    $Product->product->variants->regular_price = $product->ComparePrice;
+                    $Product->product->variants->sale_price = $product->SellingPrice;
+                    $Product->product->variants->weight = $product->Weight;
+                    return $Product;
+                }
+            }
+        }
+        return null;
+    }
+
+    //Adds product options - attributes single
+    function woo_addAttributes($product)
+    {
+        $attributes = array();
+        $attr = new \stdClass();
+        $attr->name = "Brand";
+        $attr->slug = "brand";
+        $attr->position = 1;
+        $attr->visible = true;
+        $attr->variation = false;
+        $attr->options = ["$product->Brand"];
+
+        $attr2 = new \stdClass();
+        $attr2->name = "Product Type";
+        $attr2->slug = "product-type";
+        $attr2->position = 2;
+        $attr2->visible = true;
+        $attr2->variation = false;
+        $attr2->options = ["$product->Meta_1"];
+
+        $attr3 = new \stdClass();
+        $attr3->name = "Version Released";
+        $attr3->slug = "product-version";
+        $attr3->position = 3;
+        $attr3->visible = true;
+        $attr3->variation = false;
+        $attr3->options = ["$product->Meta_3"];
+
+        array_push($attributes, $attr);
+        array_push($attributes, $attr2);
+        array_push($attributes, $attr3);
+        return $attributes;
+    }
+
+    //adds the options to variable products
+    function woo_addOptionAttributes($product)
+    {
+        $options = array();
+        if($product->Option_1_Name != null && $product->Option_1_Value != null)
+        {
+            $option1 = new \stdClass();
+            $option1->name = $product->Option_1_Name;
+            $option1->option = $product->Option_1_Value;
+            array_push($options, $option1);
+        }
+        if($product->Option_2_Name != null && $product->Option_2_Value != null)
+        {
+            $option2 = new \stdClass();
+            $option2->name = $product->Option_2_Name;
+            $option1->option = $product->Option_2_Value;
+            array_push($options, $option2);
+
+        }
+        return $options;
+    }
+
+    //adds the category to the products
+    function woo_addCategory($product)
+    {
+        $category = array();
+        array_push($category,$product->Category);
+    }
+
+    //checks if the category exists on Woocommerce
+    function woo_checkCategory($product, $_wooSettings)
+    {
+        $category = $product->Category;
+
+        $storeName = $_wooSettings->Woocommerce_Store->store_name;
+        $url = 'https://' . $storeName. '/wc-api/v3/products/categories';
+        $ck = $_wooSettings->Woocommerce_Store->consumer_key;
+        $cs = $_wooSettings->Woocommerce_Store->consumer_secret;
+
+        $result = $this->get_web_page($url, null, $ck, $cs);
+        $woo_categories = (json_decode($result))->product_categories;
+        for($i = 0; $i < sizeof($woo_categories); ++$i)
+        {
+            if($woo_categories[$i]->name == $category)
+            {
+                return $woo_categories[$i]->id;
+            }
+        }
+        return null;
+    }
+
+    //otherwise it creates a new category to add the product under
+    function woo_createAttribute($category, $_wooSettings)
+    {
+        $variable = new \stdClass();
+        $variable->name = $category;
+        $variable = json_encode($variable);
+
+        $storeName = $_wooSettings->Woocommerce_Store->store_name;
+        $url = 'https://' . $storeName. '/wc-api/v3/products/categories';
+        $ck = $_wooSettings->Woocommerce_Store->consumer_key;
+        $cs = $_wooSettings->Woocommerce_Store->consumer_secret;
+
+        $this->get_web_page($url, $variable, $ck, $cs, 'post');
+    }
+
 }
 ?>
