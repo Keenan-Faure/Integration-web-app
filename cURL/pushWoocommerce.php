@@ -25,7 +25,6 @@ if($_SESSION['connection']->active == true)
     }
     $sku = $arrayData[0]->SKU;
     $found = $curl->check_woo_sku($sku);
-    $arrayData = json_encode($arrayData);
     if($found == true)
     {
         //exists
@@ -36,7 +35,10 @@ if($_SESSION['connection']->active == true)
         $ck = $wooSettings->Woocommerce_Store->consumer_key;
         $cs = $wooSettings->Woocommerce_Store->consumer_secret;
 
-        $result = $this->get_web_page($url, $productData, $ck, $cs, 'put');
+        print_r(json_encode($curl->woo_addProduct($arrayData[0], $wooSettings)));
+        exit();
+        $result = $curl->get_web_page($url, $productData, $ck, $cs, 'put');
+        
     }
     else
     {
@@ -49,12 +51,10 @@ if($_SESSION['connection']->active == true)
         $cs = $wooSettings->Woocommerce_Store->consumer_secret;
 
         //creates new products on Woocommerce
-
-        //--Need to create product data from Woocommerce map
-        //--Need to create map in settings
-        //--As well as an internal map, if the map is not defined
-
-        $result = $this->get_web_page($url, $productData, $ck, $cs, 'post');
+        print_r($curl->woo_addProduct($arrayData[0], $wooSettings));
+        exit();
+        
+        $result = $curl->get_web_page($url, $productData, $ck, $cs, 'post');
     }
 
 
