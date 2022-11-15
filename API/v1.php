@@ -15,7 +15,7 @@
         $variable = new \stdClass();
         $variable->message = 'Unauthorized access, or credentials not provided';
         echo(json_encode($variable));
-        header('Refresh:2, url=api.php');
+        header('Refresh:2, url=v1.php');
         exit;
     } 
     else 
