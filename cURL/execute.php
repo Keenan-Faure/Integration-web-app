@@ -12,30 +12,10 @@ if($_SESSION['connection']->active == true)
     $curl = new curl();
     $connection = new connect();
 
-    //gets the url
-    $host = "http://" . $_SERVER['HTTP_HOST']; //needs to be defined
-    $fullUrl = $_SERVER["REQUEST_URI"];
-    $fullUrl = $host . $fullUrl;
-    $endpoint = ($connection->queryParams($fullUrl))['endpoint'];
+    //credentials
+    $_woo_settings = json_encode($_SESSION['woo_settings']);
 
-    if($endpoint == 'push-woo')
-    {
-        $running = true;
-        echo("
-        
-            <html>
-                <body style='margin: 0;background-color: black'>
-                    <div style='width:215px;top: 35%;left: 50%;transform: translate(-50%, -50%);height: 250px;position: relative;background-image: url(../Images/load.gif);'>
-                    </div>
-                    <div style='color: white;text-align: center;width:200px;left: 50%;position: relative;top: 25%;transform: translate(-50%, -50%);'>Pushing Products... please wait</div>
-                </body>
-            </html>
-        ");
-
-        
-    }
-
-    else if($_POST['endpoint'] == 'authenticate')
+    if($_POST['endpoint'] == 'authenticate')
     {
         //if success then do something
         $result = $curl->authenticate($_POST['username'], $_POST['password']);
