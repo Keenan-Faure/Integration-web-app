@@ -541,6 +541,54 @@ Class CURL
         return $meta;
     }
 
+    //checks if a product already exists on Woocommerce
+    // returns true if it does exist
+    // false if it does not
+    // otherwise it will return and stdClass, false => message
+    function check_woo_sku($sku)
+    {
+        if(isset($_SESSION['woo_settings']))
+        {
+            //gets settings from php file
+            $wooSettings = $_SESSION['woo_settings'];
+            $storeName = $wooSettings->Woocommerce_Store->store_name;
+            $url = 'https://' . $storeName. '/wc-api/v3/products?filter[sku]=' . $sku;
+            $ck = $wooSettings->Woocommerce_Store->consumer_key;
+            $cs = $wooSettings->Woocommerce_Store->consumer_secret;
+
+            $result = $this->get_web_page($url, null, $ck, $cs);
+            if($result == null)
+            {
+                $variable = new \stdClass();
+                $variable->result = false;
+                $variable->message = 'Incorrect store name';
+                return $variable;
+            }
+            if(json_decode($result)->products == null)
+            {
+                return false;
+            }
+            else if(json_decode($result)->products != null)
+            {
+                return true;
+            }
+            else
+            {
+                $variable = new \stdClass();
+                $variable->result = false;
+                $variable->message = 'Malformed JSON received from Woocommerce';
+                return $variable;
+            }
+        }
+        else
+        {
+            $variable = new \stdClass();
+            $variable->result = false;
+            $variable->message = 'No session detected';
+            return $variable;
+        }
+    }
+
     /*
     +--------------------------------+
     | Function call: Woocommerce     |
@@ -761,6 +809,20 @@ Class CURL
         }
         return $result;
     }
+
+    //gets a product from Woocommerce
+    function getProductBySKU()
+    {
+        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        if($result == null)
+        {
+            $variable = new \stdClass();
+            $variable->message = 'Error occured';
+            return $variable;
+        }
+        return $result;
+    }
+
 
     //gets a list of products from Woocommerce
     function getProduct_l()
