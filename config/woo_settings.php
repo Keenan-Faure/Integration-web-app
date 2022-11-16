@@ -20,9 +20,7 @@ return array(
         "woo_product_map" => 
         '{
             "title": "$product->Title",
-            "type": "$product->Type",
             "status": "$_wooSettings->Woocommerce_Settings->woo_product_status",
-            "managing_stock": false,
             "description": "$product->Description",
             "short_description": "",
             "attributes": 
