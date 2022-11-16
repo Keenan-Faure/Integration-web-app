@@ -68,11 +68,16 @@
             T_ime varchar(255),
             T_ype varchar(255))';
         $result = $conn->preQuery($_config, $query, 'object');
-
-        //create admin user
-        $query = 'INSERT INTO Users(Username, Password) VALUES("' . $_config['dbUser'] . '", "'. $_config['dbPass'] .'")';
+    }
+    if(!in_array("woocommerce", $result))
+    {
+        //create the table
+        $query = 'CREATE TABLE Woocommerce(
+            SKU varchar(255),
+            ID varchar(255))';
         $result = $conn->preQuery($_config, $query, 'object');
     }
+
 ?>
 <html>
     <head>
