@@ -175,6 +175,18 @@ Class vProducts
             . "'" . $product->meta3 . "');"
         ;
         $output = $connection->converterObject($rawConnection, $query);
+
+        $query_ = "INSERT INTO Woocommerce 
+        (
+            SKU,
+            ID
+        )
+        VALUES 
+        (
+            '" . $product->sku . "',
+            '0');"
+        ;
+        $output = $connection->converterObject($rawConnection, $query_);
         $result = new \stdClass();
         $result->data = $product;
         return $result;
