@@ -37,8 +37,6 @@ if($_SESSION['connection']->active == true)
 
         print_r(json_encode($curl->woo_addProduct($arrayData[0], $wooSettings, true, $connection)));
         exit();
-        $result = $curl->get_web_page($url, $productData, $ck, $cs, 'put');
-
 
         /**
          * - Check if product exists on Woocommerce
@@ -63,6 +61,7 @@ if($_SESSION['connection']->active == true)
          *      
          *      - If the product is a simple product then add variant level (No Options)
          *  
+         * 
          *      - If it's a variable product then update variants (add options)
          */
         
@@ -80,8 +79,6 @@ if($_SESSION['connection']->active == true)
         //creates new products on Woocommerce
         print_r($curl->woo_addProduct($arrayData[0], $wooSettings, false, $connection));
         exit();
-        
-        $result = $curl->get_web_page($url, $productData, $ck, $cs, 'post');
     }
 
 

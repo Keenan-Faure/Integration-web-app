@@ -1231,13 +1231,16 @@ Class CURL
                         {
                             //Splits the products into variants and general
                             $variation_data = new \stdClass();
-                            $variation_data->product = $Product->variations;
+                            $variation_data->product = $Product->variations[0];
                             unset($Product->variations);
                             $general_data = new \stdClass();
                             $general_data->product = $Product;
 
                             //sets the product type to Simple
-                            $Product->Type = 'Simple';
+                            $general_data->product->Type = 'Simple';
+
+                            //sets manage_stock to false
+                            $general_data->manage_stock = false;
 
                             if($wooExist == true)
                             {
@@ -1259,7 +1262,7 @@ Class CURL
                                 //check for any errors and log them
                                 if(json_decode($result)->httpcode != 200)
                                 {
-                                    $connection->addLogs('Push Product - Woocommerce', 'Error occured: ' . json_decode($result)->httpcode, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                    $connection->addLogs('Update Product - Woocommerce', 'Error occured: ' . json_decode($result)->httpcode, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
                                 }
                                 
 
@@ -1269,15 +1272,38 @@ Class CURL
                                 $result = $this->get_web_page($url, json_encode($variation_data), $ck, $cs, 'put');
                                 if(json_decode($result)->httpcode != 200)
                                 {
-                                    $connection->addLogs('Push Product - Woocommerce', 'Error occured: ' . json_decode($result)->httpcode, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                    $connection->addLogs('Update Product - Woocommerce', 'Error occured: ' . json_decode($result)->httpcode, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
                                 }
-                                header('Content-Type: application/json');
-                                echo($result);
-                                exit();
-                                
                             }
                             else
                             {
+                                //if the product does not exist on Woocommerce
+                                //then we create it
+
+                                $url = 'https://' . $storeName. '/wc-api/v3/products/';
+                                $result = $this->get_web_page($url, json_encode($general_data), $ck, $cs, 'post');
+                                $id = (json_decode($result))->product->id;
+
+                                //inserts ID into Database for future use
+                                $this->insertID($product->SKU, $id, $connection);
+
+                                //check for any errors and log them
+                                if(json_decode($result)->httpcode != 200)
+                                {
+                                    $connection->addLogs('Create Product - Woocommerce', 'Error occured: ' . json_decode($result)->httpcode, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                }
+                                
+                                //update variant information about product
+                                //No Options (attributes)
+
+                                // -- Err - Variant not updating
+
+                                $url = 'https://' . $storeName. '/wc-api/v3/products/' . $id;
+                                $result = $this->get_web_page($url, json_encode($variation_data), $ck, $cs, 'post');
+                                if(json_decode($result)->httpcode != 200)
+                                {
+                                    $connection->addLogs('Create Variant - Woocommerce', 'Error occured: ' . json_decode($result)->httpcode, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                }
 
                             }
                         }
@@ -1302,15 +1328,61 @@ Class CURL
                     $Product->title = $product->Title;
                     $Product->status = $_wooSettings->Woocommerce_Settings->woo_product_status;
                     $Product->description = $product->Description; //decodes it 
+                    $Product->enable_html_description = true;
                     $Product->short_description = "";
+
+                    //checks category
+                    $isCategory = $this->woo_checkCategory($product, $_wooSettings);
+                    if($isCategory != null)
+                    {
+                        $category_first = new \stdClass();
+                        $category_first->id = $isCategory;
+                        $Product->categories = $category_first;
+                    }
+                    else
+                    {
+                        //creates the attribute on Woocommerce
+                        $id = $this->woo_createCategory($product->Category, $_wooSettings);
+                        $category = array();
+                        $category_ = new \stdClass();
+                        $category_ = $id;
+
+                        array_push($category, $category_);
+                        //assigns the category to the product
+                        $Product->categories = $category;
+                    }
+
                     if($product->Type == 'Simple')
                     {
                         $product->type = 'Simple';
-                        $Product->managing_stock = false;
+                        $Product->manage_stock = false;
+
+
+
+
+                        //variation section
+                        $Product->variants = new \stdClass();
+                        if($product->Type != 'Simple')
+                        {
+                            $Product->variants->manage_stock = false;
+                        }
+                        $Product->variants->sku = $product->SKU;
+                        $Product->variants->stock_quantity = $product->CapeTown_Warehouse;
+                        $Product->variants->regular_price = $product->ComparePrice;
+                        $Product->variants->sale_price = $product->SellingPrice;
+                        $Product->variants->weight = $product->Weight;
+                        return $Product;
+
+
                     }
-                    //Adds product options - attributes (single, variant)
-                    //Options
-                    if($product->Type != 'Simple')
+                    else
+                    {
+
+                    }
+
+
+                    //If simple product
+                    if($product->Type == 'Simple')
                     {
                         //add the management inventory on variant level if variant
                         $Product->attributes = $this->woo_addOptionAttributes($product);
@@ -1319,20 +1391,6 @@ Class CURL
                     {
                         $Product->attributes = $this->woo_addAttributes($product);
                     }
-
-                    //Adds product to category
-                    $Product->categories = $this->woo_AddCategory($product);
-                    $Product->variants = new \stdClass();
-                    if($product->Type != 'Simple')
-                    {
-                        $Product->variants->managing_stock = false;
-                    }
-                    $Product->variants->sku = $product->SKU;
-                    $Product->variants->stock_quantity = $product->CapeTown_Warehouse;
-                    $Product->variants->regular_price = $product->ComparePrice;
-                    $Product->variants->sale_price = $product->SellingPrice;
-                    $Product->variants->weight = $product->Weight;
-                    return $Product;
                 }
             }
         }
@@ -1459,8 +1517,6 @@ Class CURL
         WHERE SKU = '" . $sku . "';";
 
         $output = $connection->converterObject($rawConnection, $query);
-        print_r($output);
-        exit();
     }
 
     //gets the products ID that has been saved in the database
@@ -1472,6 +1528,17 @@ Class CURL
 
         $output = $connection->converterObject($rawConnection, $query);
         return ($output)->result[0]->ID;
+    }
+
+    //inserts ID into Woocommerce Table
+    function insertID($sku, $id, $connection)
+    {
+        $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+        
+        $query = "INSERT INTO Woocommerce(ID) VALUES('" . $id . "') WHERE SKU ='" . $sku . "'";
+
+        $output = $connection->converterObject($rawConnection, $query);
+        return $output;
     }
 
 }
