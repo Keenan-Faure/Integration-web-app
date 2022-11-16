@@ -153,6 +153,19 @@ Class sProducts
             . "'" . $product->meta3 . "');"
         ;
         $output = $connection->converterObject($rawConnection, $query);
+
+        $query_ = "INSERT INTO Woocommerce 
+        (
+            SKU,
+            ID
+        )
+        VALUES 
+        (
+            '" . $product->sku . "',
+            '0');"
+        ;
+        $output = $connection->converterObject($rawConnection, $query_);
+        
         $result = new \stdClass();
         $result->data = $product;
         return $result;
@@ -223,7 +236,7 @@ Class sProducts
             CapeTown_Warehouse = '$product->quantity',
             Meta_1 = '$product->meta1',
             Meta_2 = '$product->meta2',
-            Meta_3 = '$product->meta1'
+            Meta_3 = '$product->meta3'
             
         WHERE SKU = '$product->sku'"
         ;
