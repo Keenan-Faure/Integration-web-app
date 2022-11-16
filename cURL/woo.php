@@ -146,7 +146,7 @@
                         <option value="woo_getProduct_l">GET product list</option>
                         <option value="woo_deleteProduct">DELETE product</option>
                         <option value="woo_updateProduct">Update product</option>
-                        <option value="woo_postProduct">POST product</option>
+                        <option value="woo_createProduct">POST product</option>
                     </optgroup>
                     <!--
                     <optgroup label="Product variations">

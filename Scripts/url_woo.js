@@ -372,7 +372,7 @@ function changeUrl(value, storename)
         }
         post.value = JSON.stringify(json, null, 2);
     }
-    if(value.value == 'woo_postProduct')
+    if(value.value == 'woo_createProduct')
     {
         hideShowData($('#post'), 'show');
         hideShowData($('#rmv1'), 'hide');
