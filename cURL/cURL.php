@@ -1013,7 +1013,7 @@ Class CURL
     //creates WoocommerceProductMap
     //internal map uses stdClasses
     //external map uses map inside config
-    function woo_addProduct($product, $_wooSettings)
+    function woo_addProduct($product, $_wooSettings, $wooExist, $connection)
     {
         $array = [
             //product
@@ -1021,7 +1021,6 @@ Class CURL
             '$product->Type' => $product->Type,
             '$_wooSettings->Woocommerce_Settings->woo_product_status' => $_wooSettings->Woocommerce_Settings->woo_product_status,
             '$product->Description' => $product->Description,
-            '$product->Category' => $product->Category,
             '$product->Brand' => $product->Brand,
             '$product->SKU' => $product->SKU,
             '$product->Weight' => $product->Weight,
@@ -1167,67 +1166,172 @@ Class CURL
                                         {
                                             $product_map_array[$key][$subKey] = (str_replace($subValue,$array["$subValue"],$product_map_array[$key][$subKey]));
                                         }
+                                        else
+                                        {
+                                            if(!isset($array[$subValue]) && array_key_exists($subValue, $array))
+                                            {
+                                                $product_map_array[$key][$subKey] = null;
+                                            }
+                                        }
                                     }
                                 }
                             }
                             else
                             {
-                                $product_map_array[$key] = (str_replace($value,$array["$value"],$product_map_array[$key]));
+                                if((in_array($value, $product_map_array) != false) && $value != null && isset($array[$value]))
+                                {
+                                    $product_map_array[$key] = (str_replace($value,$array["$value"],$product_map_array[$key]));
+                                }
+                                else if((array_search($value, $product_map_array) != false) && $value != null && isset($array[$value]))
+                                {
+                                    $product_map_array[$key] = (str_replace($value,$array["$value"],$product_map_array[$key]));
+                                }
+                                else
+                                {
+                                    if(!isset($array[$value]) && array_key_exists($value, $array))
+                                    {
+                                        $product_map_array[$key] = null;
+                                    }
+                                }
                             }
                         }
                         //returns it in StdClass Format
-                        $product = new \stdClass();
+                        $Product = new \stdClass();
+                        $Product = json_decode(json_encode($product_map_array));
+                        $Product->enable_html_description = true;
+
+                        //gets the credentials
+                        $storeName = $_wooSettings->Woocommerce_Store->store_name;
+                        $ck = $_wooSettings->Woocommerce_Store->consumer_key;
+                        $cs = $_wooSettings->Woocommerce_Store->consumer_secret;
 
                         //add the category
-                        //--check if the category is on Woocommerce
+                        //check if the category is on Woocommerce
                         $isCategory = $this->woo_checkCategory($product, $_wooSettings);
                         if($isCategory != null)
                         {
-                            $category = array();
                             $category_first = new \stdClass();
                             $category_first->id = $isCategory;
-                            array_push($category, $category_first);
+                            $Product->categories = $category_first;
                         }
                         else
                         {
-                            $this->woo_createAttribute($product->Category, $_wooSettings);
+                            //creates the attribute on Woocommerce
+                            $id = $this->woo_createCategory($product->Category, $_wooSettings);
+                            $category = array();
+                            $category_ = new \stdClass();
+                            $category_ = $id;
+
+                            array_push($category, $category_);
+                            //assigns the category to the product
+                            $Product->categories = $category;
                         }
 
-                        //--otherwise we create a new category
+                        if($product->Type == 'Simple')
+                        {
+                            //Splits the products into variants and general
+                            $variation_data = new \stdClass();
+                            $variation_data->product = $Product->variations;
+                            unset($Product->variations);
+                            $general_data = new \stdClass();
+                            $general_data->product = $Product;
+
+                            //sets the product type to Simple
+                            $Product->Type = 'Simple';
+
+                            if($wooExist == true)
+                            {
+                                //if the product exists on woocommerce and is Simple
+                                //update general information about product
+                                //getProductId from database table
+                                //OR gets the ID from Woocommerce
+                                
+                                $id = $this->getID($product->SKU, $connection);
+                                if($id == null)
+                                {
+                                    //gets the ID from Woocommerce, saves it in Table
+                                    $this->getSKUID($product, $_wooSettings, $connection);
+                                    $id = $this->getID($product->SKU, $connection);
+                                }
+                                $url = 'https://' . $storeName. '/wc-api/v3/products/' . $id;
+                                $result = $this->get_web_page($url, json_encode($general_data), $ck, $cs, 'put');
+
+                                //check for any errors and log them
+                                if(json_decode($result)->httpcode != 200)
+                                {
+                                    $connection->addLogs('Push Product - Woocommerce', 'Error occured: ' . json_decode($result)->httpcode, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                }
+                                
+
+                                //update variant information about product
+                                //No Options (attributes)
+                                $url = 'https://' . $storeName. '/wc-api/v3/products/' . $id;
+                                $result = $this->get_web_page($url, json_encode($variation_data), $ck, $cs, 'put');
+                                if(json_decode($result)->httpcode != 200)
+                                {
+                                    $connection->addLogs('Push Product - Woocommerce', 'Error occured: ' . json_decode($result)->httpcode, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                }
+                                header('Content-Type: application/json');
+                                echo($result);
+                                exit();
+                                
+                            }
+                            else
+                            {
+
+                            }
+                        }
+                        else
+                        {
+
+                        }
+
+                        print_r($Product);
+                        exit();
 
                         //add the attribute(options)
 
-                        $product = json_decode(json_encode($product_map_array));
-                        return $product;
+
+                        return $Product;
                     }
                 }
                 else
                 {
                     //creates the product using internal map
                     $Product = new \stdClass();
-                    $Product->product = new \stdClass();
-                    $Product->product->title = $product->Title;
-                    $Product->product->type = $_wooSettings->Woocommerce_Settings->woo_product_status;
+                    $Product->title = $product->Title;
+                    $Product->status = $_wooSettings->Woocommerce_Settings->woo_product_status;
+                    $Product->description = $product->Description; //decodes it 
+                    $Product->short_description = "";
+                    if($product->Type == 'Simple')
+                    {
+                        $product->type = 'Simple';
+                        $Product->managing_stock = false;
+                    }
                     //Adds product options - attributes (single, variant)
                     //Options
                     if($product->Type != 'Simple')
                     {
-                        $Product->product->attributes = $this->woo_addOptionAttributes($product);
+                        //add the management inventory on variant level if variant
+                        $Product->attributes = $this->woo_addOptionAttributes($product);
                     }
                     else
                     {
                         $Product->attributes = $this->woo_addAttributes($product);
                     }
 
-                    $Product->product->description = $product->Description; //decodes it 
                     //Adds product to category
-                    $Product->product->categories = $this->woo_AddCategory($product);
-                    $Product->product->variants = new \stdClass();
-                    $Product->product->variants->sku = $product->SKU;
-                    $Product->product->variants->stock_quantity = $product->CapeTown_Warehouse;
-                    $Product->product->variants->regular_price = $product->ComparePrice;
-                    $Product->product->variants->sale_price = $product->SellingPrice;
-                    $Product->product->variants->weight = $product->Weight;
+                    $Product->categories = $this->woo_AddCategory($product);
+                    $Product->variants = new \stdClass();
+                    if($product->Type != 'Simple')
+                    {
+                        $Product->variants->managing_stock = false;
+                    }
+                    $Product->variants->sku = $product->SKU;
+                    $Product->variants->stock_quantity = $product->CapeTown_Warehouse;
+                    $Product->variants->regular_price = $product->ComparePrice;
+                    $Product->variants->sale_price = $product->SellingPrice;
+                    $Product->variants->weight = $product->Weight;
                     return $Product;
                 }
             }
@@ -1291,11 +1395,12 @@ Class CURL
         return $options;
     }
 
-    //adds the category to the products
+    //adds the category to the products (internal_map)
     function woo_addCategory($product)
     {
         $category = array();
         array_push($category,$product->Category);
+        return $category;
     }
 
     //checks if the category exists on Woocommerce
@@ -1321,10 +1426,11 @@ Class CURL
     }
 
     //otherwise it creates a new category to add the product under
-    function woo_createAttribute($category, $_wooSettings)
+    function woo_createCategory($category, $_wooSettings)
     {
         $variable = new \stdClass();
-        $variable->name = $category;
+        $variable->product_category = new \stdClass();
+        $variable->product_category->name = $category;
         $variable = json_encode($variable);
 
         $storeName = $_wooSettings->Woocommerce_Store->store_name;
@@ -1332,7 +1438,40 @@ Class CURL
         $ck = $_wooSettings->Woocommerce_Store->consumer_key;
         $cs = $_wooSettings->Woocommerce_Store->consumer_secret;
 
-        $this->get_web_page($url, $variable, $ck, $cs, 'post');
+        return(json_decode($this->get_web_page($url, $variable, $ck, $cs, 'post'))->product_category->id);
+    }
+
+    //gets the products ID from Woocommerce and saves it in Table
+    function getSKUID($product, $_wooSettings, $connection)
+    {
+        $sku = $product->SKU;
+
+        $storeName = $_wooSettings->Woocommerce_Store->store_name;
+        $url = 'https://' . $storeName. '/wc-api/v3/products?filter[sku]=' . $sku;
+        $ck = $_wooSettings->Woocommerce_Store->consumer_key;
+        $cs = $_wooSettings->Woocommerce_Store->consumer_secret;
+
+        $id = (json_decode($this->get_web_page($url, null, $ck, $cs, ))->products[0]->id);
+        $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+        
+        $query = "UPDATE Woocommerce SET 
+        ID = '" . $id . "' 
+        WHERE SKU = '" . $sku . "';";
+
+        $output = $connection->converterObject($rawConnection, $query);
+        print_r($output);
+        exit();
+    }
+
+    //gets the products ID that has been saved in the database
+    function getID($sku, $connection)
+    {
+        $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+        
+        $query = "SELECT ID FROM Woocommerce WHERE SKU = '" . $sku . "';";
+
+        $output = $connection->converterObject($rawConnection, $query);
+        return ($output)->result[0]->ID;
     }
 
 }
