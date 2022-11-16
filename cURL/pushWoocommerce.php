@@ -17,7 +17,7 @@ if($_SESSION['connection']->active == true)
     //creates array of products to push
     $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
     $arrayData = ($connection->converterObject($rawConnection, 'SELECT * FROM Inventory LIMIT 1')->result);
-
+    $arrayData[0]->Description = html_entity_decode($arrayData[0]->Description);
     $message = 'Pushing Products... please wait';
     if(sizeof($arrayData) <= 0)
     {
@@ -35,9 +35,36 @@ if($_SESSION['connection']->active == true)
         $ck = $wooSettings->Woocommerce_Store->consumer_key;
         $cs = $wooSettings->Woocommerce_Store->consumer_secret;
 
-        print_r(json_encode($curl->woo_addProduct($arrayData[0], $wooSettings)));
+        print_r(json_encode($curl->woo_addProduct($arrayData[0], $wooSettings, true, $connection)));
         exit();
         $result = $curl->get_web_page($url, $productData, $ck, $cs, 'put');
+
+
+        /**
+         * - Check if product exists on Woocommerce
+         *      - Create product with mapping (internal/external)
+         *      
+         *      - Update product's general information
+         *      - If it's a simple product then set the type to Simple 
+         *          - Set the stock_management to false on global level
+         *      
+         *      - If the product is a simple product then update the variant level of the product
+         *      - No Options because it's a simple product
+         *      
+         *      - If the product was a variable product then update the variant level of the product
+         *      - Including options
+         * 
+         * - If it does not exist
+         *      - Create product with mapping (internal/external)
+         * 
+         *      - Update product's general information
+         *      - Simple product set type to Simple
+         *          - Set the stock_management to false at global level
+         *      
+         *      - If the product is a simple product then add variant level (No Options)
+         *  
+         *      - If it's a variable product then update variants (add options)
+         */
         
     }
     else
@@ -51,7 +78,7 @@ if($_SESSION['connection']->active == true)
         $cs = $wooSettings->Woocommerce_Store->consumer_secret;
 
         //creates new products on Woocommerce
-        print_r($curl->woo_addProduct($arrayData[0], $wooSettings));
+        print_r($curl->woo_addProduct($arrayData[0], $wooSettings, false, $connection));
         exit();
         
         $result = $curl->get_web_page($url, $productData, $ck, $cs, 'post');
