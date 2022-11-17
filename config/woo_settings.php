@@ -13,7 +13,7 @@ return array(
         "consumer_secret" => "cs_63105a5c9d86c4572c4542c1233f5597783b12bb"),
     "Woocommerce_Settings" =>
     array(
-        "woo_use_product_map" => "false", //true, false
+        "woo_use_product_map" => "true", //true, false
         "woo_add_products" => "true", //true, false
         "woo_product_status" => "publish", //can be publish, draft
         "woo_delete_products" => "false", //true, false
