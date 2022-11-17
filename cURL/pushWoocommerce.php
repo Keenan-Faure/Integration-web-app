@@ -16,7 +16,7 @@ if($_SESSION['connection']->active == true)
 
     //creates array of products to push
     $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
-    $arrayData = ($connection->converterObject($rawConnection, 'SELECT * FROM Inventory WHERE SKU = "GenImp-K-ES-1"')->result);
+    $arrayData = ($connection->converterObject($rawConnection, 'SELECT * FROM Inventory WHERE SKU = "GenImp-J-AS"')->result);
     $arrayData[0]->Description = html_entity_decode($arrayData[0]->Description);
     $message = 'Pushing Products... please wait';
     if(sizeof($arrayData) <= 0)

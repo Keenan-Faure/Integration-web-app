@@ -1409,12 +1409,15 @@ Class CURL
                                 //if the product does not exist on Woocommerce
                                 //then we create it
 
+                                //create variation attributes (general level)
+                                $general_data->product->attributes = $this->createVariationAttributes($product, $connection, $general_data);
+
                                 $url = 'https://' . $storeName. '/wc-api/v3/products/';
                                 $result = $this->get_web_page($url, json_encode($general_data), $ck, $cs, 'post');
-                                $id = (json_decode($result))->product->id;
+                                $p_id = (json_decode($result))->product->id;
 
-                                //inserts ID into Database for future use
-                                $this->insertID($product->SKU, $id, $connection);
+                                //inserts P_ID into Database for future use
+                                $this->insertP_ID($product->SKU, $p_id, $connection);
 
                                 //check for any errors and log them
                                 if(json_decode($result)->httpcode != 200)
@@ -1423,10 +1426,13 @@ Class CURL
                                 }
                                 
                                 //update variant information about product
-                                //No Options (attributes)
 
                                 $url = 'https://' . $storeName. '/wc-api/v3/products/' . $id;
                                 $result = $this->get_web_page($url, json_encode($variation_data), $ck, $cs, 'post');
+
+                                $id = (json_decode($result))->product->id;
+                                $this->insertID($product->SKU, $id, $connection);
+
                                 if(json_decode($result)->httpcode != 200)
                                 {
                                     $connection->addLogs('Create Variant - Woocommerce', 'Error occured: ' . json_decode($result)->code . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
