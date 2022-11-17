@@ -1325,11 +1325,12 @@ Class CURL
                 {
                     //creates the product using internal map
                     $Product = new \stdClass();
-                    $Product->title = $product->Title;
-                    $Product->status = $_wooSettings->Woocommerce_Settings->woo_product_status;
-                    $Product->description = $product->Description; //decodes it 
-                    $Product->enable_html_description = true;
-                    $Product->short_description = "";
+                    $Product->product = new \stdClass();
+                    $Product->product->title = $product->Title;
+                    $Product->product->status = $_wooSettings->Woocommerce_Settings->woo_product_status;
+                    $Product->product->description = $product->Description; //decodes it 
+                    $Product->product->enable_html_description = true;
+                    $Product->product->short_description = "";
 
                     //checks category
                     $isCategory = $this->woo_checkCategory($product, $_wooSettings);
@@ -1337,7 +1338,7 @@ Class CURL
                     {
                         $category_first = new \stdClass();
                         $category_first->id = $isCategory;
-                        $Product->categories = $category_first;
+                        $Product->product->categories = $category_first;
                     }
                     else
                     {
@@ -1349,48 +1350,115 @@ Class CURL
 
                         array_push($category, $category_);
                         //assigns the category to the product
-                        $Product->categories = $category;
+                        $Product->product->categories = $category;
                     }
+
+                    //adds product attributes
+                    $Product->product->attributes = $this->woo_addAttributes($product);
 
                     if($product->Type == 'Simple')
                     {
-                        $product->type = 'Simple';
-                        $Product->manage_stock = false;
+                        //Splits the products into variants and general
+                        // $Product - general
+                        // $variation - variation
+
+                        $Product->product->type = 'Simple';
+                        $Product->product->manage_stock = false;
+
+                        //variation_data
+                        $variation_data = new \stdClass();
+                        $variation_data->products = new \stdClass();
 
 
+                        $variation_data->products->sku = $product->SKU;
+                        $variation_data->products->stock_quantity = $product->CapeTown_Warehouse;
+                        $variation_data->products->regular_price = $product->ComparePrice;
+                        $variation_data->products->sale_price = $product->SellingPrice;
+                        $variation_data->products->weight = $product->Weight;
 
+                        //gets the credentials
+                        $storeName = $_wooSettings->Woocommerce_Store->store_name;
+                        $ck = $_wooSettings->Woocommerce_Store->consumer_key;
+                        $cs = $_wooSettings->Woocommerce_Store->consumer_secret;
+                        
 
-                        //variation section
-                        $Product->variants = new \stdClass();
-                        if($product->Type != 'Simple')
+                        if($wooExist == true)
                         {
-                            $Product->variants->manage_stock = false;
+                            //if the product exists on woocommerce and is Simple
+                            //update general information about product
+                            //getProductId from database table
+                            //OR gets the ID from Woocommerce
+                            
+                            $id = $this->getID($product->SKU, $connection);
+                            if($id == null)
+                            {
+                                //gets the ID from Woocommerce, saves it in Table
+                                $this->getSKUID($product, $_wooSettings, $connection);
+                                $id = $this->getID($product->SKU, $connection);
+                            }
+                            $url = 'https://' . $storeName. '/wc-api/v3/products/' . $id;
+                            $result = $this->get_web_page($url, json_encode($Product), $ck, $cs, 'put');
+
+                            //check for any errors and log them
+                            if(json_decode($result)->httpcode != 200)
+                            {
+                                $connection->addLogs('Update Product - Woocommerce', 'Error occured: ' . json_decode($result)->httpcode, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                            }
+                            
+
+                            //update variant information about product
+                            //No Options (attributes)
+                            $url = 'https://' . $storeName. '/wc-api/v3/products/' . $id;
+                            $result = $this->get_web_page($url, json_encode($variation_data), $ck, $cs, 'put');
+                            if(json_decode($result)->httpcode != 200)
+                            {
+                                $connection->addLogs('Update Product - Woocommerce', 'Error occured: ' . json_decode($result)->httpcode, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                            }
                         }
-                        $Product->variants->sku = $product->SKU;
-                        $Product->variants->stock_quantity = $product->CapeTown_Warehouse;
-                        $Product->variants->regular_price = $product->ComparePrice;
-                        $Product->variants->sale_price = $product->SellingPrice;
-                        $Product->variants->weight = $product->Weight;
-                        return $Product;
+                        else
+                        {
+                            //if the product does not exist on Woocommerce
+                            //then we create it
 
+                            $url = 'https://' . $storeName. '/wc-api/v3/products/';
+                            $result = $this->get_web_page($url, json_encode($Product), $ck, $cs, 'post');
+                            $id = (json_decode($result))->product->id;
 
+                            //inserts ID into Database for future use
+                            $this->insertID($product->SKU, $id, $connection);
+
+                            //check for any errors and log them
+                            if(json_decode($result)->httpcode != 200)
+                            {
+                                $connection->addLogs('Create Product - Woocommerce', 'Error occured: ' . json_decode($result)->httpcode, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                            }
+                            
+                            //update variant information about product
+                            //No Options (attributes)
+
+                            // -- Err - Variant not updating
+
+                            $url = 'https://' . $storeName. '/wc-api/v3/products/' . $id;
+                            $result = $this->get_web_page($url, json_encode($variation_data), $ck, $cs, 'post');
+                            if(json_decode($result)->httpcode != 200)
+                            {
+                                $connection->addLogs('Create Variant - Woocommerce', 'Error occured: ' . json_decode($result)->httpcode, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                            }
+
+                        }
                     }
+                    //variable product
                     else
                     {
 
                     }
 
 
-                    //If simple product
-                    if($product->Type == 'Simple')
-                    {
-                        //add the management inventory on variant level if variant
-                        $Product->attributes = $this->woo_addOptionAttributes($product);
-                    }
-                    else
-                    {
-                        $Product->attributes = $this->woo_addAttributes($product);
-                    }
+                    //variable product options
+                    // else
+                    // {
+                    //     $Product->attributes = $this->woo_addOptionAttributes($product);
+                    // }
                 }
             }
         }
