@@ -1246,7 +1246,7 @@ Class CURL
                             {
                                 //if the product exists on woocommerce and is Simple
                                 //update general information about product
-                                //getProductId from database table
+                                //getProductId from database table - if it exists (!= null)
                                 //OR gets the ID from Woocommerce
                                 
                                 $id = $this->getID($product->SKU, $connection);
@@ -1307,16 +1307,106 @@ Class CURL
 
                             }
                         }
+                        //Variable product
                         else
                         {
+                            //If the product (SKU) does not exist then:
+                            //create parent product (where to store parent_id link) - in db (each variation will have the same parent id) - new column
+                                //sync general_info like:
+                                //no SKU
+                                //attributes must sync (not options)
+                                //**manage stock = false**//
+                                //**type = variation**//
+                            //
+                            
+                            //create variation attributes
+                                //add the attribute(options) to the general_level
+                        
+                                //add the variation_data for the specific variation
+                                //set type to variant
+                                //set manage_stock = false on variation
+                            //
+
+                            //Splits the products into variants and general
+                            $variation_data = new \stdClass();
+                            $variation_data->product = $Product->variations[0];
+                            unset($Product->variations);
+                            $general_data = new \stdClass();
+                            $general_data->product = $Product;
+
+
+
+
+                            if($wooExist == true)
+                            {
+                                //if the product exists on woocommerce and is Simple
+                                //update general information about product
+                                //getProductId from database table - if it exists (!= null)
+                                //OR gets the ID from Woocommerce
+                                
+                                $id = $this->getID($product->SKU, $connection);
+                                if($id == null)
+                                {
+                                    //gets the ID from Woocommerce, saves it in Table
+                                    $this->getSKUID($product, $_wooSettings, $connection);
+                                    $id = $this->getID($product->SKU, $connection);
+                                }
+                                $url = 'https://' . $storeName. '/wc-api/v3/products/' . $id;
+                                $result = $this->get_web_page($url, json_encode($general_data), $ck, $cs, 'put');
+
+                                //check for any errors and log them
+                                if(json_decode($result)->httpcode != 200)
+                                {
+                                    $connection->addLogs('Update Product - Woocommerce', 'Error occured: ' . json_decode($result)->httpcode, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                }
+                                
+
+                                //update variant information about product
+                                //No Options (attributes)
+                                $url = 'https://' . $storeName. '/wc-api/v3/products/' . $id;
+                                $result = $this->get_web_page($url, json_encode($variation_data), $ck, $cs, 'put');
+                                if(json_decode($result)->httpcode != 200)
+                                {
+                                    $connection->addLogs('Update Product - Woocommerce', 'Error occured: ' . json_decode($result)->httpcode, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                }
+                            }
+                            else
+                            {
+                                //if the product does not exist on Woocommerce
+                                //then we create it
+
+                                $url = 'https://' . $storeName. '/wc-api/v3/products/';
+                                $result = $this->get_web_page($url, json_encode($general_data), $ck, $cs, 'post');
+                                $id = (json_decode($result))->product->id;
+
+                                //inserts ID into Database for future use
+                                $this->insertID($product->SKU, $id, $connection);
+
+                                //check for any errors and log them
+                                if(json_decode($result)->httpcode != 200)
+                                {
+                                    $connection->addLogs('Create Product - Woocommerce', 'Error occured: ' . json_decode($result)->httpcode, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                }
+                                
+                                //update variant information about product
+                                //No Options (attributes)
+
+                                // -- Err - Variant not updating
+
+                                $url = 'https://' . $storeName. '/wc-api/v3/products/' . $id;
+                                $result = $this->get_web_page($url, json_encode($variation_data), $ck, $cs, 'post');
+                                if(json_decode($result)->httpcode != 200)
+                                {
+                                    $connection->addLogs('Create Variant - Woocommerce', 'Error occured: ' . json_decode($result)->httpcode, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                }
+
+                            }
+
+
+
+
 
                         }
-
-                        print_r($Product);
-                        exit();
-
-                        //add the attribute(options)
-
 
                         return $Product;
                     }
@@ -1362,7 +1452,7 @@ Class CURL
                         // $Product - general
                         // $variation - variation
 
-                        $Product->product->type = 'Simple';
+                        $Product->product->Type = 'Simple';
                         $Product->product->manage_stock = false;
 
                         //variation_data
@@ -1402,7 +1492,7 @@ Class CURL
                             //check for any errors and log them
                             if(json_decode($result)->httpcode != 200)
                             {
-                                $connection->addLogs('Update Product - Woocommerce', 'Error occured: ' . json_decode($result)->httpcode, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                $connection->addLogs('Update Product - Woocommerce', 'Error occured: ' . json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
                             }
                             
 
@@ -1412,7 +1502,7 @@ Class CURL
                             $result = $this->get_web_page($url, json_encode($variation_data), $ck, $cs, 'put');
                             if(json_decode($result)->httpcode != 200)
                             {
-                                $connection->addLogs('Update Product - Woocommerce', 'Error occured: ' . json_decode($result)->httpcode, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                $connection->addLogs('Update Product - Woocommerce', 'Error occured: ' . json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
                             }
                         }
                         else
@@ -1430,7 +1520,7 @@ Class CURL
                             //check for any errors and log them
                             if(json_decode($result)->httpcode != 200)
                             {
-                                $connection->addLogs('Create Product - Woocommerce', 'Error occured: ' . json_decode($result)->httpcode, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                $connection->addLogs('Create Product - Woocommerce', 'Error occured: ' . json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
                             }
                             
                             //update variant information about product
@@ -1442,7 +1532,7 @@ Class CURL
                             $result = $this->get_web_page($url, json_encode($variation_data), $ck, $cs, 'post');
                             if(json_decode($result)->httpcode != 200)
                             {
-                                $connection->addLogs('Create Variant - Woocommerce', 'Error occured: ' . json_decode($result)->httpcode, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                $connection->addLogs('Create Variant - Woocommerce', 'Error occured: ' . json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
                             }
 
                         }
