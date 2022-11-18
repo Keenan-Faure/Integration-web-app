@@ -1024,7 +1024,7 @@ Class CURL
             '$product->Brand' => $product->Brand,
             '$product->SKU' => $product->SKU,
             '$product->Weight' => $product->Weight,
-            '$product->ComparePrice' => $product->ComparePrice,
+            //'$product->ComparePrice' => $product->ComparePrice,
             '$product->SellingPrice' => $product->SellingPrice,
             '$product->CapeTown_Warehouse' => $product->CapeTown_Warehouse,
             '$product->Option_1_Name' => $product->Option_1_Name,
@@ -1332,7 +1332,7 @@ Class CURL
                             $general_data = new \stdClass();
                             $general_data->product = $Product;
                             $general_data->product->managing_stock = false;
-                            $general_data->product->Type = 'Variable';
+                            $general_data->product->Type = 'variable';
 
 
 
@@ -1414,6 +1414,10 @@ Class CURL
 
                                 $url = 'https://' . $storeName. '/wc-api/v3/products/';
                                 $result = $this->get_web_page($url, json_encode($general_data), $ck, $cs, 'post');
+
+                                header('Content-Type: application/json');
+                                print_r(json_decode($result));
+                                exit();
                                 
                                 $p_id = (json_decode($result))->product->id;
 
@@ -1809,7 +1813,7 @@ Class CURL
                 else //should parse here if the option Names are the same (first run)
                 {
                     $option_1->name = $output->result[$i]->Option_1_Name;
-                    $option_1->position = sizeof($general_data->product->attributes) + sizeof($option_1->options);
+                    $option_1->position = sizeof($general_data->product->attributes) + sizeof($option_1->options) + 1;
                     $option_1->visible = false;
                     $option_1->variation = true;
                     $option_1->options = array();
@@ -1834,7 +1838,7 @@ Class CURL
                 else //should parse here if the option Names are the same (first run)
                 {
                     $option_2->name = $output->result[$i]->Option_2_Name;
-                    $option_2->position = sizeof($general_data->product->attributes) + sizeof($option_2->options);
+                    $option_2->position = sizeof($general_data->product->attributes) + sizeof($option_2->options) + 1;
                     $option_2->visible = false;
                     $option_2->variation = true;
                     $option_2->options = array();
