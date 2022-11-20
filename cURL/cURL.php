@@ -1414,11 +1414,11 @@ Class CURL
 
                                 $url = 'https://' . $storeName. '/wc-api/v3/products/';
                                 $result = $this->get_web_page($url, json_encode($general_data), $ck, $cs, 'post');
-
-                                header('Content-Type: application/json');
+                                
+                                header("Content-type: application/json");
                                 print_r(json_decode($result));
                                 exit();
-                                
+
                                 $p_id = (json_decode($result))->product->id;
 
                                 //inserts P_ID into Database for future use
@@ -1449,8 +1449,6 @@ Class CURL
                                 }
 
                             }
-
-
                         }
                     }
                 }
@@ -1812,6 +1810,7 @@ Class CURL
                 }
                 else //should parse here if the option Names are the same (first run)
                 {
+                    $option_1->id = $i + 2;
                     $option_1->name = $output->result[$i]->Option_1_Name;
                     $option_1->position = sizeof($general_data->product->attributes) + sizeof($option_1->options) + 1;
                     $option_1->visible = false;
@@ -1837,6 +1836,7 @@ Class CURL
                 }
                 else //should parse here if the option Names are the same (first run)
                 {
+                    $option_2->id = $i + 3;
                     $option_2->name = $output->result[$i]->Option_2_Name;
                     $option_2->position = sizeof($general_data->product->attributes) + sizeof($option_2->options) + 1;
                     $option_2->visible = false;
