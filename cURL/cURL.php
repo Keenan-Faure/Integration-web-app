@@ -1326,9 +1326,6 @@ Class CURL
                             //
 
                             //Splits the products into variants and general
-                            $variation_data = new \stdClass();
-                            $variation_data->product = $Product->variations[0];
-                            unset($Product->variations);
                             $general_data = new \stdClass();
                             $general_data->product = $Product;
                             $general_data->product->managing_stock = false;
@@ -1415,7 +1412,6 @@ Class CURL
                                 $url = 'https://' . $storeName. '/wc-api/v3/products/';
                                 $result = $this->get_web_page($url, json_encode($general_data), $ck, $cs, 'post');
                                 
-                                header("Content-type: application/json");
                                 print_r(json_decode($result));
                                 exit();
 
