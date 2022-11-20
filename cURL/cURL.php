@@ -1326,8 +1326,12 @@ Class CURL
                             //
 
                             //Splits the products into variants and general
+                            // $variation_data = new \stdClass();
+                            // $variation_data->product = $Product->variations[0];
+                            // unset($Product->variations);
                             $general_data = new \stdClass();
                             $general_data->product = $Product;
+                            
                             $general_data->product->managing_stock = false;
                             $general_data->product->Type = 'variable';
 
