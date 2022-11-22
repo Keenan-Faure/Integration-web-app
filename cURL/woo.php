@@ -53,7 +53,7 @@
                             </div>
                         </div>
                     </div>
-                    <a id='push-woo' href='execute.php?endpoint=push-woo' target="_blank" class='buttonPush-Woo'>Push Products</a>
+                    <a id='push-woo' href='woo.html' target="_blank" class='buttonPush-Woo'>Push Products</a>
                     </div>
                 </div>
         <div class='modalContainer-Woo'>

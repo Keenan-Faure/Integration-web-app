@@ -48,7 +48,7 @@ else
     {
         session_destroy();
         $conn->createHtmlMessages('User logged out', 'Returning to login page', 'login', 'info');
-        header('Refresh:2, url=login.php');
+        header('Refresh:0.5, url=login.php');
     }
 }
 ?>

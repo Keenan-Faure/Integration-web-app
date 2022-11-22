@@ -103,12 +103,65 @@
                             }
                             else
                             {
-                                echo("<textarea class='valueSett' readonly>$subValue</textarea>");
+                                echo("<textarea class='valueSett'>$subValue</textarea>");
                             }
                         }
                     }
                 }
+                echo("<div class='headerSett'><p class='headSettText'><button class='save-btn' href='outpu'>Save</button></p></div>");
             ?>
         </div>
     </body>
+    <script>
+        // const req = async function() 
+        // {
+        //     let url = createURL();
+        //     console.log(url);
+        //     const resp = await fetch(url,
+        //     {
+        //         method: 'GET', // *GET, POST, PUT, DELETE, etc.
+        //         mode: 'cors', // no-cors, *cors, same-origin
+        //         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        //         credentials: 'include', // include, *same-origin, omit
+        //         headers: 
+        //         {
+        //             'Access-Control-Allow-Origin': '*',
+        //             'Content-Type': 'application/json'
+        //         },
+        //         redirect: 'follow', // manual, *follow, error
+        //         referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        //     });
+        //     const json = await resp.json();
+        //     console.log(json);
+        // }
+        // function createURL()
+        // {
+        //     arrayUrl = (document.URL).split('/');
+        //     url = 'http://' + arrayUrl[2] + '/' + 'output.php' + string;
+        //     return url;
+        // }
+        $(document).ready(()=>
+        {
+            $('.save-btn').click(()=>
+            {
+                alert("Functionality not implemented yet");
+                // let data = document.getElementsByClassName('valueSett');
+                // string = '?';
+                // for(let i = 0; i < data.length; ++i)
+                // {
+                //     string = string + data[i].innerHTML;
+                //     if(i % 2 != 0 && i != data.length - 1)
+                //     {
+                //         string = string + '&';
+                //     }
+                //     else if (i % 2 == 0)
+                //     {
+                //         string = string + '=';
+                //     }
+                // }
+                // req();
+                //post data via URL to the php script on server
+            });
+        });
+    </script>
 </html>

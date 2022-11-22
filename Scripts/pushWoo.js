@@ -1,6 +1,3 @@
-
-
-
 const req = async function() 
 {
     let url = createURL();
@@ -26,7 +23,7 @@ req();
 function createURL()
 {
     arrayUrl = (document.URL).split('/');
-    url = 'http://' + arrayUrl[2] + '/' + 'cURL/pushWoocommerce.php';
+    url = 'http://' + arrayUrl[2] + '/' + 'cURL/pushWoocommerce.php?q=' + sku;
     return url;
 }
 

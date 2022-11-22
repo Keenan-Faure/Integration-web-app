@@ -154,6 +154,9 @@
                     <optgroup label="Push">
                         <option value="pushProducts">Push Products</option>
                     </optgroup>
+                    <optgroup label="Push">
+                        <option value="elastic_query">elastic search</option>
+                    </optgroup>
                 </select>
                 <input class='button' type='submit'>
             </form>

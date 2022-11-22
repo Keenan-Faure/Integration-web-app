@@ -695,3 +695,17 @@ h2
     border-style: solid;
     border-image: initial;
 }
+.save-btn
+{
+    background-color: grey;
+    position: relative;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 10px 30px;
+    transition-duration: 0.4s;
+    border: 1px solid rgb(92, 92, 92);
+}
+.save-btn:hover
+{
+    background-color: rgb(87, 192, 17);
+}

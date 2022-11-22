@@ -17,8 +17,13 @@ if(isset($_SESSION['connection']))
         $_woo_settings = $_SESSION['woo_settings'];
 
         //creates array of products to push
+        //gets data from Inventory for that one product
+        $host = "http://" . $_SERVER['HTTP_HOST']; //needs to be defined
+        $fullUrl = $_SERVER["REQUEST_URI"];
+        $fullUrl = $host . $fullUrl;
+        $sku = ($connection->queryParams($fullUrl))['q'];
         $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
-        $arrayData = ($connection->converterObject($rawConnection, 'SELECT * FROM Inventory WHERE SKU = "GenImp-V-AA"')->result);
+        $arrayData = ($connection->converterObject($rawConnection, 'SELECT * FROM Inventory WHERE SKU="' . $sku . '"')->result);
         $arrayData[0]->Description = html_entity_decode($arrayData[0]->Description);
         $message = 'Pushing Products... please wait';
         if(sizeof($arrayData) <= 0)
@@ -37,9 +42,7 @@ if(isset($_SESSION['connection']))
             $ck = $wooSettings->Woocommerce_Store->consumer_key;
             $cs = $wooSettings->Woocommerce_Store->consumer_secret;
 
-            print_r(json_encode($curl->woo_addProduct($arrayData[0], $wooSettings, true, $connection)));
-            exit();
-
+            echo(json_encode($curl->woo_addProduct($arrayData[0], $wooSettings, true, $connection)));
             /**
              * - Check if product exists on Woocommerce
              *      - Create product with mapping (internal/external)
@@ -66,7 +69,6 @@ if(isset($_SESSION['connection']))
              * 
              *      - If it's a variable product then update variants (add options)
              */
-            
         }
         else
         {
@@ -79,24 +81,8 @@ if(isset($_SESSION['connection']))
             $cs = $wooSettings->Woocommerce_Store->consumer_secret;
 
             //creates new products on Woocommerce
-            print_r($curl->woo_addProduct($arrayData[0], $wooSettings, false, $connection));
-            exit();
+            echo($curl->woo_addProduct($arrayData[0], $wooSettings, false, $connection));
         }
-
-
-
-        //decide whether to post or put the data depending on if the SKU is found in Woocommerce
-        /*
-        
-        - Run script echo from php 
-        - create recursive function to send updates to Woocommerce based on the number of
-        products that are in the array
-        - condition to check if n == 0
-        - send update, if response is 200 (okay) then update page, increment total
-        - if response if anything but 200, then add to logs and continue anyways
-        - If it is done then return a completed page, update existing page using js
-
-        */
     }
 }
 else

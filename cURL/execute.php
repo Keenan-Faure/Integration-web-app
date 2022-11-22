@@ -39,6 +39,10 @@ if($_SESSION['connection']->active == true)
     {
         echo(json_encode($curl->getChannels($_SESSION['token'],$_POST['username'], $_POST['password'])));
     }
+    else if($_POST['endpoint'] == 'elastic_query')
+    {
+        echo(json_encode($curl->elastic_query('',$_SESSION['token'],$_POST['username'], $_POST['password'])));
+    }
     else if($_POST['endpoint'] == 'pushProducts')
     {
         if($_SESSION['settings']->S2S_settings->s2s_add_products != 'true')
