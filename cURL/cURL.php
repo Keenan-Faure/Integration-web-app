@@ -1276,7 +1276,7 @@ Class CURL
                             $general_data->product = $Product;
 
                             //sets the product type to Simple
-                            $general_data->product->type = 'Simple';
+                            $general_data->product->type = 'simple';
 
                             //sets managing_stock to false
                             $general_data->managing_stock = false;
@@ -1323,7 +1323,7 @@ Class CURL
                                 }
                                 $var = new \stdClass();
                                 $var->result = true;
-                                $var->message = 'Update variant data - Woocommerce ' . json_decode($result)->httpcode . ' - SKU: ' . $product->SKU;
+                                $var->message = 'Update product - Woocommerce ' . json_decode($result)->httpcode . ' - SKU: ' . $product->SKU;
                                 return $var;
                             }
                             else
@@ -1339,7 +1339,7 @@ Class CURL
                                 $this->insertID($product->SKU, $id, $connection);
 
                                 //check for any errors and log them
-                                if(in_array(json_decode($result)->httpcode != 200, [200,201]))
+                                if(!in_array(json_decode($result)->httpcode, [200,201]))
                                 {
                                     $connection->addLogs('Create Product - Woocommerce', 'Error occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
                                     $var = new \stdClass();
@@ -1353,7 +1353,7 @@ Class CURL
 
                                 $url = 'https://' . $storeName. '/wc-api/v3/products/' . $id;
                                 $result = $this->get_web_page($url, json_encode($variation_data), $ck, $cs, 'post');
-                                if(in_array(json_decode($result)->httpcode != 200, [200,201]))
+                                if(!in_array(json_decode($result)->httpcode, [200,201]))
                                 {
                                     $connection->addLogs('Create Variant - Woocommerce', 'Error occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
                                     $var = new \stdClass();
@@ -1363,7 +1363,7 @@ Class CURL
                                 }
                                 $var = new \stdClass();
                                 $var->result = true;
-                                $var->message = 'Create variant data - Woocommerce ' . json_decode($result)->httpcode . ' - SKU: ' . $product->SKU;
+                                $var->message = 'Create product - Woocommerce ' . json_decode($result)->httpcode . ' - SKU: ' . $product->SKU;
                                 return $var;
                             }
                         }
@@ -1584,7 +1584,7 @@ Class CURL
                                 }
                                 $var = new \stdClass();
                                 $var->result = true;
-                                $var->message = 'Create variable product - Woocommerce ' . json_decode($result)->httpcode . ' - SKU: ' . $product->SKU;
+                                $var->message = 'Create variant - Woocommerce ' . json_decode($result)->httpcode . ' - SKU: ' . $product->SKU;
                                 return $var;  
                             }
                         }
@@ -1631,7 +1631,7 @@ Class CURL
                         // $Product - general
                         // $variation - variation
 
-                        $Product->product->type = 'Simple';
+                        $Product->product->type = 'simple';
                         $Product->product->managing_stock = false;
 
                         //variation_data
@@ -1941,7 +1941,7 @@ Class CURL
                             }  
                             $var = new \stdClass();
                             $var->result = true;
-                            $var->message = 'Create variable product - Woocommerce ' . json_decode($result)->httpcode . ' - SKU: ' . $product->SKU;
+                            $var->message = 'Create variant - Woocommerce ' . json_decode($result)->httpcode . ' - SKU: ' . $product->SKU;
                             return $var;
                         }
                     }
@@ -2100,7 +2100,7 @@ Class CURL
         $query = "SELECT ID FROM Woocommerce WHERE SKU = '" . $sku . "';";
 
         $output = $connection->converterObject($rawConnection, $query);
-        return ($output)->result[0]->ID;
+        return $output->result[0]->ID;
     }
 
     //inserts ID into Woocommerce Table

@@ -1,6 +1,21 @@
-const req = async function() 
+function createURL(parameter, sku)
 {
-    let url = createURL();
+    if(parameter != 'getSKUs')
+    {
+        arrayUrl = (document.URL).split('/');
+        url = 'http://' + arrayUrl[2] + '/' + 'cURL/pushWoocommerce.php?q=' + sku;
+        return url;
+    }
+    else
+    {
+        arrayUrl = (document.URL).split('/');
+        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/getSKUs.php';
+        return url;
+    }
+}
+const req = async function(parameter, sku) 
+{
+    let url = createURL(parameter, sku);
     const resp = await fetch(url,
     {
         method: 'GET', // *GET, POST, PUT, DELETE, etc.
@@ -17,14 +32,14 @@ const req = async function()
     });
     const json = await resp.json();
     console.log(json);
+    if(json.return == true)
+    {
+        for(let i = 0; i < json.body.length; ++i)
+        {
+            req('', json.body[i].SKU);
+        }
+    }
 }
-req();
-
-function createURL()
-{
-    arrayUrl = (document.URL).split('/');
-    url = 'http://' + arrayUrl[2] + '/' + 'cURL/pushWoocommerce.php?q=' + sku;
-    return url;
-}
+req('getSKUs', '');
 
 

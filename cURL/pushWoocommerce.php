@@ -6,6 +6,7 @@ include("../createConnection.php");
 use Connection\Connection as connect;
 use cURL\CURL as curl;
 
+//Runs one at a time - per SKU
 if(isset($_SESSION['connection']))
 {
     if($_SESSION['connection']->active == true)
@@ -21,8 +22,25 @@ if(isset($_SESSION['connection']))
         $host = "http://" . $_SERVER['HTTP_HOST']; //needs to be defined
         $fullUrl = $_SERVER["REQUEST_URI"];
         $fullUrl = $host . $fullUrl;
-        $sku = ($connection->queryParams($fullUrl))['q'];
+        $sku = ($connection->queryParams($fullUrl));
+        if($sku == false)
+        {
+            $variable = new \stdClass();
+            $variable->result = false;
+            $variable->message = 'No Param was entered';
+            echo(json_encode($variable));
+            exit();
+        }
+        $sku = $sku['q'];
         $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+        if($sku == '')
+        {
+            $variable = new \stdClass();
+            $variable->result = false;
+            $variable->message = 'Attempting to query NULL SKU';
+            echo(json_encode($variable));
+            exit();
+        }
         $arrayData = ($connection->converterObject($rawConnection, 'SELECT * FROM Inventory WHERE SKU="' . $sku . '"')->result);
         $arrayData[0]->Description = html_entity_decode($arrayData[0]->Description);
         $message = 'Pushing Products... please wait';
