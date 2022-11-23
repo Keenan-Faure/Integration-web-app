@@ -1525,7 +1525,7 @@ Class CURL
                                     $this->addVariantToParent($product, $Product, $p_id, $connection, $_wooSettings);
                                     $var = new \stdClass();
                                     $var->result = true;
-                                    $var->message = 'Added variant to product ' . $product->SKU;
+                                    $var->message = 'Added variant "' . $product->SKU . '" to product';;
                                     return $var;
                                 }
                                 //if it does not then - do the below:
@@ -2100,7 +2100,14 @@ Class CURL
         $query = "SELECT ID FROM Woocommerce WHERE SKU = '" . $sku . "';";
 
         $output = $connection->converterObject($rawConnection, $query);
-        return $output->result[0]->ID;
+        if($output->result == null)
+        {
+            return null;
+        }
+        else
+        {
+            return $output->result[0]->ID;
+        }
     }
 
     //inserts ID into Woocommerce Table
@@ -2172,7 +2179,14 @@ Class CURL
         $query = "SELECT P_ID FROM Woocommerce WHERE SKU = '" . $sku . "';";
 
         $output = $connection->converterObject($rawConnection, $query);
-        return ($output)->result[0]->P_ID;
+        if($output->result == null)
+        {
+            return null;
+        }
+        else
+        {
+            return ($output)->result[0]->P_ID;
+        }
     }
 
     //inserts P_ID into Woocommerce Table
