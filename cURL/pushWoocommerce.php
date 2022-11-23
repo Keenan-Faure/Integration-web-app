@@ -99,7 +99,7 @@ if(isset($_SESSION['connection']))
             $cs = $wooSettings->Woocommerce_Store->consumer_secret;
 
             //creates new products on Woocommerce
-            echo($curl->woo_addProduct($arrayData[0], $wooSettings, false, $connection));
+            echo(json_encode($curl->woo_addProduct($arrayData[0], $wooSettings, false, $connection)));
         }
     }
 }
