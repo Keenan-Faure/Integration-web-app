@@ -41,8 +41,8 @@ if(isset($_SESSION['connection']) && isset($_SESSION['connection']))
                         exit();
                     }
                     $result = $customer->updateCustomer($result, $util, $connection);
-                    echo(json_encode($result));
-                    header('Refresh:2, url=customerList.php?page=1');
+                    //echo(json_encode($result));
+                    header('Refresh:1, url=customerList.php?page=1');
                     unset($_POST);
                 }
             }
@@ -60,12 +60,12 @@ if(isset($_SESSION['connection']) && isset($_SESSION['connection']))
                     if(isset($result->return))
                     {
                         echo(json_encode($result));
-                        header('Refresh:2, url=productList.php?page=1');
+                        header('Refresh:1, url=productList.php?page=1');
                         exit();
                     }
                     $result = $product->updateProduct($result, $util, $connection);
-                    echo(json_encode($result));
-                    header('Refresh:2, url=productList.php?page=1');
+                    //echo(json_encode($result));
+                    header('Refresh:0, url=productList.php?page=1');
                     unset($_POST);
                 }
                 else
@@ -80,8 +80,8 @@ if(isset($_SESSION['connection']) && isset($_SESSION['connection']))
                         exit();
                     }
                     $result = $product->updateProduct($result, $util, $connection);
-                    echo(json_encode($result));
-                    header('Refresh:2, url=productList.php?page=1');
+                    //echo(json_encode($result));
+                    header('Refresh:0, url=productList.php?page=1');
                     unset($_POST);
                 }
             }
@@ -93,7 +93,7 @@ if(isset($_SESSION['connection']) && isset($_SESSION['connection']))
             $conn->addLogs('Error connecting', 'No connection found in current session, please re-connect', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', false);
             $conn->createHtmlMessages('Error connecting', 'No Session was detected', 'login', 'info');
 
-            header('Refresh:2,url=login.php');
+            header('Refresh:1,url=login.php');
         }
     }
     else
@@ -101,7 +101,7 @@ if(isset($_SESSION['connection']) && isset($_SESSION['connection']))
         $conn = new connect();
         $conn->addLogs('Error connecting', 'No login data found for current user', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', false);
         $conn->createHtmlMessages('Error connecting to user session', 'No Session User was detected', 'login', 'info');
-        header('Refresh:2,url=login.php');
+        header('Refresh:1,url=login.php');
     }
 }
 else
@@ -109,7 +109,7 @@ else
     $conn = new connect();
     $conn->addLogs('Error connecting', 'No login data found for current user', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', false);
     $conn->createHtmlMessages('Error connecting to user session', 'No Session User was detected', 'login', 'info');
-    header('Refresh:2,url=login.php');
+    header('Refresh:1,url=login.php');
 }
 
 ?>
