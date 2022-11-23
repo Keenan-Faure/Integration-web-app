@@ -8,7 +8,7 @@
         .container
         {
             width:215px;
-            top: 35%;
+            top: 30%;
             left: 50%;
             transform: translate(-50%, -50%);
             height: 250px;
@@ -19,18 +19,52 @@
         {
             color: white;
             text-align: center;
-            width:200px;
+            width: 200px;
             left: 50%;
             position: relative;
-            top: 25%;
+            top: 15%;
+            padding: 20px;
             transform: translate(-50%, -50%);
+        }
+        .table
+        {
+            position: relative;
+            top: 25%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.1);
+            width: 60%;
+        }
+        .img-pass
+        {
+            background-image: url(../Images/image.png);
+            background-position: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+        }
+        .img.fail
+        {
+            background-image: url(../Images/image.png);
+            background-position: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
         }
     </style>
     <body>
         <div class='container'></div>
         <div id='text' class='txt-cls'>Pushing products... please wait</div>
+        <div id='textAmount' class='txt-cls'>Fetching Products to push from database</div>
+        <div class='table'>
+            <div class="table-header">Process chain</div>
+            <div class="table-body">
+                <div class="img-pass"></div>
+                <div class="table-rows">Success: Update Variant {{SKU}} on Woocommerce</div>
+            </div>
+        </div>
     </body>
-    <script src="../Scripts/pushWoo.js">
+    <!-- <script src="../Scripts/pushWoo.js"> -->
     </script>
     </body>
 </html>
