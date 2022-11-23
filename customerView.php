@@ -85,7 +85,7 @@
             </div>
             <div class='saveCloseContainer'>
                 
-                <button class='save' type='submit' title='Save current product'></button>
+                <button class='save' type='submit' title='Save current customer'></button>
                 <div class='close' type='submit' title='Close and return'></div>
             </div>
             <div class="GeneralContentContainer" id="general">
