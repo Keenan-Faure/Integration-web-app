@@ -71,8 +71,7 @@ const process = async function(result, parameter)
             appendText(json.message, json.result);
         }
     }
-    //replace main image with completed
-
+    document.querySelector('.container').style.backgroundImage = "url('../Images/completed.gif')";
 }
 function appendText(message, result)
 {
