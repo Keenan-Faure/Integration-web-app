@@ -63,16 +63,41 @@ const process = async function(result, parameter)
         if(json.result == true)
         {
             changeAmount((i + 1) + " / " + result.body.length);//updates the process
-            //change html (success)
+            appendText(json.message, json.result);
         }
         else
         {
             changeAmount((i + 1) + " / " + result.body.length);////updates the process
-            //process was (a failure) logged
+            appendText(json.message, json.result);
         }
     }
     //replace main image with completed
+
+}
+function appendText(message, result)
+{
+    container = document.getElementById('row');
+    container.classList.remove("fadeOut");
+    text = document.getElementById("text-1");
+
+    img = document.getElementById('img');
+    img.className = 'type-msg-image';
+    if(result == true)
+    {
+        img.src = '../images/image.png';
+    }
+    else
+    {
+        img.src = '../images/image1.png';
+    }
+    text.innerHTML = message;
     
+    container.classList.add("fadeIn");
+    setTimeout(()=>
+    {
+        container.classList.remove('fadeIn');
+        container.classList.add('fadeOut');
+    }, 1500);
 }
 req('getSKUs', '');
 

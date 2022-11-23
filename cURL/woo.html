@@ -29,27 +29,94 @@
         .table
         {
             position: relative;
-            top: 25%;
+            top: 20%;
             left: 50%;
             transform: translate(-50%, -50%);
             background-color: rgba(255, 255, 255, 0.1);
-            width: 60%;
+            width: 40%;
         }
-        .img-pass
+        .table-header
         {
-            background-image: url(../Images/image.png);
-            background-position: center;
-            width: 50px;
-            height: 50px;
-            border-radius: 10px;
+            overflow: hidden;
+            border-style: inset;
+            border-width: 1px;
+            padding: 10px;
+            text-align: center;
         }
-        .img.fail
+        .head
         {
-            background-image: url(../Images/image.png);
-            background-position: center;
-            width: 50px;
-            height: 50px;
-            border-radius: 10px;
+            text-align: center;
+            width: 100%;
+            padding: 12px 0px 12px 0px;
+            position: absolute;
+            display: inline-block;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .type-msg
+        {
+            width: 40px;
+            left: 0;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+        }
+        .type-msg-image
+        {
+            width: 15px;
+            height: 15px;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            background-color: lightgrey;
+        }
+        .row-item
+        {
+            width: 100%;
+            background-color: rgba(255,255,255, 0.7);
+            height: 0px;
+            display: block;
+            transition-duration: 0.2s;
+            opacity: 0;
+        }
+        @keyframes fade-in
+        {
+            from
+            {
+                opacity: 0;
+            }
+            to
+            {
+                opacity: 1;
+            }
+        }
+        .fadeIn
+        {
+            animation: fade-in 0.5s ease-in forwards;
+        }
+        @keyframes fade-out
+        {
+            from
+            {
+                opacity: 1;
+            }
+            to
+            {
+                opacity: 0;
+            }
+        }
+        .fadeOut
+        {
+            animation: fade-out 0.5s ease-in forwards;
+        }
+        #text-1
+        {
+            position: relative;
+            text-align: center;
+            margin: 0;
+            display: inline-block;
         }
     </style>
     <body>
@@ -58,13 +125,19 @@
         <div id='textAmount' class='txt-cls'>Fetching Products to push from database</div>
         <div class='table'>
             <div class="table-header">Process chain</div>
-            <div class="table-body">
-                <div class="img-pass"></div>
-                <div class="table-rows">Success: Update Variant {{SKU}} on Woocommerce</div>
+            <div class="row-item" id="row">
+                <div class="head">
+                    <div class="type-msg">
+                        <img id='img' src="../images/image.png"> 
+                    </div>
+                    <div id="text-1">
+
+                    </div>
+                </div>
             </div>
         </div>
     </body>
-    <!-- <script src="../Scripts/pushWoo.js"> -->
+    <script src="../Scripts/pushWoo.js">
     </script>
     </body>
 </html>
