@@ -268,7 +268,7 @@ function setRequired(object, type)
 //added to text to add the body_html
 function setText(classNames, text, formNames, type)
 {
-    let ignore = ['Token', 'Type'];
+    let ignore = ['Token', 'Type', 'Audit_Date', 'User'];
     for(let i = 0; i < text.length; ++i)
     {
         if(ignore.includes(text[i][0]))
