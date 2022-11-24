@@ -253,6 +253,11 @@ button
     z-index: -10;
     display: none;
 }
+#connector
+{
+    z-index: -10;
+    display: none;
+}
 .imageContainer
 {
     width: 100%;
@@ -723,6 +728,103 @@ li
     border: none;
     text-align: center;
     display: inline-block;
+}
+.connectorHeading
+{
+    background-color: black;
+    color: white;
+    padding: 8px 10px 8px 0px;
+    opacity: 0.95;
+    text-align: center;
+    width: 93%;
+    font-size: 15px;
+    border: none;
+    display: inline-block;
+}
+
+.connector
+{
+    background-color: rgba(255, 255, 255, 0.2);
+    top: 5%;
+    padding: 10px 0px 10px 15px;
+    position: absolute;
+    width: 40%;
+}
+#stock2shopPushed
+{
+    background-color: rgba(255, 255, 255, 0.2);
+    top: 5%;
+    right: 3%;
+    padding: 10px 0px 10px 15px;
+    position: absolute;
+    width: 40%;
+}
+
+.connectorText
+{
+    background-color: #1f1f1f;
+    color: white;
+    /* Used to cut text if it exceeds length */
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden; 
+    /*   */
+    padding: 10px;
+    cursor: pointer;
+    width: 42%;
+    font-size: 15px;
+    border: none;
+    display: inline-block;
+    transition-duration: 0.4s;
+}
+.connectorValue
+{
+    background-color: #1f1f1f;
+    color: white;
+    /* Used to cut text if it exceeds length */
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden; 
+    /*   */
+    cursor: pointer;
+    height: 37px;
+    padding-top: 10px;
+    width: 45%;
+    font-size: 15px;
+    border: none;
+    text-align: center;
+    display: inline-block;
+}
+.stock2shopValue
+{
+    background-color: #1f1f1f;
+    color: white;
+    /* Used to cut text if it exceeds length */
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden; 
+    /*   */
+    cursor: pointer;
+    height: 37px;
+    padding-top: 10px;
+    width: 45%;
+    font-size: 15px;
+    border: none;
+    text-align: center;
+    display: inline-block;
+}
+.auditTrail
+{
+    color: white;
+    margin: 0;
+    cursor: pointer;
+    bottom: 5px;
+    padding-top: 8px;
+    width: 100%;
+    font-size: 12px;
+    border: none;
+    text-align: right;
+    position: absolute;
 }
 
 
