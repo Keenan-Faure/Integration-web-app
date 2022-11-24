@@ -154,7 +154,7 @@
                     <optgroup label="Push">
                         <option value="pushProducts">Push Products</option>
                     </optgroup>
-                    <optgroup label="Push">
+                    <optgroup label="Query Products">
                         <option value="elastic_query">elastic search</option>
                     </optgroup>
                 </select>
