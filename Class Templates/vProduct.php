@@ -146,7 +146,9 @@ Class vProducts
             Option_2_Value,
             Meta_1,
             Meta_2,
-            Meta_3
+            Meta_3,
+            Audit_Date,
+            User
         )
 
         VALUES 
@@ -171,22 +173,26 @@ Class vProducts
             $product->option2Name . "','" .
             $product->option2Value . "','" .
             $product->meta1 . "','" .
-            $product->meta2 . "',"
-            . "'" . $product->meta3 . "');"
+            $product->meta2 . "'," . 
+            $product->meta3 . "','" .
+            date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']) . "','"
+            . $_SESSION['clientConn']->credentials->token . "');"
         ;
-        $output = $connection->converterObject($rawConnection, $query);
+        $connection->converterObject($rawConnection, $query);
 
         $query_ = "INSERT INTO Woocommerce 
         (
             SKU,
-            ID
+            ID,
+            P_ID
         )
         VALUES 
         (
             '" . $product->sku . "',
+            '0',
             '0');"
         ;
-        $output = $connection->converterObject($rawConnection, $query_);
+        $connection->converterObject($rawConnection, $query_);
         $result = new \stdClass();
         $result->data = $product;
         return $result;
