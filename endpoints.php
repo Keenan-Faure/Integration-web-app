@@ -28,8 +28,13 @@
                     <button class="dropDownBtn">Session</button>
                         <div class="dropDownContent">
                             <a href="output.php?q=session">Current session</a>
+                            <?php
+                                if($_SESSION['settings']->App_settings->app_enable_self_query == 'true')
+                                {
+                                    echo("<a class='custom'>Custom Query</a>");
+                                }
+                            ?>
                             <a href="output.php?q=clearLog">Clear log</a>
-                            <a href="output.php?logout=true">Logout</a>
                         </div>
                     </div>
 
@@ -56,12 +61,6 @@
                         <div class="dropDownContent">
                             <a href='cURL/app.php'>Stock2Shop</a>
                             <a href='cURL/woo.php'>Woocommerce</a>
-                            <?php
-                                if($_SESSION['settings']->App_settings->app_enable_self_query == 'true')
-                                {
-                                    echo("<a class='custom'>Custom Query</a>");
-                                }
-                            ?>
                         </div>
                     </div>
                 </div>
@@ -118,7 +117,7 @@
                 <button class='button' name='addProduct' id='b9'><p class='buttonText'>Add Product to Database</p></button>               
             </form>
             <form method='post' action='endpoint_handler.php'>
-                <button class='button' name='productList' id='b10'><p class='buttonText'>Edit Products</p></button>               
+                <button class='button' name='productList' id='b10'><p class='buttonText'>View All Products</p></button>               
             </form>
         </div>
 
@@ -139,7 +138,7 @@
                 <button class='button' name='addCustomer' id='b14'><p class='buttonText'>Add Customer to Database</p></button> 
             </form>
             <form method='post' action='endpoint_handler.php'>
-                <button class='button' name='editCustomer' id='b15'><p class='buttonText'>Edit Customer</p></button> 
+                <button class='button' name='editCustomer' id='b15'><p class='buttonText'>View All Customers</p></button> 
             </form>
         </div>   
         <div class='info-report'>
@@ -243,7 +242,9 @@ if(isset($_SESSION['clientConn']) && isset($_SESSION['connection']))
                     Option_2_Value varchar(255),
                     Meta_1 varchar(255),
                     Meta_2 varchar(255),
-                    Meta_3 varchar(255)
+                    Meta_3 varchar(255),
+                    Audit_Date varchar(255),
+                    Users varchar(255)
                 );
             ";
             
@@ -264,7 +265,9 @@ if(isset($_SESSION['clientConn']) && isset($_SESSION['connection']))
                 Address_1 varchar(255),
                 Address_2 varchar(255),
                 Address_3 varchar(255),
-                Address_4 varchar(255)
+                Address_4 varchar(255),
+                Audit_Date varchar(255),
+                Users varchar(255)
                 );
             ";
         
