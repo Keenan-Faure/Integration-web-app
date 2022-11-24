@@ -7,12 +7,6 @@ function createURL(parameter, sku, limit)
 {
     if(parameter != 'getSKUs')
     {
-        if(limit == '')
-        {
-            arrayUrl = (document.URL).split('/');
-            url = 'http://' + arrayUrl[2] + '/' + 'cURL/pushStock2Shop.php?q=' + sku;
-            return url;
-        }
         arrayUrl = (document.URL).split('/');
         url = 'http://' + arrayUrl[2] + '/' + 'cURL/pushStock2Shop.php?q=' + sku + '&limit=' + limit;
         return url;
@@ -43,9 +37,9 @@ const req = async function(parameter, sku)
     });
     const json = await resp.json();
     changeAmount("0 / " + json.body.length);//sets the total amount of products to process
-    console.log(json);
+    process(json, '');
 }
-const process = async function(result, parameter)
+const process = async function(result)
 {
     //uses the json in req to make a loop
     for(let i = 0; i < result.body.length; ++i)
@@ -105,6 +99,6 @@ function appendText(message, result)
         container.classList.add('fadeOut');
     }, 1500);
 }
-req();
+req('getSKUs', '');
 
 
