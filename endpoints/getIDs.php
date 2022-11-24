@@ -16,6 +16,14 @@ if(isset($_SESSION['connection']))
     $rawConnection = $connection2->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
     $query2 = 'SELECT woo.P_ID, woo.ID, woo.SKU, s2s.Pushed, inv.Audit_Date, inv.User FROM Woocommerce woo INNER JOIN Stock2Shop s2s ON s2s.SKU = woo.SKU INNER JOIN Inventory inv ON inv.SKU = woo.SKU WHERE woo.SKU = "' . $sku . '"';
     $output2 = $connection2->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
+    if($output2->result == null)
+    {
+        $variable = new \stdClass();
+        $variable->return = false;
+        $variable->body = $output2->result;
+        echo(json_encode($variable));
+        exit();
+    }
     $result = $output2->result;
     $variable = new \stdClass();
     $variable->return = true;

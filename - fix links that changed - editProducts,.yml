@@ -63,11 +63,17 @@
   - getProductId from database table -- future update configure the table Woocommerce to store different IDs
   - Stock2Shop table was created to store the date a SKU was pushed and if it was sent correctly
 
-  
-
   - Added audit date to Inventory, Customers to keep track when latest update was processed
   - Added Audit date to products pushed to keep track when last they were pushed, and if they potentially need an update again
 
+-------+
+Future |
+-------+
+
+- update Users table to include original tokens that will be used to send orders
+  - No need to login to authenticate because the token is valid
+  
+- create search feature in products
 
 - Re-do API
   - understand how previous API works (what is it based on) - done
