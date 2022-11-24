@@ -6,6 +6,8 @@
     {
         $_SESSION['pushVariable'] = array();
     }
+    // unset($_SESSION['pushVariable']);
+    // exit();
     include('cURL.php');
     include("../createConnection.php");
     use Connection\Connection as connect;
@@ -56,17 +58,29 @@
             //then we proceed with the push
             if(sizeof($_SESSION['pushVariable']) > 20 || sizeof($_SESSION['pushVariable']) == $limit)
             {
-                unset($_SESSION['pushVariable']);
+
                 $curl = new curl();
                 $username = $_SESSION['settings']->Stock2Shop_Credentials->s2s_user;
                 $password = $_SESSION['settings']->Stock2Shop_Credentials->s2s_password;
                 $token = $_SESSION['token'];
 
                 $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
-                
+                $output = new \stdClass();
+                $output->result = array();
+
+                $var = new \stdClass();
+                $var->msg=($_SESSION['pushVariables']);
+                echo(json_encode($var));
+                unset($_SESSION['pushVariable']);
+                exit();
                 //loops through the entire array of products and adds them together
-                $arrayData = ($connection->converterObject($rawConnection, 'SELECT * FROM Inventory WHERE SKU="' . $sku . '"')->result);
-                $arrayData[0]->Description = html_entity_decode($arrayData[0]->Description);
+                for($i = 0; $i < sizeof($_SESSION['pushVariables']); ++$i)
+                {
+                    $product = $connection->converterObject($rawConnection, 'SELECT * FROM Inventory WHERE SKU="' . $_SESSION['pushVariable'][$i] . '"')->result;
+                    $product[0] = html_entity_decode($product[0]->Description);
+                    array_push($output->result, $product[0]);
+                }
+                exit();
 
                 //gets the source information, we'll only use the flatfile
                 if(!isset($_SESSION['clientConn']->token))
@@ -95,7 +109,7 @@
                     // - when you get the data for the SKUs from Database
                     // - output = new \stdClass()
                     // - output->result = array()  <-- Append all products inside there (Description/Title/SKU/Price) etc
-                    
+
                     for($i = 0; $i < sizeof($output->result); ++$i)
                     {
                         //converts the description to HTML decodes, strips slashes
