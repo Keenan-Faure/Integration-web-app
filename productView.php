@@ -31,6 +31,9 @@
                 $output2->result[0]->$body_html = stripslashes(html_entity_decode($output2->result[0]->$body_html));
                 $type = $output2->result[0]->Type;
                 $result = json_encode($output2->result[0]);
+
+                //gets ID for connectors using a fetch
+
             }
             //passes the text as a json object
             echo("<script>getClassNames($result, '$type');</script>");
@@ -94,6 +97,7 @@
             <div class="General">
                 <div class="vData" id="vDatad"><p>General</p></div>
                 <div class="vData" id="gData"><p>Variant</p></div>
+                <div class="vData" id="cData"><p>Connectors</p></div>
             </div>
             <div class="GeneralContentContainer" id="general">
                 <div class="imageSider">
@@ -175,8 +179,26 @@
                     <textarea contenteditable="true" id='textarea' class="option1 ov2"></textarea>
                 </div>
             </div>
+            <!-- Connector -->
+            <div class="GeneralContentContainer" id="connector">
+                <div class="connector">
+                    <div class="connectorHeading">Woocommerce IDs</div>
+                    <br><br>
+                        <div class="connectorText">Product ID</div>
+                        <textarea contenteditable="true" id='textarea' class="connectorValue p_id"></textarea>
+                        <div class="connectorText">Variant ID</div>
+                        <textarea contenteditable="true" id='textarea' class="connectorValue v_id"></textarea>
+                </div>
+                <div class="connector" id='stock2shopPushed'>
+                    <div class="connectorHeading">Stock2Shop active</div>
+                    <br><br>
+                        <div class="connectorText">Stock2Shop</div>
+                        <textarea contenteditable="true" id='textarea' class="stock2shopValue s2s_active"></textarea>
+                </div>
+            </div>
         </div>
         <textarea id='holder' style='width: 0;height:0' name='description'></textarea>
+        <p class="auditTrail"></p>
         </form>
     </body>
 </html>
