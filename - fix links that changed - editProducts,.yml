@@ -60,7 +60,13 @@
       - they have to appear on the logs in session 
       - create a way for the user to remove the logs, maybe the user can decide which he wants to remove? - no - done
 
-  -getProductId from database table -- future update configure the table Woocommerce to store different IDs
+  - getProductId from database table -- future update configure the table Woocommerce to store different IDs
+  - Stock2Shop table was created to store the date a SKU was pushed and if it was sent correctly
+
+  
+
+  - Added audit date to Inventory, Customers to keep track when latest update was processed
+  - Added Audit date to products pushed to keep track when last they were pushed, and if they potentially need an update again
 
 
 - Re-do API
