@@ -129,7 +129,9 @@ Class sProducts
             CapeTown_Warehouse,
             Meta_1,
             Meta_2,
-            Meta_3
+            Meta_3,
+            Audit_Date,
+            User
         )
         VALUES 
         (
@@ -149,22 +151,26 @@ Class sProducts
             $product->sellingPrice . "','" .
             round($product->quantity, 0) . "','" .
             $product->meta1 . "','" .
-            $product->meta2 . "',"
-            . "'" . $product->meta3 . "');"
+            $product->meta2 . "','" . 
+            $product->meta3 . "','" .
+            date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']) . "','"
+            . $_SESSION['clientConn']->credentials->token . "');"
         ;
-        $output = $connection->converterObject($rawConnection, $query);
+        $connection->converterObject($rawConnection, $query);
 
         $query_ = "INSERT INTO Woocommerce 
         (
             SKU,
             ID
+            P_ID
         )
         VALUES 
         (
             '" . $product->sku . "',
+            '0',
             '0');"
         ;
-        $output = $connection->converterObject($rawConnection, $query_);
+        $connection->converterObject($rawConnection, $query_);
         
         $result = new \stdClass();
         $result->data = $product;
@@ -173,6 +179,9 @@ Class sProducts
     }
     function updateProduct($product, $util, $connection)
     {
+        $date = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+        $user = $_SESSION['clientConn']->token;
+
         $username = $_SESSION['connection']->credentials->username;
         $password = $_SESSION['connection']->credentials->password;
         $dbName = $_SESSION['connection']->credentials->dbname;
@@ -236,11 +245,13 @@ Class sProducts
             CapeTown_Warehouse = '$product->quantity',
             Meta_1 = '$product->meta1',
             Meta_2 = '$product->meta2',
-            Meta_3 = '$product->meta3'
+            Meta_3 = '$product->meta3',
+            Audit_Date = '$date',
+            User = '$user'
             
         WHERE SKU = '$product->sku'"
         ;
-        $output = $connection->converterObject($rawConnection, $query);
+        $connection->converterObject($rawConnection, $query);
         $result = new \stdClass();
         $result->data = $product;
         return $result;
