@@ -47,7 +47,7 @@ if($_SESSION['connection']->active == true)
     {
         if($_SESSION['settings']->S2S_settings->s2s_add_products != 'true')
         {
-            $connection->createHtmlMessages('Push Products disabled', 'Please contact admin', 'app', 'info');
+            $connection->createHtmlMessages('Push Products disabled', 'Please contact admin', '/CURL/app', 'info');
             exit();
         }
         $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
@@ -75,6 +75,11 @@ if($_SESSION['connection']->active == true)
         mysqli_close($rawConnection);
 
         //gets the source information, we'll only use the flatfile
+        if(!isset($_SESSION['token']))
+        {
+            $connection->createHtmlMessages('No Authentication token found in session', 'Please contact create token then try again', '/CURL/app', 'info');
+            exit();
+        }
         $sources = ($curl->getSources($_SESSION['token'],$_POST['username'], $_POST['password']));
         if($sources->httpcode == '200')
         {
@@ -88,6 +93,8 @@ if($_SESSION['connection']->active == true)
                 $data = $curl->addProduct($output->result[$i], $sources->system_sources[0], $_SESSION['settings']);
                 if($data != null)
                 {
+                    //update table Stock2Shop
+                    $curl->insertStock2Shop($connection, $output->result[$i]->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']));
                     array_push($pushed->system_products, $data);
                 }
                 else
