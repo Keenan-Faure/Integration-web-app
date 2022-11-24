@@ -75,7 +75,17 @@
         $query = 'CREATE TABLE Woocommerce(
             SKU varchar(255),
             ID varchar(255),
-            P_ID varchar(255))';
+            P_ID varchar(255),
+            pushDate varchar(255),)';
+        $result = $conn->preQuery($_config, $query, 'object');
+    }
+    if(!in_array("stock2shop", $result))
+    {
+        //create the table
+        $query = 'CREATE TABLE Stock2Shop(
+            SKU varchar(255),
+            Pushed varchar(255),
+            pushDate varchar(255))';
         $result = $conn->preQuery($_config, $query, 'object');
     }
 
