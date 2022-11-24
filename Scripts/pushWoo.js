@@ -71,7 +71,7 @@ const process = async function(result, parameter)
             appendText(json.message, json.result);
         }
     }
-    document.getElementById("text-1").innerHTML = 'Push Complete'
+    document.getElementById("txt-cls").innerHTML = 'Push Complete';
     document.querySelector('.container').style.backgroundImage = "url('../Images/completed.gif')";
 }
 function appendText(message, result)
