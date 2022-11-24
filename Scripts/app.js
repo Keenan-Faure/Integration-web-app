@@ -35,3 +35,18 @@ function createCondition(queryData)
         main.appendChild(container);
     }
 }
+
+$(document).ready(()=>
+{
+    $('#push-woo').click(function(event)
+    {
+        if (!confirm('Push active products to Stock2Shop?'))
+        {
+            event.preventDefault(); 
+        }
+        else
+        {
+
+        }
+    });
+});

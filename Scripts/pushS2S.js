@@ -3,12 +3,18 @@ function changeAmount(amount)
     text = document.getElementById('textAmount');
     text.innerHTML = amount;
 }
-function createURL(parameter, sku)
+function createURL(parameter, sku, limit)
 {
     if(parameter != 'getSKUs')
     {
+        if(limit == '')
+        {
+            arrayUrl = (document.URL).split('/');
+            url = 'http://' + arrayUrl[2] + '/' + 'cURL/pushStock2Shop.php?q=' + sku;
+            return url;
+        }
         arrayUrl = (document.URL).split('/');
-        url = 'http://' + arrayUrl[2] + '/' + 'cURL/pushWoocommerce.php?q=' + sku;
+        url = 'http://' + arrayUrl[2] + '/' + 'cURL/pushStock2Shop.php?q=' + sku + '&limit=' + limit;
         return url;
     }
     else
@@ -20,7 +26,7 @@ function createURL(parameter, sku)
 }
 const req = async function(parameter, sku) 
 {
-    let url = createURL(parameter, sku);
+    let url = createURL(parameter, sku, '');
     const resp = await fetch(url,
     {
         method: 'GET', // *GET, POST, PUT, DELETE, etc.
@@ -37,14 +43,14 @@ const req = async function(parameter, sku)
     });
     const json = await resp.json();
     changeAmount("0 / " + json.body.length);//sets the total amount of products to process
-    process(json, '');
+    console.log(json);
 }
 const process = async function(result, parameter)
 {
     //uses the json in req to make a loop
     for(let i = 0; i < result.body.length; ++i)
     {
-        let url = createURL(parameter, result.body[i].SKU);
+        let url = createURL('', result.body[i].SKU, result.body.length);
         const resp = await fetch(url,
         {
             method: 'GET', // *GET, POST, PUT, DELETE, etc.
@@ -99,6 +105,6 @@ function appendText(message, result)
         container.classList.add('fadeOut');
     }, 1500);
 }
-req('getSKUs', '');
+req();
 
 

@@ -43,11 +43,6 @@ if(isset($_SESSION['connection']))
         }
         $arrayData = ($connection->converterObject($rawConnection, 'SELECT * FROM Inventory WHERE SKU="' . $sku . '"')->result);
         $arrayData[0]->Description = html_entity_decode($arrayData[0]->Description);
-        $message = 'Pushing Products... please wait';
-        if(sizeof($arrayData) <= 0)
-        {
-            $message = 'No Products found to push';
-        }
         $sku = $arrayData[0]->SKU;
         $found = $curl->check_woo_sku($sku);
         if($found == true)

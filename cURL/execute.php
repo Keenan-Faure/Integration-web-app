@@ -43,76 +43,11 @@ if($_SESSION['connection']->active == true)
     {
         echo(json_encode($curl->elastic_query('',$_SESSION['token'],$_POST['username'], $_POST['password'])));
     }
-    else if($_POST['endpoint'] == 'pushProducts')
-    {
-        if($_SESSION['settings']->S2S_settings->s2s_add_products != 'true')
-        {
-            $connection->createHtmlMessages('Push Products disabled', 'Please contact admin', '/CURL/app', 'info');
-            exit();
-        }
-        $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+    //create button to do this...
+    // else if($_POST['endpoint'] == 'pushProducts')
+    // {
         
-        //creates query
-        //filters the query with conditions from the conditions table
-        $queryCondition = "SELECT * FROM Conditions";
-        $output = $connection->converterObject($rawConnection, $queryCondition);
-        if(sizeof($output->result) == 0)
-        {
-            $query = "SELECT * FROM Inventory";
-        }
-        $query = $curl->createQuery($output);
-
-        $output = $connection->converterObject($rawConnection, $query);
-        if(!isset($output->result))
-        {
-            $variable = new \stdClass();
-            $variable->return = false;
-            $variable->error = "No products found in Database > Inventory table. Check conditions and try again";
-            $variable->message = "Cannot push null in Inventory table";
-            echo(json_encode($variable));
-            exit();
-        }
-        mysqli_close($rawConnection);
-
-        //gets the source information, we'll only use the flatfile
-        if(!isset($_SESSION['token']))
-        {
-            $connection->createHtmlMessages('No Authentication token found in session', 'Please contact create token then try again', '/CURL/app', 'info');
-            exit();
-        }
-        $sources = ($curl->getSources($_SESSION['token'],$_POST['username'], $_POST['password']));
-        if($sources->httpcode == '200')
-        {
-            $pushed = new \stdClass();
-            $pushed->system_products = array();
-            for($i = 0; $i < sizeof($output->result); ++$i)
-            {
-                //converts the description to HTML decodes, strips slashes
-                $output->result[$i]->Description = htmlspecialchars_decode(stripslashes($output->result[$i]->Description));
-                
-                $data = $curl->addProduct($output->result[$i], $sources->system_sources[0], $_SESSION['settings']);
-                if($data != null)
-                {
-                    //update table Stock2Shop
-                    $curl->insertStock2Shop($connection, $output->result[$i]->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']));
-                    array_push($pushed->system_products, $data);
-                }
-                else
-                {
-                    if(isset($_SESSION['log']))
-                    {
-                        $connnection->addLogs('Push Product', "Product with SKU " . $output->result[$i]->SKU . " was not processed because of NULL Data", date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
-                    }
-                }
-            }
-            echo(json_encode($curl->push($pushed, $sources->system_sources[0], $_SESSION['token'], $_POST['username'], $_POST['password'])));
-        }
-        else
-        {
-            json_encode($curl->getSources($_SESSION['token'],'keenan.faure', 'Re_Ghoul'));
-            exit();
-        }
-    }
+    // }
 
     //Woocommerce Endpoints
     else if(str_contains($_POST['endpoint'], 'woo_') != false)

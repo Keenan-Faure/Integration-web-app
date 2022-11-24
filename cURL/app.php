@@ -111,8 +111,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="../Import utilities/import.html" class="buttonOption"></a>
-    
+                    <a id='push-woo' href='s2s.html' target="_blank" class='buttonPush-S2S'>Push Products</a>            
                     </div>
                 </div>
         <div class='modalContainer'>
@@ -150,9 +149,6 @@
                     <optgroup label="Endpoints">
                         <option value="getSources">Get Sources</option>
                         <option value="getChannels">Get Channels</option>
-                    </optgroup>
-                    <optgroup label="Push">
-                        <option value="pushProducts">Push Products</option>
                     </optgroup>
                     <optgroup label="Query Products">
                         <option value="elastic_query">elastic search</option>
