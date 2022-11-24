@@ -100,7 +100,9 @@ Class Customers
             Address_1,
             Address_2,
             Address_3,
-            Address_4
+            Address_4,
+            Audit_Date,
+            User
         )
         VALUES 
         (
@@ -111,18 +113,21 @@ Class Customers
             $customer->email . "','" .
             $customer->address1 . "','" .
             $customer->address2 . "','" .
-            $customer->address3 . "','"
-            . "" . $customer->address4 . "');"
+            $customer->address3 . "','" . 
+            $customer->address4 . "','" .
+            date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']) . "','"
+            . $_SESSION['clientConn']->credentials->token . "');"
         ;
-        $output = $connection->converterObject($rawConnection, $query);
+        $connection->converterObject($rawConnection, $query);
         $result = new \stdClass();
-        $result->result = $output;
         $result->data = $customer;
         return $result;
 
     }
     function updateCustomer($customer, $util, $connection)
     {
+        $date = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+        $user = $_SESSION['clientConn']->credentials->token;
         $username = $_SESSION['connection']->credentials->username;
         $password = $_SESSION['connection']->credentials->password;
         $dbName = $_SESSION['connection']->credentials->dbname;
@@ -167,12 +172,14 @@ Class Customers
             Address_1 = '$customer->address1',
             Address_2 = '$customer->address2',
             Address_3 = '$customer->address3',
-            Address_4 = '$customer->address4'
-
+            Address_4 = '$customer->address4',
+            Audit_Date = '$date',
+            User = '$user'
+            
         WHERE ID = '$customer->id'"
         ;
 
-        $output = $connection->converterObject($rawConnection, $query);
+        $connection->converterObject($rawConnection, $query);
         $result = new \stdClass();
         $result->data = $customer;
         return $result;
