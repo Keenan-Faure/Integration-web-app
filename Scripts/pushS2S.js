@@ -14,7 +14,7 @@ function createURL(parameter, sku, limit)
     else
     {
         arrayUrl = (document.URL).split('/');
-        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/getSKUs.php';
+        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/getSKUs.php?q=s2s';
         return url;
     }
 }

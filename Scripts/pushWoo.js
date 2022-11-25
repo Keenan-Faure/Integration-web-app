@@ -14,7 +14,7 @@ function createURL(parameter, sku)
     else
     {
         arrayUrl = (document.URL).split('/');
-        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/getSKUs.php';
+        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/getSKUs.php?q=woo';
         return url;
     }
 }
@@ -36,8 +36,16 @@ const req = async function(parameter, sku)
         referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     });
     const json = await resp.json();
-    changeAmount("0 / " + json.body.length);//sets the total amount of products to process
-    process(json, '');
+    if(json.body.length == 0)
+    {
+        changeAmount("No products found to push");//sets the total amount of products to process
+        process(json, '');
+    }
+    else
+    {
+        changeAmount("0 / " + json.body.length);//sets the total amount of products to process
+        process(json, '');
+    }
 }
 const process = async function(result, parameter)
 {
