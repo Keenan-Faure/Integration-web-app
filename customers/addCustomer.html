@@ -1,7 +1,7 @@
 <html>
     <head>
-        <link rel="icon" type="image/x-icon" href="Images/logo.png"/>
-        <link rel='stylesheet' href='Styles/addItem.css'>
+        <link rel="icon" type="image/x-icon" href="../Images/logo.png"/>
+        <link rel='stylesheet' href='../Styles/addItem.css'>
     </head>
     <body>
         <div class="errorTable">
@@ -13,41 +13,41 @@
             <div class="navBar">
                 <div class="overlay">
                     <div class='imageNav'></div>
-                    <h1>Edit Product</h1>
+                    <h1>Add Customer</h1>
                     <div class='buttonContainer2'>
                         <div class="dropDown">
                         <button class="dropDownBtn">Home</button>
                             <div class="dropDownContent">
-                                <a href="endpoints.php">Dashboard</a>
+                                <a href="../endpoints.php">Dashboard</a>
                             </div>
                         </div>
-    
-                        <div class="dropDown">
+
                     </div>
                     <div class='buttonContainer'>
                         <div class="dropDown">
                         <button class="dropDownBtn">Products</button>
                             <div class="dropDownContent">
-                                <a href="addItem.html">Add Product</a>
-                                <a href="productList.php?page=1">View all products</a>
-                                <a href="importUtils/import.html">Import Products</a>
-                                <a href="importUtils/productExport.php">Export Products</a>
+                                <a href="../addItem.html">Add Product</a>
+                                <a href="../products/productList.php?page=1">View all products</a>
+                                <a href="../importUtils/import.html">Import Products</a>
+                                <a href="../importUtils/productExport.php">Export Products</a>
                             </div>
                         </div>
     
                         <div class="dropDown">
                         <button class="dropDownBtn">Customers</button>
                             <div class="dropDownContent">
-                                <a href="addCustomer.php">Add Customer</a>
-                                <a href="editCustomer.php">View Customers</a>
+                                <a href="customers/addCustomer.html">Add Customer</a>
+                                <a href="customers/customerList.php">View Customers</a>
                             </div>
                         </div>
                     </div>
+                    <!-- <a href="../importUtils/import.html" class="import">Bulk Import</a> -->
     
                     </div>
                 </div>
             <div class="modalContainer">
-                <form method='post' action='process.php' target='_blank' id="customer">
+                <form method='post' action='../bin/controllers/process.php' target='_blank' id="customer">
 
                     <div class="containerText">Unique Identifier</div>
                     <div class="line"></div>
@@ -87,5 +87,5 @@
 
         </div>
     </body>
-    <script src='Scripts/script4.js'></script>
+    <script src='../Scripts/script4.js'></script>
 </html>

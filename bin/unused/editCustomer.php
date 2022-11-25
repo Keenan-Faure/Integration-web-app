@@ -1,13 +1,13 @@
 <?php 
     session_start(); 
-    include("createConnection.php");
+    include("../../Class Templates/createConnection.php");
     use Connection\Connection as connect;
 
 ?>
 <html>
     <head>
-        <link rel="icon" type="image/x-icon" href="Images/logo.png"/>
-        <link rel='stylesheet' href='Styles/addItem.css'>
+        <link rel="icon" type="image/x-icon" href="../../Images/logo.png"/>
+        <link rel='stylesheet' href='../../Styles/addItem.css'>
     </head>
     <body>
         <div class="bg">
@@ -19,7 +19,7 @@
                     <div class="dropDown">
                     <button class="dropDownBtn">Home</button>
                         <div class="dropDownContent">
-                            <a href="endpoints.php">Dashboard</a>
+                            <a href="../../endpoints.php">Dashboard</a>
                         </div>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
         </div>
 
     </body>
-    <script src='Scripts/createElements.js'></script>
+    <script src='../../Scripts/createElements.js'></script>
     <?php 
         $connection = new connect();
         $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;

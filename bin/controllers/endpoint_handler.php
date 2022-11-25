@@ -19,7 +19,7 @@
 </style>
 <?php
     session_start();
-    include("createConnection.php");
+    include("../../Class Templates/createConnection.php");
     use Connection\Connection as connect;
     if(isset($_SESSION['connection']))
     {
@@ -33,25 +33,25 @@
             }
             if(isset($_POST['addCustomer']))
             {
-                header("Refresh:0, url=addCustomer.html");
+                header("Refresh:0, url=../../customers/addCustomer.html");
                 unset($_POST['addCustomer']);
                 exit();
             }
             if(isset($_POST['addProduct']))
             {
-                header("Refresh:0, url=addItem.html");
+                header("Refresh:0, url=../../products/addItem.html");
                 unset($_POST['addProduct']);
                 exit();
             }
             if(isset($_POST['productList']))
             {
-                header('Refresh:0, url=productList.php?page=1');
+                header('Refresh:0, url=../../products/productList.php?page=1');
                 unset($_POST['productList']);
                 exit();
             }
             if(isset($_POST['editCustomer']))
             {
-                header('Refresh:0, url=customerList.php?page=1');
+                header('Refresh:0, url=../../customers/customerList.php?page=1');
                 unset($_POST['editCustomer']);
                 exit();
             }

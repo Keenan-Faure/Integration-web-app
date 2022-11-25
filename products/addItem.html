@@ -1,7 +1,7 @@
 <html>
     <head>
-        <link rel="icon" type="image/x-icon" href="Images/logo.png"/>
-        <link rel='stylesheet' href='Styles/addItem.css'>
+        <link rel="icon" type="image/x-icon" href="../Images/logo.png"/>
+        <link rel='stylesheet' href='../Styles/addItem.css'>
     </head>
     <body>
         <div class="errorTable">
@@ -20,7 +20,7 @@
                         <div class="dropDown">
                         <button class="dropDownBtn">Home</button>
                             <div class="dropDownContent">
-                                <a href="endpoints.php">Dashboard</a>
+                                <a href="../endpoints.php">Dashboard</a>
                             </div>
                         </div>
                     </div>
@@ -36,12 +36,12 @@
                         <div class="dropDown">
                         <button class="dropDownBtn">Customers</button>
                             <div class="dropDownContent">
-                                <a href="addCustomer.html">Add Customer</a>
-                                <a href="editCustomer.php">View Customers</a>
+                                <a href="../customers/addCustomer.html">Add Customer</a>
+                                <a href="../customers/addCustomer.html">View Customers</a>
                             </div>
                         </div>
                     </div>
-                    <a href="importUtils/import.html" class="buttonOption"></a>
+                    <a href="../importUtils/import.html" class="buttonOption"></a>
     
                     </div>
                 </div>
@@ -49,7 +49,7 @@
             </div>
             <div class='nextBtn2'><</div>
             <div class="modalContainer">
-                <form method='post' action='process.php' id="simple">
+                <form method='post' action='../bin/controllers/process.php' id="simple">
                     <div class="containerText">Title</div>
                     <div class="line"></div>
                     <input type='text' id = 'title' autocomplete="off" class='show' name='title' title='title for your product' required>
@@ -118,7 +118,7 @@
                         <div class="dropDown">
                         <button class="dropDownBtn">Home</button>
                             <div class="dropDownContent">
-                                <a href="endpoints.php">Dashboard</a>
+                                <a href="../endpoints.php">Dashboard</a>
                             </div>
                         </div>
 
@@ -128,28 +128,28 @@
                         <button class="dropDownBtn">Products</button>
                             <div class="dropDownContent">
                                 <a href="addItem.html">Add Product</a>
-                                <a href="productList.php?page=1">View all products</a>
-                                <a href="importUtils/import.html">Import Products</a>
-                                <a href="importUtils/productExport.php">Export Products</a>
+                                <a href="../products/productList.php?page=1">View all products</a>
+                                <a href="../importUtils/import.html">Import Products</a>
+                                <a href="../importUtils/productExport.php">Export Products</a>
                             </div>
                         </div>
     
                         <div class="dropDown">
                         <button class="dropDownBtn">Customers</button>
                             <div class="dropDownContent">
-                                <a href="addCustomer.html">Add Customer</a>
-                                <a href="editCustomer.php">View Customers</a>
+                                <a href="../customers/addCustomer.html">Add Customer</a>
+                                <a href="../customers/customerList.php">View Customers</a>
                             </div>
                         </div>
                     </div>
-                    <a href="importUtils/import.html" class="import">Bulk Import</a>
+                    <a href="../importUtils/import.html" class="import">Bulk Import</a>
     
                     </div>
                 </div>
             <div class='next' onclick=swap()></div>
             <div class='nextBtn'>></div>
             <div class="modalContainer">
-                <form method='post' action='process.php' id="variable">
+                <form method='post' action='../bin/controllers/process.php' id="variable">
                     <div class="containerText">Title</div>
                     <div class="line"></div>
                     <input type='text' id = 'title' autocomplete="off" class='show' name='title' title='title for your product' required>
@@ -230,5 +230,5 @@
     </body>
 
 
-    <script src='Scripts/script4.js'></script>
+    <script src='../Scripts/script4.js'></script>
 </html>

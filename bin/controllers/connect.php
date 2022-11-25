@@ -1,7 +1,7 @@
 <?php
 session_start();
-include('createConnection.php');
-$_config = include('config/config.php');
+include('../../Class Templates/createConnection.php');
+$_config = include('../../config/config.php');
 
 use Connection\Connection as connect;
 if(isset($_POST['uname']) && isset($_POST['psw']))
@@ -12,7 +12,7 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
     {
         if($_SESSION['connection']->credentials->username == $_POST['uname'] && $_SESSION['connection']->credentials->password == $_POST['psw'])
         {
-            header("Refresh:0, url=endpoints.php");
+            header("Refresh:0, url=../../endpoints.php");
         }
         else
         {
@@ -26,7 +26,7 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
                 {
                     $conn->addLogs('Connection failed', $result->message, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', false);
                 }
-                header('Refresh:2,url=login.php');
+                header('Refresh:1,url=../../auth/login.php');
             }
             else
             {
@@ -50,7 +50,7 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
             {
                 $conn->addLogs('Connection failed', $result->message, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', false);
             }
-            header('Refresh:2,url=login.php');
+            header('Refresh:2,url=../../auth/login.php');
         }
         else
         {
@@ -75,7 +75,7 @@ else if(isset($_POST['runame']) && isset($_POST['rpsw']))
     {
         $message = 'User ' . $_POST['runame'] . ' already exists in database';
         $solution = 'Click the button below to return to the login page and try again';
-        $conn->createHtmlMessages($message, $solution, 'register', 'warn');
+        $conn->createHtmlMessages($message, $solution, '../auth/register', 'warn');
         exit();
     }
     else

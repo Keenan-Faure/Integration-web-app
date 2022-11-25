@@ -45,5 +45,5 @@
     </style>
 </head>
 <div class='background'>
-    <a href='login.php' class='align'>Click here to proceed</a>
+    <a href='auth/login.php' class='align'>Click here to proceed</a>
 </div>

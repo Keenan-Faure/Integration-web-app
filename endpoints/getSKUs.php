@@ -1,7 +1,7 @@
 <?php
 
 session_start(); 
-include("../createConnection.php");
+include("../Class Templates/createConnection.php");
 use Connection\Connection as connect;
 
 //create URL to distinguish between the two Connectors

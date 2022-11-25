@@ -1,6 +1,6 @@
 <?php 
     session_start();
-    include("createConnection.php");
+    include("../../Class Templates/createConnection.php");
     use Connection\Connection as connect;
     
     if(isset($_SESSION['credentials']) && $_SESSION['credentials']->active == true)
@@ -26,7 +26,7 @@
             </div>
             <div class='nextBtn2'>❮</div>
             <div class="modalContainer">
-                <form method='post' action='connect.php' target='endpoints.php'>
+                <form method='post' action='../controllers/connect.php' target='endpoints.php'>
                     <input type='text' name='host' placeholder='Localhost' readonly>
                     <br><br>
                     <input type='text' autocomplete="off" class='show' name='dbName' placeholder='Enter Database' required>
@@ -55,14 +55,14 @@
             </div>
             <div class='nextBtn'>❯</div>
             <div class="modalContainer">
-                <form method='post' action='output.php' target='_blank'>
+                <form method='post' action='../controllers/output.php' target='_blank'>
                     <input type='text' name='host' placeholder='Localhost' id='f3' readonly>
                     <br><br>
                     <input type='text' autocomplete="off" class='show' name='dbName' placeholder='Enter Database' id='f4' required>
                     <br><br>
                     <input class='button' type='submit' id='f5'>
                 </form>
-                <form action='output.php'>
+                <form action='../controllers/output.php'>
                     <?php $_SESSION['clearCache'] = true;?>
                     <button class = 'button buttonclear' id='f6'>Clear Session</button>
                 </form>
@@ -79,7 +79,7 @@
     </body>
 
 
-    <script src='Scripts/scripts.js'></script>
+    <script src='../../Scripts/scripts.js'></script>
     <?php 
         if(isset($_SESSION['credentials']) && $_SESSION['credentials']->active == true)
         {

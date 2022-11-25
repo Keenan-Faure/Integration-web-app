@@ -2,11 +2,11 @@
 
 namespace pImport;
 
-include('../Class Templates/customer.php');
-include('../Class Templates/sProduct.php');
-include('../Class Templates/vProduct.php');
-include('../Class Templates/utility.php');
-include('../createConnection.php');
+include("../../Class Templates/vProduct.php");
+include("../../Class Templates/sProduct.php");
+include("../../Class Templates/customer.php");
+include("../../Class Templates/utility.php");
+include('../../Class Templates/createConnection.php');
 
 use utils\Utility as util;
 use sProducts\sProducts as sproduct;

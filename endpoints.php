@@ -1,6 +1,6 @@
 <?php 
     session_start();
-    include("createConnection.php");
+    include("Class Templates/createConnection.php");
     use Connection\Connection as connect;
     if(!(isset($_SESSION['connection']) && isset($_SESSION['clientConn'])))
     {
@@ -27,14 +27,14 @@
                     <div class="dropDown">
                     <button class="dropDownBtn">Session</button>
                         <div class="dropDownContent">
-                            <a href="output.php?q=session">Current session</a>
+                            <a href="bin/controllers/output.php?q=session">Current session</a>
                             <?php
                                 if($_SESSION['settings']->App_settings->app_enable_self_query == 'true')
                                 {
                                     echo("<a class='custom'>Custom Query</a>");
                                 }
                             ?>
-                            <a href="output.php?q=clearLog">Clear log</a>
+                            <a href="bin/controllers/output.php?q=clearLog">Clear log</a>
                         </div>
                     </div>
 
@@ -64,7 +64,7 @@
                         </div>
                     </div>
                 </div>
-                <a class='logoutButton' href='output.php?logout=true'></a>
+                <a class='logoutButton' href='bin/controllers/output.php?logout=true'></a>
             </div>
         </div>
         <div class='selfBackground top'>
@@ -75,7 +75,7 @@
                 if($_SESSION['settings']->App_settings->app_enable_self_query == 'true')
                 {
                     echo("<h1>Custom Query</h1>
-                    <form method='post' target='_blank' action='endpoint_handler.php'>
+                    <form method='post' target='_blank' action='bin/controllers/endpoint_handler.php'>
                             <br><br><br>
                             <textarea class='textarea' name='selfquery' placeholder='Enter your query here'></textarea>
                             <button type = 'submit' class='enter'>Submit</button>
@@ -86,7 +86,7 @@
         <div class='container' id='container-1'>
             <h2 class='h2-hidden'>General</h2>
             <div class='line' id='line-1'></div>
-            <form method='post' target='_blank' action='endpoint_handler.php'>
+            <form method='post' target='_blank' action='bin/controllers/endpoint_handler.php'>
                 <br><br><br>
                 <button name='checkConnection' class='button' id='b1'><p class='buttonText'>Check Connection</p></button>
                 <br><br>
@@ -99,24 +99,24 @@
         <div class='container' id='container-2'>
             <h2 class='h2-hidden'>Products</h2>
             <div class='line' id='line-1'></div>
-            <form method='post' target='_blank' action='endpoint_handler.php'>
+            <form method='post' target='_blank' action='bin/controllers/endpoint_handler.php'>
                 <br><br><br>
                 <input type='text' class='input' name='getProductBySKU' placeholder='Get Product by SKU' autocomplete="off" id='b5'></input>
             </form>
-            <form method='post' target='_blank' action='endpoint_handler.php'>
+            <form method='post' target='_blank' action='bin/controllers/endpoint_handler.php'>
                 <button type='text' name='getProductsBatch' class='button' id='b6'><p class='buttonText'>Get Products (10)</p></button>
             </form>
             
-            <form  method='post' target='_blank' action='endpoint_handler.php'>
+            <form  method='post' target='_blank' action='bin/controllers/endpoint_handler.php'>
                 <button class='button' name='countProduct' id='b7'><p class='buttonText'>Count Products</p></button>
             </form>
-            <form method='post' target='_blank' action='endpoint_handler.php'>
+            <form method='post' target='_blank' action='bin/controllers/endpoint_handler.php'>
                 <button class='button' name='viewProductSql' id='b8'><p class='buttonText'>View Product Sql queries</p></button>
             </form>
-            <form method='post' action='endpoint_handler.php'>
+            <form method='post' action='bin/controllers/endpoint_handler.php'>
                 <button class='button' name='addProduct' id='b9'><p class='buttonText'>Add Product to Database</p></button>               
             </form>
-            <form method='post' action='endpoint_handler.php'>
+            <form method='post' action='bin/controllers/endpoint_handler.php'>
                 <button class='button' name='productList' id='b10'><p class='buttonText'>View All Products</p></button>               
             </form>
         </div>
@@ -124,20 +124,20 @@
         <div class='container' id='container-3'>
             <h2 class='h2-hidden'>Customers</h2>
             <div class='line' id='line-1'></div>
-            <form method='post' target='_blank' action='endpoint_handler.php'>
+            <form method='post' target='_blank' action='bin/controllers/endpoint_handler.php'>
                 <br><br><br>
                 <input type='text' name='getCustomerByID' class='input' placeholder='Get Customer by ID' autocomplete="off" id='b11'></input>
             </form>
-            <form method='post' target='_blank' action='endpoint_handler.php'>
+            <form method='post' target='_blank' action='bin/controllers/endpoint_handler.php'>
                 <button class='button' name='countCustomer' id='b12'><p class='buttonText'>Count Customers</p></button>
             </form>
-            <form method='post' target='_blank' action='endpoint_handler.php'>
+            <form method='post' target='_blank' action='bin/controllers/endpoint_handler.php'>
                 <button class='button' name='viewCustomerSql' id='b13'><p class='buttonText'>View Customer Sql queries</p></button>
             </form>
-            <form method='post' action='endpoint_handler.php'>
+            <form method='post' action='bin/controllers/endpoint_handler.php'>
                 <button class='button' name='addCustomer' id='b14'><p class='buttonText'>Add Customer to Database</p></button> 
             </form>
-            <form method='post' action='endpoint_handler.php'>
+            <form method='post' action='bin/controllers/endpoint_handler.php'>
                 <button class='button' name='editCustomer' id='b15'><p class='buttonText'>View All Customers</p></button> 
             </form>
         </div>   

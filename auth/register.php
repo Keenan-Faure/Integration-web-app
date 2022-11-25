@@ -1,16 +1,16 @@
 <?php 
     session_start();
-    include('createConnection.php');
+    include('../Class Templates/createConnection.php');
     use Connection\Connection as connect;
 
-    $_config = include('config/config.php');
+    $_config = include('../config/config.php');
     $conn = new connect();
 
 ?>
 <html>
     <head>
-        <link rel="icon" type="image/x-icon" href="Images/logo.png"/>
-        <link rel='stylesheet' href='Styles/register.css'>
+        <link rel="icon" type="image/x-icon" href="../Images/logo.png"/>
+        <link rel='stylesheet' href='../Styles/register.css'>
     </head>
     <body>
         <div class = 'background'>
@@ -22,7 +22,7 @@
                 <p class='heading'>Registration</p>
                 <hr>
                 <br>
-                <form method='post' action='connect.php'>
+                <form method='post' action='../bin/controllers/connect.php'>
                     <input type='text' autocomplete="off" name='runame' placeholder='Enter Username' required>
                     <br><br>
                     <input type='password' autocomplete="off" name='rpsw' placeholder='Enter Password'>

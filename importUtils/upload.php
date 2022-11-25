@@ -3,7 +3,7 @@
 session_start();
 include("productImport.php");
 include("customerImport.php");
-include('../createConnection.php');
+include('../Class Templates/createConnection.php');
 
 use Connection\Connection as connect;
 use pImport\pImport as import;
@@ -15,7 +15,7 @@ if(!isset($_SESSION['connection']))
         $conn->addLogs('No Connection found', 'No connection found in current session, please re-connect', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'info', false);
     }
     $conn->createHtmlMessages('Error connecting to user session', 'No connection found in current session, please re-connect', 'login', 'info');
-    header("Refresh:2,url=../login.php");
+    header("Refresh:2,url=../auth/login.php");
     exit();
 }
 

@@ -1,7 +1,7 @@
 <?php 
     
     session_start(); 
-    include("createConnection.php");
+    include("../../Class Templates/createConnection.php");
     use Connection\Connection as connect;
 ?>
 <html>
@@ -49,12 +49,12 @@
                 <textarea id = 'smaller' class='typeE'>Customer Attribute</textarea>
                 <textarea id = 'smaller' class='prev'>Current Value</textarea>
                 <textarea id = 'smaller' class='current'>Editable Value</textarea>
-                <form id='form' action='processEdit.php' method='post'></form>
+                <form id='form' action='../bin/controllers/processEdit.php' method='post'></form>
             </div>
         </div>
 
     </body>
-    <script src='Scripts/createElements.js'></script>
+    <script src='../../Scripts/createElements.js'></script>
     <?php 
         if(isset($_SESSION['customers']))
         {

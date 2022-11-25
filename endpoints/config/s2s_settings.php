@@ -1,7 +1,7 @@
 <?php
 
     session_start();
-    include("../../createConnection.php");
+    include("../../Class Templates/createConnection.php");
     use Connection\Connection as connect;
     if(!isset($_SESSION['clientConn']) && !isset($_SESSION['connection']))
     {
@@ -12,7 +12,7 @@
         echo("
             <html>
                 <head>
-                    <link rel='icon' type=image/x-icon' href='Images/logo.png'/>
+                    <link rel='icon' type=image/x-icon' href='../../Images/logo.png'/>
                 </head>
                 <body>
                     <div>
@@ -62,8 +62,8 @@
                     <button class="dropDownBtn">Session</button>
                         <div class="dropDownContent">
                             <a href="../../endpoints.php">Home</a>
-                            <a href="../../output.php?q=session">Current session</a>
-                            <a href="../../output.php?logout=true">Logout</a>
+                            <a href="../../bin/controllers/output.php?q=session">Current session</a>
+                            <a href="../../bin/controllers/output.php?logout=true">Logout</a>
 
                         </div>
                     </div>

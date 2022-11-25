@@ -2,7 +2,7 @@ $(document).ready(()=>
 {
     $('.close').click(()=>
     {
-        window.location.href = "productList.php?page=1";
+        window.location.href = "../products/productList.php?page=1";
     });
 });
 

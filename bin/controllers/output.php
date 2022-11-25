@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('createConnection.php');
+include('../../Class Templates/createConnection.php');
 use Connection\Connection as connect;
 $conn = new connect();
 
@@ -48,7 +48,7 @@ else
     {
         session_destroy();
         $conn->createHtmlMessages('User logged out', 'Returning to login page', 'login', 'info');
-        header('Refresh:0.5, url=login.php');
+        header('Refresh:0.5, url=../../auth/login.php');
     }
 }
 ?>

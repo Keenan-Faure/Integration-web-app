@@ -53,22 +53,45 @@
 
 
   - after the user login to the database he gets redirected to the endpoints.php page where he can see all the endpoints - done
-  - After this, if the user 
 
-  - create dashboard
+  - create dashboard - done
     - create a location where all data (logs) are found. (user can manually clear them) - done (Not removed entirely, just hidden)
-      - they have to appear on the logs in session 
+      - they have to appear on the logs in session - done
       - create a way for the user to remove the logs, maybe the user can decide which he wants to remove? - no - done
 
-  - getProductId from database table -- future update configure the table Woocommerce to store different IDs
-  - Stock2Shop table was created to store the date a SKU was pushed and if it was sent correctly
+  - getProductId from database table -- future update configure the table Woocommerce to store different IDs - done
+  - Stock2Shop table was created to store the date a SKU was pushed and if it was sent correctly - done
+
+  - Created new view on productView.php that allows the user to view the connector details
 
   - Added audit date to Inventory, Customers to keep track when latest update was processed
   - Added Audit date to products pushed to keep track when last they were pushed, and if they potentially need an update again
 
--------+
-Future |
--------+
++-------------------------------+
+| What Can this Application do? |
++-------------------------------+
+
+- Setup includes:
+  - having downloaded mysql and installed it on computer
+  - configured mysql to contain a user (not root user)
+  - along with the database to use
+
+- Once installed and a user has been created. This user details is stored in a config.php file
+
+- Once the above steps have been complete the application opens on Localhost
+- lands on the login page, which creates and loads all the required information
+  - creates tables, etc.
+
+- The Admin of the app contacts the developer to provide him with access to the app (creates an admin user)
+- This app is then passes on
+  - client can create as many users as he wants.
+  - new Users has to be verified by the admin before they can login.
+-
+
+
++--------+
+| Future |
++--------+
 
 - update Users table to include original tokens that will be used to send orders
   - No need to login to authenticate because the token is valid

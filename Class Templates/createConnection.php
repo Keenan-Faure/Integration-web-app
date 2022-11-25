@@ -57,7 +57,7 @@ class Connection
             //then the user does not exist at all, has to be created.
             $message = 'The Username "' . $client_user . '" does not exist.';
             $solution = 'Kindly contact your admin or register your account';
-            $this->createHtmlMessages($message, $solution, 'register', 'warn');
+            $this->createHtmlMessages($message, $solution, '../auth/register', 'warn');
             exit();
         }
         else
@@ -132,7 +132,7 @@ class Connection
         echo("
             <html>
                 <head>
-                    <link rel='icon' type=image/x-icon' href='Images/logo.png'/>
+                    <link rel='icon' type=image/x-icon' href='../Images/logo.png'/>
                     <link rel='stylesheet' href='../../Styles/login.css'>
                 </head>
                 <body>
@@ -458,7 +458,7 @@ class Connection
     //type -> information, warning etc
     function addLogs($head, $body, $_time, $_type, $saved)
     {
-        $_config = include('config/config.php');
+        $_config = include('../config/config.php');
         if(!isset($_SESSION))
         {
             session_start();

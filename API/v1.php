@@ -3,7 +3,7 @@
     {
         $_SESSION['log'] = array();
     }
-    include("../createConnection.php");
+    include("../Class Templates/createConnection.php");
     use Connection\Connection as connect;
     use controller\Controller as control;
 

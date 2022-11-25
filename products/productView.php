@@ -1,18 +1,18 @@
 <?php 
     
     session_start(); 
-    include("createConnection.php");
+    include("../Class Templates/createConnection.php");
     use Connection\Connection as connect;
 ?>
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="icon" type="image/x-icon" href="Images/logo.png"/>
-        <link rel='stylesheet' href='Styles/productView.css'>
+        <link rel="icon" type="image/x-icon" href="../Images/logo.png"/>
+        <link rel='stylesheet' href='../Styles/productView.css'>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="Scripts/fade.js"></script>
-        <script src="Scripts/createElements.js"></script>
-        <script src="Scripts/formTransform.js"></script>
+        <script src="../Scripts/fade.js"></script>
+        <script src="../Scripts/createElements.js"></script>
+        <script src="../Scripts/formTransform.js"></script>
         <?php 
         
         if(isset($_POST) && (sizeof($_POST) != 0))
@@ -53,7 +53,7 @@
                     <div class="dropDown">
                     <button class="dropDownBtn">Home</button>
                         <div class="dropDownContent">
-                            <a href="endpoints.php">Dashboard</a>
+                            <a href="../endpoints.php">Dashboard</a>
                         </div>
                     </div>
                 </div>
@@ -63,20 +63,20 @@
                         <div class="dropDownContent">
                             <a href="addItem.html">Add Product</a>
                             <a href="productList.php?page=1">View all products</a>
-                            <a href="importUtils/import.html">Import Products</a>
-                            <a href="importUtils/productExport.php">Export Products</a>
+                            <a href="../importUtils/import.html">Import Products</a>
+                            <a href="../importUtils/productExport.php">Export Products</a>
                         </div>
                     </div>
 
                     <div class="dropDown">
                     <button class="dropDownBtn">Customers</button>
                         <div class="dropDownContent">
-                            <a href="addCustomer.html">Add Customer</a>
-                            <a href="editCustomer.php">View Customers</a>
+                            <a href="../customers/addCustomer.html">Add Customer</a>
+                            <a href="../customers/customerList.php">View Customers</a>
                         </div>
                     </div>
                 </div>
-                <a href="importUtils/import.html" class="buttonOption"></a>
+                <a href="../importUtils/import.html" class="buttonOption"></a>
 
             </div>
         </div>
@@ -84,7 +84,7 @@
         <!-- Content -->
         <!-- General -->
         <div class="content">
-        <form method='post' action='processEdit.php' id='form'>
+        <form method='post' action='../bin/controllers/processEdit.php' id='form'>
             <div class='active'>
                 <input type='checkbox' class='act'>
                 <label for='active'>Product Active</label>

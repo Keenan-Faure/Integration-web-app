@@ -1,11 +1,11 @@
 <?php 
     session_start();
-    include('createConnection.php');
+    include('../Class Templates/createConnection.php');
     use Connection\Connection as connect;
 
-    $_config = include('config/config.php');
-    $_settings = include('config/s2s_settings.php');
-    $_woocommerce = include('config/woo_settings.php');
+    $_config = include('../config/config.php');
+    $_settings = include('../config/s2s_settings.php');
+    $_woocommerce = include('../config/woo_settings.php');
     
     $_SESSION['log'] = array();
     $conn = new connect(); 
@@ -21,7 +21,7 @@
     {
         if($result->connection == false)
         {
-            $conn->createHtmlMessages($result->message, "Please ensure:<br> - MySQL is installed <br> - MySQL is running <br> - Credentials are configured in the config file", 'login', 'warn');
+            $conn->createHtmlMessages($result->message, "Please ensure:<br> - MySQL is installed <br> - MySQL is running <br> - Credentials are configured in the config file", '../login', 'warn');
             exit();
         }
     }
@@ -92,8 +92,8 @@
 ?>
 <html>
     <head>
-        <link rel="icon" type="image/x-icon" href="Images/logo.png"/>
-        <link rel='stylesheet' href='Styles/login.css'>
+        <link rel="icon" type="image/x-icon" href="../Images/logo.png"/>
+        <link rel='stylesheet' href='../Styles/login.css'>
     </head>
     <body>
         <div class = 'background'>
@@ -101,7 +101,7 @@
             <h1 id='header1'>Login to MySql Server</h1>
             <div class='line' id='line'></div>
             <div class="modalContainer">
-                <form method='post' action='connect.php'>
+                <form method='post' action='../bin/controllers/connect.php'>
                     <input type='text' autocomplete="off" name='uname' placeholder='Enter Username' id='f1' required>
                     <br><br>
                     <input type='password' autocomplete="off" name='psw' placeholder='Enter Password' id='f2'>
@@ -115,5 +115,5 @@
         </div>
         </div>
     </body>
-    <script src='Scripts/script3.js'></script>
+    <script src='../Scripts/script3.js'></script>
 </html>

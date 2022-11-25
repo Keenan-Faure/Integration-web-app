@@ -1,7 +1,7 @@
 <?php
 
     session_start();
-    include("../createConnection.php");
+    include("../Class Templates/createConnection.php");
     use Connection\Connection as connect;
 
     $connect = new connect();
@@ -13,7 +13,7 @@
 ?>
 <html>
     <head>
-        <link rel="icon" type="image/x-icon" href="Images/logo.png"/>
+        <link rel="icon" type="image/x-icon" href="../Images/logo.png"/>
         <link rel='stylesheet' href='../Styles/addItem.css'>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="../Scripts/app.js"></script>
@@ -106,7 +106,7 @@
                         <div class="dropDown">
                         <button class="dropDownBtn">Customers</button>
                             <div class="dropDownContent">
-                                <a href="../addCustomer.html">Add Customer</a>
+                                <a href="../customers/addCustomer.html">Add Customer</a>
                                 <a href="../editCustomer.php">View Customers</a>
                             </div>
                         </div>
