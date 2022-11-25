@@ -44,7 +44,7 @@ $(document).ready(()=>
     setTimeout(()=>
     {
         $('.containerNew').fadeTo(500, 1);
-    }, 1000);
+    }, 500);
 });
 
 $(document).ready(()=>
@@ -80,7 +80,6 @@ const req = async function(sku)
         referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     });
     const json = await resp.json();
-    console.log(json);
     if(json.result == true)
     {
         addConnectorDetails(json.body_1[0].P_ID, json.body_1[0].ID, json.body[0].Pushed);

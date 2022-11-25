@@ -176,7 +176,7 @@ Class CURL
         {
             $var = new \stdClass();
             $var->result = true;
-            $var->body = "Successfully synced " . $response->system_products->sync_product . " product(s) to Stock2Shop";
+            $var->message = "Successfully synced " . $response->system_products->sync_product . " product(s) to Stock2Shop";
             $var->source_id = $source->id;
             return $var;
         }

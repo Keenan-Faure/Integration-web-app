@@ -93,6 +93,8 @@ function appendText(message, result)
     text.innerHTML = message;
     
     container.classList.add("fadeIn");
+    
+    //fades out after 1.5seconds
     setTimeout(()=>
     {
         container.classList.remove('fadeIn');

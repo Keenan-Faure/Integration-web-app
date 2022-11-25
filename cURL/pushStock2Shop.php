@@ -152,6 +152,8 @@
                 $variable->result = true;
                 $variable->message = 'Stock2Shop Push - SKU ' . $sku . ' was added to queue';
                 echo(json_encode($variable));
+                //pauses the execution a small bit to allow the javascript messages to show
+                sleep(2);
                 exit();
             }
         }
