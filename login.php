@@ -67,7 +67,7 @@
             Body varchar(255),
             T_ime varchar(255),
             T_ype varchar(255))';
-        $result = $conn->preQuery($_config, $query, 'object');
+        $conn->preQuery($_config, $query, 'object');
     }
     if(!in_array("woocommerce", $result))
     {
@@ -76,8 +76,8 @@
             SKU varchar(255),
             ID varchar(255),
             P_ID varchar(255),
-            pushDate varchar(255),)';
-        $result = $conn->preQuery($_config, $query, 'object');
+            pushDate varchar(255))';
+        $conn->preQuery($_config, $query, 'object');
     }
     if(!in_array("stock2shop", $result))
     {
@@ -86,7 +86,7 @@
             SKU varchar(255),
             Pushed varchar(255),
             pushDate varchar(255))';
-        $result = $conn->preQuery($_config, $query, 'object');
+        $conn->preQuery($_config, $query, 'object');
     }
 
 ?>
