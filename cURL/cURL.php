@@ -169,7 +169,21 @@ Class CURL
 
         //url to send request
         $url = 'https://app.stock2shop.com/v1/products/queue?token=' . $token . '&source_id=' . $source->id;
-        return $this->cURLRequest($request, $url, $username, $password);
+
+        $response = $this->cURLRequest($request, $url, $username, $password);
+        //convert the message based on the received data
+        if($response->httpcode == 200)
+        {
+            $var = new \stdClass();
+            $var->result = true;
+            $var->body = "Successfully synced " . $response->system_products->sync_product . " product(s) to Stock2Shop";
+            $var->source_id = $source->id;
+            return $var;
+        }
+        else
+        {
+            return $this->cURLRequest($request, $url, $username, $password);
+        }
     }
 
     function elastic_query($query, $token, $username, $password)
@@ -311,7 +325,7 @@ Class CURL
             '$product->Variant_Code' => $product->Variant_Code,
             '$product->Barcode' => $product->Barcode,
             '$product->Weight' => $product->Weight,
-            '$product->ComparePrice' => $product->ComparePrice,
+            //'$product->ComparePrice' => $product->ComparePrice,
             '$product->SellingPrice' => $product->SellingPrice,
             '$product->CapeTown_Warehouse' => $product->CapeTown_Warehouse,
             '$product->Option_1_Name' => $product->Option_1_Name,
@@ -1084,7 +1098,7 @@ Class CURL
             '$product->Brand' => $product->Brand,
             '$product->SKU' => $product->SKU,
             '$product->Weight' => $product->Weight,
-            '$product->ComparePrice' => $product->ComparePrice,
+            //'$product->ComparePrice' => $product->ComparePrice,
             '$product->SellingPrice' => $product->SellingPrice,
             '$product->CapeTown_Warehouse' => $product->CapeTown_Warehouse,
             '$product->Option_1_Name' => $product->Option_1_Name,

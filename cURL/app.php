@@ -111,7 +111,7 @@
                             </div>
                         </div>
                     </div>
-                    <a id='push-woo' href='s2s.html' target="_blank" class='buttonPush-S2S'>Push Products</a>            
+                    <a id='push-s2s' href='s2s.html' target="_blank" class='buttonPush-S2S'>Push Products</a>            
                     </div>
                 </div>
         <div class='modalContainer'>

@@ -38,7 +38,7 @@ function createCondition(queryData)
 
 $(document).ready(()=>
 {
-    $('#push-woo').click(function(event)
+    $('#push-s2s').click(function(event)
     {
         if (!confirm('Push active products to Stock2Shop?'))
         {

@@ -80,10 +80,11 @@ const req = async function(sku)
         referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     });
     const json = await resp.json();
-    if(json.result == false)
+    console.log(json);
+    if(json.result == true)
     {
-        addConnectorDetails(json.body[0].P_ID, json.body[0].ID, json.body[0].Pushed);
-        populateAuditTrail(json.body[0].User, json.body[0].Audit_Date);
+        addConnectorDetails(json.body_1[0].P_ID, json.body_1[0].ID, json.body[0].Pushed);
+        populateAuditTrail(json.body_1[0].User, json.body_1[0].Audit_Date);
     }
 }
 
