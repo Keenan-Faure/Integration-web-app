@@ -200,6 +200,9 @@ Class vProducts
     }
     function updateProduct($product, $util, $connection)
     {
+        $date = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+        $user = $_SESSION['clientConn']->token;
+
         $username = $_SESSION['connection']->credentials->username;
         $password = $_SESSION['connection']->credentials->password;
         $dbName = $_SESSION['connection']->credentials->dbname;
@@ -276,12 +279,14 @@ Class vProducts
             Option_2_Value = '$product->option2Value',
             Meta_1 = '$product->meta1',
             Meta_2 = '$product->meta2',
-            Meta_3 = '$product->meta1'
+            Meta_3 = '$product->meta1',
+            Audit_Date = '$date',
+            User = '$user'
 
         WHERE SKU = '$product->sku'"
         ;
 
-        $output = $connection->converterObject($rawConnection, $query);
+        $connection->converterObject($rawConnection, $query);
         $result = new \stdClass();
         $result->data = $product;
         return $result;

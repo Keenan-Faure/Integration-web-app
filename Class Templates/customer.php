@@ -128,6 +128,7 @@ Class Customers
     {
         $date = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
         $user = $_SESSION['clientConn']->credentials->token;
+        
         $username = $_SESSION['connection']->credentials->username;
         $password = $_SESSION['connection']->credentials->password;
         $dbName = $_SESSION['connection']->credentials->dbname;
