@@ -93,12 +93,12 @@
 | Future |
 +--------+
 
-- update Users table to include original tokens that will be used to send orders
+- update Users table to include original tokens that will be used to send orders on an URL
   - No need to login to authenticate because the token is valid
   
-- create search feature in products
+- create search feature in products (query params)
 
-- Re-do API
+- Re-do API - make it more URL based (using query params)
   - understand how previous API works (what is it based on) - done
 
 - Laravel
