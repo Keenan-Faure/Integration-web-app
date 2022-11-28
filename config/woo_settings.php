@@ -8,9 +8,9 @@
 return array(
     "Woocommerce_Store" =>
     array(
-        "store_name" => "s2s.ucc.co.za",
-        "consumer_key" => "ck_95cdf3d8b96beb682eaa8fdac18d9c0c197751e5",
-        "consumer_secret" => "cs_63105a5c9d86c4572c4542c1233f5597783b12bb"),
+        "store_name" => "myWoocommerceStore.co.za",
+        "consumer_key" => "ck_0908",
+        "consumer_secret" => "cs_0908"),
     "Woocommerce_Settings" =>
     array(
         "woo_use_product_map" => "true", //true, false
