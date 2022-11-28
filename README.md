@@ -76,27 +76,29 @@ The pushing of data to Woocommerce is done using the [Woocommerce API](https://w
 * JSON based requests and responses
 * Request speed depends on Woocommerce server response times
 
+### Integrator Application
+
+* Ability to add multiple users to the console which has admin access
+    * Users will admin access has full control over the application.
+* Adding products
+    * Via API
+    * Via bulk import
+    * Via in app form
+* Adding customers
+    * Via API
+    * bulk import _not supported_
+    * Via in app form
+* Edit product and customer data
+    * products support bulk export
+    * bulk export not supported for customers
+* Contains an Audit trail in lower right corner which shows which user edited product or customer data last format:
+```
+Last Edit made by {{User}} on {{Data-Time}}
+```
+
 ### Pushing Data to Woocommerce
 
-* Pushing of simple product data:
-    * If product SKU is found on Woocommerce
-        * We retrieve the `P_ID` of the product
-        * Record the `P_ID` in the database to use in future requests
-    
-    * If the product is not found on Woocommerce
-        * We create the product on Woocommerce
-        * Record the `P_ID` in the database
-
-* Pushing of variable product data:
-    * If product SKU is found on Woocommerce
-        * We retrieve the ID of the parent product and variant product
-        * Record the `ID` and `P_ID` in the database to use in future requests
-    
-    * If the product is not found on Woocommerce
-        * We create the parent product on Woocommerce
-        * Then we record the `ID` in the database
-        * Another request is done to create the variation
-        * These The `ID` is also saved in the database
+* Pushing of product data to Woocommerce is done using the custom cURL `POST` and `GET` methods
 
 
 
