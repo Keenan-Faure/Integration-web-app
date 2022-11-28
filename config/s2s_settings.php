@@ -8,8 +8,8 @@
 return array(
     "Stock2Shop_Credentials" =>
     array(
-        "s2s_user" => "keenan.faure",
-        "s2s_password" => "Re_Ghoul"),
+        "s2s_user" => "username",
+        "s2s_password" => "password"),
 
     "S2S_settings" =>
     array(
