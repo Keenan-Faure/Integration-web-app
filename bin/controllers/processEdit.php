@@ -60,12 +60,12 @@ if(isset($_SESSION['connection']) && isset($_SESSION['connection']))
                     if(isset($result->return))
                     {
                         echo(json_encode($result));
-                        header('Refresh:1, url=productList.php?page=1');
+                        header('Refresh:1, url=../../products/productList.php?page=1');
                         exit();
                     }
                     $result = $product->updateProduct($result, $util, $connection);
                     //echo(json_encode($result));
-                    header('Refresh:0, url=productList.php?page=1');
+                    header('Refresh:0, url=../../products/productList.php?page=1');
                     unset($_POST);
                 }
                 else
@@ -81,7 +81,7 @@ if(isset($_SESSION['connection']) && isset($_SESSION['connection']))
                     }
                     $result = $product->updateProduct($result, $util, $connection);
                     //echo(json_encode($result));
-                    header('Refresh:0, url=productList.php?page=1');
+                    header('Refresh:0, url=../../products/productList.php?page=1');
                     unset($_POST);
                 }
             }

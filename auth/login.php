@@ -88,6 +88,25 @@
             pushDate varchar(255))';
         $conn->preQuery($_config, $query, 'object');
     }
+    if(!in_array("orders", $result))
+    {
+        //create the table
+        $query = 'CREATE TABLE Orders(
+            ID varchar(255),
+            orderStatus varchar(255),
+            currency varchar(255),
+            total varchar(255),
+            subTotal varchar(255),
+            paymentDetails varchar(255),  #object
+            billingAddress varchar(255),  #object
+            shippingAddress varchar(255), #object
+            note varchar(255),
+            lineItems varchar(255),       #array[object(s)] - uses sterilze
+            shippingLines varchar(255),   #object
+            taxLines varchar(255),        #object
+            customer varchar(255))';      #object
+        $conn->preQuery($_config, $query, 'object');
+    }
 
 ?>
 <html>
