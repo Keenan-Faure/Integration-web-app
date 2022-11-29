@@ -10,13 +10,15 @@ return array(
     array(
         "store_name" => "woocommercestore.co.za",
         "consumer_key" => "ck_0908",
-        "consumer_secret" => "cs_0908"),
+        "consumer_secret" => "cs_0908",
+        "webhook_secret" => "secret"),
     "Woocommerce_Settings" =>
     array(
         "woo_use_product_map" => "true", //true, false
         "woo_add_products" => "true", //true, false
         "woo_product_status" => "publish", //can be publish, draft
         "woo_delete_products" => "false", //true, false
+        "woo_enable_hmac_decoding" => "false", //true, false
         "woo_product_map" => 
         '{
             "title": "$product->Title",
