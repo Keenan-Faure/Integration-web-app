@@ -147,7 +147,7 @@ class Connection
                             <hr>
                             <p>$solution</p>
                             <div class='cen'>
-                                <a class='btn' href='../$link.php'>Redirect</a>
+                                <a class='btn' href='../../$link.php'>Redirect</a>
                             </div>
                         </div>
                     </div>

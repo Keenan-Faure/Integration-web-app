@@ -388,6 +388,12 @@ Class Utility
         $variable->result = true;
         return $variable;
     }
+    function writeToFile($filename, $writeMethod, $data)
+    {
+        $myfile = fopen("../bin/output/" . $filename, $writeMethod) or die("Unable to open file!");
+        fwrite($myfile, $data);
+        fclose($myfile);
+    }
 }
 
 ?>
