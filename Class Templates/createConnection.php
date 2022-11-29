@@ -458,7 +458,7 @@ class Connection
     //type -> information, warning etc
     function addLogs($head, $body, $_time, $_type, $saved)
     {
-        $_config = include('../../config/config.php');
+        $_config = include("../../config/config.php");
         if(!isset($_SESSION))
         {
             session_start();

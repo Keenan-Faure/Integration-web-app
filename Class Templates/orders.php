@@ -5,9 +5,9 @@ namespace orders;
 Class Orders
 {
     //adds the order to the database
-    function addOrder()
+    function addOrder($orderBody, $connection)
     {
-
+        
     }
 
     //updates the order
@@ -17,11 +17,22 @@ Class Orders
     }
 
     //checks if the order already exists in the database
+    //returns false is the order is not found
+    //and true when it is
     function checkOrderExist($order_id, $connection, $_settings)
     {
         $query = "SELECT * FROM Orders WHERE ID = '" . $order_id . "'";
         $rawConnection = $connection->createConnection($_settings->dbUser, $_settings->dbPass, 'localhost', $_settings->dbName)->rawValue;
         $output2 = $connection->converterObject($rawConnection, $query, $_settings->dbName);
+        if($output2->result == null)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+
     }
 
     //verifies the webhook using the headers received

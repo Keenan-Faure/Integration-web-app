@@ -25,24 +25,28 @@
     if($webHookRegistered == true)
     {
         $requestBody = json_decode($requestBody);
+
         //check if the order is already found in the database
         $exists = $order->checkOrderExist($requestBody->order->id, $conn, $_settings);
         if($exists == true)
         {
             //update existing order
-            
+            //test adding order (objects) into database
+            //$order->updateOrder();
+            print_r("order is updated");
         }
         else
         {
             //add new order
-
+            //$order->addOrder();
+            print_r("order is added");
         }
     }
-    else
-    {
-        //records it in logs
-        $conn->addLogs('Failed to sync order from Woocommerce', $webHookRegistered, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
-    }
+    // else
+    // {
+    //     //records it in logs
+    //     $conn->addLogs('Failed to sync order from Woocommerce', $webHookRegistered, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+    // }
 
     //$util->writeToFile('output', 'w', ($text));
     // $util->writeToFile('output1', 'w', ($webhook));
