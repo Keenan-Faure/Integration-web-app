@@ -388,6 +388,25 @@ Class Utility
         $variable->result = true;
         return $variable;
     }
+
+    //verifies the webhook using the headers received
+    //checks if the resource is an order
+    //checks if the Signature is correct
+    function verifyWebhook($headers)
+    {
+        if(!isset($headers->{'X-Wc-Webhook-Resource'}))
+        {
+            if($headers->{'X-Wc-Webhook-Resource'} == 'order')
+            {
+                
+            }
+        }
+    }
+
+    //writes data to a file
+    //parameters are:
+    //$filename - name of the file to write to
+    //$ $writeMethod 
     function writeToFile($filename, $writeMethod, $data)
     {
         $myfile = fopen("../bin/output/" . $filename, $writeMethod) or die("Unable to open file!");

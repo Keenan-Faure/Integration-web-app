@@ -21,16 +21,12 @@
 
     //gets all order headers from URL
     $headers = json_decode(json_encode(getallheaders()), FALSE);
-
+    print_r($headers);
     //verify data sent using headers
-    if($headers->{'X-Wc-Webhook-Resource'} == 'order')
-    {
-        //
-    }
     
 
-    $util = new util();
-    $util->writeToFile('output', 'w', ($headers));
-    $util->writeToFile('output1', 'w', ($webhook));
+    // $util = new util();
+    // $util->writeToFile('output', 'w', ($headers));
+    // $util->writeToFile('output1', 'w', ($webhook));
 
 ?>
