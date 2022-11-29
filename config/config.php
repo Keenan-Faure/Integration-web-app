@@ -3,9 +3,9 @@
 return array(
 
     //MySQL credentials
-    'dbUser' => 'root',
-    'dbPass' => 'Re_Ghoul',
-    'dbName' => 'dbAPI',
+    'dbUser' => 'username',
+    'dbPass' => 'password',
+    'dbName' => 'database',
     'host' => 'localhost'
 );
 
