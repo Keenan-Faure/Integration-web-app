@@ -3,6 +3,10 @@ index.php
 rep.png
 Dockerfile
 Web-API
+config
+config.php
+s2s_settings.php
+woo_settings.php
 progress.yml
 favicon.ico
 index.html
