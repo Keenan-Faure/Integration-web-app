@@ -1,7 +1,8 @@
 .vscode
+config
 index.php
 rep.png
 Dockerfile
-config.php
-s2s_settings.php
-woo_settings.php
+rep.png
+index.html
+Web-API
