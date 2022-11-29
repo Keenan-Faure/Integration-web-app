@@ -60,7 +60,7 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
             {
                 $conn->addLogs('Connection successful', $result->message, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'info', false);
             }
-            header('Refresh:0, url=endpoints.php');
+            header('Refresh:0, url=../../endpoints.php');
         }
     }
 }

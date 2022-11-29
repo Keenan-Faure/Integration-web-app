@@ -3,6 +3,6 @@ config
 index.php
 rep.png
 Dockerfile
-rep.png
-index.html
-Web-API
+config.php
+s2s_settings.php
+woo_settings.php

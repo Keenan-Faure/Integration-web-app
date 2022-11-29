@@ -1,7 +1,7 @@
 <?php
 
     session_start();
-    include("../../Class Templates/createConnection.phpp");
+    include("../../Class Templates/createConnection.php");
     use Connection\Connection as connect;
     if(!isset($_SESSION['clientConn']) && !isset($_SESSION['connection']))
     {
