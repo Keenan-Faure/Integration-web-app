@@ -1,7 +1,11 @@
 <?php 
     session_start(); 
     include("../Class Templates/createConnection.php");
+    include("../Class Templates/utility.php");
+
+    use utils\Utility as util;
     use Connection\Connection as connect;
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -14,6 +18,8 @@
         if($_SESSION['connection']->active == true)
         {
             $connection2 = new connect();
+            $util = new util();
+
             $rawConnection = $connection2->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
             
             //gets the url
@@ -23,9 +29,18 @@
             $page = ($connection2->queryParams($fullUrl))['page'];
 
             //Queries the param found in the URL
-            $query2 = 'SELECT * FROM Orders LIMIT ' . (($page-1) * 10) . ', ' . (10);
+            $query2 = 'SELECT ID, customer, orderStatus, auditDate, total  FROM Orders LIMIT ' . (($page-1) * 10) . ', ' . (10);
             $output2 = $connection2->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
+
+            //unserialize values
+            if(sizeof($output2->result) > 0)
+            {
+                $result = $util->unserializeOrder($output2->result);
+            }
+
+            //encode $result to obtain a json object
             $result = json_encode($output2->result);
+            echo("<script>initiatorCreateOrders($result);</script>");
         }
         ?>
     <body>
@@ -46,8 +61,8 @@
                     <div class="dropDown">
                     <button class="dropDownBtn">Products</button>
                         <div class="dropDownContent">
-                            <a href="addItem.html">Add Product</a>
-                            <a href="productList.php?page=1">View all products</a>
+                            <a href="../products/addItem.html">Add Product</a>
+                            <a href="../products/productList.php?page=1">View all products</a>
                             <a href="../importUtils/import.html">Import Products</a>
                             <a href="../importUtils/productExport.php">Export Products</a>
                         </div>
@@ -63,6 +78,18 @@
                     </div>
                     <a href="../importUtils/import.html" class="buttonOption"></a>
                     </div>
+                </div>
+                <div class="containerNew">
+                    <div class="containerHeaders">
+                        <div class="orderId">Order ID</div>
+                        <div class="customer">Customer</div>
+                        <div class="status">Status</div>
+                        <div class="date">Date</div>
+                        <div class="total">Total</div>
+                    </div>
+                    <hr>
+                    <form method='post' action='orderView.php' id='orderForm'>
+                    </form>
                 </div>
                 <div class="bottom">
                     <div class='pagination'></div>

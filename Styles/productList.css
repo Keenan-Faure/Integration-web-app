@@ -5,6 +5,11 @@ body
     background: rgb(0, 0, 0);
 }
 /* General */
+hr
+{
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+}
 h1
 {
     text-shadow: 1px 2px 6px rgb(0 0 0);
@@ -174,11 +179,12 @@ h1:hover
 .containerHeaders
 {
     position: relative;
-    background-color: rgb(248 248 248 / 0%);
+    background-color: rgb(232 229 229);
     top: 20%;
-    height: 60px;
+    height: 70px;
     width: 100%;
-    box-shadow: 0px 0px 6px 0px rgb(0 0 0 / 10%)
+    border: 1px solid lightblue;
+    border-style: inset;
 }
 .lineItems
 {
@@ -195,14 +201,17 @@ h1:hover
 {
     background-color:rgba(228, 224, 224, 0.7);
 }
+#lineItems-c-s
+{
+    background-color: rgba(114, 114, 114, 0.3);
+}
 
 /* HeadersStyles */
-
 .imageContainer
 {
     width: 70px;
     left: 0;
-    padding: 22px 0px 20px 0px;
+    padding: 27px 0px 27px 0px;
     text-align: center;
     position: absolute;
     display: inline-block;
@@ -226,7 +235,7 @@ h1:hover
     width: 20%;
     left: 10%;
     text-align: center;
-    padding: 22px 0px 20px 0px;
+    padding: 27px 0px 27px 0px;
     position: absolute;
     display: inline-block;
     /* Used to cut text if it exceeds length */
@@ -234,13 +243,15 @@ h1:hover
     white-space: nowrap;
     overflow: hidden; 
     /*   */
+    font-family: system-ui;
+    font-size: 15px;
 }
 .title
 {
     width: 30%;
     left: 30%;
     text-align: center;
-    padding: 22px 0px 20px 0px;
+    padding: 27px 0px 27px 0px;
     position: absolute;
     display: inline-block;
     /* Used to cut text if it exceeds length */
@@ -248,13 +259,15 @@ h1:hover
     white-space: nowrap;
     overflow: hidden; 
     /*   */
+    font-family: system-ui;
+    font-size: 15px;
 }
 
 .category
 {
     width: 20%;
     left: 60%;
-    padding: 22px 0px 20px 0px;
+    padding: 27px 0px 27px 0px;
     text-align: center;
     position: absolute;
     display: inline-block;
@@ -263,13 +276,15 @@ h1:hover
     white-space: nowrap;
     overflow: hidden; 
     /*   */
+    font-family: system-ui;
+    font-size: 15px;
 }
 .vendor
 {
     width: 20%;
     left: 80%;
     text-align: center;
-    padding: 22px 0px 20px 0px;
+    padding: 27px 0px 27px 0px;
     position: absolute;
     display: inline-block;
     /* Used to cut text if it exceeds length */
@@ -277,6 +292,8 @@ h1:hover
     white-space: nowrap;
     overflow: hidden; 
     /*   */
+    font-family: system-ui;
+    font-size: 15px;
 }
 #vendor-l-t
 {
@@ -285,11 +302,20 @@ h1:hover
     left: 82%;
     text-align: center;
     padding: 10px 0px;
-    background-color: rgb(12 169 105 / 40%);
+    background-color: rgb(12 169 105 / 80%);
     border-radius: 30px;
     position: absolute;
     display: inline-block;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    transition-duration: 0.4s;
+    font-family: system-ui;
+    font-size: 15px;
+}
+#vendor-l-t:hover
+{
+    background-color: rgba(15, 221, 139, 0.8);
+    border-style: inset;
+    border-width: 1px;
 }

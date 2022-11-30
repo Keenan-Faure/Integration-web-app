@@ -399,6 +399,35 @@ Class Utility
         fwrite($myfile, $data);
         fclose($myfile);
     }
+
+    //function to unserialize order object
+    //parameter is a countable array
+    function unserializeOrder($orderArray)
+    {
+        $serialValues = ['billingAddress', 'customer', 'lineItems', 'paymentDetails', 
+        'shippingAddress', 'shippingLines', 'taxLines'];
+
+        if($orderArray == null || sizeof($orderArray) < 0)
+        {
+            return $orderArray;
+        }
+        else
+        {
+            //for each order in the list of orders
+            for($i = 0; $i < sizeof($orderArray); ++$i)
+            {
+                //for each serialValues in the array
+                for($j = 0; $j < sizeof($serialValues); ++$j)
+                {
+                    if(isset($orderArray[$i]->{"$serialValues[$j]"}))
+                    {
+                        $orderArray[$i]->{"$serialValues[$j]"} = unserialize($orderArray[$i]->{"$serialValues[$j]"});
+                    }
+                }
+            }
+        }
+        return $orderArray;
+    }
 }
 
 ?>

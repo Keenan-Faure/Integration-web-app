@@ -2,7 +2,12 @@ body
 {
     margin: 0;
     font-family: 'Arial, Helvetica, sans-serif';
-    background: rgb(0, 0, 0);
+    background: rgb(255, 255, 255);
+}
+hr
+{
+    margin-block-start: 0em;
+    margin-block-end: 0em;
 }
 /* General -- Navigation bar*/
 h1
@@ -158,4 +163,215 @@ h1:hover
     background-position: right;
     width: 100%;
     height: 100%;
+}
+
+/* Content */
+.containerNew
+{
+    position: relative;
+    background-color: rgba(255,255,255,0.9);
+    left: 50%;
+    padding: 10px;
+    overflow: auto;
+    top: 100px;
+    transform: translate(-50%, -0%);
+    width: 90%;
+}
+.containerHeaders
+{
+    position: relative;
+    background-color: rgb(232 229 229);
+    top: 20%;
+    height: 70px;
+    width: 100%;
+    border: 1px solid lightblue;
+    border-style: inset;
+}
+.orderItems
+{
+    position: relative;
+    width: 100%;
+    height: 70px;
+    display: flex;
+    border: none;
+    cursor: pointer;
+    transition-duration: 0.1s;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+.orderItems:hover
+{
+    background-color:rgba(187, 187, 187, 0.7);
+}
+#orderItems-c-s
+{
+    background-color: rgba(114, 114, 114, 0.3);
+}
+
+/* HeadersStyles */
+
+.orderId
+{
+    width: 15%;
+    left: 0;
+    padding: 27px 0px 27px 0px;
+    text-align: center;
+    position: absolute;
+    display: inline-block;
+    font-family: system-ui;
+    font-size: 15px;
+}
+.customer
+{
+    width: 20%;
+    left: 15%;
+    text-align: center;
+    padding: 27px 0px 27px 0px;
+    position: absolute;
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    font-family: system-ui;
+    font-size: 15px;
+}
+.status
+{
+    width: 25%;
+    left: 35%;
+    text-align: center;
+    padding: 27px 0px 27px 0px;
+    position: absolute;
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    font-family: system-ui;
+    font-size: 15px;
+}
+
+.status-pend
+{
+    width: 15%;
+    top: 14px;
+    left: 40%;
+    text-align: center;
+    padding: 10px 0px;
+    background-color: rgba(12, 138, 169, 0.8);
+    border-radius: 30px;
+    position: absolute;
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    transition-duration: 0.4s;
+    font-family: system-ui;
+    font-size: 15px;
+}
+.status-pend:hover
+{
+    border-style: inset;
+    border-width: 1px;
+}
+.status-process
+{
+    width: 15%;
+    top: 14px;
+    left: 40%;
+    text-align: center;
+    padding: 10px 0px;
+    background-color: rgba(12, 85, 169, 0.8);
+    border-radius: 30px;
+    position: absolute;
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    transition-duration: 0.4s;
+    font-family: system-ui;
+    font-size: 15px;
+}
+.status-process:hover
+{
+    border-style: inset;
+    border-width: 1px;
+}
+.status-complete
+{
+    width: 15%;
+    top: 14px;
+    left: 40%;
+    text-align: center;
+    padding: 10px 0px;
+    background-color: rgba(54, 12, 169, 0.8);
+    border-radius: 30px;
+    position: absolute;
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    transition-duration: 0.4s;
+    font-family: system-ui;
+    font-size: 15px;
+}
+.status-complete:hover
+{
+    border-style: inset;
+    border-width: 1px;
+}
+
+.date
+{
+    width: 20%;
+    left: 60%;
+    padding: 27px 0px 27px 0px;
+    text-align: center;
+    position: absolute;
+    display: inline-block;
+    /* Used to cut text if it exceeds length */
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden; 
+    /*   */
+    font-family: system-ui;
+    font-size: 15px;
+}
+.total
+{
+    width: 20%;
+    left: 80%;
+    text-align: center;
+    padding: 27px 0px 27px 0px;
+    position: absolute;
+    display: inline-block;
+    /* Used to cut text if it exceeds length */
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden; 
+    /*   */
+    font-family: system-ui;
+    font-size: 15px;
+}
+#vendor-l-t
+{
+    width: 15%;
+    top: 14px;
+    left: 82%;
+    text-align: center;
+    padding: 10px 0px;
+    background-color: rgb(12 169 105 / 80%);
+    border-radius: 30px;
+    position: absolute;
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    transition-duration: 0.4s;
+    font-family: system-ui;
+    font-size: 15px;
+}
+#vendor-l-t:hover
+{
+    background-color: rgba(15, 221, 139, 0.8);
+    border-style: inset;
+    border-width: 1px;
 }

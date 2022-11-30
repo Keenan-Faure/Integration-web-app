@@ -135,11 +135,14 @@ function createProducts(products)
             let productCategory = returns[7][j];
             let productVendor = returns[9][j];
 
-
             let lineItem = document.createElement('button');
             lineItem.value = productSKU;
             lineItem.name = productSKU; //set the SKU as the name
             lineItem.className = 'lineItems';
+            if(i % 2 == 0)
+            {
+                lineItem.id = 'lineItems-c-s'
+            }
 
             let imageContainer = document.createElement('div');
             imageContainer.className = 'imageContainer';
@@ -555,6 +558,107 @@ function setCustomerText(classNames, text, formNames)
                 text[i][1] = null;
             }
             applyCustomerText(classNames[i], text[i][1], formNames[i]);
+        }
+    }
+}
+// +----------------------------------------------+
+// | Run-format of the functions (productList.php)|
+// | initiatorCreateOrders   -> createOrders   -> |
+// | convertJsonToArray                           |
+// +----------------------------------------------+
+function initiatorCreateOrders(orders)
+{
+    $(document).ready(()=>
+    {
+        createOrders(orders);
+    });
+}
+
+function createOrders(orders)
+{
+    /*
+        <button class="orderItems" name='{{ID}}' value='{{ID}}'>
+            <div class="orderID">OrderID</div>
+            <div class="customer">SKUasdapsdojapsdjkas;ldkaspdja</div>
+            <div class="status">title</div>
+            <div class="date">collection</div>
+            <div class="total">Vendor</div>
+        </button>
+    */
+
+    // 1.) Get orderID, customer, status, date and total from iteration of product
+    // 2.) Create the DOM Elements
+    // 3.) Append the values to the DOM elements
+    // 4.) Append the DOM elements to the Document
+    let form = document.getElementById('orderForm');
+    for(let i = 0; i < orders.length; ++i)
+    {
+        //converts to javascriptArray
+        //skips first iteration - headers
+        let returns = convertJsonToArray(orders[i]);
+        for(let j = 1; j < 2; ++j)
+        {
+            let orderIdValue = returns[0][j];
+            let customerValue = returns[1][j]['first_name'] + ' ' + returns[1][j]['last_name'];
+            let statusValue = returns[2][j];
+            let dateValue = returns[3][j];
+            let totalValue = "R" + returns[4][j];
+
+
+            let orderItem = document.createElement('button');
+            orderItem.value = orderIdValue;
+            orderItem.name = orderIdValue; //set the SKU as the name
+            orderItem.className = 'orderItems';
+            if(i % 2 == 0)
+            {
+                orderItem.id = 'orderItems-c-s'
+            }
+
+            let orderId = document.createElement('div');
+            orderId.className = 'orderId';
+            let orderText = document.createTextNode(orderIdValue); //set Text by taking them from the product
+            orderId.appendChild(orderText);
+
+            let customer = document.createElement('div');
+            customer.className = 'customer';
+            let customerText = document.createTextNode(customerValue); //set Text by taking them from the product
+            customer.appendChild(customerText);
+
+            let status = document.createElement('div');
+            if(statusValue == 'pending')
+            {
+                status.className = 'status-pend';
+            }
+            if(statusValue == 'processing')
+            {
+                status.className = 'status-process';
+            }
+            if(statusValue == 'complete')
+            {
+                status.className = 'status-complete';
+            }
+            let statusText = document.createTextNode(statusValue); //set Text by taking them from the product
+            status.appendChild(statusText);
+
+            let date = document.createElement('div');
+            date.className = 'date';
+            let dateText = document.createTextNode(dateValue); //set Text by taking them from the product
+            date.appendChild(dateText);
+
+            let total = document.createElement('div');
+            total.className = 'total';
+            total.id = 'vendor-l-t';
+            let totalText = document.createTextNode(totalValue); //set Text by taking them from the product
+            total.appendChild(totalText);
+
+            orderItem.appendChild(orderId);
+            orderItem.appendChild(customer);
+            orderItem.appendChild(status);
+            orderItem.appendChild(date);
+            orderItem.appendChild(total);
+
+            form.appendChild(orderItem);
+            form.appendChild(document.createElement('hr'));
         }
     }
 }
