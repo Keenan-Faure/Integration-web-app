@@ -2,18 +2,6 @@
 
 namespace pImport;
 
-include("../../Class Templates/vProduct.php");
-include("../../Class Templates/sProduct.php");
-include("../../Class Templates/customer.php");
-include("../../Class Templates/utility.php");
-include('../../Class Templates/createConnection.php');
-
-use utils\Utility as util;
-use sProducts\sProducts as sproduct;
-use vProducts\vProducts as vproduct;
-use customer\Customers as customer;
-use Connection\Connection as connect;
-
 Class pImport
 {
     function deleteFile($file)
@@ -26,9 +14,8 @@ Class pImport
             unlink($file);
         }
     }
-    function importProduct($fileToUse)
+    function importProduct($fileToUse, $conn, $util, $vproduct, $sproduct)
     {
-        $conn = new connect();
         $containHeaders = true;
         $directory = 'uploads/';
         $file = scandir($directory);
@@ -45,7 +32,7 @@ Class pImport
         {
             if(sizeof($file) < 3)
             {
-                $conn->createHtmlMessages('File Upload', 'Empty Directory', '../ImportUtils/import.html', 'info');
+                $conn->createHtmlMessages('', 'File Upload', 'Empty Directory', '../ImportUtils/import.html', 'info');
                 header('Refresh:2,url=import.html');
                 exit();
             }
@@ -53,7 +40,6 @@ Class pImport
         $directory = $directory . $fileToUse;
         if(in_array($fileToUse, $file))
         {
-            $util = new util();
             $openFile = fopen($directory, 'r');
             $variable = new \stdClass();
             while(!feof($openFile))
@@ -105,16 +91,15 @@ Class pImport
                 //create product and add it to the database
                 //check if the product exists already, if it does then just update the values
                 $rawValue = fgetcsv($openFile);
-                $connection2 = new connect();
 
-                $rawConnection = $connection2->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+                $rawConnection = $conn->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
                 if(isset($rawValue[$template['sku']]))
                 {
                     $sku = ltrim(rtrim($rawValue[$template['sku']])); 
 
                     //gets the SKU
                     $query2 = "select * from Inventory where SKU = '" . $sku .  "'";
-                    $output2 = $connection2->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
+                    $output2 = $conn->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
                     if($output2->result == null)
                     {
                         //creates the product with available headers
@@ -161,8 +146,7 @@ Class pImport
                         //variable product
                         if($Product['optionName'] != null && $Product['optionValue'] != null)
                         {
-                            $product = new vproduct();
-                            $result = $product->createProduct($Product, $util, $connection2);
+                            $result = $vproduct->createProduct($Product, $util, $conn);
                             if(isset($result->return))
                             {
                                 $output->productsSkipped = $output->productsSkipped + 1;
@@ -170,7 +154,7 @@ Class pImport
                                 continue;
                             }
                             $output->newProductsAdded = $output->newProductsAdded + 1;
-                            $result = $product->addProduct($result, $connection2);
+                            $result = $vproduct->addProduct($result, $conn);
                             if(!isset($result->data))
                             {
                                 $conn->addLogs('Add Product Failed:', 'Product: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
@@ -180,8 +164,7 @@ Class pImport
                         else
                         {
                             //simple product
-                            $product = new sproduct();
-                            $result = $product->createProduct($Product, $util, $connection2);
+                            $result = $sproduct->createProduct($Product, $util, $conn);
                             if(isset($result->return))
                             {
                                 $output->productsSkipped = $output->productsSkipped + 1;
@@ -189,7 +172,7 @@ Class pImport
                                 continue;
                             }
                             $output->newProductsAdded = $output->newProductsAdded + 1;
-                            $result = $product->addProduct($result, $connection2);
+                            $result = $sproduct->addProduct($result, $conn);
                             if(!isset($result->data))
                             {
                                 $conn->addLogs('Add Product Failed:', 'Product: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
@@ -247,8 +230,7 @@ Class pImport
                         //variable product
                         if($Product['optionName'] != null && $Product['optionValue'] != null)
                         {
-                            $product = new vproduct();
-                            $result = $product->createProduct($Product, $util, $connection2, 'edit');
+                            $result = $vproduct->createProduct($Product, $util, $conn, 'edit');
                             if(isset($result->return))
                             {
                                 $output->productsSkipped = $output->productsSkipped + 1;
@@ -256,7 +238,7 @@ Class pImport
                                 continue;
                             }
                             $output->existingProductsUpdated = $output->existingProductsUpdated + 1;
-                            $result = $product->updateProduct($result, $util, $connection2);
+                            $result = $vproduct->updateProduct($result, $util, $conn);
                             if(!isset($result->data))
                             {
                                 $conn->addLogs('Update Failed:', 'Product: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
@@ -266,8 +248,7 @@ Class pImport
                         else
                         {
                             //simple product
-                            $product = new sproduct();
-                            $result = $product->createProduct($Product, $util, $connection2, 'edit');
+                            $result = $sproduct->createProduct($Product, $util, $conn, 'edit');
                             if(isset($result->return))
                             {
                                 $output->productsSkipped = $output->productsSkipped + 1;
@@ -275,7 +256,7 @@ Class pImport
                                 continue;
                             }
                             $output->existingProductsUpdated = $output->existingProductsUpdated + 1;
-                            $result = $product->updateProduct($result, $util, $connection2);
+                            $result = $sproduct->updateProduct($result, $util, $conn);
                             if(!isset($result->data))
                             {
                                 $conn->addLogs('Update Failed:', 'Product: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
