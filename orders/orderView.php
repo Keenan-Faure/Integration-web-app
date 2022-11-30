@@ -84,7 +84,14 @@
                 </div>
             </div>
             <div class="orderContainer">
+                <textarea id='textarea' class='title'>Order ID: 8907</textarea>
+                <div class='status'>
+                    Order Status: <button class='orderStatus'>Processing</button>
+                </div>
+                <div class='headerLine'></div>
+                <div class='customerDetailsContainer'>
 
+                </div>
             </div> 
     </body>
 </html>
