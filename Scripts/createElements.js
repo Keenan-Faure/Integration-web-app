@@ -628,14 +628,19 @@ function createOrders(orders)
             if(statusValue == 'pending')
             {
                 status.className = 'status-pend';
+                statusValue = statusValue.charAt(0).toUpperCase() + statusValue.slice(1);
             }
             if(statusValue == 'processing')
             {
                 status.className = 'status-process';
+                statusValue = statusValue.charAt(0).toUpperCase() + statusValue.slice(1);
+
             }
             if(statusValue == 'complete')
             {
                 status.className = 'status-complete';
+                statusValue = statusValue.charAt(0).toUpperCase() + statusValue.slice(1);
+
             }
             let statusText = document.createTextNode(statusValue); //set Text by taking them from the product
             status.appendChild(statusText);

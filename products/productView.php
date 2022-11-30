@@ -31,9 +31,6 @@
                 $output2->result[0]->$body_html = stripslashes(html_entity_decode($output2->result[0]->$body_html));
                 $type = $output2->result[0]->Type;
                 $result = json_encode($output2->result[0]);
-
-                //gets ID for connectors using a fetch
-
             }
             //passes the text as a json object
             echo("<script>getClassNames($result, '$type');</script>");
