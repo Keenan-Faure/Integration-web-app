@@ -151,15 +151,15 @@ function createProducts(products)
 
             imageContainer.appendChild(image);
 
-            let sku = document.createElement('div');
-            sku.className = 'sku';
-            let skuText = document.createTextNode(productSKU); //set Text by taking them from the product
-            sku.appendChild(skuText);
-
             let title = document.createElement('div');
             title.className = 'title';
             let titleText = document.createTextNode(productTitle); //set Text by taking them from the product
             title.appendChild(titleText);
+
+            let sku = document.createElement('div');
+            sku.className = 'sku';
+            let skuText = document.createTextNode(productSKU); //set Text by taking them from the product
+            sku.appendChild(skuText);
 
             let category = document.createElement('div');
             category.className = 'category';
@@ -168,6 +168,7 @@ function createProducts(products)
 
             let vendor = document.createElement('div');
             vendor.className = 'vendor';
+            vendor.id = 'vendor-l-t';
             let vendorText = document.createTextNode(productVendor); //set Text by taking them from the product
             vendor.appendChild(vendorText);
 
@@ -177,6 +178,7 @@ function createProducts(products)
             lineItem.appendChild(category);
             lineItem.appendChild(vendor);
             form.appendChild(lineItem);
+            form.appendChild(document.createElement('hr'));
         }
     }
 }
