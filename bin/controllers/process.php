@@ -43,7 +43,7 @@ if(isset($_SESSION['clientConn']) && isset($_SESSION['connection']))
             {
                 if($_SESSION['settings']->App_settings->app_add_products != 'true')
                 {
-                    $connection->createHtmlMessages('Add Products disabled', 'Please contact admin', 'endpoints', 'info');
+                    $connection->createHtmlMessages('', 'Add Products disabled', 'Please contact admin', 'endpoints', 'info');
                     exit();
                 }
                 if(isset($_POST['optionName']) && isset($_POST['optionValue']))
@@ -85,7 +85,7 @@ if(isset($_SESSION['clientConn']) && isset($_SESSION['connection']))
             {
                 $conn = new connect();
                 $conn->addLogs('Error loading post data', 'No POST Data found, please re-select', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
-                $conn->createHtmlMessages('Error: Post Data', 'Error loading post data', 'endpoints', 'warn');
+                $conn->createHtmlMessages('', 'Error: Post Data', 'Error loading post data', 'endpoints', 'warn');
                 header('Refresh:2,url=productList.php?page=1');
             }
         }
@@ -93,7 +93,7 @@ if(isset($_SESSION['clientConn']) && isset($_SESSION['connection']))
         {
             $conn = new connect();
             $conn->addLogs('Error connecting', 'No connection found in current session, please re-connect', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', false);
-            $conn->createHtmlMessages('Error connecting', 'No Session was detected', 'login', 'info');
+            $conn->createHtmlMessages('', 'Error connecting', 'No Session was detected', 'login', 'info');
 
             header('Refresh:2,url=../../auth/login.php');
         }
@@ -102,7 +102,7 @@ if(isset($_SESSION['clientConn']) && isset($_SESSION['connection']))
     {
         $conn = new connect();
         $conn->addLogs('Error connecting', 'No login data found for current user', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', false);
-        $conn->createHtmlMessages('Error connecting to user session', 'No Session User was detected', 'login', 'info');
+        $conn->createHtmlMessages('', 'Error connecting to user session', 'No Session User was detected', 'login', 'info');
         header('Refresh:2,url=../../auth/login.php');
     }
 }
@@ -110,7 +110,7 @@ else
 {
     $conn = new connect();
     $conn->addLogs('Error connecting', 'No login data found for current user', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', false);
-    $conn->createHtmlMessages('Error connecting to user session', 'No Session User was detected', 'login', 'info');
+    $conn->createHtmlMessages('', 'Error connecting to user session', 'No Session User was detected', 'login', 'info');
     header('Refresh:2,url=../../auth/login.php');
 }
 

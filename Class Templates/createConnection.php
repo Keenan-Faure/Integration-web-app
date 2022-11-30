@@ -57,7 +57,7 @@ class Connection
             //then the user does not exist at all, has to be created.
             $message = 'The Username "' . $client_user . '" does not exist.';
             $solution = 'Kindly contact your admin or register your account';
-            $this->createHtmlMessages($message, $solution, '../auth/register', 'warn');
+            $this->createHtmlMessages('', $message, $solution, '../auth/register', 'warn');
             exit();
         }
         else
@@ -98,7 +98,7 @@ class Connection
                 {
                     $message = 'This account with Username "' . $client_user . '" is currently Inactive';
                     $solution = "Please wait until you are redirected";
-                    $this->createHtmlMessages($message, $solution, 'login', 'info');
+                    $this->createHtmlMessages('', $message, $solution, 'login', 'info');
 
                     $variable = new \stdClass();
                     $variable->connection = false; 
@@ -111,7 +111,7 @@ class Connection
             {
                 $message = 'Incorrect credentials entered with Username: "' . $client_user . '"';
                 $solution = "Please try again";
-                $this->createHtmlMessages($message, $solution, 'login', 'warn');
+                $this->createHtmlMessages('', $message, $solution, 'login', 'warn');
 
                 $variable = new \stdClass();
                 $variable->connection = false; 
@@ -127,7 +127,7 @@ class Connection
     // - The error message
     // - The best solution that the user can take
     // - and the link that redirects the user
-    function createHtmlMessages($message, $solution, $link, $type)
+    function createHtmlMessages($extension = '', $message = 'No msg specified', $solution = 'No Solution provided', $link = '', $type = 'warn')
     {
         echo("
             <html>
@@ -147,7 +147,7 @@ class Connection
                             <hr>
                             <p>$solution</p>
                             <div class='cen'>
-                                <a class='btn' href='../../$link.php'>Redirect</a>
+                                <a class='btn' href='../../$link" . $extension . "'>Redirect</a>
                             </div>
                         </div>
                     </div>
@@ -155,6 +155,35 @@ class Connection
             </html>
         ");
     }
+    function createJsonMessages($message, $solution, $link, $type)
+    {
+        echo("
+            <html>
+                <head>
+                    <link rel='icon' type=image/x-icon' href='../Images/logo.png'/>
+                    <link rel='stylesheet' href='../../Styles/login.css'>
+                </head>
+                <body>
+                    <div class='background-cover'>
+                    </div>
+                    <div class='background-reg'>
+                        <div class='cover' id='$type'>
+                        </div>
+                        <div class='con'>
+                            <h2>Message</h2>          
+                            <p>$message</p>
+                            <hr>
+                            <pre class='jsonText'>$solution</pre>
+                            <div class='cen'>
+                                <a class='btn' href='../$link.html'>Redirect</a>
+                            </div>
+                        </div>
+                    </div>
+                </body>
+            </html>
+        ");
+    }
+
     //pre-conection queries
     //made with the datafound in the config php file
 

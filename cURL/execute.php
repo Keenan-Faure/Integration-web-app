@@ -60,6 +60,6 @@ if($_SESSION['connection']->active == true)
 else
 {
     $conn = new connect();
-    $conn->createHtmlMessages('Error connecting to user session', 'No connection found in current session, please re-connect', 'login', 'info');
+    $conn->createHtmlMessages('', 'Error connecting to user session', 'No connection found in current session, please re-connect', 'login', 'info');
 }
 ?>

@@ -91,7 +91,7 @@ if(isset($_SESSION['connection']) && isset($_SESSION['connection']))
         {
             $conn = new connect();
             $conn->addLogs('Error connecting', 'No connection found in current session, please re-connect', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', false);
-            $conn->createHtmlMessages('Error connecting', 'No Session was detected', 'login', 'info');
+            $conn->createHtmlMessages('', 'Error connecting', 'No Session was detected', 'login', 'info');
 
             header('Refresh:1,url=../../auth/login.php');
         }
@@ -100,7 +100,7 @@ if(isset($_SESSION['connection']) && isset($_SESSION['connection']))
     {
         $conn = new connect();
         $conn->addLogs('Error connecting', 'No login data found for current user', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', false);
-        $conn->createHtmlMessages('Error connecting to user session', 'No Session User was detected', 'login', 'info');
+        $conn->createHtmlMessages('', 'Error connecting to user session', 'No Session User was detected', 'login', 'info');
         header('Refresh:1,url=../../auth/login.php');
     }
 }
@@ -108,7 +108,7 @@ else
 {
     $conn = new connect();
     $conn->addLogs('Error connecting', 'No login data found for current user', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', false);
-    $conn->createHtmlMessages('Error connecting to user session', 'No Session User was detected', 'login', 'info');
+    $conn->createHtmlMessages('', 'Error connecting to user session', 'No Session User was detected', 'login', 'info');
     header('Refresh:1,url=../../auth/login.php');
 }
 

@@ -101,7 +101,7 @@ if(isset($_SESSION['connection']))
 else
 {
     $conn = new connect();
-    $conn->createHtmlMessages('No Login details found in current session', 'Please relog', 'login', false);
+    $conn->createHtmlMessages('', 'No Login details found in current session', 'Please relog', 'login', false);
 }
 
 ?>

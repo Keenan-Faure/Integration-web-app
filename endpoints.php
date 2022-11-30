@@ -5,7 +5,7 @@
     if(!(isset($_SESSION['connection']) && isset($_SESSION['clientConn'])))
     {
         $conn = new connect();
-        $conn->createHtmlMessages('No Login details found in current session', 'Please relog', 'login', false);
+        $conn->createHtmlMessages('', 'No Login details found in current session', 'Please relog', 'login', false);
         exit();
     }
 ?>

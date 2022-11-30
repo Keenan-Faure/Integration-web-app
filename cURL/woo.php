@@ -9,7 +9,7 @@
 
     if(!isset($_SESSION['connection']->token))
     {
-        $conn->createHtmlMessages('Error connecting to user session', 'No connection found in current session, please re-connect', 'login', 'info');
+        $conn->createHtmlMessages('', 'Error connecting to user session', 'No connection found in current session, please re-connect', 'login', 'info');
         exit();
     }
 ?>

@@ -137,7 +137,6 @@ input[type=text]:focus, input[type=password]:focus
 {
     position: relative;
     width: 300px;
-    height: 250px;
     background-color: rgba(128, 128, 128, 0.6);
     left: 50%;
     transform: translate(-50%, -40%);
@@ -146,6 +145,15 @@ input[type=text]:focus, input[type=password]:focus
     border-style: inset;
     border-width: 1px;
     z-index: 1;
+}
+.jsonText
+{
+    background-color: white;
+    color: green;
+    font-size: 12px;
+    border-radius: 5px;
+    border-style: inset;
+    border-width: 1px;
 }
 .cen
 {

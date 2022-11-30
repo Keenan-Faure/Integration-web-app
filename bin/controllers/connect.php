@@ -75,7 +75,7 @@ else if(isset($_POST['runame']) && isset($_POST['rpsw']))
     {
         $message = 'User ' . $_POST['runame'] . ' already exists in database';
         $solution = 'Click the button below to return to the login page and try again';
-        $conn->createHtmlMessages($message, $solution, '../auth/register', 'warn');
+        $conn->createHtmlMessages('', $message, $solution, '../auth/register', 'warn');
         exit();
     }
     else
@@ -99,7 +99,7 @@ else if(isset($_POST['runame']) && isset($_POST['rpsw']))
         //creates html message
         $message = 'User ' . $_POST['runame'] . ' was created successfully';
         $solution = 'Click the button below to return to the login page';
-        $conn->createHtmlMessages($message, $solution, 'login', 'info');
+        $conn->createHtmlMessages('', $message, $solution, 'login', 'info');
         if(isset($_SESSION['log']))
         {
             $conn->addLogs("User creation", "Please review user: '" . $_POST['runame'] . "' before activation", date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), "info", true);

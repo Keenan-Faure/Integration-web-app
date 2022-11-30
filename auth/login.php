@@ -21,7 +21,7 @@
     {
         if($result->connection == false)
         {
-            $conn->createHtmlMessages($result->message, "Please ensure:<br> - MySQL is installed <br> - MySQL is running <br> - Credentials are configured in the config file", '../auth/login', 'warn');
+            $conn->createHtmlMessages('', $result->message, "Please ensure:<br> - MySQL is installed <br> - MySQL is running <br> - Credentials are configured in the config file", '../auth/login', 'warn');
             exit();
         }
     }
