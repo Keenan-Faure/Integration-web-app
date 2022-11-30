@@ -22,8 +22,10 @@
 
     //verify data sent using headers
     $webHookRegistered = $order->verifyWebhook($requestBody, $headers, $_woo_settings);
+
     if($webHookRegistered == true)
     {
+
         $requestBody = json_decode($requestBody);
 
         //check if the order is already found in the database
@@ -31,15 +33,12 @@
         if($exists == true)
         {
             //update existing order
-            //test adding order (objects) into database
-            //$order->updateOrder();
-            print_r("order is updated");
+            $order->updateOrder($requestBody, $conn, $_settings);
         }
         else
         {
             //add new order
-            //$order->addOrder();
-            print_r("order is added");
+            $order->addOrder($requestBody, $conn, $_settings);
         }
     }
     // else
