@@ -84,14 +84,131 @@
                 </div>
             </div>
             <div class="orderContainer">
-                <textarea id='textarea' class='title'>Order ID: 8907</textarea>
-                <div class='status'>
-                    Order Status: <button class='orderStatus'>Processing</button>
+                <div class='saveCloseContainer'>
+                    <textarea id='textarea' class='title'>Order ID: 8907</textarea>
+                    <button class='dates'>Show Dates</button>
+                    <textarea id='textarea' class='createdDate'> ▶ Created : 2022-11-29T09:04:55Z</textarea>
+                    <textarea id='textarea' class='modifiedDate'> ▶ Updated : 2022-11-29T09:04:55Z</textarea>
+                    <textarea id='textarea' class='completedDate'> ▶ Completed : 2022-11-29T09:04:55Z</textarea>
+                    <div class='status'>
+                        Order Status: <button class='orderStatus'>Processing</button>
+                    </div>
+                    <div class='paymentDetails'>
+                        <div class='method'>Payment Details:</div>
+                        <div class='hr-1'></div>
+                        <div class='method-title'>
+                            Payment method: <button class='button-title'>Direct Bank Transfer</button>
+                        </div>
+                        <div class='payment-status'>
+                            Status: <button class='button-status'>Unpaid</button>
+                        </div>
+                    </div>
                 </div>
-                <div class='headerLine'></div>
-                <div class='customerDetailsContainer'>
 
+                <div class="General">
+                    <div class="vData" id="vDatad"><p>Order Details</p></div>
+                    <div class="vData" id="cData"><p>JSON Data</p></div>
                 </div>
+
+
+                <div class="GeneralContentContainer" id="general">
+                    <div class='customerDetailsContainer'>
+                        <div class='customerGeneral'>
+                            <div class='heading'>Customer General Details</div>
+                            <hr>
+                            <div class='dataField'>
+                                <div class='customer-name'>ID</div><textarea class='customer-value'>ID</textarea>
+                            </div>
+                            <div class='dataField'>
+                                <div class='customer-name'>First Name</div><textarea class='customer-value'>First Name customer</textarea>
+                            </div>
+                            <div class='dataField'>
+                                <div class='customer-name'>Last Name</div><textarea class='customer-value'>Last name customer</textarea>
+                            </div>
+                            <div class='dataField'>
+                                <div class='customer-name'>Email</div><textarea class='customer-value'>Email Address</textarea>
+                            </div>
+                            <div class='dataField'>
+                                <div class='customer-name'>Username</div><textarea class='customer-value'>Woocommerce Username</textarea>
+                            </div>
+                        </div>
+                        <div class='customerBilling'>
+                            <div class='heading'>Customer Billing Details</div>
+                            <hr>
+                            <div class='dataField'>
+                                <div class='customer-name'>First Name</div><textarea class='customer-value'>billing first name</textarea>
+                            </div>
+                            <div class='dataField'>
+                                <div class='customer-name'>Last Name</div><textarea class='customer-value'>billing last name</textarea>
+                            </div>
+                            <div class='dataField'>
+                                <div class='customer-name'>Company</div><textarea class='customer-value'>billing company</textarea>
+                            </div>
+                            <div class='dataField'>
+                                <div class='customer-name'>Address 1</div><textarea class='customer-value'>billing address 1</textarea>
+                            </div>
+                            <div class='dataField'>
+                                <div class='customer-name'>Address 2</div><textarea class='customer-value'>billing address 2</textarea>
+                            </div>
+                            <div class='dataField'>
+                                <div class='customer-name'>City</div><textarea class='customer-value'>billing city</textarea>
+                            </div>
+                            <div class='dataField'>
+                                <div class='customer-name'>State</div><textarea class='customer-value'>billing state</textarea>
+                            </div>
+                            <div class='dataField'>
+                                <div class='customer-name'>Phone</div><textarea class='customer-value'>billing phone</textarea>
+                            </div>
+                        </div>
+                        <div class='customerShipping'>
+                            <div class='heading'>Customer Shipping Details</div>
+                            <hr>
+                            <div class='dataField'>
+                                <div class='customer-name'>First Name</div><textarea class='customer-value'>shipping first name</textarea>
+                            </div>
+                            <div class='dataField'>
+                                <div class='customer-name'>Last Name</div><textarea class='customer-value'>shipping last name</textarea>
+                            </div>
+                            <div class='dataField'>
+                                <div class='customer-name'>Company</div><textarea class='customer-value'>shipping company</textarea>
+                            </div>
+                            <div class='dataField'>
+                                <div class='customer-name'>Address 1</div><textarea class='customer-value'>shipping address 1</textarea>
+                            </div>
+                            <div class='dataField'>
+                                <div class='customer-name'>Address 2</div><textarea class='customer-value'>shipping address 2</textarea>
+                            </div>
+                            <div class='dataField'>
+                                <div class='customer-name'>City</div><textarea class='customer-value'>shipping city</textarea>
+                            </div>
+                            <div class='dataField'>
+                                <div class='customer-name'>State</div><textarea class='customer-value'>shipping state</textarea>
+                            </div>
+                            <div class='dataField'>
+                                <div class='customer-name'>Phone</div><textarea class='customer-value'>shipping phone</textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
             </div> 
     </body>
+    <script>
+        $(document).ready(()=>
+        {
+            $('.dates').click(()=>
+            {
+                $('.createdDate').fadeIn(300);
+                setTimeout(()=>
+                {
+                    $('.modifiedDate').fadeIn(300);
+                },300);
+                setTimeout(()=>
+                {
+                    $('.completedDate').fadeIn(300);
+                },600);
+            });
+        });
+    </script>
 </html>

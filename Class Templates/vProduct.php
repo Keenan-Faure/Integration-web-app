@@ -148,7 +148,7 @@ Class vProducts
             Meta_2,
             Meta_3,
             Audit_Date,
-            User
+            Users
         )
 
         VALUES 
@@ -178,7 +178,7 @@ Class vProducts
             date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']) . "','"
             . $_SESSION['clientConn']->token . "');"
         ;
-        $connection->converterObject($rawConnection, $query);
+        $output = $connection->converterObject($rawConnection, $query);
 
         $query_ = "INSERT INTO Woocommerce 
         (

@@ -129,6 +129,10 @@ class Connection
     // - and the link that redirects the user
     function createHtmlMessages($extension = '', $message = 'No msg specified', $solution = 'No Solution provided', $link = '', $type = 'warn')
     {
+        if($extension == null)
+        {
+            $extension = '.php';
+        }
         echo("
             <html>
                 <head>

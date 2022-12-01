@@ -32,6 +32,7 @@
             $query2 = 'SELECT ID, customer, orderStatus, auditDate, total  FROM Orders LIMIT ' . (($page-1) * 10) . ', ' . (10);
             $output2 = $connection2->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
 
+            print_r($output2);
             //unserialize values
             if(sizeof($output2->result) > 0)
             {
