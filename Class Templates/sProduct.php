@@ -154,7 +154,7 @@ Class sProducts
             $product->meta2 . "','" . 
             $product->meta3 . "','" .
             date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']) . "','"
-            . $_SESSION['clientConn']->credentials->token . "');"
+            . $_SESSION['clientConn']->token . "');"
         ;
         $connection->converterObject($rawConnection, $query);
 
