@@ -152,7 +152,6 @@
                 $rawConnection = $conn->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
                 $jsonLogs = json_encode($conn->converterObject($rawConnection, 'SELECT * FROM Logs')->result);
                 echo("<script>initiatorCreateLogs($jsonLogs);</script>");
-                
             ?>
         </div>  
     </body>
