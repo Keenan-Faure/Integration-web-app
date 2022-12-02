@@ -119,19 +119,19 @@
                             <hr>
                             <div>
                                 <div class='dataField'>
-                                    <div class='customer-name gen-val'>ID</div><textarea class='customer-value'>ID</textarea>
+                                    <div class='customer-name gen-data'>ID</div><textarea class='customer-value gen-value'>ID</textarea>
                                 </div>
                                 <div class='dataField'>
-                                    <div class='customer-name gen-val'>First Name</div><textarea class='customer-value'>First Name customer</textarea>
+                                    <div class='customer-name gen-data'>First Name</div><textarea class='customer-value gen-value'>First Name customer</textarea>
                                 </div>
                                 <div class='dataField'>
-                                    <div class='customer-name gen-val'>Last Name</div><textarea class='customer-value'>Last name customer</textarea>
+                                    <div class='customer-name gen-data'>Last Name</div><textarea class='customer-value gen-value'>Last name customer</textarea>
                                 </div>
                                 <div class='dataField'>
-                                    <div class='customer-name gen-val'>Email</div><textarea class='customer-value' id='importDetails'>Email Address</textarea>
+                                    <div class='customer-name gen-data'>Email</div><textarea class='customer-value gen-value' id='importDetails'>Email Address</textarea>
                                 </div>
                                 <div class='dataField'>
-                                    <div class='customer-name gen-val'>Username</div><textarea class='customer-value'>Woocommerce Username</textarea>
+                                    <div class='customer-name gen-data'>Username</div><textarea class='customer-value gen-value'>Woocommerce Username</textarea>
                                 </div>
                             </div>
                         </div>

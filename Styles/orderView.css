@@ -563,10 +563,12 @@ textarea
     from
     {
         height: 0px;
+        padding: 0 0 0 20px;
     }
     to
     {
-        height: 240px;
+        padding: 5px 0px 5px 20px;
+        height: 20px;
     }
 }
 
@@ -579,10 +581,11 @@ textarea
 {
     from
     {
-        height: 240px;
+        height: 20px;
     }
     to
     {
+        padding: 0;
         height: 0px;
     }
 }
