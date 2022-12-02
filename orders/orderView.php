@@ -119,19 +119,19 @@
                             <hr>
                             <div>
                                 <div class='dataField'>
-                                    <div class='customer-name'>ID</div><textarea class='customer-value'>ID</textarea>
+                                    <div class='customer-name gen-val'>ID</div><textarea class='customer-value'>ID</textarea>
                                 </div>
                                 <div class='dataField'>
-                                    <div class='customer-name'>First Name</div><textarea class='customer-value'>First Name customer</textarea>
+                                    <div class='customer-name gen-val'>First Name</div><textarea class='customer-value'>First Name customer</textarea>
                                 </div>
                                 <div class='dataField'>
-                                    <div class='customer-name'>Last Name</div><textarea class='customer-value'>Last name customer</textarea>
+                                    <div class='customer-name gen-val'>Last Name</div><textarea class='customer-value'>Last name customer</textarea>
                                 </div>
                                 <div class='dataField'>
-                                    <div class='customer-name'>Email</div><textarea class='customer-value' id='importDetails'>Email Address</textarea>
+                                    <div class='customer-name gen-val'>Email</div><textarea class='customer-value' id='importDetails'>Email Address</textarea>
                                 </div>
                                 <div class='dataField'>
-                                    <div class='customer-name'>Username</div><textarea class='customer-value'>Woocommerce Username</textarea>
+                                    <div class='customer-name gen-val'>Username</div><textarea class='customer-value'>Woocommerce Username</textarea>
                                 </div>
                             </div>
                         </div>
