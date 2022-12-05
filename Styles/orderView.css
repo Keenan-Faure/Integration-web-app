@@ -193,10 +193,6 @@ h1:hover
 {
     background-color:rgba(109, 109, 109, 0.98)
 }
-#gData
-{
-    width: 50%;
-}
 .GeneralContentContainer
 {
     position: absolute;
@@ -206,12 +202,12 @@ h1:hover
     left: 0px;
     top: 140px;
 }
-#variant
+#customer
 {
     z-index: -10;
     display: none;
 }
-#connector
+#json
 {
     z-index: -10;
     display: none;
@@ -368,16 +364,6 @@ textarea
     width: 180px;
     padding: 5px;
 }
-.headerLine
-{
-    display: block;
-    position: absolute;
-    width: 94%;
-    left: 2%;
-    height: 0.1px;
-    background-color: #ffffff;
-    top: 60%;
-}
 .hr-1
 {
         /* display: block; */
@@ -479,12 +465,11 @@ textarea
 }
 .customerDetailsContainer
 {
-    position: absolute;
+    position: relative;
     /* padding: 5px; */
     /* top: 5px; */
     width: 99%;
     background-color: rgba(255, 255, 255, 0.9);
-    height: 300px;
     border-radius: 0px 0px 15px 15px;
 }
 .customerGeneral
@@ -492,30 +477,36 @@ textarea
     position: absolute;
     display: inline-block;
     left: 0;
-    width: 33%;
+    width: 34%;
 }
 .customerBilling
 {
     position: absolute;
     display: inline-block;
-    left: 33%;
+    left: 34%;
     width: 33%;
 }
 .customerShipping
 {
     position: absolute;
-    left: 66%;
+    left: 67%;
     display: inline-block;
-    width: 33%;
+    width: 34%;
 }
 .heading
 {
     color: rgb(0, 0, 0);
     font-family: system-ui;
     position: relative;
+    padding: 15px 0px;
     text-align: center;
+    background-color: wheat;
     font-size: 18px;
     cursor: pointer;
+}
+.heading:hover
+{
+    background-color: rgba(0,0,0, 0.6);
 }
 .dataField
 {
@@ -528,26 +519,25 @@ textarea
     width: 25%;
     font-size: 14px;
     left: 0%;
-    height: 20px;
-    padding: 5px 0px 5px 20px;
     text-align: left;
     color: white;
     top: 5%;
-    display: inline-block;
     background-color: #1f1f1f;
+    padding: 5px 0px 5px 20px;
+    height: 20px;
 }
 .customer-value
 {
     width: 65%;
-    padding: 5px 0px 5px 10px;
+    padding: 0px;
     font-size: 14px;
-    height: 30px;
     color: black;
     text-align: left;
-    display: inline-block;
     background-color: rgba(255, 255, 255, 0);
-    border-bottom: 1px solid black;
     cursor: pointer;
+    padding: 5px 0px 5px 20px;
+    height: 30px;
+    border-bottom: 1px solid black;
 }
 /*
     keyframes for general, billing and shipping
@@ -558,45 +548,6 @@ textarea
     background-color: orange;
 }
 
-@keyframes increase
-{
-    from
-    {
-        height: 0px;
-        padding: 0 0 0 20px;
-    }
-    to
-    {
-        padding: 5px 0px 5px 20px;
-        height: 20px;
-    }
-}
-
-.increaser
-{
-    animation: increase 0.5s ease-in forwards;
-}
-
-@keyframes decrease
-{
-    from
-    {
-        height: 20px;
-    }
-    to
-    {
-        padding: 0;
-        height: 0px;
-    }
-}
-
-.decreaser
-{
-    animation: decrease 0.5s ease-in forwards;
-}
-
-/**     **/
-
 #importDetails
 {
     text-decoration: underline;
@@ -605,18 +556,41 @@ textarea
 .headerLine
 {
     display: block;
-    position: absolute;
+    position: relative;
     width: 94%;
     left: 2%;
     height: 0.1px;
     background-color: #ffffff;
-    top: 60%;
 }
+
+/* Order Data */
 .productItemContainer
 {
-    position: absolute;
+    position: relative;
     width: 100%;
     height: 104px;
-    top: 65%;
     background-color: rgba(255, 255, 255, 0.6);
+}
+
+
+
+
+
+
+/* JSON Data */
+#json
+{
+    height: auto;
+}
+.jsonText
+{
+    background-color: rgba(0,0,0,0.8);
+    color: #8dcb08;
+    font-size: 14px;
+    float: left;
+    border-radius: 5px;
+    border-style: inset;
+    border-width: 1px;
+    width: 100%;
+    white-space: pre-wrap;
 }

@@ -81,7 +81,6 @@
                         </div>
                     </div>
                     <a href="../importUtils/import.html" class="buttonOption"></a>
-                    </div>
                 </div>
             </div>
             <div class="orderContainer">
@@ -108,35 +107,56 @@
 
                 <div class="General">
                     <div class="vData" id="vDatad"><p>Order Details</p></div>
-                    <div class="vData" id="cData"><p>JSON Data</p></div>
+                    <div class="vData" id="cData"><p>Customer data</p></div>
+                    <div class="vData" id="jData"><p>JSON Data</p></div>
                 </div>
 
-
+                <!-- General order data -->
                 <div class="GeneralContentContainer" id="general">
+                    <div class='productItemContainer'>
+                        <div class='headers'>
+                            <div class='productData'>
+                                <div class='image'></div>
+                                <div class='title'></div>
+                                <div class='sku'></div>
+                                <div class='options'></div>
+                            </div>
+                            <div class='Price'></div>
+                            <div class='Quantity'></div>
+                            <div class='VAT'></div>
+                            <div class='ID'></div>
+                        </div>
+                        <div class='data'>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Customer order data -->
+                <div class='GeneralContentContainer' id='customer'>
                     <div class='customerDetailsContainer'>
                         <div class='customerGeneral'>
                             <div class='heading cust-gen'>Customer General Details</div>
                             <hr>
                             <div>
                                 <div class='dataField'>
-                                    <div class='customer-name gen-data'>ID</div><textarea class='customer-value gen-value'>ID</textarea>
+                                    <div class='customer-name'>ID</div><textarea class='customer-value'>ID</textarea>
                                 </div>
                                 <div class='dataField'>
-                                    <div class='customer-name gen-data'>First Name</div><textarea class='customer-value gen-value'>First Name customer</textarea>
+                                    <div class='customer-name'>First Name</div><textarea class='customer-value'>First Name customer</textarea>
                                 </div>
                                 <div class='dataField'>
-                                    <div class='customer-name gen-data'>Last Name</div><textarea class='customer-value gen-value'>Last name customer</textarea>
+                                    <div class='customer-name'>Last Name</div><textarea class='customer-value'>Last name customer</textarea>
                                 </div>
                                 <div class='dataField'>
-                                    <div class='customer-name gen-data'>Email</div><textarea class='customer-value gen-value' id='importDetails'>Email Address</textarea>
+                                    <div class='customer-name'>Email</div><textarea class='customer-value' id='importDetails'>Email Address</textarea>
                                 </div>
                                 <div class='dataField'>
-                                    <div class='customer-name gen-data'>Username</div><textarea class='customer-value gen-value'>Woocommerce Username</textarea>
+                                    <div class='customer-name'>Username</div><textarea class='customer-value'>Woocommerce Username</textarea>
                                 </div>
                             </div>
                         </div>
                         <div class='customerBilling'>
-                            <div class='heading cust-bill'>Customer Billing Details</div>
+                            <div class='heading'>Customer Billing Details</div>
                             <hr>
                             <div>
                                 <div class='dataField'>
@@ -166,7 +186,7 @@
                             </div>
                         </div>
                         <div class='customerShipping'>
-                            <div class='heading cust-ship'>Customer Shipping Details</div>
+                            <div class='heading'>Customer Shipping Details</div>
                             <hr>
                             <div>
                                 <div class='dataField'>
@@ -197,12 +217,141 @@
                         </div>
 
                     </div>
-                    <div class='headerLine'></div>
-                    <div class='productItemContainer'>
-
-                    </div>
                 </div>
-
+                <!-- JSON order data -->
+                <div class="GeneralContentContainer" id="json">
+                    <pre class='jsonText'>
+{
+    "order": {
+        "id": 7002,
+        "order_number": "7002",
+        "order_key": "wc_order_HVoFnY3EmPAeq",
+        "created_at": "2022-11-29T09:04:55Z",
+        "updated_at": "2022-12-02T07:03:38Z",
+        "completed_at": "1970-01-01T00:00:00Z",
+        "status": "pending",
+        "currency": "ZAR",
+        "total": "920.00",
+        "subtotal": "800.00",
+        "total_line_items_quantity": 1,
+        "total_tax": "120.00",
+        "total_shipping": "0.00",
+        "cart_tax": "120.00",
+        "shipping_tax": "0.00",
+        "total_discount": "0.00",
+        "shipping_methods": "",
+        "payment_details": {
+            "method_id": "bacs",
+            "method_title": "Direct bank transfer",
+            "paid": false
+        },
+        "billing_address": {
+            "first_name": "Keenan",
+            "last_name": "Faure",
+            "company": "Hoyoverse",
+            "address_1": "14 Tracy Close",
+            "address_2": "Montrose Park",
+            "city": "Cape Town",
+            "state": "WC",
+            "postcode": "7785",
+            "country": "ZA",
+            "email": "keenan@stock2shop.com",
+            "phone": "0123456781"
+        },
+        "shipping_address": {
+            "first_name": "Keenan",
+            "last_name": "Faure",
+            "company": "Hoyoverse",
+            "address_1": "14 Tracy Close",
+            "address_2": "Montrose Park",
+            "city": "Cape Town",
+            "state": "WC",
+            "postcode": "7785",
+            "country": "ZA"
+        },
+        "note": "I am a note",
+        "customer_ip": "",
+        "customer_user_agent": "",
+        "customer_id": 10,
+        "view_order_url": "https://s2s.ucc.co.za/my-account/view-order/7002/",
+        "line_items": [
+            {
+                "id": 333,
+                "subtotal": "800.00",
+                "subtotal_tax": "120.00",
+                "total": "800.00",
+                "total_tax": "120.00",
+                "price": "800.00",
+                "quantity": 1,
+                "tax_class": "",
+                "name": "Database Software V10 - N/A",
+                "product_id": 4233,
+                "sku": "DB/9/0/10",
+                "meta": [
+                    {
+                        "key": "option-1",
+                        "value": "N/A",
+                        "label": "Option 1"
+                    }
+                ]
+            }
+        ],
+        "shipping_lines": [],
+        "tax_lines": [
+            {
+                "id": 334,
+                "rate_id": 1,
+                "code": "ZA-VAT-1",
+                "title": "VAT",
+                "total": "120.00",
+                "compound": false
+            }
+        ],
+        "fee_lines": [],
+        "coupon_lines": [],
+        "customer": {
+            "id": 10,
+            "created_at": "2022-04-07T07:40:24Z",
+            "last_update": "2022-11-09T14:47:13Z",
+            "email": "keenan@stock2shop.com",
+            "first_name": "Keenan",
+            "last_name": "Faure",
+            "username": "keenan",
+            "role": "administrator",
+            "last_order_id": 7002,
+            "last_order_date": "2022-11-29T09:04:55Z",
+            "orders_count": 39,
+            "total_spent": "49288.35",
+            "avatar_url": "https://secure.gravatar.com/avatar/81e08af00c5dfe8fb493d09ba1163d98?s=96&d=mm&r=g",
+            "billing_address": {
+                "first_name": "Keenan",
+                "last_name": "Faure",
+                "company": "Easy",
+                "address_1": "14 Tracy Close",
+                "address_2": "",
+                "city": "Cape Town",
+                "state": "WC",
+                "postcode": "7785",
+                "country": "ZA",
+                "email": "keenan@stock2shop.com",
+                "phone": ""
+            },
+            "shipping_address": {
+                "first_name": "Keenan",
+                "last_name": "Faure",
+                "company": "Easy",
+                "address_1": "14 Tracy Close",
+                "address_2": "",
+                "city": "Cape Town",
+                "state": "WC",
+                "postcode": "7785",
+                "country": "ZA"
+            }
+        }
+    }
+}
+                    </pre>
+                </div>
             </div> 
     </body>
 </html>
