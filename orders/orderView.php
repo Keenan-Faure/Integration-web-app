@@ -114,21 +114,52 @@
                 <!-- General order data -->
                 <div class="GeneralContentContainer" id="general">
                     <div class='productItemContainer'>
-                        <div class='headers'>
-                            <div class='productData'>
-                                <div class='image'></div>
-                                <div class='title'></div>
-                                <div class='sku'></div>
-                                <div class='options'></div>
-                            </div>
-                            <div class='Price'></div>
-                            <div class='Quantity'></div>
-                            <div class='VAT'></div>
-                            <div class='ID'></div>
+                        <hr>
+                        <div class='headers-head'>
+                            <div class='headers' id='product'>Product</div>
+                            <div class='headers' id='price'>Price</div>
+                            <div class='headers' id='amount'>Amount</div>
+                            <div class='headers' id='id'>Total</div>
+                            <div class='headers' id='vat'>VAT</div>
                         </div>
                         <div class='data'>
-
+                            <div class='pData' id='product'>
+                                <div class='imageContainer'>
+                                    <img class='image' src='../Images/image1.png'>
+                                </div>
+                                <div class='dataContainer'>
+                                    <div class='dataValues orderTitle'><b>Title:</b> Balled of Goblets - Venti</div>
+                                    <div class='dataValues sku'><b>SKU:</b> GenImp-V-AA</div>
+                                    <div class='dataValues meta'></div>
+                                </div>
+                            </div>
+                            <div class='priced' id='price'>R1700</div>
+                            <div class='amountd' id='amount'>&times; 1</div>
+                            <div class='idd' id='id'>R1700</div>
+                            <div class='vatd' id='vat'>R175</div>
                         </div>
+                        <div class='data'>
+                            <div class='pData' id='product'>
+                                <div class='imageContainer'>
+                                    <img class='image' src='../Images/image1.png'>
+                                </div>
+                                <div class='dataContainer'>
+                                    <div class='dataValues orderTitle'><b>Title: </b> Violet - Yae Miko</div>
+                                    <div class='dataValues sku'><b>SKU:</b> GenImp-Y-EC</div>
+                                    <div class='dataValues meta'></div>
+                                </div>
+                            </div>
+                            <div class='priced' id='price'>R1500</div>
+                            <div class='amountd' id='amount'>&times; 2</div>
+                            <div class='idd' id='id'>R3000</div>
+                            <div class='vatd' id='vat'>R155</div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class='calc'>
+                        <div class='calcText'>Subtotal: R4500.00</div>
+                        <div class='calcText'>VAT: R325.00</div>
+                        <div class='calcText'>Total: R4835.00</div>
                     </div>
                 </div>
                 <!-- Customer order data -->

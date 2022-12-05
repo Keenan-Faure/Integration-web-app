@@ -568,13 +568,124 @@ textarea
 {
     position: relative;
     width: 100%;
-    height: 104px;
     background-color: rgba(255, 255, 255, 0.6);
 }
+.headers-head
+{
+    position: relative;
+    width: 100%;
+    display: flex;
+}
+.headers
+{
+    font-size: 14px;
+    color: rgb(255, 255, 255);
+    font-family: system-ui;
+    text-align: center;
+    padding: 10px 0;
+    background-color: rgb(59,60,59);
+}
+.data
+{
+    position: relative;
+    width: 100%;
+    display: flex;
+}
+.pData
+{
+    padding: 10px 0px 10px 0px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+#product
+{
+    width: 40%;
+}
+#price
+{
+    width: 15%;
+    
+}
+#amount
+{
+    width: 15%;
+}
+#vat
+{
+    width: 15%;
+}
+#id
+{
+    width: 15%;
+}
 
-
-
-
+.imageContainer
+{
+    position: relative;
+    width: 25%;
+    border-radius: 1px solid grey;
+}
+.image
+{
+    background-image: url(../Images/image1.png);
+    width: 40px;
+    left: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: white;
+    position: relative;
+}
+.dataContainer
+{
+    position: relative;
+    width: 75%;
+}
+.dataValues
+{
+    color: rgb(58, 58, 58);
+    position: relative;
+    font-size: 14px;
+    margin: 10px 0px;
+    font-family: system-ui;
+}
+.idd
+{
+    padding-top: 27px;
+    text-align: center;
+    color: rgb(58, 58, 58);
+    position: relative;
+    font-size: 16px;
+    font-family: system-ui;
+}
+.vatd
+{
+    padding-top: 27px;
+    text-align: center;
+    color: rgb(58, 58, 58);
+    position: relative;
+    font-size: 16px;
+    font-family: system-ui;
+}
+.amountd
+{
+    padding-top: 27px;
+    text-align: center;
+    color: rgb(58, 58, 58);
+    position: relative;
+    font-size: 16px;
+    font-family: system-ui;
+}
+.priced
+{
+    padding-top: 27px;
+    text-align: center;
+    color: rgb(58, 58, 58);
+    position: relative;
+    font-size: 16px;
+    font-family: system-ui;
+}
 
 
 /* JSON Data */
@@ -593,4 +704,20 @@ textarea
     border-width: 1px;
     width: 100%;
     white-space: pre-wrap;
+}
+
+.calc
+{
+    background-color: rgba(255, 255, 255, 0.6);
+    position: relative;
+    width: 100%; 
+}
+
+.calcText
+{
+    color: rgb(58, 58, 58);
+    font-size: 16px;
+    font-family: system-ui;
+    text-align: right;
+    margin: 20px 0px;
 }
