@@ -590,6 +590,11 @@ textarea
     position: relative;
     width: 100%;
     display: flex;
+    transition-duration: 0.3s;
+}
+.data:hover
+{
+    background-color: rgba(202, 202, 202, 0.7);
 }
 .pData
 {
