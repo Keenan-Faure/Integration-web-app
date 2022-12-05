@@ -615,7 +615,7 @@ textarea
 {
     width: 15%;
 }
-#id
+#total
 {
     width: 15%;
 }
@@ -650,7 +650,7 @@ textarea
     margin: 10px 0px;
     font-family: system-ui;
 }
-.idd
+.totald
 {
     padding-top: 27px;
     text-align: center;
@@ -660,6 +660,24 @@ textarea
     font-family: system-ui;
 }
 .vatd
+{
+    padding-top: 27px;
+    text-align: center;
+    color: rgb(58, 58, 58);
+    position: relative;
+    font-size: 16px;
+    font-family: system-ui;
+}
+.ship_vatd
+{
+    padding-top: 27px;
+    text-align: center;
+    color: rgb(58, 58, 58);
+    position: relative;
+    font-size: 16px;
+    font-family: system-ui;
+}
+.total_shipd
 {
     padding-top: 27px;
     text-align: center;
@@ -708,16 +726,23 @@ textarea
 
 .calc
 {
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.8);
     position: relative;
-    width: 100%; 
+    width: 100%;
+    left: 0%;
+    padding: 15px 0px;
 }
-
-.calcText
+table
 {
-    color: rgb(58, 58, 58);
+    position: relative;
+    width: 40%;
+    left: 55%;
+}
+th
+{
+    padding: 5px 0px;
+    text-align: right;
+    font-weight: normal;
     font-size: 16px;
     font-family: system-ui;
-    text-align: right;
-    margin: 20px 0px;
 }

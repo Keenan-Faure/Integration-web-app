@@ -119,7 +119,7 @@
                             <div class='headers' id='product'>Product</div>
                             <div class='headers' id='price'>Price</div>
                             <div class='headers' id='amount'>Amount</div>
-                            <div class='headers' id='id'>Total</div>
+                            <div class='headers' id='total'>Total</div>
                             <div class='headers' id='vat'>VAT</div>
                         </div>
                         <div class='data'>
@@ -135,7 +135,7 @@
                             </div>
                             <div class='priced' id='price'>R1700</div>
                             <div class='amountd' id='amount'>&times; 1</div>
-                            <div class='idd' id='id'>R1700</div>
+                            <div class='totald' id='total'>R1700</div>
                             <div class='vatd' id='vat'>R175</div>
                         </div>
                         <div class='data'>
@@ -151,15 +151,40 @@
                             </div>
                             <div class='priced' id='price'>R1500</div>
                             <div class='amountd' id='amount'>&times; 2</div>
-                            <div class='idd' id='id'>R3000</div>
+                            <div class='totald' id='total'>R3000</div>
                             <div class='vatd' id='vat'>R155</div>
+                        </div>
+                        <div class='data'>
+                            <div class='pData' id='product'>
+                                <div class='imageContainer'>
+                                    <img class='image' src='../Images/ship.jpeg'>
+                                </div>
+                                <div class='dataContainer'>
+                                    <div class='dataValues shipTitle'><b>Title:</b> Shipping methods</div>
+                                </div>
+                            </div>
+                            <div class='priced' id='price'></div>
+                            <div class='amountd' id='amount'></div>
+                            <div class='total_shipd' id='total'>total_shipping</div>
+                            <div class='ship_vatd' id='vat'>shipping_tax</div>
                         </div>
                     </div>
                     <hr>
                     <div class='calc'>
-                        <div class='calcText'>Subtotal: R4500.00</div>
-                        <div class='calcText'>VAT: R325.00</div>
-                        <div class='calcText'>Total: R4835.00</div>
+                        <table>
+                            <tr>
+                                <th>Subtotal:</th>
+                                <th>Value</th>
+                            </tr>
+                            <tr>
+                                <th>VAT:</th>
+                                <th>Value</th>
+                            </tr>
+                            <tr>
+                                <th>Total:</th>
+                                <th>Value</th>
+                            </tr>
+                        </table>
                     </div>
                 </div>
                 <!-- Customer order data -->
