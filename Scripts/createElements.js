@@ -39,7 +39,6 @@ function createLogs(logsJson)
 
 
 
-    let logContainer = document.querySelector('.info-report');
     for(let i = 0; i < logsJson.length; ++i)
     {
         let returns = convertJsonToArray(logsJson[i]);
@@ -562,7 +561,7 @@ function setCustomerText(classNames, text, formNames)
     }
 }
 // +----------------------------------------------+
-// | Run-format of the functions (productList.php)|
+// | Run-format of the functions (orderList.php)  |
 // | initiatorCreateOrders   -> createOrders   -> |
 // | convertJsonToArray                           |
 // +----------------------------------------------+
@@ -666,6 +665,108 @@ function createOrders(orders)
             form.appendChild(document.createElement('hr'));
         }
     }
+}
+
+/**
+ * order_id
+ * created_at
+ * updated_at
+ * completed_at
+ * 
+ * button-title
+ * if(order.payment_details.paid == false)
+ *      button-status
+ * 
+ * loop for line items - create entire product line item from scratch
+ * {
+ * <div class='data'>
+        <div class='pData' id='product'>
+            <div class='imageContainer'>
+                <img class='image' src='../Images/image1.png'>
+            </div>
+            <div class='dataContainer'>
+                <div class='dataValues orderTitle'><b>Title:</b> Balled of Goblets - Venti</div>
+                <div class='dataValues sku'><b>SKU:</b> GenImp-V-AA</div>
+                <div class='dataValues meta'></div>
+            </div>
+        </div>
+        <div class='priced' id='price'>R1700</div>
+        <div class='amountd' id='amount'>&times; 1</div>
+        <div class='totald' id='total'>R1700</div>
+        <div class='vatd' id='vat'>R175</div>
+    </div>
+
+    //check for shipping as well
+    <div class='data'>
+        <div class='pData' id='product'>
+            <div class='imageContainer'>
+                <img class='image' src='../Images/ship.jpeg'>
+            </div>
+            <div class='dataContainer'>
+                <div class='dataValues shipTitle'><b>Title:</b> Shipping methods</div>
+            </div>
+        </div>
+        <div class='priced' id='price'></div>
+        <div class='amountd' id='amount'></div>
+        <div class='total_shipd' id='total'>total_shipping</div>
+        <div class='ship_vatd' id='vat'>shipping_tax</div>
+    </div>
+ * }
+ * subtotal
+ * total
+ * vattotal
+ * 
+ * //customer details
+ * custid
+ * cust-fname
+ * cust-lname
+ * cust-email
+ * cust-uname
+ * 
+ * //billing details
+ * bill-fname
+ * bill-lname
+ * bill-comp
+ * bill-addr1
+ * bill-addr2
+ * bill-city
+ * bill-state
+ * bill-cell
+ * 
+ * //shipping details
+ * ship-fname
+ * ship-lname
+ * ship-comp
+ * ship-addr1
+ * ship-addr2
+ * ship-city
+ * ship-state
+ * ship-cell
+ * 
+ * //jsondata
+ * full payload in database
+ */
+
+// +----------------------------------------------+
+// | Run-format of the functions (orderView.php)  |
+// | getOrderClassNames -> convertJsonToArray     |
+// |                                              |
+// +----------------------------------------------+
+
+function getOrderClassNames()
+{
+    $(document).ready(()=>
+    {
+        //parallel array containing all the 
+        //classNames defined in the DOM
+        let generalClassNames = [null, null, 'act', 's', 'titleContainer', 'longDescriptionContainer', 'pc', 'cl', 'pt', 'vd', 'vc', 'bc', 
+        'wv', 'ctp', 'sp', 'q', 'on1', 'ov1', 'on2', 'ov2', 'm1', 'm2', 'm3'];
+        let formNames = [null, null, 'active', 'sku', 'title', 'description', 'groupingCode', 'category', 'productType', 'brand', 'variantCode', 'barcode', 'weight', 
+        'comparePrice', 'sellingPrice', 'quantity', 'optionName', 'optionValue', 'option2Name', 'option2Value', 'meta1', 'meta2', 'meta3'];
+        let valueArray = convertJsonToArray(text);
+
+        setText(generalClassNames, valueArray, formNames, type);
+    });
 }
 
 setTimeout(()=>

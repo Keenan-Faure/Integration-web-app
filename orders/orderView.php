@@ -40,6 +40,7 @@
                 }
 
                 $result = json_encode($output2->result[0]);
+                echo("<script>console.log($result);</script>");
             }
             //passes the text as a json object
             //echo("<script>getClassNames($result, '$type');</script>");
@@ -85,22 +86,22 @@
             </div>
             <div class="orderContainer">
                 <div class='saveCloseContainer'>
-                    <textarea id='textarea' class='title'>Order ID: 8907</textarea>
+                    <textarea id='textarea' class='title'>order.order_id</textarea>
                     <button class='dates'>Show Dates</button>
-                    <textarea id='textarea' class='createdDate'> ▶ Created : 2022-11-29T09:04:55Z</textarea>
-                    <textarea id='textarea' class='modifiedDate'> ▶ Updated : 2022-11-29T09:04:55Z</textarea>
-                    <textarea id='textarea' class='completedDate'> ▶ Completed : 2022-11-29T09:04:55Z</textarea>
+                    <textarea id='textarea' class='createdDate'> ▶ Created : . order.created_at</textarea>
+                    <textarea id='textarea' class='modifiedDate'> ▶ Updated : order.updated_at</textarea>
+                    <textarea id='textarea' class='completedDate'> ▶ Completed : order.completed_at</textarea>
                     <div class='status'>
-                        Order Status: <button class='orderStatus'>Processing</button>
+                        Order Status: <button class='orderStatus'>order.status</button>
                     </div>
                     <div class='paymentDetails'>
                         <div class='method'>Payment Details:</div>
                         <div class='hr-1'></div>
                         <div class='method-title'>
-                            Payment method: <button class='button-title'>Direct Bank Transfer</button>
+                            Payment method: <button class='button-title'>order.payment_details.method_title</button>
                         </div>
                         <div class='payment-status'>
-                            Status: <button class='button-status'>Unpaid</button>
+                            Status: <button class='button-status'>order.payment_details.paid</button>
                         </div>
                     </div>
                 </div>
@@ -174,15 +175,15 @@
                         <table>
                             <tr>
                                 <th>Subtotal:</th>
-                                <th>Value</th>
+                                <th class='subtotal'>Value</th>
                             </tr>
                             <tr>
                                 <th>VAT:</th>
-                                <th>Value</th>
+                                <th class='vattotal'>Value</th>
                             </tr>
                             <tr>
                                 <th>Total:</th>
-                                <th>Value</th>
+                                <th class='total'>Value</th>
                             </tr>
                         </table>
                     </div>
@@ -195,19 +196,19 @@
                             <hr>
                             <div>
                                 <div class='dataField'>
-                                    <div class='customer-name'>ID</div><textarea class='customer-value'>ID</textarea>
+                                    <div class='customer-name'>ID</div><textarea class='customer-value cust-id'></textarea>
                                 </div>
                                 <div class='dataField'>
-                                    <div class='customer-name'>First Name</div><textarea class='customer-value'>First Name customer</textarea>
+                                    <div class='customer-name'>First Name</div><textarea class='customer-value cust-fname'></textarea>
                                 </div>
                                 <div class='dataField'>
-                                    <div class='customer-name'>Last Name</div><textarea class='customer-value'>Last name customer</textarea>
+                                    <div class='customer-name'>Last Name</div><textarea class='customer-value custlname'></textarea>
                                 </div>
                                 <div class='dataField'>
-                                    <div class='customer-name'>Email</div><textarea class='customer-value' id='importDetails'>Email Address</textarea>
+                                    <div class='customer-name'>Email</div><textarea class='customer-value cust-email' id='importDetails'></textarea>
                                 </div>
                                 <div class='dataField'>
-                                    <div class='customer-name'>Username</div><textarea class='customer-value'>Woocommerce Username</textarea>
+                                    <div class='customer-name'>Username</div><textarea class='customer-value cust-uname'></textarea>
                                 </div>
                             </div>
                         </div>
@@ -216,28 +217,28 @@
                             <hr>
                             <div>
                                 <div class='dataField'>
-                                    <div class='customer-name'>First Name</div><textarea class='customer-value'>billing first name</textarea>
+                                    <div class='customer-name'>First Name</div><textarea class='customer-value bill-fname'></textarea>
                                 </div>
                                 <div class='dataField'>
-                                    <div class='customer-name'>Last Name</div><textarea class='customer-value'>billing last name</textarea>
+                                    <div class='customer-name'>Last Name</div><textarea class='customer-value bill-lname'></textarea>
                                 </div>
                                 <div class='dataField'>
-                                    <div class='customer-name'>Company</div><textarea class='customer-value'>billing company</textarea>
+                                    <div class='customer-name'>Company</div><textarea class='customer-value bill-comp'></textarea>
                                 </div>
                                 <div class='dataField'>
-                                    <div class='customer-name'>Address 1</div><textarea class='customer-value'>billing address 1</textarea>
+                                    <div class='customer-name'>Address 1</div><textarea class='customer-value bill-addr1'></textarea>
                                 </div>
                                 <div class='dataField'>
-                                    <div class='customer-name'>Address 2</div><textarea class='customer-value'>billing address 2</textarea>
+                                    <div class='customer-name'>Address 2</div><textarea class='customer-value bill-addr2'></textarea>
                                 </div>
                                 <div class='dataField'>
-                                    <div class='customer-name'>City</div><textarea class='customer-value'>billing city</textarea>
+                                    <div class='customer-name'>City</div><textarea class='customer-value bill-city'></textarea>
                                 </div>
                                 <div class='dataField'>
-                                    <div class='customer-name'>State</div><textarea class='customer-value'>billing state</textarea>
+                                    <div class='customer-name'>State</div><textarea class='customer-value bill-state'></textarea>
                                 </div>
                                 <div class='dataField'>
-                                    <div class='customer-name'>Phone</div><textarea class='customer-value' id='importDetails'>billing phone</textarea>
+                                    <div class='customer-name'>Phone</div><textarea class='customer-value bill-cell' id='importDetails'></textarea>
                                 </div>
                             </div>
                         </div>
@@ -246,28 +247,28 @@
                             <hr>
                             <div>
                                 <div class='dataField'>
-                                    <div class='customer-name'>First Name</div><textarea class='customer-value'>shipping first name</textarea>
+                                    <div class='customer-name'>First Name</div><textarea class='customer-value ship-fname'></textarea>
                                 </div>
                                 <div class='dataField'>
-                                    <div class='customer-name'>Last Name</div><textarea class='customer-value'>shipping last name</textarea>
+                                    <div class='customer-name'>Last Name</div><textarea class='customer-value ship-lname'></textarea>
                                 </div>
                                 <div class='dataField'>
-                                    <div class='customer-name'>Company</div><textarea class='customer-value'>shipping company</textarea>
+                                    <div class='customer-name'>Company</div><textarea class='customer-value ship-comp'></textarea>
                                 </div>
                                 <div class='dataField'>
-                                    <div class='customer-name'>Address 1</div><textarea class='customer-value'>shipping address 1</textarea>
+                                    <div class='customer-name'>Address 1</div><textarea class='customer-value ship-addr1'></textarea>
                                 </div>
                                 <div class='dataField'>
-                                    <div class='customer-name'>Address 2</div><textarea class='customer-value'>shipping address 2</textarea>
+                                    <div class='customer-name'>Address 2</div><textarea class='customer-value ship-addr2'></textarea>
                                 </div>
                                 <div class='dataField'>
-                                    <div class='customer-name'>City</div><textarea class='customer-value'>shipping city</textarea>
+                                    <div class='customer-name'>City</div><textarea class='customer-value ship-city'></textarea>
                                 </div>
                                 <div class='dataField'>
-                                    <div class='customer-name'>State</div><textarea class='customer-value'>shipping state</textarea>
+                                    <div class='customer-name'>State</div><textarea class='customer-value ship-state'></textarea>
                                 </div>
                                 <div class='dataField'>
-                                    <div class='customer-name'>Phone</div><textarea class='customer-value' id='importDetails'>shipping phone</textarea>
+                                    <div class='customer-name'>Phone</div><textarea class='customer-value ship-cell' id='importDetails'></textarea>
                                 </div>
                             </div>
                         </div>
@@ -277,135 +278,6 @@
                 <!-- JSON order data -->
                 <div class="GeneralContentContainer" id="json">
                     <pre class='jsonText'>
-{
-    "order": {
-        "id": 7002,
-        "order_number": "7002",
-        "order_key": "wc_order_HVoFnY3EmPAeq",
-        "created_at": "2022-11-29T09:04:55Z",
-        "updated_at": "2022-12-02T07:03:38Z",
-        "completed_at": "1970-01-01T00:00:00Z",
-        "status": "pending",
-        "currency": "ZAR",
-        "total": "920.00",
-        "subtotal": "800.00",
-        "total_line_items_quantity": 1,
-        "total_tax": "120.00",
-        "total_shipping": "0.00",
-        "cart_tax": "120.00",
-        "shipping_tax": "0.00",
-        "total_discount": "0.00",
-        "shipping_methods": "",
-        "payment_details": {
-            "method_id": "bacs",
-            "method_title": "Direct bank transfer",
-            "paid": false
-        },
-        "billing_address": {
-            "first_name": "Keenan",
-            "last_name": "Faure",
-            "company": "Hoyoverse",
-            "address_1": "14 Tracy Close",
-            "address_2": "Montrose Park",
-            "city": "Cape Town",
-            "state": "WC",
-            "postcode": "7785",
-            "country": "ZA",
-            "email": "keenan@stock2shop.com",
-            "phone": "0123456781"
-        },
-        "shipping_address": {
-            "first_name": "Keenan",
-            "last_name": "Faure",
-            "company": "Hoyoverse",
-            "address_1": "14 Tracy Close",
-            "address_2": "Montrose Park",
-            "city": "Cape Town",
-            "state": "WC",
-            "postcode": "7785",
-            "country": "ZA"
-        },
-        "note": "I am a note",
-        "customer_ip": "",
-        "customer_user_agent": "",
-        "customer_id": 10,
-        "view_order_url": "https://s2s.ucc.co.za/my-account/view-order/7002/",
-        "line_items": [
-            {
-                "id": 333,
-                "subtotal": "800.00",
-                "subtotal_tax": "120.00",
-                "total": "800.00",
-                "total_tax": "120.00",
-                "price": "800.00",
-                "quantity": 1,
-                "tax_class": "",
-                "name": "Database Software V10 - N/A",
-                "product_id": 4233,
-                "sku": "DB/9/0/10",
-                "meta": [
-                    {
-                        "key": "option-1",
-                        "value": "N/A",
-                        "label": "Option 1"
-                    }
-                ]
-            }
-        ],
-        "shipping_lines": [],
-        "tax_lines": [
-            {
-                "id": 334,
-                "rate_id": 1,
-                "code": "ZA-VAT-1",
-                "title": "VAT",
-                "total": "120.00",
-                "compound": false
-            }
-        ],
-        "fee_lines": [],
-        "coupon_lines": [],
-        "customer": {
-            "id": 10,
-            "created_at": "2022-04-07T07:40:24Z",
-            "last_update": "2022-11-09T14:47:13Z",
-            "email": "keenan@stock2shop.com",
-            "first_name": "Keenan",
-            "last_name": "Faure",
-            "username": "keenan",
-            "role": "administrator",
-            "last_order_id": 7002,
-            "last_order_date": "2022-11-29T09:04:55Z",
-            "orders_count": 39,
-            "total_spent": "49288.35",
-            "avatar_url": "https://secure.gravatar.com/avatar/81e08af00c5dfe8fb493d09ba1163d98?s=96&d=mm&r=g",
-            "billing_address": {
-                "first_name": "Keenan",
-                "last_name": "Faure",
-                "company": "Easy",
-                "address_1": "14 Tracy Close",
-                "address_2": "",
-                "city": "Cape Town",
-                "state": "WC",
-                "postcode": "7785",
-                "country": "ZA",
-                "email": "keenan@stock2shop.com",
-                "phone": ""
-            },
-            "shipping_address": {
-                "first_name": "Keenan",
-                "last_name": "Faure",
-                "company": "Easy",
-                "address_1": "14 Tracy Close",
-                "address_2": "",
-                "city": "Cape Town",
-                "state": "WC",
-                "postcode": "7785",
-                "country": "ZA"
-            }
-        }
-    }
-}
                     </pre>
                 </div>
             </div> 

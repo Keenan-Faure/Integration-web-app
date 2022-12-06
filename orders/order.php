@@ -25,7 +25,6 @@
 
     if($webHookRegistered == true)
     {
-
         $requestBody = json_decode($requestBody);
 
         //check if the order is already found in the database
