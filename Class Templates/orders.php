@@ -26,7 +26,9 @@ Class Orders
             shippingLines,
             taxLines,
             customer,
-            auditDate
+            createdDate,
+            modifiedDate,
+            completedDate
         )
         VALUES 
         (
@@ -47,7 +49,10 @@ Class Orders
             serialize($orderBody->order->shipping_lines) . "','" .
             serialize($orderBody->order->tax_lines) . "','" .
             serialize($orderBody->order->customer) . "','" . 
-            date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']) . "');"
+
+            ($orderBody->order->created_at) . "','" . 
+            ($orderBody->order->updated_at) . "','" . 
+            $orderBody->order->completed_at . "');"
         ;
 
         $rawConnection = $connection->createConnection($_settings->dbUser, $_settings->dbPass, 'localhost', $_settings->dbName)->rawValue;
@@ -87,7 +92,9 @@ Class Orders
             shippingLines = '{$orderBody->order->shipping_lines}',
             taxLines = '{$orderBody->order->tax_lines}',
             customer = '{$orderBody->order->customer}',
-            auditDate = '" . date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']) . "'
+            createdDate = '{$orderBody->order->created_at}',
+            modifiedDate = '{$orderBody->order->updated_at}',
+            completedDate = '{$orderBody->order->completed_at}'
             
         WHERE ID = '{$orderBody->order->order_number}'"
         ;
