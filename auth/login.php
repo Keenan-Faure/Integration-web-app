@@ -109,7 +109,9 @@
             shippingLines varchar(1020),   #object
             taxLines varchar(1020),        #object
             customer varchar(2040),        #object
-            auditDate varchar(255))';
+            createdDate varchar(255),
+            modifiedDate varchar(255),
+            completedDate varchar(255))';
         $conn->preQuery($_config, $query, 'object');
     }
 
