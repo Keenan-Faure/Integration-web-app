@@ -1064,7 +1064,18 @@ function setPayDetails(object)
         }
         else
         {
-            document.querySelector('.' + array[i]).innerHTML = object[dbValues[i]];
+            if(array[i] == 'button-title')
+            {
+                if(object[dbValues[i]] == "")
+                {
+                    document.querySelector('.' + array[i]).innerHTML = "N/A";
+
+                }
+                else
+                {
+                    document.querySelector('.' + array[i]).innerHTML = object[dbValues[i]];
+                }
+            }
         }
     }
 }
