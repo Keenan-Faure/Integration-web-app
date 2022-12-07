@@ -635,7 +635,7 @@ function createOrders(orders)
                 statusValue = statusValue.charAt(0).toUpperCase() + statusValue.slice(1);
 
             }
-            if(statusValue == 'complete')
+            if(statusValue == 'completed')
             {
                 status.className = 'status-complete';
                 statusValue = statusValue.charAt(0).toUpperCase() + statusValue.slice(1);
@@ -668,18 +668,7 @@ function createOrders(orders)
 }
 
 /**
- * order_id
- * created_at
- * updated_at
- * completed_at
- * 
- * button-title
- * if(order.payment_details.paid == false)
- *      button-status
- * 
- * loop for line items - create entire product line item from scratch
- * {
- * <div class='data'>
+    <div class='data'>
         <div class='pData' id='product'>
             <div class='imageContainer'>
                 <img class='image' src='../Images/image1.png'>
@@ -711,64 +700,374 @@ function createOrders(orders)
         <div class='total_shipd' id='total'>total_shipping</div>
         <div class='ship_vatd' id='vat'>shipping_tax</div>
     </div>
- * }
- * subtotal
- * total
- * vattotal
- * 
- * //customer details
- * custid
- * cust-fname
- * cust-lname
- * cust-email
- * cust-uname
- * 
- * //billing details
- * bill-fname
- * bill-lname
- * bill-comp
- * bill-addr1
- * bill-addr2
- * bill-city
- * bill-state
- * bill-cell
- * 
- * //shipping details
- * ship-fname
- * ship-lname
- * ship-comp
- * ship-addr1
- * ship-addr2
- * ship-city
- * ship-state
- * ship-cell
- * 
- * //jsondata
- * full payload in database
  */
 
 // +----------------------------------------------+
 // | Run-format of the functions (orderView.php)  |
-// | getOrderClassNames -> convertJsonToArray     |
-// |                                              |
+// | getOrderClassNames -> setBilling|setShipping |
+// | |setPayDetails|setCustomer|setGeneral        |
 // +----------------------------------------------+
 
-function getOrderClassNames()
+function getOrderClassNames(text)
 {
     $(document).ready(()=>
     {
+        setTimeout(()=>
+        {
+            document.querySelector('.hide').classList.add('fade-out');
+        }, 1500);
         //parallel array containing all the 
         //classNames defined in the DOM
-        let generalClassNames = [null, null, 'act', 's', 'titleContainer', 'longDescriptionContainer', 'pc', 'cl', 'pt', 'vd', 'vc', 'bc', 
-        'wv', 'ctp', 'sp', 'q', 'on1', 'ov1', 'on2', 'ov2', 'm1', 'm2', 'm3'];
-        let formNames = [null, null, 'active', 'sku', 'title', 'description', 'groupingCode', 'category', 'productType', 'brand', 'variantCode', 'barcode', 'weight', 
-        'comparePrice', 'sellingPrice', 'quantity', 'optionName', 'optionValue', 'option2Name', 'option2Value', 'meta1', 'meta2', 'meta3'];
-        let valueArray = convertJsonToArray(text);
+        
+        //break object up into different objects
+        /**
+         * customers
+         * billing
+         * shipping
+         * paymentDetails
+         */
+        console.log(text);
+        let customer = text.customer;
+        let billing = text.billingAddress;
+        let shipping = text.shippingAddress
+        let payDetails = text.paymentDetails;
+        let lineItems = text.lineItems;
+        let shippingLines = text.shippingLines;
 
-        setText(generalClassNames, valueArray, formNames, type);
+        /**
+         * Runs functions on each object
+         */
+        setBilling(billing);
+        setShipping(shipping);
+        setPayDetails(payDetails);
+        setCustomer(customer);
+        setGeneral(text);
+        setShip(shippingLines, text);
+        createLineItems(lineItems, text);
     });
 }
 
+//creates line items defined inside an object
+function createLineItems(object)
+{
+    // <div class='data'>
+    //     <div class='pData' id='product'>
+    //         <div class='imageContainer'>
+    //             <img class='image' src='../Images/image1.png'>
+    //         </div>
+    //         <div class='dataContainer'>
+    //             <div class='dataValues orderTitle'><b>Title:</b> Balled of Goblets - Venti</div>
+    //             <div class='dataValues sku'><b>SKU:</b> GenImp-V-AA</div>
+    //             <div class='dataValues meta'></div>
+    //         </div>
+    //     </div>
+    //     <div class='priced' id='price'>R1700</div>
+    //     <div class='amountd' id='amount'>&times; 1</div>
+    //     <div class='totald' id='total'>R1700</div>
+    //     <div class='vatd' id='vat'>R175</div>
+    // </div>
+    for(let i = 0; i < object.length; ++i)
+    {
+        let data = document.createElement('div');
+        data.className = 'data';
+
+        let pData = document.createElement('div');
+        pData.className='pData';
+        pData.id='product';
+
+            let imageContainer = document.createElement('div');
+            imageContainer.className = 'imageContainer';
+
+            let img = document.createElement('img');
+            img.className = 'image';
+            img.src = '../Images/imageContainer.png';
+
+            imageContainer.appendChild(img);
+
+            pData.appendChild(imageContainer);
+
+            let dataContainer = document.createElement('div');
+            dataContainer.className = 'dataContainer';
+            
+                let title = document.createElement('div');
+                title.className = 'dataValues orderTitle';
+                    let name = document.createElement('b');
+                    let text_1 = document.createTextNode('Title: ');
+                    name.appendChild(text_1);
+
+                    let text_2 = document.createTextNode(object[i].name);
+                title.appendChild(name);
+                title.appendChild(text_2);
+
+                dataContainer.appendChild(title);
+
+                let sku = document.createElement('div');
+                sku.className = 'dataValues sku';
+                    name = document.createElement('b');
+                    text_1 = document.createTextNode('SKU: ');
+                    name.appendChild(text_1);
+
+                    text_2 = document.createTextNode(object[i].sku);
+                sku.appendChild(name);
+                sku.appendChild(text_2);
+
+                dataContainer.appendChild(sku);
+
+                if(typeof object[i].meta !== 'undefined')
+                {
+                    for(let j = 0; j < object[i].meta.length; ++j)
+                    {
+                        let meta = document.createElement('div');
+                        meta.className = 'dataValues meta';
+                            name = document.createElement('b');
+                            text_1 = document.createTextNode(object[i].meta[j].label + ": ");
+                            name.appendChild(text_1);
+
+                            text_2 = document.createTextNode(object[i].meta[j].value);
+                        meta.appendChild(name);
+                        meta.appendChild(text_2);
+
+                        dataContainer.appendChild(meta);
+                    }
+                }
+        
+        pData.appendChild(dataContainer);
+
+        data.appendChild(pData);
+
+        let priced = document.createElement('div');
+        priced.className = 'priced';
+        priced.id = 'price';
+        priced.appendChild(document.createTextNode("R " + object[i].price));
+
+        data.appendChild(priced);
+
+        let amountd = document.createElement('div');
+        amountd.className = 'amountd';
+        amountd.id = 'amount';
+        amountd.appendChild(document.createTextNode(object[i].quantity));
+
+        data.appendChild(amountd);
+
+        let totald = document.createElement('div');
+        totald.className = 'totald';
+        totald.id = 'total';
+        totald.appendChild(document.createTextNode("R " + object[i].total));
+
+        data.appendChild(totald);
+
+        let vatd = document.createElement('div');
+        vatd.className = 'vatd';
+        vatd.id = 'vat';
+        vatd.appendChild(document.createTextNode("R " + object[i].total_tax));
+
+        data.appendChild(vatd);
+        document.querySelector('.headers-head').insertAdjacentElement("afterend", data);
+    }    
+}
+
+function setShip(shippingLines, object)
+{
+    if(shippingLines.length !== 0)
+    {
+        let data = document.createElement('div');
+        data.className = 'data';
+    
+        let pData = document.createElement('div');
+        pData.className='pData';
+        pData.id='product';
+    
+            let imageContainer = document.createElement('div');
+            imageContainer.className = 'imageContainer';
+    
+            let img = document.createElement('img');
+            img.className = 'image';
+            img.src = '../Images/ship.jpeg';
+    
+            imageContainer.appendChild(img);
+    
+            pData.appendChild(imageContainer);
+    
+            let dataContainer = document.createElement('div');
+            dataContainer.className = 'dataContainer';
+            
+                let title = document.createElement('div');
+                title.className = 'dataValues shipTitle';
+                    let name = document.createElement('b');
+                    let text_1 = document.createTextNode('Title: ');
+                    name.appendChild(text_1);
+    
+                    let text_2 = document.createTextNode(shippingLines[0].method_title);
+                title.appendChild(name);
+                title.appendChild(text_2); 
+        
+        pData.appendChild(dataContainer);
+    
+        data.appendChild(pData);
+    
+        let priced = document.createElement('div');
+        priced.className = 'priced';
+        priced.id = 'price';
+        priced.appendChild(document.createTextNode(''));
+    
+        data.appendChild(priced);
+    
+        let amountd = document.createElement('div');
+        amountd.className = 'amountd';
+        amountd.id = 'amount';
+        amountd.appendChild(document.createTextNode(''));
+    
+        data.appendChild(amountd);
+    
+        let totald = document.createElement('div');
+        totald.className = 'totald';
+        totald.id = 'total';
+        totald.appendChild(document.createTextNode(object.totalShipping));
+    
+        data.appendChild(totald);
+    
+        let vatd = document.createElement('div');
+        vatd.className = 'vatd';
+        vatd.id = 'vat';
+        vatd.appendChild(document.createTextNode(object.shippingTax));
+    
+        data.appendChild(vatd);
+        document.querySelector('.headers-head').insertAdjacentElement("afterend", data);
+    }
+}
+
+//gets the general information
+//that is not contained inside an object
+function setGeneral(object)
+{
+    let array = ['title', 'createdDate', 'modifiedDate', 'completedDate', 'orderStatus', 'subtotal', 'total', 'vattotal'];
+    let dbValues = ['ID', 'createdDate', 'modifiedDate', 'completedDate', 'orderStatus', 'subTotal', 'total', 'totalTax'];
+
+    for(let i = 0; i < array.length; ++i)
+    {
+        if(typeof object[dbValues[i]] == 'undefined')
+        {
+            document.querySelector('.' + array[i]).innerHTML = '';
+        }
+        else
+        {
+            if(array[i] == 'title')
+            {
+                document.querySelector('.' + array[i]).innerHTML = "Order ID: " + object[dbValues[i]];
+            }
+            else if(array[i] == 'subtotal')
+            {
+                document.querySelector('.' + array[i]).innerHTML = "R " + object[dbValues[i]];
+
+            }
+            else if(array[i] == 'total')
+            {
+                document.querySelector('.' + array[i]).innerHTML = "R " + object[dbValues[i]];
+
+            }
+            else if(array[i] == 'vatTotal')
+            {
+                document.querySelector('.' + array[i]).innerHTML = "R " + object[dbValues[i]];
+
+            }
+            else
+            {
+                document.querySelector('.' + array[i]).innerHTML = object[dbValues[i]];
+            }
+        }
+    }
+}
+
+//sets the billing address
+//which is defined inside an object
+function setBilling(object)
+{  
+    let array = ['bill-fname', 'bill-lname', 'bill-comp', 'bill-addr1', 'bill-addr2', 'bill-city', 'bill-state', 
+    'bill-cell'];
+    let dbValues = ['first_name', 'last_name', 'company', 'address_1', 'address_2', 'city', 'state', 'phone'];
+
+    for(let i = 0; i < array.length; ++i)
+    {
+        if(typeof object[dbValues[i]] == 'undefined')
+        {
+            document.querySelector('.' + array[i]).innerHTML = '';
+        }
+        else
+        {
+            document.querySelector('.' + array[i]).innerHTML = object[dbValues[i]];
+        }
+    }
+}
+
+//sets the shipping address
+//which is defined inside an object
+function setShipping(object)
+{
+    let array = ['ship-fname', 'ship-lname', 'ship-comp', 'ship-addr1', 'ship-addr2', 'ship-city', 'ship-state', 'ship-cell'];
+    let dbValues = ['first_name', 'last_name', 'company', 'address_1', 'address_2', 'city', 'state'];
+    for(let i = 0; i < array.length; ++i)
+    {
+        if(typeof object[dbValues[i]] == 'undefined')
+        {
+            document.querySelector('.' + array[i]).innerHTML = '';
+        }
+        else
+        {
+            document.querySelector('.' + array[i]).innerHTML = object[dbValues[i]];
+        }    
+    }
+}
+
+//sets the customer details
+//which is defined inside an object
+function setCustomer(object)
+{
+    let array = ['cust-id', 'cust-fname', 'cust-lname', 'cust-email', 'cust-uname'];
+    let dbValues = ['id', 'first_name', 'last_name', 'email', 'username'];
+    for(let i = 0; i < array.length; ++i)
+    {
+        if(typeof object[dbValues[i]] == 'undefined')
+        {
+            document.querySelector('.' + array[i]).innerHTML = '';
+        }
+        else
+        {
+            document.querySelector('.' + array[i]).innerHTML = object[dbValues[i]];
+        }
+    }
+}
+
+//sets the payment details
+//which is defined inside an object
+function setPayDetails(object)
+{
+    console.log(object);
+    let array = ['button-title', 'button-status'];
+    let dbValues = ['method_title', 'paid'];
+    for(let i = 0; i < array.length; ++i)
+    {
+        if(array[i] == 'button-status')
+        {
+            if(dbValues[i] == 'paid' && array[i] == 'button-status')
+            {
+                if(object[dbValues[i]] == false)
+                {
+                    document.querySelector('.' + array[i]).style.backgroundColor = '#e91c1c';
+                    document.querySelector('.' + array[i]).innerHTML = 'Unpaid';
+                }
+                else
+                {
+                    document.querySelector('.' + array[i]).style.backgroundColor = '#2b8e2c';
+                    document.querySelector('.' + array[i]).innerHTML = 'Paid';
+                }
+            }
+        }
+        else
+        {
+            document.querySelector('.' + array[i]).innerHTML = object[dbValues[i]];
+        }
+    }
+}
 setTimeout(()=>
 {
     $(document).ready(()=>

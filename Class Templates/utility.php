@@ -405,7 +405,7 @@ Class Utility
     function unserializeOrder($orderArray)
     {
         $serialValues = ['billingAddress', 'customer', 'lineItems', 'paymentDetails', 
-        'shippingAddress', 'shippingLines', 'taxLines'];
+        'shippingAddress', 'shippingLines', 'taxLines', 'wooOrder'];
 
         if($orderArray == null || sizeof($orderArray) < 0)
         {

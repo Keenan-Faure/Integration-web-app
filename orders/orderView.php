@@ -36,19 +36,26 @@
                 //unserialize values
                 if(sizeof($output2->result) > 0)
                 {
+                    $wooOrder = json_encode(unserialize($output2->result[0]->wooOrder), JSON_PRETTY_PRINT);
                     $result = $util->unserializeOrder($output2->result);
                 }
+                
 
                 $result = json_encode($output2->result[0]);
-                echo("<script>console.log($result);</script>");
+                
             }
             //passes the text as a json object
-            //echo("<script>getClassNames($result, '$type');</script>");
+            echo("<script>getOrderClassNames($result);</script>");
+
+            //display the woocommerce order in the json <pre> tags
+            
         }
         
         ?>
     </head>
     <body>
+        <div class='hide'>
+        </div>
         <div class='backgroundtwo'>
             <div class="navBar">
                 <div class="overlay">
@@ -123,52 +130,7 @@
                             <div class='headers' id='total'>Total</div>
                             <div class='headers' id='vat'>VAT</div>
                         </div>
-                        <div class='data'>
-                            <div class='pData' id='product'>
-                                <div class='imageContainer'>
-                                    <img class='image' src='../Images/image1.png'>
-                                </div>
-                                <div class='dataContainer'>
-                                    <div class='dataValues orderTitle'><b>Title:</b> Balled of Goblets - Venti</div>
-                                    <div class='dataValues sku'><b>SKU:</b> GenImp-V-AA</div>
-                                    <div class='dataValues meta'></div>
-                                </div>
-                            </div>
-                            <div class='priced' id='price'>R1700</div>
-                            <div class='amountd' id='amount'>&times; 1</div>
-                            <div class='totald' id='total'>R1700</div>
-                            <div class='vatd' id='vat'>R175</div>
-                        </div>
-                        <div class='data'>
-                            <div class='pData' id='product'>
-                                <div class='imageContainer'>
-                                    <img class='image' src='../Images/image1.png'>
-                                </div>
-                                <div class='dataContainer'>
-                                    <div class='dataValues orderTitle'><b>Title: </b> Violet - Yae Miko</div>
-                                    <div class='dataValues sku'><b>SKU:</b> GenImp-Y-EC</div>
-                                    <div class='dataValues meta'></div>
-                                </div>
-                            </div>
-                            <div class='priced' id='price'>R1500</div>
-                            <div class='amountd' id='amount'>&times; 2</div>
-                            <div class='totald' id='total'>R3000</div>
-                            <div class='vatd' id='vat'>R155</div>
-                        </div>
-                        <div class='data'>
-                            <div class='pData' id='product'>
-                                <div class='imageContainer'>
-                                    <img class='image' src='../Images/ship.jpeg'>
-                                </div>
-                                <div class='dataContainer'>
-                                    <div class='dataValues shipTitle'><b>Title:</b> Shipping methods</div>
-                                </div>
-                            </div>
-                            <div class='priced' id='price'></div>
-                            <div class='amountd' id='amount'></div>
-                            <div class='total_shipd' id='total'>total_shipping</div>
-                            <div class='ship_vatd' id='vat'>shipping_tax</div>
-                        </div>
+                        
                     </div>
                     <hr>
                     <div class='calc'>
@@ -182,8 +144,8 @@
                                 <th class='vattotal'>Value</th>
                             </tr>
                             <tr>
-                                <th>Total:</th>
-                                <th class='total'>Value</th>
+                                <th style='border-top: 1px solid black'>Total:</th>
+                                <th style='border-top: 1px solid black' class='total'>Value</th>
                             </tr>
                         </table>
                     </div>
@@ -202,7 +164,7 @@
                                     <div class='customer-name'>First Name</div><textarea class='customer-value cust-fname'></textarea>
                                 </div>
                                 <div class='dataField'>
-                                    <div class='customer-name'>Last Name</div><textarea class='customer-value custlname'></textarea>
+                                    <div class='customer-name'>Last Name</div><textarea class='customer-value cust-lname'></textarea>
                                 </div>
                                 <div class='dataField'>
                                     <div class='customer-name'>Email</div><textarea class='customer-value cust-email' id='importDetails'></textarea>
@@ -277,8 +239,14 @@
                 </div>
                 <!-- JSON order data -->
                 <div class="GeneralContentContainer" id="json">
-                    <pre class='jsonText'>
-                    </pre>
+                    <?php
+                        echo("<script>
+                        pre = document.createElement('pre');
+                        pre.className = 'jsonText';
+                        pre.innerHTML = JSON. stringify($wooOrder, null, 2);
+                        document.getElementById('json').appendChild(pre);
+                        </script>");
+                    ?>
                 </div>
             </div> 
     </body>

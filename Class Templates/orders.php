@@ -26,6 +26,7 @@ Class Orders
             shippingLines,
             taxLines,
             customer,
+            wooOrder,
             createdDate,
             modifiedDate,
             completedDate
@@ -49,6 +50,7 @@ Class Orders
             serialize($orderBody->order->shipping_lines) . "','" .
             serialize($orderBody->order->tax_lines) . "','" .
             serialize($orderBody->order->customer) . "','" . 
+            serialize($orderBody) . "','" . 
 
             ($orderBody->order->created_at) . "','" . 
             ($orderBody->order->updated_at) . "','" . 
@@ -92,6 +94,7 @@ Class Orders
             shippingLines = '{$orderBody->order->shipping_lines}',
             taxLines = '{$orderBody->order->tax_lines}',
             customer = '{$orderBody->order->customer}',
+            customer = '{$orderBody}',
             createdDate = '{$orderBody->order->created_at}',
             modifiedDate = '{$orderBody->order->updated_at}',
             completedDate = '{$orderBody->order->completed_at}'

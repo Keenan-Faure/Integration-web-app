@@ -109,6 +109,7 @@
             shippingLines varchar(1020),   #object
             taxLines varchar(1020),        #object
             customer varchar(2040),        #object
+            wooOrder BLOB,        #object
             createdDate varchar(255),
             modifiedDate varchar(255),
             completedDate varchar(255))';
