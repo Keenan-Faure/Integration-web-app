@@ -20,7 +20,10 @@
 <?php
     session_start();
     include("../../Class Templates/createConnection.php");
+    include("../../Class Templates/utility.php");
     use Connection\Connection as connect;
+    use utils\Utility as util;
+
     if(isset($_SESSION['connection']))
     {
         if($_SESSION['connection']->active === true)
@@ -49,6 +52,12 @@
                 unset($_POST['productList']);
                 exit();
             }
+            if(isset($_POST['viewOrders']))
+            {
+                header('Refresh:0, url=../../orders/orderList.php?page=1');
+                unset($_POST['viewOrders']);
+                exit();
+            }
             if(isset($_POST['editCustomer']))
             {
                 header('Refresh:0, url=../../customers/customerList.php?page=1');
@@ -68,6 +77,41 @@
                 unset($_POST['selfquery']);
                 echo(json_encode($output));                
                 exit;
+            }
+            if(isset($_POST['getOrderByID']))
+            {
+                $connection = new connect();
+                $util = new util();
+                $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+                //creates query
+                
+                $query = "SELECT * FROM Orders WHERE ID='" . $_POST['getOrderByID'] . "'";
+
+                $output2 = $connection->converterObject($rawConnection, $query);
+                mysqli_close($rawConnection);
+
+                $result = $util->unserializeOrder($output2->result);
+
+                echo(json_encode($result));
+                unset($_POST['getOrderByID']);
+                exit();
+            }
+            if(isset($_POST['countOrders']))
+            {
+                $connection = new connect();
+                $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+                //creates query
+                
+                $query = "SELECT COUNT(*) as 'Count' FROM Orders";
+
+                $output = $connection->converterObject($rawConnection, $query);
+                mysqli_close($rawConnection);
+                echo(json_encode($output));
+                unset($_POST['countOrders']);
+            }
+            if(isset($_POST['viewOrders']))
+            {
+
             }
             else
             {
