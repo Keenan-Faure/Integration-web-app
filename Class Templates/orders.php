@@ -73,6 +73,7 @@ Class Orders
         $orderBody->order->shipping_address = serialize($orderBody->order->shipping_address);
         $orderBody->order->billing_address = serialize($orderBody->order->billing_address);
         $orderBody->order->payment_details = serialize($orderBody->order->payment_details);
+        $orderWoo = serialize($orderBody->order);
 
         $query = "UPDATE Orders
 
@@ -94,7 +95,7 @@ Class Orders
             shippingLines = '{$orderBody->order->shipping_lines}',
             taxLines = '{$orderBody->order->tax_lines}',
             customer = '{$orderBody->order->customer}',
-            customer = '{$orderBody}',
+            wooOrder = '{$orderWoo}',
             createdDate = '{$orderBody->order->created_at}',
             modifiedDate = '{$orderBody->order->updated_at}',
             completedDate = '{$orderBody->order->completed_at}'
@@ -104,7 +105,6 @@ Class Orders
 
         $rawConnection = $connection->createConnection($_settings->dbUser, $_settings->dbPass, 'localhost', $_settings->dbName)->rawValue;
         $output = $connection->converterObject($rawConnection, $query, $_settings->dbName);  
-        print_r($output);
     }
 
     //checks if the order already exists in the database
