@@ -36,7 +36,10 @@
                 //unserialize values
                 if(sizeof($output2->result) > 0)
                 {
-                    $wooOrder = json_encode(unserialize($output2->result[0]->wooOrder), JSON_PRETTY_PRINT);
+                    $wooOrder = new \stdClass();
+                    $wooOrder = array();
+                    array_push($wooOrder, unserialize($output2->result[0]->wooOrder));
+                    $wooOrder = json_encode($util->unserializeOrder($wooOrder, true)[0], JSON_PRETTY_PRINT);
                     $result = $util->unserializeOrder($output2->result);
                 }
                 

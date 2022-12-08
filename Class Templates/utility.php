@@ -402,6 +402,8 @@ Class Utility
 
     //function to unserialize order object
     //parameter is a countable array
+    //second parameter decides when the order is a full wooOrder
+        //if it is then it uses different serialValues
     function unserializeOrder($orderArray, $wooOrder = false)
     {
         if($wooOrder == true)
