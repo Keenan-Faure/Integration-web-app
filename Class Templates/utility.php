@@ -402,10 +402,18 @@ Class Utility
 
     //function to unserialize order object
     //parameter is a countable array
-    function unserializeOrder($orderArray)
+    function unserializeOrder($orderArray, $wooOrder = false)
     {
-        $serialValues = ['billingAddress', 'customer', 'lineItems', 'paymentDetails', 
-        'shippingAddress', 'shippingLines', 'taxLines', 'wooOrder'];
+        if($wooOrder == true)
+        {
+            $serialValues = ['billing_address', 'customer', 'line_items', 'payment_details', 
+            'shipping_address', 'shipping_lines', 'tax_lines'];
+        }
+        else
+        {
+            $serialValues = ['billingAddress', 'customer', 'lineItems', 'paymentDetails', 
+            'shippingAddress', 'shippingLines', 'taxLines', 'wooOrder'];
+        }
 
         if($orderArray == null || sizeof($orderArray) < 0)
         {
