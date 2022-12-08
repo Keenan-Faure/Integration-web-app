@@ -32,8 +32,7 @@ class Connection
         $this->connection->credentials->dbname = $db;
         $this->connection->rawValue = $conn;
         $this->connection->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-        $this->connection->token = $this->createToken($username . $password);
-        
+
         if(!isset($_SESSION['connection']))
         {
             $_SESSION['connection'] = $this->connection;
@@ -81,7 +80,7 @@ class Connection
                     $this->connection->credentials->host = $_config['host']; //harcoded to localhost
                     $this->connection->credentials->dbname = $_config['dbName'];
                     $this->connection->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-                    $this->connection->token = $this->createToken($client_user . $client_pass);
+                    $this->connection->token = $results->result[0]->Token;
 
                     //stores it inside a session
                     $_SESSION['clientConn'] = $this->connection;
@@ -188,6 +187,17 @@ class Connection
         ");
     }
 
+    function createRandomString($length = 32)
+    {
+        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; ++$i) 
+        {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
     //pre-conection queries
     //made with the datafound in the config php file
 
@@ -432,14 +442,6 @@ class Connection
             }
         }
         return $output;
-    }
-
-    //createToken
-    function createToken($credentials)
-    {
-        $token = rand(1000,9999); //must be a 4 digit number
-        $token = $token . '-' .  base64_encode($credentials);
-        return $token;
     }
 
     function connectAPI($token, $secret)

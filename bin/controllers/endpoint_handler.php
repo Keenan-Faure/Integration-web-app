@@ -75,6 +75,10 @@
                 $output = $connection->converterObject($rawConnection, $query, 'selfquery');
                 mysqli_close($rawConnection);
                 unset($_POST['selfquery']);
+                if(isset($output->result[0]->Password))
+                {
+                    $output->result[0]->Password = "******";
+                } 
                 echo(json_encode($output));                
                 exit;
             }

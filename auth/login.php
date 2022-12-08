@@ -38,6 +38,7 @@
             Username varchar(255),
             Password varchar(255),
             Email varchar(255),
+            Token varchar(32),
             Notes TEXT)';
 
         $result2 = $conn->preQuery($_config, $query, 'object');   
@@ -55,7 +56,7 @@
         if($result3->result[0]->total == 0)
         {
             //create admin user
-            $query = 'INSERT INTO Userz(Username, Password) VALUES("' . $_config['dbUser'] . '", "'. $_config['dbPass'] .'")';
+            $query = 'INSERT INTO Userz(Username, Password, Token) VALUES("' . $_config['dbUser'] . '", "' . $_config['dbPass'] . '", "' . $conn->createRandomString() .'")';
             $result3 = $conn->preQuery($_config, $query, 'object');
         }
     }

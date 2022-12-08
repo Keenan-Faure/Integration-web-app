@@ -48,9 +48,15 @@
                 <h1>Simple Product</h1>
                 <div class='buttonContainer2'>
                     <div class="dropDown">
-                    <button class="dropDownBtn">Home</button>
+                        <button class="dropDownBtn">Home</button>
                         <div class="dropDownContent">
                             <a href="../endpoints.php">Dashboard</a>
+                        </div>
+                    </div>
+                    <div class="dropDown">
+                        <button class="dropDownBtn">Orders</button>
+                        <div class="dropDownContent">
+                            <a href="../orders/orderList.php?page=1">View all Orders</a>
                         </div>
                     </div>
                 </div>
