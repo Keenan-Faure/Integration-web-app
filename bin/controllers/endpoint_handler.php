@@ -69,39 +69,6 @@
                 echo(json_encode($output));                
                 exit;
             }
-            if(isset($_POST['checkTables']))
-            {
-                $connection = new connect();
-                $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
-                
-                //creates query
-                $query = "show tables";
-                
-                $output = $connection->converterObject($rawConnection, $query);
-                mysqli_close($rawConnection);
-                unset($_POST['selfquery']);
-                echo(json_encode($output));                
-                exit;
-            }
-            if(isset($_POST['checkConnection']))
-            {
-                echo(json_encode($_SESSION['connection']));
-                unset($_POST['checkConnection']);
-                exit();
-            }
-            if(isset($_POST['viewLog']))
-            {
-                echo(json_encode($_SESSION['log']));
-                unset($_POST['viewLog']);
-                exit();
-            }
-            if(isset($_POST['visitS2S']))
-            {
-
-                header('Refresh:0,url=https://stock2shop.com');
-                unset($_POST['visitS2S']);
-                exit();
-            }
             else
             {
                 if(isset($_POST['getProductBySKU']) && $_POST['getProductBySKU'])
@@ -210,29 +177,33 @@
                 }
                 else
                 {
+                    $conn = new connect();
                     $variable = new \stdClass();
-                    $variable->error = 'No table selected';
+                    $variable->error = 'No valid endpoint found';
                     $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-                    $variable->message = 'Warning: Undefined array key "tablecurrent"';
-                    $conn->addLogs('No table selected', 'Undefined table', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
-        
-                    echo(json_encode($variable));
+                    $variable->message = 'Please return and reselect';
+                    $variable = json_encode($variable, JSON_PRETTY_PRINT);
+                    $conn->addLogs('No valid endpoint found', 'Undefined URL', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+
+                    $conn->createJsonMessages("Not a valid URL", "$variable", "../../endpoints", "warn", "php");
                 }
             }
         }
     }
     else
     {
+        $conn = new connect();
         $variable = new \stdClass();
         $variable->active = false;
         $variable->message = 'No connection found in current session, please re-connect';
         $variable->failedPage = 'endpoint_handler.php';
         $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+        $variable = json_encode($variable, JSON_PRETTY_PRINT);
         if(isset($_SESSION['log']))
         {
             $conn->addLogs('No Session', 'Attempted to connect but no session was found', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'info', false);
         }
-        echo(json_encode($variable));
+        $conn->createJsonMessages("No Session found", "$variable", "../../endpoints", "warn", "php");
     }
 
 ?>

@@ -88,7 +88,7 @@ else if(isset($_POST['runame']) && isset($_POST['rpsw']))
             Notes
         )
         VALUES(
-            "False", "'
+            "false", "'
             . $_POST["runame"] . '","'
             . $_POST["rpsw"] . '","'
             . $_POST["mail"] . '","'
@@ -99,7 +99,7 @@ else if(isset($_POST['runame']) && isset($_POST['rpsw']))
         //creates html message
         $message = 'User ' . $_POST['runame'] . ' was created successfully';
         $solution = 'Click the button below to return to the login page';
-        $conn->createHtmlMessages('', $message, $solution, 'login', 'info');
+        $conn->createHtmlMessages('', $message, $solution, 'auth/login', 'info');
         if(isset($_SESSION['log']))
         {
             $conn->addLogs("User creation", "Please review user: '" . $_POST['runame'] . "' before activation", date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), "info", true);

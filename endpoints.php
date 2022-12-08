@@ -28,13 +28,6 @@
                     <button class="dropDownBtn">Session</button>
                         <div class="dropDownContent">
                             <a href="bin/controllers/output.php?q=session">Current session</a>
-                            <?php
-                                if($_SESSION['settings']->App_settings->app_enable_self_query == 'true')
-                                {
-                                    echo("<a class='custom'>Custom Query</a>");
-                                }
-                            ?>
-                            <a href="bin/controllers/output.php?q=clearLog">Clear log</a>
                         </div>
                     </div>
 
@@ -74,7 +67,7 @@
             <?php
                 if($_SESSION['settings']->App_settings->app_enable_self_query == 'true')
                 {
-                    echo("<h1>Custom Query</h1>
+                    echo("<h1 class='header-self'>Custom Query</h1>
                     <form method='post' target='_blank' action='bin/controllers/endpoint_handler.php'>
                             <br><br><br>
                             <textarea class='textarea' name='selfquery' placeholder='Enter your query here'></textarea>
@@ -84,15 +77,15 @@
             ?>
         </div>
         <div class='container' id='container-1'>
-            <h2 class='h2-hidden'>General</h2>
+            <h2 class='h2-hidden'>Orders</h2>
             <div class='line' id='line-1'></div>
             <form method='post' target='_blank' action='bin/controllers/endpoint_handler.php'>
                 <br><br><br>
-                <button name='checkConnection' class='button' id='b1'><p class='buttonText'>Check Connection</p></button>
+                <button name='getOrderByID'class='button' id='b1'><p class='buttonText'>Get Order by ID</p></button>
                 <br><br>
-                <button name='viewLog'class='button' id='b2'><p class='buttonText'>View Log</p></button>
+                <button name='countOrders' class='button' id='b2'><p class='buttonText'>Count Orders</p></button>
                 <br><br>
-                <button name='checkTables' class='button' id='b4'><p class='buttonText'>Check Tables in Database</p></button>
+                <button name='viewOrders' class='button' id='b4'><p class='buttonText'>View All Orders</p></button>
             </form>
         </div>
 
@@ -109,9 +102,6 @@
             
             <form  method='post' target='_blank' action='bin/controllers/endpoint_handler.php'>
                 <button class='button' name='countProduct' id='b7'><p class='buttonText'>Count Products</p></button>
-            </form>
-            <form method='post' target='_blank' action='bin/controllers/endpoint_handler.php'>
-                <button class='button' name='viewProductSql' id='b8'><p class='buttonText'>View Product Sql queries</p></button>
             </form>
             <form method='post' action='bin/controllers/endpoint_handler.php'>
                 <button class='button' name='addProduct' id='b9'><p class='buttonText'>Add Product to Database</p></button>               
@@ -131,16 +121,25 @@
             <form method='post' target='_blank' action='bin/controllers/endpoint_handler.php'>
                 <button class='button' name='countCustomer' id='b12'><p class='buttonText'>Count Customers</p></button>
             </form>
-            <form method='post' target='_blank' action='bin/controllers/endpoint_handler.php'>
-                <button class='button' name='viewCustomerSql' id='b13'><p class='buttonText'>View Customer Sql queries</p></button>
-            </form>
             <form method='post' action='bin/controllers/endpoint_handler.php'>
                 <button class='button' name='addCustomer' id='b14'><p class='buttonText'>Add Customer to Database</p></button> 
             </form>
             <form method='post' action='bin/controllers/endpoint_handler.php'>
                 <button class='button' name='editCustomer' id='b15'><p class='buttonText'>View All Customers</p></button> 
             </form>
-        </div>   
+        </div>  
+        <div class='sideNavBar'>
+            <?php
+                if($_SESSION['settings']->App_settings->app_enable_self_query == 'true')
+                {
+                    echo("<a class='custom'>Custom Query</a>");
+                }
+            ?>
+            <a href="bin/controllers/output.php?q=clearLog">Clear log</a>
+            <a href="bin/controllers/output.php?q=checkConn">Check Connection</a>
+            <a href="bin/controllers/output.php?q=viewLog"> View Log</a>
+            <a href="bin/controllers/output.php?q=showTbl">Check Tables in Database</a>
+        </div> 
         <div class='info-report'>
             <div class='rowHeader'>
                 ▶ View logs
