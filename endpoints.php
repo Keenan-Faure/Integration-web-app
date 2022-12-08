@@ -81,7 +81,7 @@
             <div class='line' id='line-1'></div>
             <form method='post' target='_blank' action='bin/controllers/endpoint_handler.php'>
                 <br><br><br>
-                <button name='getOrderByID'class='button' id='b1'><p class='buttonText'>Get Order by ID</p></button>
+                <input type='text' class='input' name='getOrderByID' placeholder='Get Order by ID' autocomplete="off" id='b1'></input>
                 <br><br>
                 <button name='countOrders' class='button' id='b2'><p class='buttonText'>Count Orders</p></button>
                 <br><br>
