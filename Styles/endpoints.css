@@ -55,6 +55,7 @@ body
 {
     width: 70px;
     display: inline-block;
+    cursor: pointer;
     position: relative;
     top: 30px;
     height: 50px;
@@ -111,8 +112,8 @@ body
     width: 210px;
     height: 200px;
     top: 60px;
-    z-index: 10;
-    left: 0;
+    z-index: 1;
+    right: 0;
     border-radius: 5px;
     position: absolute;
 }
@@ -331,15 +332,31 @@ h2
 }
 .selfBackground
 {
-    background-image: url('../Images/dbPicture.png');
     background-size: cover;
-    background-color: grey;
+    background-color: rgba(255, 255, 255, 0.9);
     background-position: center;
-    position: fixed;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 65%;
+    height: 65%;
+    border: 1px solid black;
+    top: 50%;
+    left: 60%;
+}
+.header-self
+{
+    text-shadow: 1px 2px 6px rgb(0 0 0);
+    /* background-color: rgba(128, 128, 128, 0.3); */
+    position: relative;
+    display: inline-block;
     width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
+    font-size: 25px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    top: 10px;
+    color: #ffffff;
+    transition-duration: 0.1s;
 }
 .textarea
 {
@@ -351,7 +368,7 @@ h2
     left: 50%;
     top: 57%;
     font-family:'Courier New', Courier, monospace;
-    font-size: 20px;
+    font-size: 17px;
     resize: none;
     color: white;
     text-align: left;
@@ -363,9 +380,9 @@ h2
     position: fixed;
     top: 90%;
     left: 50%;
-    width: 160px;
+    width: 120px;
     border-radius: 10px;
-    height: 45px;
+    height: 25px;
     transform: translate(-50%, -10%);
     text-align: center;
     border: none;
@@ -377,7 +394,7 @@ h2
 .closeButton
 {
     position: fixed;
-    top: 11%;
+    top: 9%;
     right: 15%;
     width: 30px;
     border-radius: 5px;
@@ -393,10 +410,10 @@ h2
 .buttonContainer
 {
     width: 70%;
-    top: 13%;
+    top: 12%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 4%;
+    height: 6%;
     border: 5px 5px 0 0;
     position: absolute;
     background: rgba(90, 87, 81, 0.3);
@@ -531,7 +548,6 @@ h2
         height: 40px;
     }
 }
-
 .increaser
 {
     animation: increase 0.5s ease-in forwards;
@@ -553,6 +569,46 @@ h2
 {
     animation: decrease 0.5s ease-in forwards;
 }
+
+@keyframes slideIn
+{
+    from
+    {
+        width: 0;
+        z-index: 0;
+        opacity: 0;
+    }
+    to
+    {
+        width: 100%;
+        z-index: 1;
+        opacity: 1;
+    }
+}
+@keyframes slideOut
+{
+    from
+    {
+        width: 100%;
+        z-index: 1;
+        opacity: 1;
+    }
+    to
+    {
+        width: 0;
+        z-index: 0;
+        opacity: 0;
+    }
+}
+.slideIn
+{
+    animation: 1s slideIn ease-in forwards;
+}
+.slideOut
+{
+    animation: 1s slideOut ease-in forwards;
+}
+
 .logoutButton
 {
     position: absolute;
@@ -708,4 +764,38 @@ h2
 .save-btn:hover
 {
     background-color: rgb(87, 192, 17);
+}
+/* The sidebar menu */
+.sideNavBar 
+{
+    height: 100%; /* Full-height: remove this if you want "auto" height */
+    width: 0; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 0; /* Stay on top */
+    opacity: 0;
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: #111; /* Black */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 20px;
+}
+  
+  /* The navigation menu links */
+  .sideNavBar a 
+{
+    padding: 6px 8px 6px 16px;
+    width: 180px;
+    text-decoration: none;
+    position: relative;
+    top: 80px;
+    border-bottom: 1px solid white;
+    font-size: 17px;
+    color: #818181;
+    display: block;
+}
+  
+  /* When you mouse over the navigation links, change their color */
+  .sideNavBar a:hover 
+{
+    color: #f1f1f1;
 }

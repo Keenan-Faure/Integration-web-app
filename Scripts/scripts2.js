@@ -11,17 +11,14 @@ var l2 = document.getElementsByClassName('line')[1];
 var l3 = document.getElementsByClassName('line')[2];
 
 var b1 = document.getElementById('b1');
-var b2 = document.getElementById('b2');
 var b4 = document.getElementById('b4');
 var b5 = document.getElementById('b5');
 var b6 = document.getElementById('b6');
 var b7 = document.getElementById('b7');
-var b8 = document.getElementById('b8');
 var b9 = document.getElementById('b9');
 var b10 = document.getElementById('b10');
 var b11 = document.getElementById('b11');
 var b12 = document.getElementById('b12');
-var b13 = document.getElementById('b13');
 var b14 = document.getElementById('b14');
 var b15 = document.getElementById('b15');
 
@@ -75,10 +72,6 @@ window.addEventListener('load', ()=>
         }, 1250);
         setTimeout(()=>
         {
-            b8.classList.add('fade-in');
-        }, 1350);
-        setTimeout(()=>
-        {
             b9.classList.add('fade-in');
         }, 1400);
 
@@ -104,10 +97,6 @@ window.addEventListener('load', ()=>
         {
             b12.classList.add('fade-in');
         }, 1850);
-        setTimeout(()=>
-        {
-            b13.classList.add('fade-in');
-        }, 1950);
         setTimeout(()=>
         {
             b14.classList.add('fade-in');
@@ -157,5 +146,24 @@ document.querySelector('.rowHeader').addEventListener('click', ()=>
         {
             elements[i].classList.add('increaser');
         }
+    }
+});
+
+document.querySelector('.imageNav').addEventListener('click', ()=>
+{
+    let sb = document.querySelector('.sideNavBar');
+    if(sb.classList.contains('slideOut'))
+    {
+        sb.classList.remove('slideOut');
+        sb.classList.add('slideIn');
+    }
+    else if(sb.classList.contains('slideIn'))
+    {
+        sb.classList.remove('slideIn');
+        sb.classList.add('slideOut');
+    }
+    else
+    {
+        sb.classList.add('slideIn');
     }
 });

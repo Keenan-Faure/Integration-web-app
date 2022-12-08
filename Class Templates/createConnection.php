@@ -159,7 +159,7 @@ class Connection
             </html>
         ");
     }
-    function createJsonMessages($message, $solution, $link, $type)
+    function createJsonMessages($message, $solution, $link, $type, $prefix = 'html')
     {
         echo("
             <html>
@@ -179,7 +179,7 @@ class Connection
                             <hr>
                             <pre class='jsonText'>$solution</pre>
                             <div class='cen'>
-                                <a class='btn' href='../$link.html'>Redirect</a>
+                                <a class='btn' href='../$link.$prefix'>Redirect</a>
                             </div>
                         </div>
                     </div>

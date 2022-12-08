@@ -22,7 +22,30 @@ if(isset(($conn->queryParams($fullUrl))['q']))
         $connection = $conn->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
         $output = $conn->converterObject($connection, $query);
         $message = "Logs have been successfully cleared";
-        $conn->createHtmlMessages('', 'Clear Logs', $message, 'endpoints', 'info');
+        $conn->createHtmlMessages('', 'Method: Clear logs', $message, 'endpoints', 'info');
+        exit();
+    }
+    else if(($conn->queryParams($fullUrl))['q'] == 'showTbls')
+    {
+        $connection = new connect();
+        $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+        
+        //creates query
+        $query = "show tables";
+        
+        $output = $connection->converterObject($rawConnection, $query);
+        mysqli_close($rawConnection);
+        $conn->createJsonMessages('Method: Display Tables', json_encode($output, JSON_PRETTY_PRINT), '../../endpoints', 'info', 'php');
+        exit;
+    }
+    else if(($conn->queryParams($fullUrl))['q'] == 'checkConn')
+    {
+        $conn->createJsonMessages('Method: Display Connection', json_encode($_SESSION['connection'], JSON_PRETTY_PRINT), '../../endpoints', 'info', 'php');
+        exit();
+    }
+    else if(($conn->queryParams($fullUrl))['q'] == 'viewLog')
+    {
+        $conn->createJsonMessages('Method: View logs', json_encode($_SESSION['log'], JSON_PRETTY_PRINT), '../../endpoints', 'info', 'php');
         exit();
     }
 }
