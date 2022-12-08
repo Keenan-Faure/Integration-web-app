@@ -50,7 +50,7 @@ class Connection
     //and if it exists in the usertable defined in the database
     function connectUser($_config, $client_user, $client_pass)
     {
-        $query = 'SELECT * FROM Users WHERE Username = "' . $client_user . '"';
+        $query = 'SELECT * FROM Userz WHERE Username = "' . $client_user . '"';
         $results = $this->preQuery($_config, $query, 'object');
         if($results->result == null)
         {
@@ -63,7 +63,7 @@ class Connection
         else
         {
             //create new query and check if the password corresponds to the username
-            $query = 'SELECT * FROM Users Where Username = "' . $client_user . '" && Password = "' . $client_pass . '"';
+            $query = 'SELECT * FROM Userz Where Username = "' . $client_user . '" && Password = "' . $client_pass . '"';
             $results = $this->preQuery($_config, $query, 'object');
             if($results->result != null)
             {

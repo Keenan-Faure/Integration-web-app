@@ -69,7 +69,7 @@ else if(isset($_POST['runame']) && isset($_POST['rpsw']))
 
     $conn = new connect();
 
-    $query = 'SELECT COUNT(*) as total FROM Users WHERE Username = "' . $_POST['runame'] . '"';
+    $query = 'SELECT COUNT(*) as total FROM Userz WHERE Username = "' . $_POST['runame'] . '"';
     $result = $conn->preQuery($_config, $query, 'object');
     if($result->result[0]->total > 0)
     {
@@ -80,7 +80,7 @@ else if(isset($_POST['runame']) && isset($_POST['rpsw']))
     }
     else
     {
-        $query = 'INSERT INTO Users(
+        $query = 'INSERT INTO Userz(
             Active,
             Username,
             Password,

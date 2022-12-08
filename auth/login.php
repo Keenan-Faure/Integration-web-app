@@ -29,10 +29,10 @@
     {
         $result[$i] = strtolower($result[$i]);
     }
-    if(!in_array("users", $result))
+    if(!in_array("userz", $result))
     {
         //create the table
-        $query = 'CREATE TABLE Users(
+        $query = 'CREATE TABLE Userz(
             Active varchar(5),
             UserID int AUTO_INCREMENT primary key NOT NULL,
             Username varchar(255),
@@ -50,12 +50,12 @@
         }
 
         //create admin user
-        $query = 'SELECT COUNT(*) as total FROM Users WHERE Username = "' . $_config['dbName'] . '" & Password = "' . $_config['dbPass'] . '"';
+        $query = 'SELECT COUNT(*) as total FROM Userz WHERE Username = "' . $_config['dbName'] . '" & Password = "' . $_config['dbPass'] . '"';
         $result3 = $conn->preQuery($_config, $query, 'object');
         if($result3->result[0]->total == 0)
         {
             //create admin user
-            $query = 'INSERT INTO Users(Username, Password) VALUES("' . $_config['dbUser'] . '", "'. $_config['dbPass'] .'")';
+            $query = 'INSERT INTO Userz(Username, Password) VALUES("' . $_config['dbUser'] . '", "'. $_config['dbPass'] .'")';
             $result3 = $conn->preQuery($_config, $query, 'object');
         }
     }
@@ -135,6 +135,8 @@
                     <br><br>
                     <input type='text' name='host' placeholder='Localhost' id='f3' readonly>
                     <br><br>
+                    <a class='register' href='register.php'>Click here to register</a>
+                    <br><br>
                     <input class = 'button' type='submit' id='f4'>
                 </form>
                 </div>
@@ -142,5 +144,4 @@
         </div>
         </div>
     </body>
-    <script src='../Scripts/script3.js'></script>
 </html>
