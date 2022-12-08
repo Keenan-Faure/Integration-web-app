@@ -20,6 +20,21 @@
     $headers = json_decode(json_encode(getallheaders()), FALSE);
     $requestBody = file_get_contents('php://input');
 
+    //verify Token in URL
+    $host = "http://" . $_SERVER['HTTP_HOST']; //needs to be defined
+    $fullUrl = $_SERVER["REQUEST_URI"];
+    $fullUrl = $host . $fullUrl;
+    $token = ($connection2->queryParams($fullUrl))['q'];
+
+    //check if token and id exists on any user in database
+    $query2 = 'SELECT * FROM Userz WHERE ID = "' . $id . '" AND Token = "' . $token . '"';
+    $output2 = $connection2->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
+    $result = json_encode($output2->result);
+    if($output2->result == null)
+    {
+        exit();
+    }
+
     //verify data sent using headers
     $webHookRegistered = $order->verifyWebhook($requestBody, $headers, $_woo_settings);
 

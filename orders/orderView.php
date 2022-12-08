@@ -252,7 +252,7 @@
                         echo("<script>
                         pre = document.createElement('pre');
                         pre.className = 'jsonText';
-                        pre.innerHTML = JSON. stringify($wooOrder, null, 2);
+                        pre.innerHTML = JSON.stringify($wooOrder, null, 2);
                         document.getElementById('json').appendChild(pre);
                         </script>");
                     ?>
