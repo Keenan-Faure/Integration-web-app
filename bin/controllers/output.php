@@ -25,7 +25,7 @@ if(isset(($conn->queryParams($fullUrl))['q']))
         $conn->createHtmlMessages('', 'Method: Clear logs', $message, 'endpoints', 'info');
         exit();
     }
-    else if(($conn->queryParams($fullUrl))['q'] == 'showTbls')
+    else if(($conn->queryParams($fullUrl))['q'] == 'showTbl')
     {
         $connection = new connect();
         $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
