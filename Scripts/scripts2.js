@@ -161,6 +161,10 @@ document.querySelector('.imageNav').addEventListener('click', ()=>
     {
         sb.classList.remove('slideIn');
         sb.classList.add('slideOut');
+        array = document.querySelector('.bottom');
+        array.classList.add('fade-out');
+        array.classList.remove('bottom');
+        array.classList.add('top');
     }
     else
     {

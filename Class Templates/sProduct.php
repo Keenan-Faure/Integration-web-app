@@ -156,7 +156,7 @@ Class sProducts
             date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']) . "','"
             . $_SESSION['clientConn']->token . "');"
         ;
-        $output = $connection->converterObject($rawConnection, $query);
+        $connection->converterObject($rawConnection, $query);
 
         $query_ = "INSERT INTO Woocommerce 
         (
@@ -171,6 +171,19 @@ Class sProducts
             '0');"
         ;
         $connection->converterObject($rawConnection, $query_);
+
+        $queryS2S = "INSERT INTO Stock2Shop 
+        (
+            SKU,
+            Pushed
+            pushDate
+        )
+        VALUES 
+        (
+            'null',
+            'false',
+            'null');"
+        ;
         
         $result = new \stdClass();
         $result->data = $product;

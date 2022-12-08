@@ -15,7 +15,7 @@ if(isset($_SESSION['connection']))
 
     $rawConnection = $connection2->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
     $query2 = 'SELECT Pushed FROM Stock2Shop WHERE SKU = "' . $sku . '"';
-    $query3 = 'SELECT woo.P_ID, woo.ID, woo.SKU, inv.Audit_Date, inv.Users FROM Woocommerce woo INNER JOIN Inventory inv ON inv.SKU = woo.SKU WHERE woo.SKU = "' . $sku . '"';
+    $query3 = 'SELECT woo.P_ID, woo.ID, woo.SKU, inv.Audit_Date, inv.User FROM Woocommerce woo INNER JOIN Inventory inv ON inv.SKU = woo.SKU WHERE woo.SKU = "' . $sku . '"';
     $output2 = $connection2->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
     $output3 = $connection2->converterObject($rawConnection, $query3, $_SESSION['connection']->credentials->dbname);
 

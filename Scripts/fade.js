@@ -82,8 +82,8 @@ const req = async function(sku)
     const json = await resp.json();
     if(json.result == true)
     {
-        addConnectorDetails(json.body_1[0].P_ID, json.body_1[0].ID, json.body[0].Pushed);
-        populateAuditTrail(json.body_1[0].User, json.body_1[0].Audit_Date);
+        addConnectorDetails(json.body_1.result[0].P_ID, json.body_1.result[0].ID, json.body.result[0].Pushed);
+        populateAuditTrail(json.body_1.result[0].User, json.body_1.result[0].Audit_Date);
     }
 }
 
