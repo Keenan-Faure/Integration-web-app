@@ -1,8 +1,10 @@
 function createUserTable(json)
 {
-    let headers = ['Active', 'UserID', 'Username', 'Token'];
+    let headers = ['Active', 'UserID', 'Username', 'Token', ''];
     let userTable = document.createElement('div');
     userTable.className = 'userTable fade-out';
+
+    arrayUrl = (document.URL).split('/');
 
     let tbl = document.createElement('table');
     for(let i = 0; i < json.length; ++i)
@@ -13,7 +15,7 @@ function createUserTable(json)
             if(i == 0 && j == 0)
             {
                 let tr = document.createElement('tr');
-                for(let z = 0; z < 4; ++z)
+                for(let z = 0; z < 5; ++z)
                 {
                     let td = document.createElement('td');
                     let tdText = document.createTextNode(headers[z]);
@@ -24,7 +26,7 @@ function createUserTable(json)
                 tbl.appendChild(tr);
 
                 let tr1 = document.createElement('tr');
-                for(let z = 0; z < 4; ++z)
+                for(let z = 0; z < 5; ++z)
                 {
                     if(z == 0)
                     {
@@ -44,6 +46,20 @@ function createUserTable(json)
                         td.appendChild(input);
                         tr1.appendChild(td);
                     }
+                    else if(z == 4)
+                    {
+                        let td = document.createElement('td');
+                            let aTag = document.createElement('a');
+                            aTag.className = 'SaveBtn';
+
+                            url = 'http://' + arrayUrl[2] + '/' + 'cURL/updateUser.php?q=' + json[i][headers[z-1]];
+                            aTag.href = url;
+                            let text = document.createTextNode('Save');
+                            aTag.appendChild(text);
+
+                        td.appendChild(aTag);
+                        tr1.appendChild(td);
+                    }
                     else
                     {
                         let td = document.createElement('td');
@@ -57,7 +73,7 @@ function createUserTable(json)
             else
             {
                 let tr = document.createElement('tr');
-                for(let z = 0; z < 4; ++z)
+                for(let z = 0; z < 5; ++z)
                 {
                     if(z == 0)
                     {
@@ -75,6 +91,20 @@ function createUserTable(json)
                                 input.checked = false;
                             }
                         td.appendChild(input);
+                        tr.appendChild(td);
+                    }
+                    else if(z == 4)
+                    {
+                        let td = document.createElement('td');
+                            let aTag = document.createElement('a');
+                            aTag.className = 'SaveBtn';
+                            
+                            url = 'http://' + arrayUrl[2] + '/' + 'cURL/updateUser.php?q=' + json[i][headers[z-1]];
+                            aTag.href = url;
+                            let text = document.createTextNode('Save');
+                            aTag.appendChild(text);
+
+                        td.appendChild(aTag);
                         tr.appendChild(td);
                     }
                     else
