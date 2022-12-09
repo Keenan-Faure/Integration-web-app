@@ -33,6 +33,14 @@ function createUserTable(json)
                             input.type = 'checkbox';
                             input.name = 'active';
                             input.value= json[i][headers[z]];
+                            if(json[i][headers[z]] == 'true')
+                            {
+                                input.checked = true;
+                            }
+                            else
+                            {
+                                input.checked = false;
+                            }
                         td.appendChild(input);
                         tr1.appendChild(td);
                     }
@@ -57,7 +65,15 @@ function createUserTable(json)
                             let input = document.createElement('input')
                             input.type = 'checkbox';
                             input.name = 'active';
-                            input.value= json[i][headers[z]];
+                            input.value = json[i][headers[z]];
+                            if(json[i][headers[z]] == 'true')
+                            {
+                                input.checked = true;
+                            }
+                            else
+                            {
+                                input.checked = false;
+                            }
                         td.appendChild(input);
                         tr.appendChild(td);
                     }
