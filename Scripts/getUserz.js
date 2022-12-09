@@ -1,57 +1,80 @@
 function createUserTable(json)
 {
-    console.log(json.length);
+    let headers = ['Active', 'UserID', 'Username', 'Token'];
     let userTable = document.createElement('div');
-    userTable.className = 'userTable';
+    userTable.className = 'userTable fade-out';
+
+    let tbl = document.createElement('table');
     for(let i = 0; i < json.length; ++i)
     {
-        for(let j = 0; j < 2; ++j)
+        console.log(i);
+        for(let j = 0; j < 1; ++j)
         {
-            let tbl = document.createElement('table');
-            if(j == 0)
+            if(i == 0 && j == 0)
             {
                 let tr = document.createElement('tr');
                 for(let z = 0; z < 4; ++z)
                 {
                     let td = document.createElement('td');
-                    let tdText = document.createTextNode('Notes');
+                    let tdText = document.createTextNode(headers[z]);
                     td.appendChild(tdText);
+                    tr.appendChild(td);
                     tbl.appendChild(tr);
                 }
                 tbl.appendChild(tr);
-                console.log(tbl);
+
+                let tr1 = document.createElement('tr');
+                for(let z = 0; z < 4; ++z)
+                {
+                    if(z == 0)
+                    {
+                        let td = document.createElement('td');
+                            let input = document.createElement('input')
+                            input.type = 'checkbox';
+                            input.name = 'active';
+                            input.value= json[i][headers[z]];
+                        td.appendChild(input);
+                        tr1.appendChild(td);
+                    }
+                    else
+                    {
+                        let td = document.createElement('td');
+                        let tdText = document.createTextNode(json[i][headers[z]]);
+                        td.appendChild(tdText);
+                        tr1.appendChild(td);
+                    }
+                    tbl.appendChild(tr1);
+                }
             }
             else
             {
-                // let tr = document.createElement('tr');
-                // for(let z = 0; z < 4; ++z)
-                // {
-                //     let td = document.createElement('td');
-                //     let tdText = document.createTextNode('Notes');
-                //     td.appendChild(tdText);
-                //     tr.appendChild(td);
-                // }
+                let tr = document.createElement('tr');
+                for(let z = 0; z < 4; ++z)
+                {
+                    if(z == 0)
+                    {
+                        let td = document.createElement('td');
+                            let input = document.createElement('input')
+                            input.type = 'checkbox';
+                            input.name = 'active';
+                            input.value= json[i][headers[z]];
+                        td.appendChild(input);
+                        tr.appendChild(td);
+                    }
+                    else
+                    {
+                        let td = document.createElement('td');
+                        let tdText = document.createTextNode(json[i][headers[z]]);
+                        td.appendChild(tdText);
+                        tr.appendChild(td);
+                    }
+                    tbl.appendChild(tr);
+                }
             }
         }
     }
-    // <div class='userTable'>
-    //     <table>
-    //         <tr>
-    //             <td>Active</td>
-    //             <td>UserID</td>
-    //             <td>Username</td>
-    //             <td>Token</td>
-    //         </tr>
-    //         <tr>
-    //             <td>
-    //                 <input type='checkbox' id='vehicle1' name='vehicle1' value='Bike'>
-    //             </td>
-    //             <td>02</td>
-    //             <td>Keenan</td>
-    //             <td>WVXZZGFEKWD1SNVG8XMK5JSUBYOC898T</td>
-    //         </tr>
-    //     </table>
-    // </div>
+    userTable.appendChild(tbl);
+    document.querySelector('.userz').insertAdjacentElement("afterend", userTable);
 }
 function createURL(token, parameter = '')
 {

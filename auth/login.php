@@ -56,7 +56,7 @@
         if($result3->result[0]->total == 0)
         {
             //create admin user
-            $query = 'INSERT INTO Userz(Username, Password, Token) VALUES("' . $_config['dbUser'] . '", "' . $_config['dbPass'] . '", "' . $conn->createRandomString() .'")';
+            $query = 'INSERT INTO Userz(Active, Username, Password, Token) VALUES("true", "' . $_config['dbUser'] . '", "' . $_config['dbPass'] . '", "' . $conn->createRandomString() .'")';
             $result3 = $conn->preQuery($_config, $query, 'object');
         }
     }

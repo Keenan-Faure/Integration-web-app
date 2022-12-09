@@ -124,6 +124,12 @@ document.querySelector('.custom').addEventListener('click', ()=>
     array.classList.remove('fade-out');
     array.classList.add('fade-in');
     array.classList.add('bottom');
+
+    array1 = document.querySelector('.userTable');
+    array1.classList.remove('bottom');
+    array1.classList.remove('fade-in');
+    array1.classList.add('top');
+    array1.classList.add('fade-out');
     
 });
 
@@ -164,6 +170,12 @@ document.querySelector('.imageNav').addEventListener('click', ()=>
         array = document.querySelector('.bottom');
         array.classList.remove('bottom');
         array.classList.add('top');
+
+        array1 = document.querySelector('.userTable');
+        array1.classList.remove('bottom');
+        array1.classList.remove('fade-in');
+        array1.classList.add('top');
+        array1.classList.add('fade-out');
     }
     else
     {
@@ -179,6 +191,10 @@ document.querySelector('.userz').addEventListener('click', ()=>
         sb.classList.remove('fade-out');
         sb.classList.add('fade-in');
         sb.classList.add('top');
+
+        array = document.querySelector('.bottom');
+        array.classList.remove('bottom');
+        array.classList.add('top');
     }
     else if(sb.classList.contains('fade-in'))
     {

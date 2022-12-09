@@ -85,6 +85,7 @@ else if(isset($_POST['runame']) && isset($_POST['rpsw']))
             Username,
             Password,
             Email,
+            Token,
             Notes
         )
         VALUES(
@@ -92,6 +93,7 @@ else if(isset($_POST['runame']) && isset($_POST['rpsw']))
             . $_POST["runame"] . '","'
             . $_POST["rpsw"] . '","'
             . $_POST["mail"] . '","'
+            .  $conn->createRandomString() . '","' //token
             . $_POST["note"] . '"
         )';
         $conn->preQuery($_config, $query, 'object');
