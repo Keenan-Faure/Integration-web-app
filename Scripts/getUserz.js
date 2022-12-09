@@ -49,11 +49,12 @@ function createUserTable(json)
                     else if(z == 4)
                     {
                         let td = document.createElement('td');
-                            let aTag = document.createElement('a');
+                            let aTag = document.createElement('button');
                             aTag.className = 'SaveBtn';
-
+                            aTag.onclick = transform;
+                            
                             url = 'http://' + arrayUrl[2] + '/' + 'cURL/updateUser.php?q=' + json[i][headers[z-1]];
-                            aTag.href = url;
+                            aTag.id = url;
                             let text = document.createTextNode('Save');
                             aTag.appendChild(text);
 
@@ -81,6 +82,7 @@ function createUserTable(json)
                             let input = document.createElement('input')
                             input.type = 'checkbox';
                             input.name = 'active';
+                            input.id = 'active';
                             input.value = json[i][headers[z]];
                             if(json[i][headers[z]] == 'true')
                             {
@@ -96,11 +98,12 @@ function createUserTable(json)
                     else if(z == 4)
                     {
                         let td = document.createElement('td');
-                            let aTag = document.createElement('a');
+                            let aTag = document.createElement('button');
                             aTag.className = 'SaveBtn';
+                            aTag.onclick = transform;
                             
                             url = 'http://' + arrayUrl[2] + '/' + 'cURL/updateUser.php?q=' + json[i][headers[z-1]];
-                            aTag.href = url;
+                            aTag.id = url;
                             let text = document.createTextNode('Save');
                             aTag.appendChild(text);
 
