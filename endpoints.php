@@ -138,7 +138,11 @@
             <a href="bin/controllers/output.php?q=clearLog">Clear log</a>
             <a href="bin/controllers/output.php?q=checkConn">Check Connection</a>
             <a href="bin/controllers/output.php?q=viewLog"> View Log</a>
-            <a href="bin/controllers/output.php?q=showTbl">Check Tables in Database</a>
+            <a class='userz bottom'>Manage Users ✰</a>
+            <?php
+                //how to parse a php variable inside a javascript function
+                echo("<script src='Scripts/getUserz.js'></script>");
+            ?>
         </div> 
         <div class='info-report'>
             <div class='rowHeader'>

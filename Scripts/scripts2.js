@@ -170,3 +170,25 @@ document.querySelector('.imageNav').addEventListener('click', ()=>
         sb.classList.add('slideIn');
     }
 });
+
+document.querySelector('.userz').addEventListener('click', ()=>
+{
+    let sb = document.querySelector('.userTable');
+    if(sb.classList.contains('fade-out'))
+    {
+        sb.classList.remove('fade-out');
+        sb.classList.add('fade-in');
+        sb.classList.add('top');
+    }
+    else if(sb.classList.contains('fade-in'))
+    {
+        sb.classList.remove('fade-in');
+        sb.classList.add('fade-out');
+        sb.classList.remove('bottom');
+    }
+    else
+    {
+        sb.classList.add('fade-in');
+        sb.classList.add('top');
+    }
+});
