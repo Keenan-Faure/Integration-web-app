@@ -832,3 +832,14 @@ td
     color: black;
     background-color: white; 
 }
+.htmlMessage-success
+{
+    position: absolute;
+    bottom: 40px;
+    right: 20px;
+    border: 1px solid darkgray;
+    background-color: rgba(21, 128, 0, 0.7);
+    cursor: pointer;
+    padding: 10px;
+    text-align: center;
+}

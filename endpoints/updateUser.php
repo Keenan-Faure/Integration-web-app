@@ -10,7 +10,9 @@ $connection2 = new connect();
 $host = "http://" . $_SERVER['HTTP_HOST']; //needs to be defined
 $fullUrl = $_SERVER["REQUEST_URI"];
 $fullUrl = $host . $fullUrl;
-$token = ($connection2->queryParams($fullUrl))['q'];
+$params = ($connection2->queryParams($fullUrl));
+$token = $params['q'];
+$active = $params['active'];
 
 if(isset($_SESSION['connection']))
 {
@@ -29,11 +31,11 @@ if(isset($_SESSION['connection']))
     }
     else
     {
-        $query2 = 'SELECT * FROM Userz';
+        $query2 = 'UPDATE Userz SET Active ="' . $active . '" WHERE Token ="' . $token . '"';
         $rawConnection = $connection2->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
         $output2 = $connection2->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
         $result = json_encode($output2->result);
-        echo($result);
+        echo(json_encode($result));
         exit();
     }
 }
