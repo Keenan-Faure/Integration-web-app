@@ -9,7 +9,6 @@ function createUserTable(json)
     let tbl = document.createElement('table');
     for(let i = 0; i < json.length; ++i)
     {
-        console.log(i);
         for(let j = 0; j < 1; ++j)
         {
             if(i == 0 && j == 0)
@@ -31,9 +30,9 @@ function createUserTable(json)
                     if(z == 0)
                     {
                         let td = document.createElement('td');
+                        if(json[i][headers[2]] != 'root')
+                        {
                             let input = document.createElement('input');
-                            input.className = 'active';
-                            input.id='here';
                             input.type = 'checkbox';
                             input.name = 'active';
                             input.value= json[i][headers[z]];
@@ -45,7 +44,8 @@ function createUserTable(json)
                             {
                                 input.checked = false;
                             }
-                        td.appendChild(input);
+                            td.appendChild(input);
+                        }
                         tr1.appendChild(td);
                     }
                     else if(z == 4)
