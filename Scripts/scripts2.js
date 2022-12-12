@@ -169,7 +169,9 @@ document.querySelector('.imageNav').addEventListener('click', ()=>
         sb.classList.add('slideOut');
         array = document.querySelector('.bottom');
         array.classList.remove('bottom');
+        array.classList.remove('fade-in');
         array.classList.add('top');
+        array.classList.add('fade-out');
 
         array1 = document.querySelector('.userTable');
         array1.classList.remove('bottom');

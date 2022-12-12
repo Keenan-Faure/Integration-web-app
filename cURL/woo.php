@@ -6,10 +6,9 @@
 
     use Connection\Connection as connect;
     $conn = new connect();
-
-    if(!isset($_SESSION['connection']->token))
+    if(!isset($_SESSION['clientConn']->token))
     {
-        $conn->createHtmlMessages('', 'Error connecting to user session', 'No connection found in current session, please re-connect', 'login', 'info');
+        $conn->createHtmlMessages('', 'Error connecting to user session', 'No connection found in current session, please re-connect', '../auth/login', 'info');
         exit();
     }
 ?>
