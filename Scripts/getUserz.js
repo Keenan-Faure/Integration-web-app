@@ -55,7 +55,7 @@ function createUserTable(json)
                             aTag.className = 'SaveBtn';
                             aTag.onclick = transform;
                             
-                            url = 'http://' + arrayUrl[2] + '/' + 'endpoints/updateUser.php?q=' + json[i][headers[z-1]];
+                            url = 'http://' + arrayUrl[2] + '/' + 'endpoints/postUser.php?q=' + json[i][headers[z-1]];
                             aTag.id = url;
                             let text = document.createTextNode('Save');
                             aTag.appendChild(text);
@@ -104,7 +104,7 @@ function createUserTable(json)
                             aTag.className = 'SaveBtn';
                             aTag.onclick = transform;
                             
-                            url = 'http://' + arrayUrl[2] + '/' + 'endpoints/updateUser.php?q=' + json[i][headers[z-1]];
+                            url = 'http://' + arrayUrl[2] + '/' + 'endpoints/postUser.php?q=' + json[i][headers[z-1]];
                             aTag.id = url;
                             let text = document.createTextNode('Save');
                             aTag.appendChild(text);

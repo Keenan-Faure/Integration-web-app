@@ -168,18 +168,18 @@ h1:hover
 {
     position: relative;
     opacity: 0;
-    background-color: rgba(255,255,255,0.9);
+    background-color: rgb(255 255 255 / 90%);
     left: 50%;
-    padding: 10px;
-    overflow: auto;
-    top: 100px;
+    /* padding: 10px; */
+    overflow: hidden;
     transform: translate(-50%, -0%);
-    width: 90%;
+    width: 95%;
 }
 .containerHeaders
 {
     position: relative;
-    background-color: rgb(232 229 229);
+    background-color: rgb(30 30 30 / 90%);
+    color: white;
     top: 20%;
     height: 70px;
     width: 100%;
@@ -279,6 +279,26 @@ h1:hover
     font-family: system-ui;
     font-size: 15px;
 }
+.containerHeaders .category
+{
+    border-left: 1px solid white;
+}
+.containerHeaders .vendor
+{
+    border-left: 1px solid white;
+}
+.containerHeaders .sku
+{
+    border-left: 1px solid white;
+}
+.containerHeaders .title
+{
+    border-left: 1px solid white;
+}
+.containerHeaders .image
+{
+    border-left: 1px solid white;
+}
 .vendor
 {
     width: 20%;
@@ -318,4 +338,37 @@ h1:hover
     background-color: rgba(15, 221, 139, 0.8);
     border-style: inset;
     border-width: 1px;
+}
+.search-bar
+{
+    position: relative;
+    display: flex;
+    float: right;
+    right: 20px;
+    top: 42px;
+}
+.search-field
+{
+    height: 30px;
+    border-radius: 5px 0px 0px 5px;
+    border: none;
+    text-align: left;
+    padding: 0px 10px;
+    color: rgb(0, 0, 0);
+    background-color: rgba(255, 255, 255, 0.9);
+}
+.search-btn
+{
+    position: relative;
+    display: inline-block;
+    background-image: url(../Images/search-icon.png);
+    height: 30px;
+    width: 30px;
+    border: none;
+    border-radius: 0px 5px 5px 0px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: rgba(175, 175, 175, 0.9);
+    cursor: pointer;
 }

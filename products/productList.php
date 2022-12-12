@@ -11,6 +11,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="../Scripts/fade.js"></script>
         <script src="../Scripts/createElements.js"></script>
+        <script src="../Scripts/search.js"></script>
         <?php 
         if($_SESSION['connection']->active == true)
         {
@@ -21,13 +22,20 @@
             $host = "http://" . $_SERVER['HTTP_HOST']; //needs to be defined
             $fullUrl = $_SERVER["REQUEST_URI"];
             $fullUrl = $host . $fullUrl;
-            $page = ($connection2->queryParams($fullUrl))['page'];
+            $params = ($connection2->queryParams($fullUrl));
+            $page = $params['page'];
+            if(isset($params['q']))
+            {
 
-            //Queries the param found in the URL
-            $query2 = 'SELECT * FROM Inventory LIMIT ' . (($page-1) * 10) . ', ' . (10);
-            $output2 = $connection2->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
-            $result = json_encode($output2->result);
-            echo("<script>initiatorCreateProducts($result);</script>");
+            }
+            else
+            {
+                //Queries the param found in the URL
+                $query2 = 'SELECT * FROM Inventory LIMIT ' . (($page-1) * 10) . ', ' . (10);
+                $output2 = $connection2->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
+                $result = json_encode($output2->result);
+                echo("<script>initiatorCreateProducts($result);</script>");
+            }
         }
         ?>
     </head>
@@ -52,33 +60,36 @@
                         </div>
                     </div>
                     <div class='buttonContainer'>
-                    <div class="dropDown">
-                    <button class="dropDownBtn">Products</button>
-                        <div class="dropDownContent">
-                            <a href="addItem.html">Add Product</a>
-                            <a href="productList.php?page=1">View all products</a>
-                            <a href="../importUtils/import.html">Import Products</a>
-                            <a href="../importUtils/productExport.php">Export Products</a>
-                        </div>
-                    </div>
-    
                         <div class="dropDown">
-                        <button class="dropDownBtn">Customers</button>
+                            <button class="dropDownBtn">Products</button>
                             <div class="dropDownContent">
-                                <a href="../customers/addCustomer.html">Add Customer</a>
-                                <a href="../customers/customerList.php">View Customers</a>
+                                <a href="addItem.html">Add Product</a>
+                                <a href="productList.php?page=1">View all products</a>
+                                <a href="../importUtils/import.html">Import Products</a>
+                                <a href="../importUtils/productExport.php">Export Products</a>
                             </div>
                         </div>
+        
+                            <div class="dropDown">
+                                <button class="dropDownBtn">Customers</button>
+                                <div class="dropDownContent">
+                                    <a href="../customers/addCustomer.html">Add Customer</a>
+                                    <a href="../customers/customerList.php">View Customers</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Search -->
+                        <div class='search-bar'>
+                            <input class='search-field' type='text' placeholder='Search...'>
+                            <button class='search-btn' onclick="search()" type='submit'></button>
+                        </div>
                     </div>
-                    <a href="../importUtils/import.html" class="buttonOption"></a>
-                    </div>
-                </div>
                 <div class="containerNew">
                     <div class="containerHeaders">
                         <div class="imageContainer">Image</div>
-                        <div class="sku">sku</div>
-                        <div class="title">title</div>
-                        <div class="category">collection</div>
+                        <div class="sku">SKU</div>
+                        <div class="title">Title</div>
+                        <div class="category">Category</div>
                         <div class="vendor">Vendor</div>
                     </div>
                     <hr>
