@@ -8,7 +8,7 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
 {
     //uses the token to decide whether 
     //to login or not
-    if(isset($_SESSION['connection']->token))
+    if(isset($_SESSION['clientConn']->token))
     {
         if($_SESSION['connection']->credentials->username == $_POST['uname'] && $_SESSION['connection']->credentials->password == $_POST['psw'])
         {
