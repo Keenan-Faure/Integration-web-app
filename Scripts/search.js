@@ -1,3 +1,11 @@
+//takes value taken from the search field and pushes it as a url to an endpoint
+    // getProductsSearch.php runs and returns the query results
+//endpoint returns data and it is displayed on screen
+
+/**
+ * Run format - search() -> reqSearch() -> createSearchResults()
+ */
+
 function search()
 {
     let value = document.querySelector('.search-field').value;
@@ -26,13 +34,78 @@ const reqSearch = async function(url)
         referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     });
     const json = await resp.json();
-    console.log(json);
+    createSearchResults(json);
 }
-//takes value and pushes it as a url to endpoint
-    //getProductsSearch.php
-//endpoint returns data and it is displayed on screen
 
 function createSearchResults(results)
 {
-    
+    form = document.getElementById('productSForm');
+    for(let i = 0; i < results["result"].length; ++i)
+    {        
+        let dataContainer = document.createElement('button');
+        dataContainer.className = 'search-result-li';
+        dataContainer.name = results["result"][i]['SKU'];
+        dataContainer.value = results["result"][i]['SKU'];
+            let title = document.createElement('div');
+            title.className = 'dataValues';
+                let name = document.createElement('b');
+                let text_1 = document.createTextNode('Title: ');
+                name.appendChild(text_1);
+
+                let text_2 = document.createTextNode(results["result"][i]['Title']);
+            title.appendChild(name);
+            title.appendChild(text_2);
+
+            dataContainer.appendChild(title);
+
+            let sku = document.createElement('div');
+            sku.className = 'dataValues';
+                name = document.createElement('b');
+                text_1 = document.createTextNode('SKU: ');
+                name.appendChild(text_1);
+
+                text_2 = document.createTextNode(results["result"][i]['SKU']);
+            sku.appendChild(name);
+            sku.appendChild(text_2);
+        dataContainer.appendChild(sku);
+        form.appendChild(dataContainer);
+    }
 }
+
+$(document).ready(()=>
+{
+    let s_c = document.querySelector('.search-result-container');
+    document.querySelector('.search-bar').addEventListener('mouseover', ()=>
+    {
+        if(s_c.classList.contains('fade-out'))
+        {
+            s_c.classList.remove('fade-out');
+            s_c.classList.add('fade-in');
+            s_c.classList.add('top');
+        }
+        else
+        {
+            s_c.classList.add('fade-in');
+            s_c.classList.add('top');
+        }
+    });
+});
+
+$(document).ready(()=>
+{
+    let s_c = document.querySelector('.search-result-container');
+    document.querySelector('.search-bar').addEventListener('mouseout', ()=>
+    {
+        if(s_c.classList.contains('fade-in'))
+        {
+            s_c.classList.remove('fade-in');
+            s_c.classList.add('fade-out');
+            s_c.classList.add('bottom');
+        }
+        else
+        {
+            s_c.classList.add('fade-out');
+            s_c.classList.add('bottom');
+        }
+    });
+});

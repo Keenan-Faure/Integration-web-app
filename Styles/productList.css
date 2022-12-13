@@ -29,7 +29,6 @@ h1:hover
 }
 .bottom
 {
-    height: 100px;
     /* display: inline-block; */
     width: 100%;
     position: relative;
@@ -340,6 +339,36 @@ h1:hover
     border-style: inset;
     border-width: 1px;
 }
+@keyframes fades-in
+{
+    from
+    {
+        opacity: 0;
+    }
+    to
+    {
+        opacity: 1;
+    }
+}
+.fade-in
+{
+    animation: fades-in 0.4s ease-in forwards;
+}
+@keyframes fades-out
+{
+    from
+    {
+        opacity: 1;
+    }
+    to
+    {
+        opacity: 0;
+    }
+}
+.fade-out
+{
+    animation: fades-out 0.4s ease-out forwards;
+}
 .search-bar
 {
     position: relative;
@@ -383,16 +412,17 @@ h1:hover
 .search-result-container
 {
     position: absolute;
-    top: 75px;
-    left: 75%;
-    transform: translate(-50%, 0%);
+    float: right;
+    top: 30px;
+    right: 0;
     background-color: rgba(255, 255, 255, 0.95);
     padding: 15px;
-    width: 40%;
-    height: 200px;
+    width: 250px;
     text-align: center;
     border: 1px solid black;
     border-radius: 5px;
+    z-index: 0; /* Stay on top */
+    opacity: 0;
 }
 .search-result-h
 {
@@ -435,6 +465,5 @@ h1:hover
     position: relative;
     font-size: 12px;
     font-family: system-ui;
-    top: 10px;
 }
 
