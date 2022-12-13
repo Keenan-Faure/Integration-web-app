@@ -63,7 +63,7 @@ __Note__ If (Eg.) the Woocommerce file has not been correctly configured, no pro
 
 ## Woocommerce Connector
 
-The pushing of data to Woocommerce is done using the [Woocommerce API](https://woocommerce.github.io/woocommerce-rest-api-docs/) documentation
+The pushing of data to Woocommerce is done using the [Woocommerce API](https://woocommerce.github.io/woocommerce-rest-api-docs/)
 
 * Consists of an internal map and external map (defined in config) to push data
     * Internal map is for non-tech users
