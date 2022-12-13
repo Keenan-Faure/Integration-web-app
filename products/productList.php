@@ -83,7 +83,35 @@
                             <input class='search-field' type='text' placeholder='Search...'>
                             <button class='search-btn' onclick="search()" type='submit'></button>
                         </div>
+                        <div class='search-result-container'>
+                            Search results
+                            <span class='search-result-cls-btn'>&times;</span>
+                            <hr>
+                            <br>
+                            <div class='search-result-li'>
+                                <div class='dataValues'>
+                                    <b>Title:</b>
+                                    I am a title
+                                </div>
+                                <div class='dataValues'>
+                                    <b>SKU:</b>
+                                    I am a sku
+                                </div>
+                            </div>
+                            <div class='search-result-li'>
+                                <div class='dataValues'>
+                                    <b>Title:</b>
+                                    I am a title
+                                </div>
+                                <div class='dataValues'>
+                                    <b>SKU:</b>
+                                    I am a sku
+                                </div>
+                            </div>
+                            <div class='search-result-li'></div>
+                        </div>
                     </div>
+            </div>
                 <div class="containerNew">
                     <div class="containerHeaders">
                         <div class="imageContainer">Image</div>
