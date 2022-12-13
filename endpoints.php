@@ -212,10 +212,6 @@ if(isset($_SESSION['clientConn']) && isset($_SESSION['connection']))
                 {
                     $cust = true;
                 }
-                if(!in_array("conditions", $output2))
-                {
-                    $cond = true;
-                }
             }
         }
         if($counter)
@@ -223,7 +219,7 @@ if(isset($_SESSION['clientConn']) && isset($_SESSION['connection']))
             echo('<div class="errors"><p class="align">Inventory table created</p></div>');
 
             //creates query
-            $query3 = " CREATE TABLE Inventory (
+            $query3__ = "CREATE TABLE Inventory (
                     Token int AUTO_INCREMENT primary key NOT NULL,
                     Type varchar(7),
                     Active varchar(6),
@@ -252,7 +248,7 @@ if(isset($_SESSION['clientConn']) && isset($_SESSION['connection']))
                 );
             ";
             
-            $output = $connection2->converterObject($rawConnection, $query3);
+            $output = $connection2->converterObject($rawConnection, $query3__);
             $counter = false;
         }
         if($cust)
@@ -281,7 +277,7 @@ if(isset($_SESSION['clientConn']) && isset($_SESSION['connection']))
         if($cond)
         {
             echo('<div class="errors"><p class="align">Conditions table created</p></div>');
-            $query3 = " CREATE TABLE Conditions (
+            $query3_ = " CREATE TABLE Conditions (
                 Token int AUTO_INCREMENT primary key NOT NULL,
                 DataValue varchar(10),
                 Statement varchar(2),
@@ -289,7 +285,7 @@ if(isset($_SESSION['clientConn']) && isset($_SESSION['connection']))
             );
             ";
         
-            $output = $connection2->converterObject($rawConnection, $query3);
+            $output = $connection2->converterObject($rawConnection, $query3_);
             $cond = false;
         }
         if($cond)
