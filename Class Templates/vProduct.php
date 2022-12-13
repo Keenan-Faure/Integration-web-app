@@ -4,7 +4,7 @@ namespace vProducts;
 
 Class vProducts
 {
-    private $product;
+    private \stdClass $product;
 
     function createProduct($product, $util, $connection, $update = '')
     {

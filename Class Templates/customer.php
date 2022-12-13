@@ -4,7 +4,7 @@ namespace customer;
 
 Class Customers
 {
-    private $customer;
+    private \stdClass $customer;
 
     function createCustomer($customer, $util, $connection, $update = '')
     {

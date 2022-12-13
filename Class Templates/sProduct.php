@@ -5,7 +5,7 @@ namespace sProducts;
 Class sProducts
 {
 
-    private $product;
+    private \stdClass $product;
 
     function createProduct($product, $util, $connection, $update = '')
     {

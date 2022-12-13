@@ -2,6 +2,7 @@
 namespace Connection;
 class Connection
 {
+    private \stdClass $connection;
     //creates a connection to the Database using the credentials provided
     //to run queries
     function createConnection($username, $password, $host, $db)
