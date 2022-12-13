@@ -79,21 +79,21 @@ The pushing of data to Woocommerce is done using the [Woocommerce API](https://w
 ### Integrator Application
 
 * Ability to add multiple users to the console which has admin access
-    * Users will admin access has full control over the application.
+    * Users with admin access has full control over the application.
 * Adding products
     * Via API
     * Via bulk import
-    * Via in app form
+    * Via forms inside app
 * Adding customers
     * Via API
-    * bulk import _not supported_
-    * Via in app form
+    * bulk import _not supported currently_
+    * Via forms inside app
 * Edit product and customer data
     * products support bulk export
     * bulk export not supported for customers
 * Contains an Audit trail in lower right corner which shows which user edited product or customer data last format:
 ```
-Last Edit made by {{User}} on {{Data-Time}}
+Last Edit made by {{User_Token}} on {{Data-Time}}
 ```
 
 ### Pushing Data to Woocommerce
