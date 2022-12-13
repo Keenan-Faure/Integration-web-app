@@ -25,8 +25,8 @@
     $fullUrl = $_SERVER["REQUEST_URI"];
     $fullUrl = $host . $fullUrl;
     $params = ($conn->queryParams($fullUrl));
-    $id = $params['q'];
-    $token = $params['token'];
+    $id = trim($params['q']);
+    $token = trim($params['token']);
 
     //check if token and id exists on any user in database
     $query2 = 'SELECT * FROM Userz WHERE UserID = "' . $id . '" AND Token = "' . $token . '"';
