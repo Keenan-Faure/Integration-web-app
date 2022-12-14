@@ -193,6 +193,21 @@ Class vProducts
             '0');"
         ;
         $connection->converterObject($rawConnection, $query_);
+
+        $queryS2S = "INSERT INTO Stock2Shop 
+        (
+            SKU,
+            Pushed
+            pushDate
+        )
+        VALUES 
+        (
+            'null',
+            'false',
+            'null');"
+        ;
+        $connection->converterObject($rawConnection, $queryS2S);
+
         $result = new \stdClass();
         $result->data = $product;
         return $result;
@@ -240,19 +255,6 @@ Class vProducts
             $variable->message = 'Unsupported value';
             $variable->supportedValues = array(true, false);
             return $variable;
-        }
-
-        if(isset($_SESSION['edit_prod']))
-        {
-            if($_SESSION['edit_prod'] == $product)
-            {
-                $variable = new \stdClass();
-                $variable->result = false;
-                $variable->message = "No changes have been detected";
-                unset($_SESSION['edit_prod']);
-                return $variable;
-            }
-            unset($_SESSION['edit_prod']);
         }
 
         $query = "UPDATE Inventory 

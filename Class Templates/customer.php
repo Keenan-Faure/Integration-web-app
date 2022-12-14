@@ -141,17 +141,6 @@ Class Customers
             return $util->existIDe($customer, $rawConnection, $connection);
         }
         
-        if(isset($_SESSION['edit_cust']))
-        {
-            if($_SESSION['edit_cust'] == $customer)
-            {
-                $variable = new \stdClass();
-                $variable->result = false;
-                $variable->message = "No changes have been detected";
-                unset($_SESSION['edit_cust']);
-                return $variable;
-            }
-        }
         if($customer->active != 'true' && $customer->active != 'false')
         {
             $variable = new \stdClass();
@@ -160,7 +149,6 @@ Class Customers
             $variable->supportedValues = array(true, false);
             return $variable;
         }
-        unset($_SESSION['edit_cust']);
 
         $query = "UPDATE Client 
 
