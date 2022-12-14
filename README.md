@@ -76,7 +76,7 @@ The pushing of data to Woocommerce is done using the [Woocommerce API](https://w
 * JSON based requests and responses
 * Request speed depends on Woocommerce server response times
 
-### Integrator Application
+## Integrator Application
 
 * Ability to add multiple users to the console which has admin access
     * Users with admin access has full control over the application.
@@ -130,7 +130,8 @@ Localhost:
    ngrok http {{port}}
    ```
    * Notice the forwarding url for your localhost port it will be used when setting up the webhook:
-   ![image](https://user-images.githubusercontent.com/97687673/207537012-70e7bb30-af57-4261-96ae-2dd6cee9876b.png)
+   ![image](https://user-images.githubusercontent.com/97687673/207538923-b80fe012-99a1-4794-bd65-8ec0e37eb82f.png)
+
 
 Web Server:
 
