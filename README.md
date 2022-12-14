@@ -98,7 +98,47 @@ Last Edit made by {{User_Token}} on {{Data-Time}}
 
 ### Pushing Data to Woocommerce
 
-* Pushing of product data to Woocommerce is done using the custom cURL `POST` and `GET` methods
+* Pushing of product data to Woocommerce is done using a custom cURL `POST` and `GET` methods
+
+## Receiving order from Woocommerce
+
+Three conditions need to be met to receive order data:
+
+* Does it come from the store defined in ```config > woo_settings.php```
+* Does the ```id``` and ```token``` in the url exist on a user in the database
+* Does the payload container the header ```X-Wc-Webhook-Resource ``` which should be equivalent to the value ```order```
+
+### Setting-up webhook URL for Woocommerce 
+
+__Note__ This guide is not an absolute bullet proof way of adding a webhook on Woocommerce.
+
+* Login to your Woocommerce back-end > Woocommerce > Settings > Advanced > Webhooks > Add Webhook
+* Status = active
+* Topic = order.updated
+* Delivery URL = ```{{forwarding url}}/orders/order.php?q={{user_id}}&token={{token}}```
+   * Token and User_ID can be found in the table on the Dashboard > Click mysql icon (top-left) > Manage Users
+* API Version = Legacy API v3 depreciated
+
+### Receiving orders from Woocommerce
+
+Localhost:
+
+* If the application is running on localhost and not on a web server, and application like [Ngrok](https://ngrok.com/download) is needed to create a tunnel in order to expose the application to the outside world and, hence, receive request from outside as well - like webhook data
+   * [Download](https://ngrok.com/download) ngrok on the OS of your choice
+   * Start a tunnel by entering - localhost uses port ```80``` for XAMPP users
+   ```
+   ngrok http {{port}}
+   ```
+   * Notice the forwarding url for your localhost port it will be used when setting up the webhook:
+   ![image](https://user-images.githubusercontent.com/97687673/207537012-70e7bb30-af57-4261-96ae-2dd6cee9876b.png)
+
+Web Server:
+
+* If the application is running on a web server, it has no need for Ngrok.
+* Simple copy the website url and replace the {{forwarding url}} for your website url 
+   * __eg.__ https://192.217.68.215 would replace the forwarding url and navigate to the order.php file in the url
+   
+   
 
 
 
