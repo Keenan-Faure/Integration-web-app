@@ -72,40 +72,62 @@ function createSearchResults(results)
     }
 }
 
-$(document).ready(()=>
+//Fades the search results in and out depending which element is in focus
+function inFocus()
+{
+    const element = document.activeElement.tagName;
+    console.log(element == 'INPUT');
+    if(element == 'INPUT')
+    {
+        s_b_fadeIn();
+    }
+    else if(element == 'BODY')
+    {
+        s_b_fadeOut();
+    }
+}
+function s_b_fadeIn()
 {
     let s_c = document.querySelector('.search-result-container');
-    document.querySelector('.search-bar').addEventListener('mouseover', ()=>
+    if(s_c.classList.contains('fade-out'))
     {
-        if(s_c.classList.contains('fade-out'))
-        {
-            s_c.classList.remove('fade-out');
-            s_c.classList.add('fade-in');
-            s_c.classList.add('top');
-        }
-        else
-        {
-            s_c.classList.add('fade-in');
-            s_c.classList.add('top');
-        }
-    });
-});
+        s_c.classList.remove('fade-out');
+        s_c.classList.add('fade-in');
+        s_c.classList.add('top');
+    }
+    else
+    {
+        s_c.classList.add('fade-in');
+        s_c.classList.add('top');
+    }
+}
 
-$(document).ready(()=>
+function s_b_fadeOut()
 {
     let s_c = document.querySelector('.search-result-container');
-    document.querySelector('.search-bar').addEventListener('mouseout', ()=>
+    if(s_c.classList.contains('fade-in'))
     {
-        if(s_c.classList.contains('fade-in'))
+        s_c.classList.remove('fade-in');
+        s_c.classList.add('fade-out');
+        s_c.classList.add('bottom');
+        setTimeout(()=>
         {
-            s_c.classList.remove('fade-in');
-            s_c.classList.add('fade-out');
-            s_c.classList.add('bottom');
-        }
-        else
+            removeSearchResults();
+        }, 500);
+    }
+}
+
+function removeSearchResults()
+{
+    let results = document.getElementById('productSForm');
+    for(let i = 0; i < results.length; ++i)
+    {
+        if(typeof results[i] !== 'undefined')
         {
-            s_c.classList.add('fade-out');
-            s_c.classList.add('bottom');
+            while (results.hasChildNodes()) 
+            {
+                results.removeChild(results.firstChild);
+            }
         }
-    });
-});
+    }
+}

@@ -39,7 +39,7 @@
         }
         ?>
     </head>
-    <body>
+    <body onclick="inFocus()">
         <div class='backgroundtwo'>
             <div class="navBar">
                 <div class="overlay">
@@ -79,17 +79,19 @@
                             </div>
                         </div>
                         <!-- Search -->
-                        <div class='search-bar'>
-                            <input class='search-field' type='text' placeholder='Search...'>
-                            <button class='search-btn' onclick="search()" type='submit'></button>
+                        <div id='search-b-h'>
+                            <div class='search-bar'>
+                                <input class='search-field' type='text' placeholder='Search...'>
+                                <button class='search-btn' onclick="search()" type='submit'></button>
+                            </div>
                             <div class='search-result-container'>
-                            Search results
-                            <hr>
-                            <br>
-                            <form method='post' action='productView.php' id='productSForm'>
-                                
-                            </form>
-                        </div>
+                                Search results
+                                <hr>
+                                <br>
+                                <form method='post' action='productView.php' id='productSForm'>
+                                    
+                                </form>
+                            </div>
                         </div>
                     </div>
             </div>
