@@ -197,12 +197,12 @@ Class vProducts
         $queryS2S = "INSERT INTO Stock2Shop 
         (
             SKU,
-            Pushed
+            Pushed,
             pushDate
         )
         VALUES 
         (
-            'null',
+            '" . $product->sku . "',
             'false',
             'null');"
         ;
