@@ -1,11 +1,3 @@
-$(document).ready(()=>
-{
-    $('.close').click(()=>
-    {
-        window.location.href = "../products/productList.php?page=1";
-    });
-});
-
 // +----------------------------------------------+
 // | Run-format of the functions (endpoints.php)  |
 // | initiatorCreateLogs -> createLogs ->         |

@@ -6,18 +6,31 @@
  * Run format - search() -> reqSearch() -> createSearchResults()
  */
 
-function search()
+function search(parameter)
 {
     let value = document.querySelector('.search-field').value;
     if(value.length != 0)
     {
         arrayUrl = (document.URL).split('/');
-        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/getProductsSearch.php?q=' + value;
-        reqSearch(url);
+        if(parameter == 'cust')
+        {
+            url = 'http://' + arrayUrl[2] + '/' + 'endpoints/getSearch.php?q=' + value + '&type=cust';
+            reqSearch(url, 'cust');
+        }
+        else if(parameter == 'prod')
+        {
+            url = 'http://' + arrayUrl[2] + '/' + 'endpoints/getSearch.php?q=' + value + '&type=prod';
+            reqSearch(url, 'prod');
+        }
+        else if(parameter == 'order')
+        {
+            url = 'http://' + arrayUrl[2] + '/' + 'endpoints/getSearch.php?q=' + value + '&type=order';
+            reqSearch(url, 'order');
+        }
     }
 }
 
-const reqSearch = async function(url)
+const reqSearch = async function(url, parameter)
 {
     const resp = await fetch(url,
     {
@@ -34,41 +47,110 @@ const reqSearch = async function(url)
         referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     });
     const json = await resp.json();
-    createSearchResults(json);
+    createSearchResults(json, parameter);
 }
 
-function createSearchResults(results)
+function createSearchResults(results, parameter)
 {
     form = document.getElementById('productSForm');
-    for(let i = 0; i < results["result"].length; ++i)
-    {        
-        let dataContainer = document.createElement('button');
-        dataContainer.className = 'search-result-li';
-        dataContainer.name = results["result"][i]['SKU'];
-        dataContainer.value = results["result"][i]['SKU'];
-            let title = document.createElement('div');
-            title.className = 'dataValues';
-                let name = document.createElement('b');
-                let text_1 = document.createTextNode('Title: ');
-                name.appendChild(text_1);
+    if(parameter == 'cust')
+    {
+        for(let i = 0; i < results["result"].length; ++i)
+        {        
+            let dataContainer = document.createElement('button');
+            dataContainer.className = 'search-result-li';
+            dataContainer.name = results["result"][i]['ID'];
+            dataContainer.value = results["result"][i]['ID'];
+                let title = document.createElement('div');
+                title.className = 'dataValues';
+                    let name = document.createElement('b');
+                    let text_1 = document.createTextNode('ID: ');
+                    name.appendChild(text_1);
 
-                let text_2 = document.createTextNode(results["result"][i]['Title']);
-            title.appendChild(name);
-            title.appendChild(text_2);
+                    let text_2 = document.createTextNode(results["result"][i]['ID']);
+                title.appendChild(name);
+                title.appendChild(text_2);
 
-            dataContainer.appendChild(title);
+                dataContainer.appendChild(title);
 
-            let sku = document.createElement('div');
-            sku.className = 'dataValues';
-                name = document.createElement('b');
-                text_1 = document.createTextNode('SKU: ');
-                name.appendChild(text_1);
+                let sku = document.createElement('div');
+                sku.className = 'dataValues';
+                    name = document.createElement('b');
+                    text_1 = document.createTextNode('First Name: ');
+                    name.appendChild(text_1);
 
-                text_2 = document.createTextNode(results["result"][i]['SKU']);
-            sku.appendChild(name);
-            sku.appendChild(text_2);
-        dataContainer.appendChild(sku);
-        form.appendChild(dataContainer);
+                    text_2 = document.createTextNode(results["result"][i]['Name']);
+                sku.appendChild(name);
+                sku.appendChild(text_2);
+            dataContainer.appendChild(sku);
+            form.appendChild(dataContainer);
+        }
+    }
+    else if(parameter == 'prod')
+    {
+        for(let i = 0; i < results["result"].length; ++i)
+        {        
+            let dataContainer = document.createElement('button');
+            dataContainer.className = 'search-result-li';
+            dataContainer.name = results["result"][i]['SKU'];
+            dataContainer.value = results["result"][i]['SKU'];
+                let title = document.createElement('div');
+                title.className = 'dataValues';
+                    let name = document.createElement('b');
+                    let text_1 = document.createTextNode('Title: ');
+                    name.appendChild(text_1);
+
+                    let text_2 = document.createTextNode(results["result"][i]['Title']);
+                title.appendChild(name);
+                title.appendChild(text_2);
+
+                dataContainer.appendChild(title);
+
+                let sku = document.createElement('div');
+                sku.className = 'dataValues';
+                    name = document.createElement('b');
+                    text_1 = document.createTextNode('SKU: ');
+                    name.appendChild(text_1);
+
+                    text_2 = document.createTextNode(results["result"][i]['SKU']);
+                sku.appendChild(name);
+                sku.appendChild(text_2);
+            dataContainer.appendChild(sku);
+            form.appendChild(dataContainer);
+        }
+    }
+    else if(parameter == 'order')
+    {
+        for(let i = 0; i < results["result"].length; ++i)
+        {        
+            let dataContainer = document.createElement('button');
+            dataContainer.className = 'search-result-li';
+            dataContainer.name = results["result"][i]['ID'];
+            dataContainer.value = results["result"][i]['ID'];
+                let title = document.createElement('div');
+                title.className = 'dataValues';
+                    let name = document.createElement('b');
+                    let text_1 = document.createTextNode('ID: ');
+                    name.appendChild(text_1);
+
+                    let text_2 = document.createTextNode(results["result"][i]['ID']);
+                title.appendChild(name);
+                title.appendChild(text_2);
+
+                dataContainer.appendChild(title);
+
+                let sku = document.createElement('div');
+                sku.className = 'dataValues';
+                    name = document.createElement('b');
+                    text_1 = document.createTextNode('Order Status: ');
+                    name.appendChild(text_1);
+
+                    text_2 = document.createTextNode(results["result"][i]['orderStatus']);
+                sku.appendChild(name);
+                sku.appendChild(text_2);
+            dataContainer.appendChild(sku);
+            form.appendChild(dataContainer);
+        }
     }
 }
 
@@ -76,7 +158,6 @@ function createSearchResults(results)
 function inFocus()
 {
     const element = document.activeElement.tagName;
-    console.log(element == 'INPUT');
     if(element == 'INPUT')
     {
         s_b_fadeIn();

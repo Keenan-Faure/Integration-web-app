@@ -401,7 +401,7 @@ h1:hover
     background-color: rgba(175, 175, 175, 0.9);
     cursor: pointer;
 }
-@media screen and (max-width: 750px)
+@media screen and (max-width: 810px)
 {
     .search-bar
     {
@@ -474,4 +474,5 @@ h1:hover
     font-size: 12px;
     font-family: system-ui;
 }
+
 
