@@ -95,7 +95,7 @@
             <div class='saveCloseContainer'>
                 
                 <button class='save' type='submit' title='Save current product'></button>
-                <div class='close' onclick='window.location.href = "../products/productView.php?page=1"' title='Close and return'></div>
+                <div class='close' onclick='window.location.href = "../products/productList.php?page=1"' title='Close and return'></div>
             </div>
             <div class="General">
                 <div class="vData" id="vDatad"><p>General</p></div>
