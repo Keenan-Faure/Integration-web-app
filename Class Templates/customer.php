@@ -102,7 +102,7 @@ Class Customers
             Address_3,
             Address_4,
             Audit_Date,
-            User
+            Users
         )
         VALUES 
         (
@@ -116,9 +116,9 @@ Class Customers
             $customer->address3 . "','" . 
             $customer->address4 . "','" .
             date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']) . "','"
-            . $_SESSION['clientConn']->credentials->token . "');"
+            . $_SESSION['clientConn']->token . "');"
         ;
-        $connection->converterObject($rawConnection, $query);
+        $output = $connection->converterObject($rawConnection, $query);
         $result = new \stdClass();
         $result->data = $customer;
         return $result;
@@ -127,7 +127,7 @@ Class Customers
     function updateCustomer($customer, $util, $connection)
     {
         $date = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-        $user = $_SESSION['clientConn']->credentials->token;
+        $user = $_SESSION['clientConn']->token;
         
         $username = $_SESSION['connection']->credentials->username;
         $password = $_SESSION['connection']->credentials->password;
@@ -175,7 +175,7 @@ Class Customers
             Address_3 = '$customer->address3',
             Address_4 = '$customer->address4',
             Audit_Date = '$date',
-            User = '$user'
+            Users = '$user'
             
         WHERE ID = '$customer->id'"
         ;
