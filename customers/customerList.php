@@ -11,6 +11,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="../Scripts/fade.js"></script>
         <script src="../Scripts/createElements.js"></script>
+        <script src="../Scripts/search.js"></script>
         <?php 
         if($_SESSION['connection'])
         {
@@ -31,7 +32,7 @@
         }
         ?>
     </head>
-    <body>
+    <body onclick="inFocus()">
         <div class='backgroundtwo'>
             <div class="navBar">
                 <div class="overlay">
@@ -70,7 +71,21 @@
                             </div>
                         </div>
                     </div>
-                    <a href="../importUtils/import.html" class="buttonOption"></a>
+                    <!-- Search -->
+                    <div id='search-b-h'>
+                            <div class='search-bar'>
+                                <input class='search-field' type='text' placeholder='Search...'>
+                                <button class='search-btn' onclick="search('cust')" type='submit'></button>
+                            </div>
+                            <div class='search-result-container'>
+                                Search results
+                                <hr>
+                                <br>
+                                <form method='post' action='customerView.php' id='productSForm'>
+                                    
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="containerNew">

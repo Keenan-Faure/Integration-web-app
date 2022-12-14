@@ -82,7 +82,7 @@
                         <div id='search-b-h'>
                             <div class='search-bar'>
                                 <input class='search-field' type='text' placeholder='Search...'>
-                                <button class='search-btn' onclick="search()" type='submit'></button>
+                                <button class='search-btn' onclick="search('prod')" type='submit'></button>
                             </div>
                             <div class='search-result-container'>
                                 Search results
