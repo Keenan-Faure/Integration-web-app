@@ -14,6 +14,7 @@
         <link rel="icon" type="image/x-icon" href="../Images/logo.png"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="../Scripts/createElements.js"></script>
+        <script src="../Scripts/fade.js"></script>
         <?php 
         if($_SESSION['connection']->active == true)
         {
