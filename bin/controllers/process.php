@@ -29,15 +29,13 @@ if(isset($_SESSION['clientConn']) && isset($_SESSION['connection']))
                 $result = $customer->createCustomer($_POST, $util, $connection);
                 if(isset($result->return))
                 {
-                    echo(json_encode($result));
-                    header('Refresh:2,url=endpoints.php');
+                    header('Refresh:0,url=../../endpoints.php');
                     unset($_POST);
                     exit();
                 }
                 $result = $customer->addCustomer($result, $connection);
-                echo(json_encode($result));
                 unset($_POST);
-                header('Refresh:2,url=endpoints.php');
+                header('Refresh:0,url=../../customers/customerList.php?page=1');
             }
             else if(!isset($_POST['name']) && !isset($_POST['surname']))
             {
@@ -52,15 +50,13 @@ if(isset($_SESSION['clientConn']) && isset($_SESSION['connection']))
                     $result = $product->createProduct($_POST, $util, $connection);
                     if(isset($result->return))
                     {
-                        echo(json_encode($result));
-                        header('Refresh:2,url=productList.php?page=1');
+                        header('Refresh:0,url=../../products/productList.php?page=1');
                         unset($_POST);
                         exit();
                     }
                     $result = $product->addProduct($result, $connection);
-                    echo(json_encode($result));
                     unset($_POST);
-                    header('Refresh:2,url=productList.php?page=1');
+                    header('Refresh:0,url=../../products/productList.php?page=1');
                 }
                 else
                 {
@@ -70,15 +66,13 @@ if(isset($_SESSION['clientConn']) && isset($_SESSION['connection']))
                     $result = $product->createProduct($_POST, $util, $connection);
                     if(isset($result->return))
                     {
-                        echo(json_encode($result));
-                        header('Refresh:2,url=productList.php?page=1');
+                        header('Refresh:0,url=../../products/productList.php?page=1');
                         unset($_POST);
                         exit();
                     }
                     $result = $product->addProduct($result, $connection);
-                    echo(json_encode($result));
                     unset($_POST);
-                    header('Refresh:2,url=productList.php?page=1');
+                    header('Refresh:0,url=../../products/productList.php?page=1');
                 }
             }
             else
@@ -86,7 +80,7 @@ if(isset($_SESSION['clientConn']) && isset($_SESSION['connection']))
                 $conn = new connect();
                 $conn->addLogs('Error loading post data', 'No POST Data found, please re-select', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
                 $conn->createHtmlMessages('', 'Error: Post Data', 'Error loading post data', 'endpoints', 'warn');
-                header('Refresh:2,url=productList.php?page=1');
+                header('Refresh:2,url=../../products/productList.php?page=1');
             }
         }
         else
