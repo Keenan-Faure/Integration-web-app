@@ -10,8 +10,8 @@
         <link rel="icon" type="image/x-icon" href="../Images/logo.png"/>
         <link rel='stylesheet' href='../Styles/productView.css'>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="../Scripts/fade.js"></script>
         <script src="../Scripts/createElements.js"></script>
+        <script src="../Scripts/fade.js"></script>
         <script src="../Scripts/formTransformCust.js"></script>
         <?php 
         
@@ -62,7 +62,7 @@
                     <button class="dropDownBtn">Products</button>
                         <div class="dropDownContent">
                             <a href="../addItem.html">Add Product</a>
-                            <a href="../productList.php?page=1">View all products</a>
+                            <a href="../products/productList.php?page=1">View all products</a>
                             <a href="../importUtils/import.html">Import Products</a>
                             <a href="../importUtils/productExport.php">Export Products</a>
                         </div>
@@ -101,7 +101,7 @@
                 <div id='imageCompressorC'>
                     <div class='imageContainerC'></div>
                 </div>
-                <textarea id='textarea' class="titleContainer"></textarea>
+                <textarea id='textarea' class="titleContainer s"></textarea>
                 <div class="generalInfoContainer">
                     <div id="gap">
                         <div class="dataContainer">

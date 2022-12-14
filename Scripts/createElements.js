@@ -264,7 +264,7 @@ function setRequired(object, type)
 //added to text to add the body_html
 function setText(classNames, text, formNames, type)
 {
-    let ignore = ['Token', 'Type', 'Audit_Date', 'User'];
+    let ignore = ['Token', 'Type', 'Audit_Date', 'Users'];
     for(let i = 0; i < text.length; ++i)
     {
         if(ignore.includes(text[i][0]))
@@ -514,7 +514,7 @@ function setCustomerRequired(object)
 //added to text to add the body_html
 function setCustomerText(classNames, text, formNames)
 {
-    let ignore = ['Token'];
+    let ignore = ['Token', 'Users', 'Audit_Date'];
     for(let i = 0; i < text.length; ++i)
     {
         if(ignore.includes(text[i][0]))
