@@ -130,18 +130,11 @@ Localhost:
    ngrok http {{port}}
    ```
    * Notice the forwarding url for your localhost port it will be used when setting up the webhook:
-   ![image](https://user-images.githubusercontent.com/97687673/207539188-a65e3e33-5dae-4e66-a921-b65ff4a625b9.png)
-
-
-
+   ![image](![image](https://user-images.githubusercontent.com/97687673/207853103-5cc68199-17e1-4fa2-a3c6-b542b2725355.png)
+   
 Web Server:
 
 * If the application is running on a web server, it has no need for Ngrok.
 * Simple copy the website url and replace the {{forwarding url}} for your website url 
    * __eg.__ https://192.217.68.215 would replace the forwarding url and navigate to the order.php file in the url
    
-   
-
-
-
-
