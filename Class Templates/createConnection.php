@@ -48,7 +48,7 @@ class Connection
 
     //checks if the user entered at the login page is valid
     //and if it exists in the usertable defined in the database
-    function connectUser($_config, $client_user, $client_pass)
+    function connectUser(array $_config, string $client_user, string $client_pass)
     {
         $query = 'SELECT * FROM Userz WHERE Username = "' . $client_user . '"';
         $results = $this->preQuery($_config, $query, 'object');
@@ -127,7 +127,7 @@ class Connection
     // - The error message
     // - The best solution that the user can take
     // - and the link that redirects the user
-    function createHtmlMessages($extension = '', $message = 'No msg specified', $solution = 'No Solution provided', $link = '', $type = 'warn')
+    function createHtmlMessages(string $extension = '', string $message = 'No msg specified', string $solution = 'No Solution provided', string $link = '', string $type = 'warn')
     {
         if($extension == null)
         {
@@ -159,7 +159,7 @@ class Connection
             </html>
         ");
     }
-    function createJsonMessages($message, $solution, $link, $type, $prefix = 'html')
+    function createJsonMessages(string $message, string $solution, string $link, string $type, string $prefix = 'html')
     {
         echo("
             <html>
@@ -188,7 +188,7 @@ class Connection
         ");
     }
 
-    function createRandomString($length = 32)
+    function createRandomString(int $length = 32)
     {
         $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
@@ -202,7 +202,7 @@ class Connection
     //pre-conection queries
     //made with the datafound in the config php file
 
-    function preQuery($_config, $query, $key)
+    function preQuery(array $_config, string $query, string $key)
     {
         try
         {
@@ -243,7 +243,7 @@ class Connection
     //this is hardcoded to:
     //username = root
     //password = ''
-    function connectServer($username='null', $password='', $host='localhost')
+    function connectServer(string $username='null', string $password='', string $host='localhost')
     {
         $serverConnections = null;
         try
@@ -283,7 +283,7 @@ class Connection
     //3.) Then returns that number which will be used
     //    To create the amount of <a> tags
     //type can be 'Inventory' or 'Client'
-    function pagination($rawConnection, $type)
+    function pagination(mixed $rawConnection, string $type)
     {
         $query = "SELECT COUNT(*) AS total FROM " . $type;
         $result = $this->converterObject($rawConnection, $query);
@@ -302,7 +302,7 @@ class Connection
     //returns the query params as a php array
     //using the URL provided
     //has to be entire URL
-    function queryParams($url)
+    function queryParams(string $url)
     {
         $partitions = parse_url($url);
         if(isset($partitions['query']))
@@ -341,7 +341,7 @@ class Connection
     }
 
     //converts mysqli object to php object
-    function converterObject($rawConnection, $query, $parameter=null)
+    function converterObject(mixed $rawConnection, string $query, string $parameter=null)
     {
         if($query === '')
         {
@@ -426,7 +426,7 @@ class Connection
     }
 
     //function to return the databases or tables inside the database 
-    function converterArray($rawConnection, $query)
+    function converterArray(mixed $rawConnection, string $query)
     {
         $output = array();
         if($result = mysqli_query($rawConnection, $query))
@@ -445,7 +445,7 @@ class Connection
         return $output;
     }
 
-    function connectAPI($token, $secret)
+    function connectAPI(string $token, string $secret)
     {
         if(isset($_SESSION['apicredentials']))
         {
@@ -492,7 +492,7 @@ class Connection
     //where head -> message head (topic)
     //body -> main message 
     //type -> information, warning etc
-    function addLogs($head, $body, $_time, $_type, $saved)
+    function addLogs(string $head, string $body, string $_time, string $_type, $saved)
     {
         $_config = include("../../config/config.php");
         if(!isset($_SESSION))
@@ -514,7 +514,7 @@ class Connection
     }
 
     //sets the settings in the session
-    function setSettings($_settings)
+    function setSettings(array $_settings)
     {
         $variable = new \stdClass();
         foreach($_settings as $x => $value)
@@ -529,27 +529,6 @@ class Connection
             }
         }
         return $variable;
-    }
-
-    //accessor methods
-    function getUsername()
-    {
-        return $this->username;
-    }
-
-    function getPassword()
-    {
-        return $this->password;
-    }
-
-    function getHost()
-    {
-        return $this->host;
-    }
-
-    function getDbname()
-    {
-       return $this->dbName;
     }
 }
 
