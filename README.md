@@ -129,8 +129,9 @@ Localhost:
    ```
    ngrok http {{port}}
    ```
+   
    * Notice the forwarding url for your localhost port it will be used when setting up the webhook:
-   ![image](![image](https://user-images.githubusercontent.com/97687673/207853103-5cc68199-17e1-4fa2-a3c6-b542b2725355.png)
+   ![image](https://user-images.githubusercontent.com/97687673/207853103-5cc68199-17e1-4fa2-a3c6-b542b2725355.png)
    
 Web Server:
 
