@@ -29,7 +29,7 @@ if(isset($_SESSION['clientConn']) && isset($_SESSION['connection']))
                 $result = $customer->createCustomer($_POST, $util, $connection);
                 if(isset($result->return))
                 {
-                    header('Refresh:0,url=../../endpoints.php');
+                    header('Refresh:0,url=../../dashboard.php');
                     unset($_POST);
                     exit();
                 }

@@ -12,7 +12,7 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
     {
         if($_SESSION['connection']->credentials->username == $_POST['uname'] && $_SESSION['connection']->credentials->password == $_POST['psw'])
         {
-            header("Refresh:0, url=../../endpoints.php");
+            header("Refresh:0, url=../../dashboard.php");
         }
         else
         {
@@ -36,7 +36,7 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
                 {
                     $conn->addLogs('Connection successful', $result->message, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'info', false);
                 }
-                header('Refresh:0, url=endpoints.php');
+                header('Refresh:0, url=dashboard.php');
             }
         }
     }
@@ -60,7 +60,7 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
             {
                 $conn->addLogs('Connection successful', $result->message, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'info', false);
             }
-            header('Refresh:0, url=../../endpoints.php');
+            header('Refresh:0, url=../../dashboard.php');
         }
     }
 }
@@ -168,7 +168,7 @@ else
                     {
                         $conn->addLogs('API Connection successful', 'Username: ' . $username . ' Password: ' . $password, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'info', false);
                     }
-                    header('location: endpoints.php');
+                    header('location: dashboard.php');
                 }
             }
         }

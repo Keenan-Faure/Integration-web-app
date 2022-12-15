@@ -29,7 +29,7 @@
                         <div class="dropDown">
                         <button class="dropDownBtn">Home</button>
                             <div class="dropDownContent">
-                                <a href="../endpoints.php">Dashboard</a>
+                                <a href="../dashboard.php">Dashboard</a>
                             </div>
                         </div>
                         <div class="dropDown">

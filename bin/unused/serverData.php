@@ -26,7 +26,7 @@
             </div>
             <div class='nextBtn2'>❮</div>
             <div class="modalContainer">
-                <form method='post' action='../controllers/connect.php' target='endpoints.php'>
+                <form method='post' action='../controllers/connect.php' target='dashboard.php'>
                     <input type='text' name='host' placeholder='Localhost' readonly>
                     <br><br>
                     <input type='text' autocomplete="off" class='show' name='dbName' placeholder='Enter Database' required>

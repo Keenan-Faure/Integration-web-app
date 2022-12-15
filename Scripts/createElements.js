@@ -1,5 +1,5 @@
 // +----------------------------------------------+
-// | Run-format of the functions (endpoints.php)  |
+// | Run-format of the functions (dashboard.php)  |
 // | initiatorCreateLogs -> createLogs ->         |
 // | convertJsonToArray                           |
 // +----------------------------------------------+
