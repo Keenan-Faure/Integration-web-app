@@ -184,7 +184,7 @@ Class sProducts
         (
             '" . $product->sku . "',
             'false',
-            'null');"
+            '0');"
         ;
         $connection->converterObject($rawConnection, $queryS2S);
         
@@ -255,7 +255,7 @@ Class sProducts
             
         WHERE SKU = '$product->sku'"
         ;
-        $output = $connection->converterObject($rawConnection, $query);
+        $connection->converterObject($rawConnection, $query);
         $result = new \stdClass();
         $result->data = $product;
         return $result;

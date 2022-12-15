@@ -206,7 +206,7 @@ Class vProducts
         (
             '" . $product->sku . "',
             'false',
-            'null');"
+            '0');"
         ;
         $connection->converterObject($rawConnection, $queryS2S);
 
