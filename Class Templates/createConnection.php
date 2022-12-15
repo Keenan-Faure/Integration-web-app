@@ -5,7 +5,7 @@ class Connection
     private \stdClass $connection;
     //creates a connection to the Database using the credentials provided
     //to run queries
-    function createConnection($username, $password, $host, $db)
+    function createConnection(string $username, string $password, string $host, string $db)
     {
         $conn = null;
         try
