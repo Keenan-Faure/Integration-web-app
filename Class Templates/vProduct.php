@@ -178,17 +178,19 @@ Class vProducts
             date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']) . "','"
             . $_SESSION['clientConn']->token . "');"
         ;
-        $output = $connection->converterObject($rawConnection, $query);
+        $connection->converterObject($rawConnection, $query);
 
         $query_ = "INSERT INTO Woocommerce 
         (
             SKU,
             ID,
-            P_ID
+            P_ID,
+            pushDate
         )
         VALUES 
         (
             '" . $product->sku . "',
+            '0',
             '0',
             '0');"
         ;
@@ -283,7 +285,7 @@ Class vProducts
             Meta_2 = '$product->meta2',
             Meta_3 = '$product->meta1',
             Audit_Date = '$date',
-            User = '$user'
+            Users = '$user'
 
         WHERE SKU = '$product->sku'"
         ;

@@ -162,11 +162,13 @@ Class sProducts
         (
             SKU,
             ID,
-            P_ID
+            P_ID,
+            pushDate
         )
         VALUES 
         (
             '" . $product->sku . "',
+            '0',
             '0',
             '0');"
         ;
@@ -249,11 +251,11 @@ Class sProducts
             Meta_2 = '$product->meta2',
             Meta_3 = '$product->meta3',
             Audit_Date = '$date',
-            User = '$user'
+            Users = '$user'
             
         WHERE SKU = '$product->sku'"
         ;
-        $connection->converterObject($rawConnection, $query);
+        $output = $connection->converterObject($rawConnection, $query);
         $result = new \stdClass();
         $result->data = $product;
         return $result;
