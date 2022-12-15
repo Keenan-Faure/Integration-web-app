@@ -20,7 +20,7 @@
             {
                 $variable = new \stdClass();
                 $variable->result = false;
-                $variable->body = 'Push Products disabled';
+                $variable->message = 'Push Products disabled';
                 $variable->body = null;
                 echo(json_encode($variable));
                 //$connection->createHtmlMessages('Push Products disabled', 'Please contact admin', '/CURL/app', 'info');
@@ -30,7 +30,7 @@
             {
                 $variable = new \stdClass();
                 $variable->result = false;
-                $variable->body = 'No Authentication token from in current session';
+                $variable->message = 'No Authentication token found in current session';
                 echo(json_encode($variable));
                 //$connection->createHtmlMessages('Push Products disabled', 'Please contact admin', '/CURL/app', 'info');
                 exit();
