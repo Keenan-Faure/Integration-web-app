@@ -634,22 +634,34 @@ Class CURL
             if($result == null)
             {
                 $variable = new \stdClass();
-                $variable->result = false;
+                $variable->result = 'null';
                 $variable->message = 'Incorrect store name';
+                return $variable;
+            }
+            if(json_decode($result)->http_code == 0)
+            {
+                $variable = new \stdClass();
+                $variable->result = 'null';
+                $variable->message = json_decode($result)->message;
                 return $variable;
             }
             if(json_decode($result)->products == null)
             {
-                return false;
+                $variable = new \stdClass();
+                $variable->result = 'false';
+                $variable->message = 'Product not found';
+                return $variable;
             }
             else if(json_decode($result)->products != null)
             {
-                return true;
+                $variable = new \stdClass();
+                $variable->result = 'true';
+                return $variable;
             }
             else
             {
                 $variable = new \stdClass();
-                $variable->result = false;
+                $variable->result = 'null';
                 $variable->message = 'Malformed JSON received from Woocommerce';
                 return $variable;
             }
@@ -657,7 +669,7 @@ Class CURL
         else
         {
             $variable = new \stdClass();
-            $variable->result = false;
+            $variable->result = 'null';
             $variable->message = 'No session detected';
             return $variable;
         }

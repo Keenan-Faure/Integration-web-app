@@ -45,7 +45,7 @@ if(isset($_SESSION['connection']))
         $arrayData[0]->Description = html_entity_decode($arrayData[0]->Description);
         $sku = $arrayData[0]->SKU;
         $found = $curl->check_woo_sku($sku);
-        if($found == true)
+        if($found->result == 'true')
         {
             //exists
             //gets settings from php file
@@ -83,7 +83,7 @@ if(isset($_SESSION['connection']))
              *      - If it's a variable product then update variants (add options)
              */
         }
-        else
+        else if($found->result == 'false')
         {
             //do not exist
             //gets settings from php file
@@ -95,6 +95,14 @@ if(isset($_SESSION['connection']))
 
             //creates new products on Woocommerce
             echo(json_encode($curl->woo_addProduct($arrayData[0], $wooSettings, false, $connection)));
+        }
+        else if($found->result == 'null')
+        {
+            $variable = new \stdClass();
+            $variable->result = false;
+            $variable->message = $found->message;
+            echo(json_encode($variable));
+            exit();
         }
     }
 }
