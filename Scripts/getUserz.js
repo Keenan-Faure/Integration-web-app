@@ -94,7 +94,7 @@ function createUserTable(json)
                             aTag.className = 'SaveBtn';
                             aTag.onclick = transform;
                             
-                            url = 'http://' + arrayUrl[2] + '/' + 'endpoints/putUser.php?q=' + json[i][headers[z-1]];
+                            url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=put_usz&token=' + json[i][headers[z-1]];
                             aTag.id = url;
                             let text = document.createTextNode('Save');
                             aTag.appendChild(text);
@@ -134,7 +134,7 @@ function createURL(token, parameter = '')
     else if(parameter == 'putLogs')
     {
         arrayUrl = (document.URL).split('/');
-        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/putLogs.php?q=' + token;
+        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=put_logs&token=' + token;
         return url;
     }
 }

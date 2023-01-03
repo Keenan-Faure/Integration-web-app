@@ -29,6 +29,7 @@ function fetch_conn()
 
 /**
  * Description: Fetches IDs from Database. Uses inner join on Woocommerce & Inventory tables 
+ * Request Type: GET
  * @Params: $connection & $params
  * @returns: \stdClass (object)
  */
@@ -59,6 +60,7 @@ function get_ids($connection, $util, $params)
 
 /**
  * Description: Search endpoint for products/orders/customers. Searches through the respective tables in the database
+ * Request Type: GET
  * @Params: $connection & $params & $util
  * @returns: \stdClass (object)
  */
@@ -165,7 +167,8 @@ function get_search($connection, $util, $params)
 }
 
 /**
- * Description: GETs the session, as a json object, and returns it
+ * Description: Gets the session, as a json object, and returns it
+ * Request Type: GET
  * @Params: none used
  * @returns: \stdClass (object)
  */
@@ -185,9 +188,10 @@ function get_ses($connection, $util, $params)
 }
 
 /**
- * Description: GETs all products in the Inventory table that:
+ * Description: Gets all products in the Inventory table that:
  *      - That has a recent audit date
  *      - Is active to sync
+ * Request Type: GET
  * @Params: $connection & $util (Not used) & $params 
  * @returns: \stdClass (object)
  */
@@ -219,7 +223,8 @@ function get_sku($connection, $util, $params)
 }
 
 /**
- * Description: GETs all users in the Client table
+ * Description: Gets all users in the Client table
+ * Request Type: GET
  * @Params: $connection & $util (Not used) & $params 
  * @returns: \stdClass (object)
  */
@@ -246,6 +251,76 @@ function get_usz($connection, $util, $params)
         $output2 = $connection->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
         $result = json_encode($output2->result);
         echo($result);
+        exit();
+    }
+}
+
+/**
+ * Description: Updates the `Logs` table in the database
+ * Request Type: PUT
+ * @Params: $connection & $util (Not used) & $params 
+ * @returns: \stdClass (object)
+ */
+function put_logs($connection, $util, $params)
+{
+    $token = $params['token'];
+    $id = $params['id'];
+
+    //check if token is valid
+    $query2 = 'SELECT * FROM Userz WHERE Token = "' . $token . '"';
+    $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+    $output2 = $connection->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
+    if($output2->result == null)
+    {
+        $variable = new \stdClass();
+        $variable->return = false;
+        $variable->body = "No session found or invalid Token";
+        echo(json_encode($variable));
+        exit();
+    }
+    else
+    {
+        //$query2 = 'DELETE FROM Logs WHERE ID = "' . $id . '"';
+        //'Update Userz set active = "true" where UserID = "1"'
+        $query2 = 'DELETE FROM Logs WHERE ID = "' . $id . '"';
+        $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+        $output2 = $connection->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
+        $result = json_encode($output2->result);
+        echo(json_encode($result));
+        exit();
+    }
+}
+
+/**
+ * Description: Updates the `Userz` table in the database
+ * Request Type: PUT
+ * @Params: $connection & $util (Not used) & $params 
+ * @returns: \stdClass (object)
+ */
+function put_usz($connection, $util, $params)
+{
+    $token = $params['token'];
+    $active = $params['act'];
+
+    //check if token is valid
+    $query2 = 'SELECT * FROM Userz WHERE Token = "' . $token . '"';
+    $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+    $output2 = $connection->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
+    if($output2->result == null)
+    {
+        $variable = new \stdClass();
+        $variable->return = false;
+        $variable->body = "No session found or invalid Token";
+        echo(json_encode($variable));
+        exit();
+    }
+    else
+    {
+        $query2 = 'UPDATE Userz SET Active = "' . $active . '" WHERE Token = "' . $token . '"';
+        $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+        $output2 = $connection->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
+        $result = json_encode($output2->result);
+        echo(json_encode($result));
         exit();
     }
 }
