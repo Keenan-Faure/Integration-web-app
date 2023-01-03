@@ -12,7 +12,6 @@ $(document).ready(()=>
         else if(active.checked == false)
         {
             active.value = 'false';
-            console.log(active);
         }
     });
 });

@@ -51,16 +51,6 @@ function createUserTable(json)
                     else if(z == 4)
                     {
                         let td = document.createElement('td');
-                            let aTag = document.createElement('button');
-                            aTag.className = 'SaveBtn';
-                            aTag.onclick = transform;
-                            
-                            url = 'http://' + arrayUrl[2] + '/' + 'endpoints/postUser.php?q=' + json[i][headers[z-1]];
-                            aTag.id = url;
-                            let text = document.createTextNode('Save');
-                            aTag.appendChild(text);
-
-                        td.appendChild(aTag);
                         tr1.appendChild(td);
                     }
                     else
@@ -104,7 +94,7 @@ function createUserTable(json)
                             aTag.className = 'SaveBtn';
                             aTag.onclick = transform;
                             
-                            url = 'http://' + arrayUrl[2] + '/' + 'endpoints/postUser.php?q=' + json[i][headers[z-1]];
+                            url = 'http://' + arrayUrl[2] + '/' + 'endpoints/putUser.php?q=' + json[i][headers[z-1]];
                             aTag.id = url;
                             let text = document.createTextNode('Save');
                             aTag.appendChild(text);
@@ -129,20 +119,26 @@ function createUserTable(json)
 }
 function createURL(token, parameter = '')
 {
-    if(parameter != '')
+    if(parameter == 'session')
     {
         arrayUrl = (document.URL).split('/');
         url = 'http://' + arrayUrl[2] + '/' + 'endpoints/getSession.php';
         return url;
     }
-    else
+    else if(parameter == 'putUsers')
     {
         arrayUrl = (document.URL).split('/');
         url = 'http://' + arrayUrl[2] + '/' + 'endpoints/getUserz.php?q=' + token;
         return url;
     }
+    else if(parameter == 'putLogs')
+    {
+        arrayUrl = (document.URL).split('/');
+        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/putLogs.php?q=' + token;
+        return url;
+    }
 }
-const req = async function(token = '', parameter)
+const req = async function(token = '', parameter, next, reqParameter)
 {
     let url = createURL(token, parameter)
     const resp = await fetch(url,
@@ -160,12 +156,19 @@ const req = async function(token = '', parameter)
         referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     });
     const json = await resp.json();
-    process(json);
+    if(next == 'process')
+    {
+        process(json, json.token);
+    }
+    else if(next == 'logs')
+    {
+        updateLogs(json, reqParameter);
+    }
 }
 const process = async function(result)
 {
     //uses the json in req to make a loop
-    let url = createURL(result.token,'');
+    let url = createURL(result.token,'putUsers');
     const resp = await fetch(url,
     {
         method: 'GET', // *GET, POST, PUT, DELETE, etc.
@@ -184,6 +187,6 @@ const process = async function(result)
     //create front-end
     createUserTable(json);
 }
-req('', 'session');
+req('', 'session', 'process');
 
 
