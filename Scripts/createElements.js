@@ -68,11 +68,12 @@ function createLogs(logsJson)
                 head.appendChild(text);
                 rowItem.appendChild(head);
 
-                let closer = document.createElement('div');
+                let closer = document.createElement('button');
                 closer.className = 'closer';
-                closer.classList.add(j);
+                closer.id = returns[4][j];
                     text = document.createTextNode('×');
                 closer.appendChild(text);
+                closer.onclick = InitUpdateLogs;
                 rowItem.appendChild(closer);
 
             document.querySelector('.info-report').appendChild(rowItem);
@@ -1071,17 +1072,3 @@ function setPayDetails(object)
         }
     }
 }
-setTimeout(()=>
-{
-    $(document).ready(()=>
-    {
-        logs = document.getElementsByClassName("closer");
-        for(let i = 0; i < logs.length; ++i)
-        {
-            logs[i].addEventListener('click', ()=>
-            {
-                logs[i].parentNode.style.display = 'none';
-            });
-        }
-    });
-}, 1500);

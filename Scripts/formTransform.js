@@ -13,7 +13,6 @@ $(document).ready(()=>
 
         //gets the active;
         let active = document.querySelector('.act');
-        console.log(active.checked);
         if(active.checked == true)
         {
             active.value = 'true';
