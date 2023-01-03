@@ -45,7 +45,7 @@ if(isset($_SESSION['connection']))
         $variable->body_2 = $result2;
 
         //removed duplicates from results
-        echo(json_encode(removeDuplicates($variable, 'cust')));
+        echo(json_encode($util->removeDuplicates($variable, 'cust')));
     }
     else if($type == 'prod')
     {
@@ -74,7 +74,7 @@ if(isset($_SESSION['connection']))
         $variable->body_2 = $result2;
 
         //removed duplicates from results
-        echo(json_encode(removeDuplicates($variable, 'prod')));
+        echo(json_encode($util->removeDuplicates($variable, 'prod')));
     }
     else if($type == 'order')
     {
@@ -103,7 +103,7 @@ if(isset($_SESSION['connection']))
         $variable->body_2 = $result2;
 
         //removed duplicates from results
-        echo(json_encode(removeDuplicates($variable, 'order')));
+        echo(json_encode($util->removeDuplicates($variable, 'order')));
     }
     else
     {
@@ -119,144 +119,6 @@ else
     $variable->return = false;
     $variable->body = "No session found";
     echo(json_encode($variable));
-}
-
-function removeDuplicates(\stdClass $variable, string $type)
-{
-    $result = [];
-    $array_values = [];
-    if($type == 'prod')
-    {
-        for($i = 0; $i < sizeof($variable->body); ++$i)
-        {
-            if(!in_array($variable->body[$i]->SKU, $array_values))
-            {
-                array_push($result, $variable->body[$i]);
-                array_push($array_values, $variable->body_1[$i]->SKU);
-            }
-            else
-            {
-                array_push($array_values, $variable->body[$i]->SKU);
-            }
-        }
-
-        //
-        for($i = 0; $i < sizeof($variable->body_1); ++$i)
-        {
-            if(!in_array($variable->body_1[$i]->SKU, $array_values))
-            {
-                array_push($result, $variable->body_1[$i]);
-                array_push($array_values, $variable->body_1[$i]->SKU);
-            }
-            else
-            {
-                array_push($array_values, $variable->body_1[$i]->SKU);
-            }
-        }
-        //
-
-        for($i = 0; $i < sizeof($variable->body_2); ++$i)
-        {
-            if(!in_array($variable->body_2[$i]->SKU, $array_values))
-            {
-                array_push($result, $variable->body_2[$i]);
-                array_push($array_values, $variable->body_1[$i]->SKU);
-            }
-            else
-            {
-                array_push($array_values, $variable->body_2[$i]->SKU);
-            }
-        }
-    }
-    else if($type == 'cust')
-    {
-        for($i = 0; $i < sizeof($variable->body); ++$i)
-        {
-            if(!in_array($variable->body[$i]->ID, $array_values))
-            {
-                array_push($result, $variable->body[$i]);
-                array_push($array_values, $variable->body[$i]->ID);
-            }
-            else
-            {
-                array_push($array_values, $variable->body[$i]->ID);
-            }
-        }
-
-        //
-        for($i = 0; $i < sizeof($variable->body_1); ++$i)
-        {
-            if(!in_array($variable->body_1[$i]->ID, $array_values))
-            {
-                array_push($result, $variable->body_1[$i]);
-                array_push($array_values, $variable->body_1[$i]->ID);
-            }
-            else
-            {
-                array_push($array_values, $variable->body_1[$i]->ID);
-            }
-        }
-        //
-
-        for($i = 0; $i < sizeof($variable->body_2); ++$i)
-        {
-            if(!in_array($variable->body_2[$i]->ID, $array_values))
-            {
-                array_push($result, $variable->body_2[$i]);
-                array_push($array_values, $variable->body_1[$i]->ID);
-            }
-            else
-            {
-                array_push($array_values, $variable->body_2[$i]->ID);
-            }
-        }
-    }
-    else if($type == 'order')
-    {
-        for($i = 0; $i < sizeof($variable->body); ++$i)
-        {
-            if(!in_array($variable->body[$i]->ID, $array_values))
-            {
-                array_push($result, $variable->body[$i]);
-                array_push($array_values, $variable->body[$i]->ID);
-            }
-            else
-            {
-                array_push($array_values, $variable->body[$i]->ID);
-            }
-        }
-
-        //
-        for($i = 0; $i < sizeof($variable->body_1); ++$i)
-        {
-            if(!in_array($variable->body_1[$i]->ID, $array_values))
-            {
-                array_push($result, $variable->body_1[$i]);
-                array_push($array_values, $variable->body_1[$i]->ID);
-            }
-            else
-            {
-                array_push($array_values, $variable->body_1[$i]->ID);
-            }
-        }
-        //
-
-        for($i = 0; $i < sizeof($variable->body_2); ++$i)
-        {
-            if(!in_array($variable->body_2[$i]->ID, $array_values))
-            {
-                array_push($result, $variable->body_2[$i]);
-                array_push($array_values, $variable->body[$i]->ID);
-            }
-            else
-            {
-                array_push($array_values, $variable->body_2[$i]->ID);
-            }
-        }
-    }
-    $result_object = new \stdClass();
-    $result_object->result = $result;
-    return $result_object;
 }
 
 ?>

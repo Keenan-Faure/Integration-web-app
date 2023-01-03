@@ -59,7 +59,7 @@ $(document).ready(()=>
 function createURL(sku)
 {
     arrayUrl = (document.URL).split('/');
-    url = 'http://' + arrayUrl[2] + '/' + 'endpoints/getIDs.php?q=' + sku;
+    url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=get_ids&sku=' + sku;
     return url;
 }
 const req = async function(sku) 

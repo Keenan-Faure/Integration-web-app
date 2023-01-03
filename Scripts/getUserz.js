@@ -122,13 +122,13 @@ function createURL(token, parameter = '')
     if(parameter == 'session')
     {
         arrayUrl = (document.URL).split('/');
-        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/getSession.php';
+        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=get_ses';
         return url;
     }
     else if(parameter == 'putUsers')
     {
         arrayUrl = (document.URL).split('/');
-        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/getUserz.php?q=' + token;
+        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=get_usz&token=' + token;
         return url;
     }
     else if(parameter == 'putLogs')

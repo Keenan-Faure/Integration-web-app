@@ -14,17 +14,17 @@ function search(parameter)
         arrayUrl = (document.URL).split('/');
         if(parameter == 'cust')
         {
-            url = 'http://' + arrayUrl[2] + '/' + 'endpoints/getSearch.php?q=' + value + '&type=cust';
+            url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=get_search&q=' + value + '&type=cust';
             reqSearch(url, 'cust');
         }
         else if(parameter == 'prod')
         {
-            url = 'http://' + arrayUrl[2] + '/' + 'endpoints/getSearch.php?q=' + value + '&type=prod';
+            url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=get_search&q=' + value + '&type=prod';
             reqSearch(url, 'prod');
         }
         else if(parameter == 'order')
         {
-            url = 'http://' + arrayUrl[2] + '/' + 'endpoints/getSearch.php?q=' + value + '&type=order';
+            url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=get_search&q=' + value + '&type=order';
             reqSearch(url, 'order');
         }
     }

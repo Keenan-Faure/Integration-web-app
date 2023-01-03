@@ -309,30 +309,7 @@ class Connection
         {
             $queryParams = array();
             parse_str($partitions['query'], $queryParams);
-            if(isset($queryParams['page']))
-            {
-                return $queryParams;
-            }
-            if(isset($queryParams['type']))
-            {
-                return $queryParams;
-            }
-            if(isset($queryParams['logout']))
-            {
-                return $queryParams;
-            }
-            if(isset($queryParams['q']))
-            {
-                return $queryParams;
-            }
-            if(isset($queryParams['endpoint']))
-            {
-                return $queryParams;
-            }
-            else
-            {
-                return 1;
-            }
+            return $queryParams;
         }
         else
         {
@@ -529,27 +506,6 @@ class Connection
             }
         }
         return $variable;
-    }
-
-    //accessor methods
-    function getUsername()
-    {
-        return $this->username;
-    }
-
-    function getPassword()
-    {
-        return $this->password;
-    }
-
-    function getHost()
-    {
-        return $this->host;
-    }
-
-    function getDbname()
-    {
-       return $this->dbName;
     }
 }
 
