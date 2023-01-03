@@ -12,7 +12,7 @@ $fullUrl = $_SERVER["REQUEST_URI"];
 $fullUrl = $host . $fullUrl;
 $params = ($connection2->queryParams($fullUrl));
 $token = $params['q'];
-$active = $params['active'];
+$id = $params['id'];
 
 if(isset($_SESSION['connection']))
 {
@@ -31,7 +31,9 @@ if(isset($_SESSION['connection']))
     }
     else
     {
-        $query2 = 'UPDATE Userz SET Active ="' . $active . '" WHERE Token ="' . $token . '"';
+        //$query2 = 'DELETE FROM Logs WHERE ID = "' . $id . '"';
+        //'Update Userz set active = "true" where UserID = "1"'
+        $query2 = 'DELETE FROM Logs WHERE ID = "' . $id . '"';
         $rawConnection = $connection2->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
         $output2 = $connection2->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
         $result = json_encode($output2->result);
