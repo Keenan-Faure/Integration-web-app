@@ -104,9 +104,9 @@
                 <div class='saveCloseContainer'>
                     <textarea id='textarea' class='title'>order.order_id</textarea>
                     <button class='dates'>Show Dates</button>
-                    <textarea id='textarea' class='createdDate'> ▶ Created : . order.created_at</textarea>
-                    <textarea id='textarea' class='modifiedDate'> ▶ Updated : order.updated_at</textarea>
-                    <textarea id='textarea' class='completedDate'> ▶ Completed : order.completed_at</textarea>
+                    <textarea id='textarea' class='createdDate'> ▶ Created: </textarea>
+                    <textarea id='textarea' class='modifiedDate'> ▶ Updated: </textarea>
+                    <textarea id='textarea' class='completedDate'> ▶ Completed: </textarea>
                     <div class='status'>
                         Order Status: <button class='orderStatus'>order.status</button>
                     </div>

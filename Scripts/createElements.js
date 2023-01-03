@@ -719,7 +719,6 @@ function getOrderClassNames(text)
          * shipping
          * paymentDetails
          */
-        console.log(text);
         let customer = text.customer;
         let billing = text.billingAddress;
         let shipping = text.shippingAddress
@@ -963,9 +962,17 @@ function setGeneral(object)
                 document.querySelector('.' + array[i]).innerHTML = "R " + object[dbValues[i]];
 
             }
-            else
+            else if(array[i] == 'createdDate')
             {
-                document.querySelector('.' + array[i]).innerHTML = object[dbValues[i]];
+                document.querySelector('.' + array[i]).innerHTML = document.querySelector('.' + array[i]).innerHTML + object[dbValues[i]];
+            }
+            else if(array[i] == 'modifiedDate')
+            {
+                document.querySelector('.' + array[i]).innerHTML = document.querySelector('.' + array[i]).innerHTML + object[dbValues[i]];
+            }
+            else if(array[i] == 'completedDate')
+            {
+                document.querySelector('.' + array[i]).innerHTML = document.querySelector('.' + array[i]).innerHTML + object[dbValues[i]];
             }
         }
     }
