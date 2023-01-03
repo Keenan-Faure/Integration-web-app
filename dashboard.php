@@ -143,7 +143,6 @@
             <?php
                 //how to parse a php variable inside a javascript function
                 echo("<script src='Scripts/getUserz.js'></script>");
-                
             ?>
         </div> 
         <div class='info-report'>

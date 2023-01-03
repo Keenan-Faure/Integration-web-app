@@ -67,7 +67,8 @@
             Head varchar(255),
             Body varchar(255),
             T_ime varchar(255),
-            T_ype varchar(255))';
+            T_ype varchar(255),
+            ID int AUTO_INCREMENT primary key NOT NULL);';
         $conn->preQuery($_config, $query, 'object');
     }
     if(!in_array("woocommerce", $result))
