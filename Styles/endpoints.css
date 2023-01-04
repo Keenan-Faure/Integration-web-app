@@ -842,7 +842,7 @@ td
 .htmlMessage-success
 {
     position: absolute;
-    bottom: 20px;
+    bottom: 25px;
     right: 20px;
     border: none;
     color: white;
@@ -857,7 +857,7 @@ td
 .htmlMessage-failure
 {
     position: absolute;
-    bottom: 20px;
+    bottom: 25px;
     right: 20px;
     border: none;
     color: white;
