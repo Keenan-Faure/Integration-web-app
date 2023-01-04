@@ -21,12 +21,6 @@ $params = ($connection->queryParams($fullUrl));
 $function = $params['func'];
 $function($connection, $util, $params);
 
-function fetch_conn()
-{
-
-}
-
-
 /**
  * Description: Fetches IDs from Database. Uses inner join on Woocommerce & Inventory tables 
  * Request Type: GET
@@ -35,6 +29,14 @@ function fetch_conn()
  */
 function get_ids($connection, $util, $params)
 {
+    if(!isset($_SESSION['connection']))
+    {
+        $variable = new \stdClass();
+        $variable->return = false;
+        $variable->body = "No session found";
+        echo(json_encode($variable));
+        exit();
+    }
     $sku = $params['sku'];
 
     $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
@@ -52,7 +54,7 @@ function get_ids($connection, $util, $params)
         $output3 = 'null';
     }
     $variable = new \stdClass();
-    $variable->result = true;
+    $variable->return = true;
     $variable->body = $output2;
     $variable->body_1 = $output3;
     echo(json_encode($variable));
@@ -66,6 +68,14 @@ function get_ids($connection, $util, $params)
  */
 function get_search($connection, $util, $params)
 {
+    if(!isset($_SESSION['connection']))
+    {
+        $variable = new \stdClass();
+        $variable->return = false;
+        $variable->body = "No session found";
+        echo(json_encode($variable));
+        exit();
+    }
     $type = $params['type'];
     $q = $params['q'];
     $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
@@ -197,6 +207,14 @@ function get_ses($connection, $util, $params)
  */
 function get_sku($connection, $util, $params)
 {
+    if(!isset($_SESSION['connection']))
+    {
+        $variable = new \stdClass();
+        $variable->return = false;
+        $variable->body = "No session found";
+        echo(json_encode($variable));
+        exit();
+    }
     $connector = $params['conn'];
     if($connector == 'woo')
     {
@@ -220,6 +238,13 @@ function get_sku($connection, $util, $params)
         $variable->body = $result;
         echo(json_encode($variable));
     }
+    else
+    {
+        $variable = new \stdClass();
+        $variable->return = false;
+        $variable->body = "No connector param found";
+        echo(json_encode($variable));
+    }
 }
 
 /**
@@ -230,6 +255,14 @@ function get_sku($connection, $util, $params)
  */
 function get_usz($connection, $util, $params)
 {
+    if(!isset($_SESSION['connection']))
+    {
+        $variable = new \stdClass();
+        $variable->return = false;
+        $variable->body = "No session found";
+        echo(json_encode($variable));
+        exit();
+    }
     //check if token is valid
     $token = $params['token'];
 
@@ -263,6 +296,14 @@ function get_usz($connection, $util, $params)
  */
 function put_logs($connection, $util, $params)
 {
+    if(!isset($_SESSION['connection']))
+    {
+        $variable = new \stdClass();
+        $variable->return = false;
+        $variable->body = "No session found";
+        echo(json_encode($variable));
+        exit();
+    }
     $token = $params['token'];
     $id = $params['id'];
 
@@ -285,8 +326,17 @@ function put_logs($connection, $util, $params)
         $query2 = 'DELETE FROM Logs WHERE ID = "' . $id . '"';
         $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
         $output2 = $connection->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
-        $result = json_encode($output2->result);
-        echo(json_encode($result));
+        $variable = new \stdClass();
+        $variable->result = $output2->result;
+        if($output2->result != true)
+        {
+            $variable->body = 'Error Occured';
+        }
+        else
+        {
+            $variable->body = 'Success';
+        }
+        echo(json_encode($variable));
         exit();
     }
 }
@@ -299,8 +349,17 @@ function put_logs($connection, $util, $params)
  */
 function put_usz($connection, $util, $params)
 {
+    if(!isset($_SESSION['connection']))
+    {
+        $variable = new \stdClass();
+        $variable->return = false;
+        $variable->body = "No session found";
+        echo(json_encode($variable));
+        exit();
+    }
     $token = $params['token'];
-    $active = $params['act'];
+    $active = $params['active'];
+    $id = $params['id'];
 
     //check if token is valid
     $query2 = 'SELECT * FROM Userz WHERE Token = "' . $token . '"';
@@ -316,11 +375,20 @@ function put_usz($connection, $util, $params)
     }
     else
     {
-        $query2 = 'UPDATE Userz SET Active = "' . $active . '" WHERE Token = "' . $token . '"';
+        $query2 = 'UPDATE Userz SET Active = "' . $active . '" WHERE UserID = "' . $id . '"';
         $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
         $output2 = $connection->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
-        $result = json_encode($output2->result);
-        echo(json_encode($result));
+        $variable = new \stdClass();
+        $variable->result = $output2->result;
+        if($output2->result != true)
+        {
+            $variable->body = 'Error Occured';
+        }
+        else
+        {
+            $variable->body = 'Success';
+        }
+        echo(json_encode($variable));
         exit();
     }
 }
