@@ -74,7 +74,7 @@ function createLogs(logsJson)
                     text = document.createTextNode('×');
                 closer.appendChild(text);
                 closer.onclick = Init_function_srq;
-
+                rowItem.appendChild(closer);
             document.querySelector('.info-report').appendChild(rowItem);
         }
     }
@@ -936,7 +936,6 @@ function setGeneral(object)
 
     for(let i = 0; i < array.length; ++i)
     {
-        console.log(array[i]);
         if(typeof object[dbValues[i]] == 'undefined')
         {
             document.querySelector('.' + array[i]).innerHTML = '';
@@ -1041,7 +1040,6 @@ function setCustomer(object)
 //which is defined inside an object
 function setPayDetails(object)
 {
-    console.log(object);
     let array = ['button-title', 'button-status'];
     let dbValues = ['method_title', 'paid'];
     for(let i = 0; i < array.length; ++i)
