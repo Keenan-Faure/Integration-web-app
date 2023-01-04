@@ -1,3 +1,64 @@
+/**
+ * Description: creates the request url
+ * @param {string} token - Session token of current user
+ * @param {string} urlConfig - used to configure which func endpoint to run
+ * @returns {string} url
+ */
+function createURL(token, urlConfig = '')
+{
+    if(urlConfig == 'session')
+    {
+        arrayUrl = (document.URL).split('/');
+        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=get_ses';
+        return url;
+    }
+    else if(urlConfig == 'putUsers')
+    {
+        arrayUrl = (document.URL).split('/');
+        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=put_usz&token=' + token;
+        return url;
+    }
+    else if(urlConfig == 'getUsers')
+    {
+        arrayUrl = (document.URL).split('/');
+        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=get_usz&token=' + token;
+        return url;
+    }
+    else if(urlConfig == 'putLogs')
+    {
+        arrayUrl = (document.URL).split('/');
+        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=put_logs&token=' + token;
+        return url;
+    }
+}
+
+/**
+ * Description: Appends the available (none null) params to the current url
+ * @param {string} url - Current URL
+ * @param {string} rqParam - First param
+ * @param {string} rqParam_key - First param key
+ * @param {string} rqParam_2 - Second param
+ * @param {string} rqParam_key_2 - Second param key
+ * @returns {string} url
+ */
+function appendParams(url, rqParam = '', rqParam_key = '', rqParam_2 = '', rqParam_key_2 = '')
+{
+    if(rqParam_key != '')
+    {
+        url = url + '&' + rqParam_key + '=' + rqParam;
+        if(rqParam_key_2 != '')
+        {
+            url = url + '&' + rqParam_key_2 + '=' + rqParam_2;
+        }
+    }
+    return url;
+}
+
+/**
+ * Description: Builds user table
+ * @param {JSON} json - Table is built using the json object
+ * @returns {null} null
+ */
 function createUserTable(json)
 {
     let headers = ['Active', 'UserID', 'Username', 'Token', ''];
@@ -92,9 +153,9 @@ function createUserTable(json)
                         let td = document.createElement('td');
                             let aTag = document.createElement('button');
                             aTag.className = 'SaveBtn';
-                            aTag.onclick = transform;
+                            aTag.onclick = Init_function_srq_pu;
                             
-                            url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=put_usz&token=' + json[i][headers[z-1]];
+                            url = json[i][headers[z-3]];
                             aTag.id = url;
                             let text = document.createTextNode('Save');
                             aTag.appendChild(text);
@@ -117,76 +178,58 @@ function createUserTable(json)
     userTable.appendChild(tbl);
     document.querySelector('.userz').insertAdjacentElement("afterend", userTable);
 }
-function createURL(token, parameter = '')
-{
-    if(parameter == 'session')
-    {
-        arrayUrl = (document.URL).split('/');
-        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=get_ses';
-        return url;
-    }
-    else if(parameter == 'putUsers')
-    {
-        arrayUrl = (document.URL).split('/');
-        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=get_usz&token=' + token;
-        return url;
-    }
-    else if(parameter == 'putLogs')
-    {
-        arrayUrl = (document.URL).split('/');
-        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=put_logs&token=' + token;
-        return url;
-    }
-}
-const req = async function(token = '', parameter, next, reqParameter)
-{
-    let url = createURL(token, parameter);
-    const resp = await fetch(url,
-    {
-        method: 'GET', // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, *cors, same-origin
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'include', // include, *same-origin, omit
-        headers: 
-        {
-            'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'application/json'
-        },
-        redirect: 'follow', // manual, *follow, error
-        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-    });
-    const json = await resp.json();
-    if(next == 'process')
-    {
-        process(json, 'putUsers');
-    }
-    else if(next == 'logs')
-    {
-        updateLogs(json, reqParameter);
-    }
-}
-const process = async function(result, urlConfig)
-{
-    //uses the json in req to make a loop
-    let url = createURL(result.token,urlConfig);
-    const resp = await fetch(url,
-    {
-        method: 'GET', // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, *cors, same-origin
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'include', // include, *same-origin, omit
-        headers: 
-        {
-            'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'application/json'
-        },
-        redirect: 'follow', // manual, *follow, error
-        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-    });
-    const json = await resp.json();
-    //create front-end
-    createUserTable(json);
-}
-req('', 'session', 'process');
 
+/**
+ * Description: Creates an html button element, advises user if the call was successfull or not
+ * @param {string} result - Can be true or false. True for success message, otherwise false
+ * @param {string} message - message to use if the call was successful
+ */
+function createMessage(result, message)
+{
+    let button = document.createElement('button');
+    let text = '';
+    if(result.return != false)
+    {
+        button.className = 'htmlMessage-success';
+        text = document.createTextNode(message);
+        button.appendChild(text);
 
+        document.body.appendChild(button);
+    }
+    else if(result.return != true)
+    {
+        button.className = 'htmlMessage-failure';
+        text = document.createTextNode(result.body);
+        button.appendChild(text);
+
+        document.body.appendChild(button);
+    }
+    setTimeout(()=>
+    {
+        button.classList.add('fade-out');
+        setTimeout(()=>
+        {
+            button.remove();
+        }, 1200);
+    }, 2000);
+}
+
+/**
+ * Description: Below is the list of setTimeout method which 
+ * has a delayed run-time. Will only work on certain pages
+ * that has the specified className
+ */
+setTimeout(()=>
+{
+    $(document).ready(()=>
+    {
+        logs = document.getElementsByClassName("closer");
+        for(let i = 0; i < logs.length; ++i)
+        {
+            logs[i].addEventListener('click', ()=>
+            {
+                logs[i].parentNode.style.display = 'none';
+            });
+        }
+    });
+}, 1500);

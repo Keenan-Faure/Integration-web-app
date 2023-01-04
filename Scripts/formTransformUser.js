@@ -29,16 +29,31 @@ function transform()
     reqPut(url);
 }
 
+setTimeout(()=>
+{
+    $(document).ready(()=>
+    {
+        logs = document.getElementsByClassName("closer");
+        for(let i = 0; i < logs.length; ++i)
+        {
+            logs[i].addEventListener('click', ()=>
+            {
+                logs[i].parentNode.style.display = 'none';
+            });
+        }
+    });
+}, 1500);
+
 function InitUpdateLogs()
 {
     //requests session information to connect to database
     req('', 'session', 'logs', this.id);
 }
 
-const updateLogs = async function(json, reqParameter)
+const updateLogs = async function(json, urlConfig, reqParameter, reqParamK)
 {
-    let url = createURL(json.token, 'putLogs');
-    url = url + '&id=' + reqParameter;
+    let url = createURL(json.token, urlConfig);
+    url = url + '&' + reqParamK + '=' + reqParameter;
     const resp = await fetch(url,
     {
         method: 'GET', // *GET, POST, PUT, DELETE, etc.
@@ -57,33 +72,27 @@ const updateLogs = async function(json, reqParameter)
     createMessage(jsonResults, 'Success');
 }
 
-setTimeout(()=>
-{
-    $(document).ready(()=>
-    {
-        logs = document.getElementsByClassName("closer");
-        for(let i = 0; i < logs.length; ++i)
-        {
-            logs[i].addEventListener('click', ()=>
-            {
-                logs[i].parentNode.style.display = 'none';
-            });
-        }
-    });
-}, 1500);
-
-//creates html message and appends to body
-//result can be true or false
 function createMessage(result, message)
 {
     let button = document.createElement('button');
     let text = '';
-    button.className = 'htmlMessage-success';
-    text = document.createTextNode(message);
-    button.appendChild(text);
+    console.log(result);
+    if(result.return != false)
+    {
+        button.className = 'htmlMessage-success';
+        text = document.createTextNode(message);
+        button.appendChild(text);
 
-    document.body.appendChild(button);
+        document.body.appendChild(button);
+    }
+    else if(result.return != true)
+    {
+        button.className = 'htmlMessage-failure';
+        text = document.createTextNode(result.body);
+        button.appendChild(text);
 
+        document.body.appendChild(button);
+    }
     setTimeout(()=>
     {
         button.classList.add('fade-out');
