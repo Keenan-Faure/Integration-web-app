@@ -21,16 +21,17 @@
             $id = ltrim(rtrim($_POST[$id]));
             unset($_POST);
 
-            if($_SESSION['connection'])
+            if(isset($_SESSION['connection']))
             {
                 $connection2 = new connect();
                 $rawConnection = $connection2->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
                 $query2 = 'select * from Client where id = "' . $id .  '"';
                 $output2 = $connection2->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
                 $result = json_encode($output2->result[0]);
+
+                //passes the text as a json object
+                echo("<script>getCustomerClassNames($result);</script>");
             }
-            //passes the text as a json object
-            echo("<script>getCustomerClassNames($result);</script>");
         }
         
         ?>

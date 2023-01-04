@@ -21,7 +21,7 @@
             $sku = ltrim(rtrim($_POST[$sku]));
             unset($_POST);
 
-            if($_SESSION['connection'])
+            if(isset($_SESSION['connection']))
             {
                 $connection2 = new connect();
                 $rawConnection = $connection2->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
@@ -31,9 +31,10 @@
                 $output2->result[0]->$body_html = stripslashes(html_entity_decode($output2->result[0]->$body_html));
                 $type = $output2->result[0]->Type;
                 $result = json_encode($output2->result[0]);
+
+                //passes the text as a json object
+                echo("<script>getClassNames($result, '$type');</script>");
             }
-            //passes the text as a json object
-            echo("<script>getClassNames($result, '$type');</script>");
         }
         
         ?>

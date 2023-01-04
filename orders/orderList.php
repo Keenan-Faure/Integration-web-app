@@ -17,7 +17,7 @@
         <script src="../Scripts/fade.js"></script>
         <script src="../Scripts/search.js"></script>
         <?php 
-        if($_SESSION['connection']->active == true)
+        if(isset($_SESSION['connection']))
         {
             $connection2 = new connect();
             $util = new util();
@@ -118,16 +118,19 @@
                 </div>
             </div>
             <?php
-                //create the <a> tags using php
-                //calculate the number of page numbers
-                $_SESSION['pagination'] = $connection2->pagination($rawConnection, "Orders");
-
-                if(isset($_SESSION['pagination']))
+                if(isset($_SESSION['connection']))
                 {
-                    //SELECT * FROM Inventory LIMIT [$number], $number+10;
-                    $number = $_SESSION['pagination'];
-                    $url = $host . parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
-                    echo("<script>createPagination($number, '$url', $page)</script>");
+                    //create the <a> tags using php
+                    //calculate the number of page numbers
+                    $_SESSION['pagination'] = $connection2->pagination($rawConnection, "Orders");
+
+                    if(isset($_SESSION['pagination']))
+                    {
+                        //SELECT * FROM Inventory LIMIT [$number], $number+10;
+                        $number = $_SESSION['pagination'];
+                        $url = $host . parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
+                        echo("<script>createPagination($number, '$url', $page)</script>");
+                    }
                 }
             ?>
     </body>

@@ -23,7 +23,7 @@
             $id = ltrim(rtrim($_POST[$id]));
             unset($_POST);
 
-            if($_SESSION['connection'])
+            if(isset($_SESSION['connection']))
             {
                 $connection2 = new connect();
                 $util = new util();
@@ -42,16 +42,11 @@
                     $wooOrder = json_encode($util->unserializeOrder($wooOrder, true)[0], JSON_PRETTY_PRINT);
                     $result = $util->unserializeOrder($output2->result);
                 }
-                
-
                 $result = json_encode($output2->result[0]);
                 
-            }
-            //passes the text as a json object
-            echo("<script>getOrderClassNames($result);</script>");
-
-            //display the woocommerce order in the json <pre> tags
-            
+                //passes the text as a json object
+                echo("<script>getOrderClassNames($result);</script>");
+            }       
         }
         
         ?>
@@ -146,15 +141,15 @@
                         <table>
                             <tr>
                                 <th>Subtotal:</th>
-                                <th class='subtotal'>Value</th>
+                                <th class='subtotal'></th>
                             </tr>
                             <tr>
                                 <th>VAT:</th>
-                                <th class='vattotal'>Value</th>
+                                <th class='vattotal'></th>
                             </tr>
                             <tr>
                                 <th style='border-top: 1px solid black'>Total:</th>
-                                <th style='border-top: 1px solid black' class='total'>Value</th>
+                                <th style='border-top: 1px solid black' class='total'></th>
                             </tr>
                         </table>
                     </div>
