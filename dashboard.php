@@ -15,7 +15,8 @@
         <link rel='stylesheet' href='Styles/endpoints.css'>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src='Scripts/createElements.js'></script>
-        <script src='Scripts/formTransFormUser.js'></script>
+        <script src='Scripts/fetch.js'></script>
+        <script src='Scripts/fetchUtils.js'></script>
     </head>
     <body>
         <div class='background'>
@@ -136,13 +137,11 @@
                     echo("<a class='custom'>Custom Query</a>");
                 }
             ?>
-            <a href="bin/controllers/output.php?q=clearLog">Clear log</a>
             <a href="bin/controllers/output.php?q=checkConn">Check Connection</a>
             <a href="bin/controllers/output.php?q=viewLog"> View Log</a>
             <a class='userz'>Manage Users ✰</a>
             <?php
-                //how to parse a php variable inside a javascript function
-                echo("<script src='Scripts/getUserz.js'></script>");
+                echo("<script>req('', 'session', 'c-u-t', 'getUsers');</script>");
             ?>
         </div> 
         <div class='info-report'>
