@@ -73,8 +73,7 @@ function createLogs(logsJson)
                 closer.id = returns[4][j];
                     text = document.createTextNode('×');
                 closer.appendChild(text);
-                closer.onclick = InitUpdateLogs;
-                rowItem.appendChild(closer);
+                closer.onclick = Init_function_srq;
 
             document.querySelector('.info-report').appendChild(rowItem);
         }
@@ -937,6 +936,7 @@ function setGeneral(object)
 
     for(let i = 0; i < array.length; ++i)
     {
+        console.log(array[i]);
         if(typeof object[dbValues[i]] == 'undefined')
         {
             document.querySelector('.' + array[i]).innerHTML = '';
@@ -957,7 +957,7 @@ function setGeneral(object)
                 document.querySelector('.' + array[i]).innerHTML = "R " + object[dbValues[i]];
 
             }
-            else if(array[i] == 'vatTotal')
+            else if(array[i] == 'vattotal')
             {
                 document.querySelector('.' + array[i]).innerHTML = "R " + object[dbValues[i]];
 
