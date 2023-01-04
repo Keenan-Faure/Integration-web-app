@@ -1,5 +1,5 @@
 /**
- * Description: creates the request url
+ * @Description creates the request url
  * @param {string} token - Session token of current user
  * @param {string} urlConfig - used to configure which func endpoint to run
  * @returns {string} url
@@ -30,10 +30,28 @@ function createURL(token, urlConfig = '')
         url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=put_logs&token=' + token;
         return url;
     }
+    else if(urlConfig == 'getIDs')
+    {
+        arrayUrl = (document.URL).split('/');
+        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=get_ids&token=' + token;
+        return url;
+    }
+    else if(urlConfig == 'getSKU')
+    {
+        arrayUrl = (document.URL).split('/');
+        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/getSKUs.php?func=get_sku&token=' + token;
+        return url;
+    }
+    else if(urlConfig == 'pushWoo')
+    {
+        arrayUrl = (document.URL).split('/');
+        url = 'http://' + arrayUrl[2] + '/' + 'cURL/pushWoocommerce.php?q=' + sku;
+        return url;
+    }
 }
 
 /**
- * Description: Appends the available (none null) params to the current url
+ * @Description Appends the available (none null) params to the current url
  * @param {string} url - Current URL
  * @param {string} rqParam - First param
  * @param {string} rqParam_key - First param key
@@ -55,7 +73,7 @@ function appendParams(url, rqParam = '', rqParam_key = '', rqParam_2 = '', rqPar
 }
 
 /**
- * Description: Builds user table
+ * @Description Builds user table
  * @param {JSON} json - Table is built using the json object
  * @returns {null} null
  */
@@ -180,7 +198,7 @@ function createUserTable(json)
 }
 
 /**
- * Description: Creates an html button element, advises user if the call was successfull or not
+ * @Description Creates an html button element, advises user if the call was successfull or not
  * @param {string} result - Can be true or false. True for success message, otherwise false
  * @param {string} message - message to use if the call was successful
  */
@@ -212,6 +230,99 @@ function createMessage(result, message)
             button.remove();
         }, 1200);
     }, 2000);
+}
+
+/**
+ * @Description adds Connector details to the DOM
+ * @param {string} p_id - parent ID
+ * @param {string} v_id - variant ID
+ * @param {string} s2s_active - Stock2Shop active
+ */ 
+function addConnectorDetails(p_id, v_id, s2s_active)
+{
+    if(p_id == null)
+    {
+        document.querySelector('.p_id').innerHTML = 'null';
+    }
+    else
+    {
+        document.querySelector('.p_id').innerHTML = p_id;
+    }
+    if(v_id == null)
+    {
+        document.querySelector('.v_id').innerHTML = 'null';
+    }
+    else
+    {
+        document.querySelector('.v_id').innerHTML = v_id;
+    }
+    if(s2s_active == null)
+    {
+        document.querySelector('.s2s_active').innerHTML = 'null';
+    }
+    else
+    {
+        document.querySelector('.s2s_active').innerHTML = s2s_active; 
+    }
+}
+
+/**
+ * @Description Populates the audit trail in DOM
+ * @param {string} user - user that logged on session
+ * @param {string} date - date that the change was made
+ */
+function populateAuditTrail(user, date)
+{
+    if(user == null)
+    {
+        user = "{{null}}";
+    }
+    if(date == null)
+    {
+        date = "{{null}}";
+    }
+    document.querySelector(".auditTrail").innerHTML = "Last update on " + date + " by User: " + user;
+}
+
+/**
+ * @Description Changes the amount on the DOM
+ * @param {string} amount - Value to update the DOM with
+ */
+function changeAmount(amount)
+{
+    text = document.getElementById('textAmount');
+    text.innerHTML = amount;
+}
+
+/**
+ * @Description Appends image/text to DOM
+ * @param {string} message - message to append
+ * @param {string} result - true/false result of cURL request
+ */
+function appendText(message, result)
+{
+    container = document.getElementById('row');
+    container.classList.remove("fadeOut");
+    text = document.getElementById("text-1");
+
+    img = document.getElementById('img');
+    img.className = 'type-msg-image';
+    if(result == true)
+    {
+        img.src = '../images/image.png';
+    }
+    else
+    {
+        img.src = '../images/image1.png';
+    }
+    text.innerHTML = message;
+    
+    container.classList.add("fadeIn");
+    setTimeout(()=>
+    {
+        container.classList.remove('fadeIn');
+        container.classList.add('fadeOut');
+    }, 1500);
 }
 
 /**
