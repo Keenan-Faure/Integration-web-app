@@ -76,11 +76,6 @@
                 $output = new \stdClass();
                 $output->result = array();
 
-                // $var = new \stdClass();
-                // $var->msg=($_SESSION['pushVariable']);
-                // echo(json_encode($var));
-                // unset($_SESSION['pushVariable']);
-                // exit();
                 //loops through the entire array of products and adds them together
                 for($i = 0; $i < sizeof($_SESSION['pushVariable']); ++$i)
                 {
@@ -108,15 +103,6 @@
                 {
                     $pushed = new \stdClass();
                     $pushed->system_products = array();
-                    /////////////////////////////
-                    /////////STOPS HERE//////////
-                    /////////////////////////////
-
-                    // - it stops because output is null (not defined)
-                    // - solution would be to make it the same format as output
-                    // - when you get the data for the SKUs from Database
-                    // - output = new \stdClass()
-                    // - output->result = array()  <-- Append all products inside there (Description/Title/SKU/Price) etc
 
                     for($i = 0; $i < sizeof($output->result); ++$i)
                     {
