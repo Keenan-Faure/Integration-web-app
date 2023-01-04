@@ -162,12 +162,6 @@
 </html>
 <?php
 
-echo('<div class="errorTable">');
-if(!isset($_SESSION['connection']))
-{
-    echo('<div class="errors"><p class="align">No Connection found in current session</p></div>');
-}
-
 if(isset($_SESSION['clientConn']) && isset($_SESSION['connection']))
 {
     if(isset($_SESSION['clientConn']->credentials) && $_SESSION['connection']->active == true)
