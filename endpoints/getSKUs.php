@@ -10,7 +10,7 @@ $connection2 = new connect();
 $host = "http://" . $_SERVER['HTTP_HOST']; //needs to be defined
 $fullUrl = $_SERVER["REQUEST_URI"];
 $fullUrl = $host . $fullUrl;
-$connector = ($connection2->queryParams($fullUrl))['q'];
+$connector = ($connection2->queryParams($fullUrl))['conn'];
 
 if(isset($_SESSION['connection']))
 {
