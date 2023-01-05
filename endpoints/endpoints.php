@@ -22,10 +22,10 @@ $function = $params['func'];
 $function($connection, $util, $params);
 
 /**
- * Description: Fetches IDs from Database. Uses inner join on Woocommerce & Inventory tables 
- * Request Type: GET
- * @Params: $connection & $params
- * @returns: \stdClass (object)
+ * @Description Fetches IDs from Database. Uses inner join on Woocommerce & Inventory tables 
+ * @Request_Type GET
+ * @Params $connection & $params
+ * @returns \stdClass (object)
  */
 function get_ids($connection, $util, $params)
 {
@@ -61,10 +61,10 @@ function get_ids($connection, $util, $params)
 }
 
 /**
- * Description: Search endpoint for products/orders/customers. Searches through the respective tables in the database
- * Request Type: GET
- * @Params: $connection & $params & $util
- * @returns: \stdClass (object)
+ * @Description Search endpoint for products/orders/customers. Searches through the respective tables in the database
+ * @Request_Type GET
+ * @Params $connection & $params & $util
+ * @returns \stdClass (object)
  */
 function get_search($connection, $util, $params)
 {
@@ -177,10 +177,10 @@ function get_search($connection, $util, $params)
 }
 
 /**
- * Description: Gets the session, as a json object, and returns it
- * Request Type: GET
- * @Params: none used
- * @returns: \stdClass (object)
+ * @Description Gets the session, as a json object, and returns it
+ * @Request_Type GET
+ * @Params none used
+ * @returns \stdClass (object)
  */
 function get_ses($connection, $util, $params)
 {
@@ -198,12 +198,12 @@ function get_ses($connection, $util, $params)
 }
 
 /**
- * Description: Gets all products in the Inventory table that:
+ * @Description Gets all products in the Inventory table that:
  *      - That has a recent audit date
  *      - Is active to sync
- * Request Type: GET
- * @Params: $connection & $util (Not used) & $params 
- * @returns: \stdClass (object)
+ * Request_Type GET
+ * @Params $connection & $util (Not used) & $params 
+ * @returns \stdClass (object)
  */
 function get_sku($connection, $util, $params)
 {
@@ -248,10 +248,10 @@ function get_sku($connection, $util, $params)
 }
 
 /**
- * Description: Gets all users in the Client table
- * Request Type: GET
- * @Params: $connection & $util (Not used) & $params 
- * @returns: \stdClass (object)
+ * @Description Gets all users in the Client table
+ * @Request_Type GET
+ * @Params $connection & $util (Not used) & $params 
+ * @returns \stdClass (object)
  */
 function get_usz($connection, $util, $params)
 {
@@ -289,10 +289,10 @@ function get_usz($connection, $util, $params)
 }
 
 /**
- * Description: Updates the `Logs` table in the database
- * Request Type: PUT
- * @Params: $connection & $util (Not used) & $params 
- * @returns: \stdClass (object)
+ * @Description Updates the `Logs` table in the database
+ * @Request_Type PUT
+ * @Params $connection & $util (Not used) & $params 
+ * @returns \stdClass (object)
  */
 function put_logs($connection, $util, $params)
 {
@@ -342,10 +342,10 @@ function put_logs($connection, $util, $params)
 }
 
 /**
- * Description: Updates the `Userz` table in the database
- * Request Type: PUT
- * @Params: $connection & $util (Not used) & $params 
- * @returns: \stdClass (object)
+ * @Description Updates the `Userz` table in the database
+ * @Request_Type PUT
+ * @Params $connection & $util (Not used) & $params 
+ * @returns \stdClass (object)
  */
 function put_usz($connection, $util, $params)
 {
@@ -390,6 +390,120 @@ function put_usz($connection, $util, $params)
         }
         echo(json_encode($variable));
         exit();
+    }
+}
+
+/**
+ * @Description Adds new conditions for the Stock2Shop push to the Database
+ * @Request_Type POST/PUT
+ * @Params $connection & $util & $params 
+ * @returns 
+ */
+function put_cond_add($connection, $util, $params)
+{
+    //param should contain condition ?
+    //post should not be used
+    //use a param instead
+    if(isset($_SESSION['connection']))
+    {
+        $credentials = $_SESSION['connection']->credentials;
+        $rawConnection = $connection->createConnection($credentials->username, $credentials->password, $credentials->host, $credentials->dbname)->rawValue;
+        $query = 'SELECT * FROM Conditions';
+        $output = $connection->converterObject($rawConnection, $query);
+        $output = $output->result;
+        if(sizeof($output) == 0)
+        {
+            //no conditions exists in table
+            $dataValue = $params['dataValue'];
+            $condition = $params['statement'];
+            $value = $params['value'];
+            $query = "INSERT INTO Conditions
+            (
+                DataValue, 
+                Statement, 
+                Value
+            )
+            VALUES
+            (
+                '$dataValue', 
+                '$condition', 
+                '$value'
+            )"
+            ;
+            $output = $connection->converterObject($rawConnection, $query);
+            echo(json_encode($output));
+            mysqli_close($rawConnection);
+            exit();
+        }
+        else
+        {
+            $condition1 = json_decode(json_encode($params, true));
+            if($util->compareCondition($condition1, $output[0]))
+            {
+                $output = new \stdClass();
+                $output->return = false;
+                $output->body = 'Condition already exists';
+                echo(json_encode($output));
+                exit();
+            }
+            else
+            {
+                $dataValue = $params['dataValue'];
+                $condition = $params['statement'];
+                $value = $params['value'];
+                $query = "INSERT INTO Conditions
+                (
+                    DataValue, 
+                    Statement, 
+                    Value
+                )
+                VALUES
+                (
+                    '$dataValue', 
+                    '$condition',
+                    '$value'
+                )"
+                ;
+                $output = $connection->converterObject($rawConnection, $query);
+                echo(json_encode($output));
+                mysqli_close($rawConnection);
+                exit();
+            }
+        }
+    }
+}
+
+function put_cond_del($connection, $util, $params)
+{
+    if(isset($_SESSION['connection']))
+    {
+        $credentials = $_SESSION['connection']->credentials;
+        $rawConnection = $connection->createConnection($credentials->username, $credentials->password, $credentials->host, $credentials->dbname)->rawValue;
+        $query = 'SELECT * FROM Conditions';
+        $output = $connection->converterObject($rawConnection, $query);
+        $output = $output->result;
+        if(sizeof($output) == 0)
+        {
+            $output = new \stdClass();
+            $output->return = false;
+            $output->body = 'No Conditions found';
+            echo(json_encode($output));
+            exit();
+        }
+        else
+        {
+            $dataValue = $params['dataValue'];
+            $condition = $params['statement'];
+            $value = $params['value'];
+            $query = "DELETE FROM Conditions WHERE 
+            DataValue = '$dataValue' &&
+            Conditions = '$condition' && 
+            Value = '$value'
+            ";
+            $output = $connection->converterObject($rawConnection, $query);
+            echo(json_encode($output));
+            mysqli_close($connection);
+        }
     }
 }
 ?>
