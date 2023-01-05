@@ -270,7 +270,7 @@ if(isset($_SESSION['clientConn']) && isset($_SESSION['connection']))
         {
             echo('<div class="errors"><p class="align">Conditions table created</p></div>');
             $query3_ = " CREATE TABLE Conditions (
-                Token int AUTO_INCREMENT primary key NOT NULL,
+                ID int AUTO_INCREMENT primary key NOT NULL,
                 DataValue varchar(10),
                 Statement varchar(2),
                 Value varchar(30)
