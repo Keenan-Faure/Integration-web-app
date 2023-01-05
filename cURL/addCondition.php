@@ -16,14 +16,13 @@ if($_SESSION['connection']->active == true)
         if(sizeof($output) == 0)
         {
             //no conditions exists in table
-
             $dataValue = $_POST['dataValue'];
             $condition = $_POST['condition'];
             $value = $_POST['value'];
             $query = "INSERT INTO Conditions
             (
                 DataValue, 
-                Conditions, 
+                Statement, 
                 Value
             )
             VALUES
@@ -57,7 +56,7 @@ if($_SESSION['connection']->active == true)
                 $query = "INSERT INTO Conditions
                 (
                     DataValue, 
-                    Conditions, 
+                    Statement, 
                     Value
                 )
                 VALUES
