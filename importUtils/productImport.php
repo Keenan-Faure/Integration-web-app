@@ -16,6 +16,7 @@ Class pImport
     }
     function importProduct($fileToUse, $conn, $util, $vproduct, $sproduct)
     {
+        $_config = include('../config/config.php');
         $containHeaders = true;
         $directory = 'uploads/';
         $file = scandir($directory);
@@ -150,14 +151,14 @@ Class pImport
                             if(isset($result->return))
                             {
                                 $output->productsSkipped = $output->productsSkipped + 1;
-                                $conn->addLogs('Import product', 'Product Skipped: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                $conn->addLogs('Import product', 'Product Skipped: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
                                 continue;
                             }
                             $output->newProductsAdded = $output->newProductsAdded + 1;
                             $result = $vproduct->addProduct($result, $conn);
                             if(!isset($result->data))
                             {
-                                $conn->addLogs('Add Product Failed:', 'Product: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                $conn->addLogs('Add Product Failed:', 'Product: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
                             }
                         }
                         //simple product
@@ -168,14 +169,14 @@ Class pImport
                             if(isset($result->return))
                             {
                                 $output->productsSkipped = $output->productsSkipped + 1;
-                                $conn->addLogs('Import product', 'Product Skipped: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                $conn->addLogs('Import product', 'Product Skipped: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
                                 continue;
                             }
                             $output->newProductsAdded = $output->newProductsAdded + 1;
                             $result = $sproduct->addProduct($result, $conn);
                             if(!isset($result->data))
                             {
-                                $conn->addLogs('Add Product Failed:', 'Product: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                $conn->addLogs('Add Product Failed:', 'Product: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
                             }
                         }
                     }
@@ -234,14 +235,14 @@ Class pImport
                             if(isset($result->return))
                             {
                                 $output->productsSkipped = $output->productsSkipped + 1;
-                                $conn->addLogs('Import product', 'Product Skipped: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                $conn->addLogs('Import product', 'Product Skipped: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
                                 continue;
                             }
                             $output->existingProductsUpdated = $output->existingProductsUpdated + 1;
                             $result = $vproduct->updateProduct($result, $util, $conn);
                             if(!isset($result->data))
                             {
-                                $conn->addLogs('Update Failed:', 'Product: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                $conn->addLogs('Update Failed:', 'Product: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
                             }
                         }
                         //simple product
@@ -252,14 +253,14 @@ Class pImport
                             if(isset($result->return))
                             {
                                 $output->productsSkipped = $output->productsSkipped + 1;
-                                $conn->addLogs('Import Product', 'Product Skipped: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                $conn->addLogs('Import Product', 'Product Skipped: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
                                 continue;
                             }
                             $output->existingProductsUpdated = $output->existingProductsUpdated + 1;
                             $result = $sproduct->updateProduct($result, $util, $conn);
                             if(!isset($result->data))
                             {
-                                $conn->addLogs('Update Failed:', 'Product: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                $conn->addLogs('Update Failed:', 'Product: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
                             }
                         }
 

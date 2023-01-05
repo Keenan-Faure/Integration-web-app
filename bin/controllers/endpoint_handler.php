@@ -21,6 +21,7 @@
     session_start();
     include("../../Class Templates/createConnection.php");
     include("../../Class Templates/utility.php");
+    $_config = include('../../config/config.php');
     use Connection\Connection as connect;
     use utils\Utility as util;
 
@@ -231,7 +232,7 @@
                     $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
                     $variable->message = 'Please return and reselect';
                     $variable = json_encode($variable, JSON_PRETTY_PRINT);
-                    $conn->addLogs('No valid endpoint found', 'Undefined URL', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                    $conn->addLogs('No valid endpoint found', 'Undefined URL', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
 
                     $conn->createJsonMessages("Not a valid URL", "$variable", "../../endpoints", "warn", "php");
                 }
@@ -249,7 +250,7 @@
         $variable = json_encode($variable, JSON_PRETTY_PRINT);
         if(isset($_SESSION['log']))
         {
-            $conn->addLogs('No Session', 'Attempted to connect but no session was found', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'info', false);
+            $conn->addLogs('No Session', 'Attempted to connect but no session was found', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'info', false, $_config);
         }
         $conn->createJsonMessages("No Session found", "$variable", "../../endpoints", "warn", "php");
     }

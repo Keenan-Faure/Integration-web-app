@@ -31,7 +31,7 @@ if(isset($_SESSION['connection']))
             echo(json_encode($variable));
             exit();
         }
-        $sku = $sku['q'];
+        $sku = $sku['sku'];
         $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
         if($sku == '')
         {
@@ -50,49 +50,14 @@ if(isset($_SESSION['connection']))
             //exists
             //gets settings from php file
             $wooSettings = $_SESSION['woo_settings'];
-            $storeName = $wooSettings->Woocommerce_Store->store_name;
-            $url = 'https://' . $storeName. '/wc-api/v3/products?filter[sku]=' . $sku;
-            $ck = $wooSettings->Woocommerce_Store->consumer_key;
-            $cs = $wooSettings->Woocommerce_Store->consumer_secret;
-
             echo(json_encode($curl->woo_addProduct($arrayData[0], $wooSettings, true, $connection)));
-            /**
-             * - Check if product exists on Woocommerce
-             *      - Create product with mapping (internal/external)
-             *      
-             *      - Update product's general information
-             *      - If it's a simple product then set the type to Simple 
-             *          - Set the stock_management to false on global level
-             *      
-             *      - If the product is a simple product then update the variant level of the product
-             *      - No Options because it's a simple product
-             *      
-             *      - If the product was a variable product then update the variant level of the product
-             *      - Including options
-             * 
-             * - If it does not exist
-             *      - Create product with mapping (internal/external)
-             * 
-             *      - Update product's general information
-             *      - Simple product set type to Simple
-             *          - Set the stock_management to false at global level
-             *      
-             *      - If the product is a simple product then add variant level (No Options)
-             *  
-             * 
-             *      - If it's a variable product then update variants (add options)
-             */
         }
         else if($found->result == 'false')
         {
             //do not exist
             //gets settings from php file
             $wooSettings = $_SESSION['woo_settings'];
-            $storeName = $wooSettings->Woocommerce_Store->store_name;
-            $url = 'https://' . $storeName. '/wc-api/v3/products?filter[sku]=' . $sku;
-            $ck = $wooSettings->Woocommerce_Store->consumer_key;
-            $cs = $wooSettings->Woocommerce_Store->consumer_secret;
-
+            
             //creates new products on Woocommerce
             echo(json_encode($curl->woo_addProduct($arrayData[0], $wooSettings, false, $connection)));
         }

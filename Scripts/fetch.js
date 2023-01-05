@@ -5,7 +5,7 @@
  */
 function Init_function_srq()
 {
-    req('', 'session', 'c-m', 'putLogs', this.id, 'id');
+    req('', 'session', 'c-m', 'putLogs', '', this.id, 'id');
 }
 
 /**
@@ -16,7 +16,7 @@ function Init_function_srq()
 function Init_function_srq_pu()
 {
     let active = this.parentElement.parentElement.firstChild.childNodes[0].checked;
-    req('', 'session', 'c-m', 'putUsers', this.id, 'id', active, 'active');
+    req('', 'session', 'c-m', 'putUsers', '', this.id, 'id', active, 'active');
 }
 
 /**
@@ -31,7 +31,7 @@ function Init_function_sku_p()
         let sku = document.getElementsByClassName('s');
         if(sku.length != 0)
         {
-            req('', 'session', 'p-c-d', 'getIDs', sku[0].innerHTML, 'sku');
+            req('', 'session', 'p-c-d', 'getIDs', '',sku[0].innerHTML, 'sku');
         }
     }, 200);
 }
@@ -43,7 +43,7 @@ function Init_function_sku_p()
  */
 function Init_function_sku_woo()
 {
-    req('', 'session', '', 'pushWoo', 'Woocommerce', 'woo', 'conn');
+    req('', 'getSKU', '', 'pushWoo', 'Woocommerce', 'woo', 'conn');
 }
 
 /**
@@ -53,7 +53,7 @@ function Init_function_sku_woo()
  */
 function Init_function_sku_s2s()
 {
-    req('', 'session', '', 'pushS2S', 'Stock2Shop','s2s', 'conn');
+    req('', 'getSKU', '', 'pushS2S', 'Stock2Shop','s2s', 'conn');
 }
 
 /**
@@ -90,16 +90,15 @@ const req = async function(token = '', param, final, urlConfig, conn='', reqPara
     const json = await resp.json();
     if(conn != '')
     {
+        console.log(json);
         if(json.body.length == 0)
         {
             changeAmount("No products found to push");//sets the total amount of products to process
-            reqEndpoint(json, '');
             reqEndpoint(json, '', urlConfig, reqParam, reqParamK, reqParam_2, reqParamK_2, conn);
         }
         else
         {
             changeAmount("0 / " + json.body.length);//sets the total amount of products to process
-            reqEndpoint(json, '');
             reqEndpoint(json, '', urlConfig, reqParam, reqParamK, reqParam_2, reqParamK_2, conn);
         }
     }
@@ -159,10 +158,17 @@ const reqEndpoint = async function(json, final, urlConfig, reqParam, reqParamK, 
     else if(conn != '')
     {
         //uses the json in req to make a loop
-        for(let i = 0; i < jsonResults.body.length; ++i)
+        for(let i = 0; i < json.body.length; ++i)
         {
             let url = createURL('', urlConfig);
-            url = appendParams(url, jsonResults.body[i].SKU, 'sku', reqParam_2, reqParamK_2);
+            if(conn == 'Stock2Shop')
+            {
+                url = appendParams(url, json.body[i].SKU, 'sku', json.body.length, 'limit');
+            }
+            else if(conn == 'Woocommerce')
+            {
+                url = appendParams(url, json.body[i].SKU, 'sku', reqParam_2, reqParamK_2);
+            }
             const resp = await fetch(url,
             {
                 method: 'GET', // *GET, POST, PUT, DELETE, etc.
@@ -177,16 +183,16 @@ const reqEndpoint = async function(json, final, urlConfig, reqParam, reqParamK, 
                 redirect: 'follow', // manual, *follow, error
                 referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
             });
-            const json = await resp.json();
-            if(json.result == true)
+            const jsonResults = await resp.json();
+            if(jsonResults.result == true)
             {
-                changeAmount((i + 1) + " / " + jsonResults.body.length);//updates the process
-                appendText(json.message, json.result);
+                changeAmount((i + 1) + " / " + json.body.length);//updates the process
+                appendText(jsonResults.message, jsonResults.result);
             }
             else
             {
-                changeAmount((i + 1) + " / " + jsonResults.body.length);////updates the process
-                appendText(json.message, json.result);
+                changeAmount((i + 1) + " / " + json.body.length);//updates the process
+                appendText(jsonResults.message, jsonResults.result);
             }
         }
         document.getElementById('text').innerHTML = 'Push Complete';

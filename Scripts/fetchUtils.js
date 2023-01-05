@@ -39,13 +39,19 @@ function createURL(token, urlConfig = '')
     else if(urlConfig == 'getSKU')
     {
         arrayUrl = (document.URL).split('/');
-        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/getSKUs.php?func=get_sku&token=' + token;
+        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=get_sku';
         return url;
     }
     else if(urlConfig == 'pushWoo')
     {
         arrayUrl = (document.URL).split('/');
-        url = 'http://' + arrayUrl[2] + '/' + 'cURL/pushWoocommerce.php?q=' + sku;
+        url = 'http://' + arrayUrl[2] + '/' + 'cURL/pushWoocommerce.php?token=auto';
+        return url;
+    }
+    else if(urlConfig == 'pushS2S')
+    {
+        arrayUrl = (document.URL).split('/');
+        url = 'http://' + arrayUrl[2] + '/' + 'cURL/pushStock2Shop.php?token=auto';
         return url;
     }
 }

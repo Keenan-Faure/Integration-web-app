@@ -10,6 +10,7 @@
     // exit();
     include('cURL.php');
     include("../Class Templates/createConnection.php");
+    $_config = include('../config/config.php');
     use Connection\Connection as connect;
     use cURL\CURL as curl;
     if(isset($_SESSION['connection']))
@@ -42,7 +43,7 @@
             $fullUrl = $_SERVER["REQUEST_URI"];
             $fullUrl = $host . $fullUrl;
             $params = ($connection->queryParams($fullUrl));
-            if(sizeof($params) != 2)
+            if(sizeof($params) < 2)
             {
                 $variable = new \stdClass();
                 $variable->result = false;
@@ -50,7 +51,7 @@
                 echo(json_encode($variable));
                 exit();
             }
-            $sku = $params['q'];
+            $sku = $params['sku'];
             $limit = $params['limit'];
             if($sku == '')
             {
@@ -120,7 +121,7 @@
                         {
                             if(isset($_SESSION['log']))
                             {
-                                $connnection->addLogs('Push Product', "Product with SKU " . $output->result[$i]->SKU . " was not processed because of NULL Data", date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                $connnection->addLogs('Push Product', "Product with SKU " . $output->result[$i]->SKU . " was not processed because of NULL Data", date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
                             }
                         }
                     }

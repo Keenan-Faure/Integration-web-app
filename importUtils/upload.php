@@ -5,14 +5,13 @@ include("productImport.php");
 include("customerImport.php");
 include("../Class Templates/vProduct.php");
 include("../Class Templates/sProduct.php");
-include("../Class Templates/customer.php");
 include("../Class Templates/utility.php");
 include('../Class Templates/createConnection.php');
+$_config = include('../config/config.php');
 
 use utils\Utility as util;
 use sProducts\sProducts as sproduct;
 use vProducts\vProducts as vproduct;
-use customer\Customers as customer;
 use Connection\Connection as connect;
 
 use pImport\pImport as import;
@@ -21,7 +20,7 @@ if(!isset($_SESSION['connection']))
 {
     if(isset($_SESSION['log']))
     {
-        $conn->addLogs('No Connection found', 'No connection found in current session, please re-connect', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'info', false);
+        $conn->addLogs('No Connection found', 'No connection found in current session, please re-connect', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'info', false, $_config);
     }
     $conn->createHtmlMessages('', 'Error connecting to user session', 'No connection found in current session, please re-connect', 'login', 'info');
     header("Refresh:2,url=../auth/login.php");

@@ -469,13 +469,13 @@ class Connection
     //where head -> message head (topic)
     //body -> main message 
     //type -> information, warning etc
-    function addLogs($head, $body, $_time, $_type, $saved)
+    function addLogs($head, $body, $_time, $_type, $saved, $_config)
     {
-        $_config = include("../../config/config.php");
         if(!isset($_SESSION))
         {
             session_start();
         }
+        $body = str_replace('"', "", $body);
         $variable = new \stdClass();
         $variable->head = $head;
         $variable->body = $body;
@@ -485,7 +485,8 @@ class Connection
         array_push($_SESSION['log'], $variable);
         if($saved == true)
         {
-            $query = 'INSERT INTO Logs(Head, Body, T_ime , T_ype)VALUES("' . $head . '","' . $body . '","' . $_time . '","' . $_type . '")';
+            $query = 'INSERT INTO Logs(Head, Body, T_ime, T_ype)VALUES("' . $head . '","' . $body . '","' . $_time . '","' . $_type . '")';
+            $query = str_replace('"', "'", $query);
             $this->preQuery($_config, $query, 'object');
         }
     }
