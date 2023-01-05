@@ -580,6 +580,35 @@ Class Utility
         $result_object->result = $result;
         return $result_object;
     }
+    
+    //compares the conditions
+    //returns true if they are the same
+    //otherwise it returns false
+    function compareCondition($condition1, $condition2)
+    {
+        if($condition1->dataValue == $condition2->DataValue)
+        {
+            if($condition1->statement == $condition2->Statement)
+            {
+                if($condition1->value == $condition2->Value)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
 
 ?>
