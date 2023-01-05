@@ -16,6 +16,8 @@
         <link rel="icon" type="image/x-icon" href="../Images/logo.png"/>
         <link rel='stylesheet' href='../Styles/addItem.css'>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="../Scripts/fetch.js"></script>
+        <script src="../Scripts/fetchUtils.js"></script>
         <script src="../Scripts/app.js"></script>
     </head>
     <body>
@@ -25,29 +27,7 @@
         <br>
         <div class="errors" id="push"><p class="align">Configure Conditions for push</p></div>
         <br>
-        <form method="post" action="addCondition.php">
-            <div class="conditions">
-            <p style="color:black">Add conditions below</p>
-            <select class='condition-select' name="dataValue">
-                <option value="Active">Active</option>
-                <option value="Brand">Brand</option>
-                <option value="Product_Type">Product Type</option>
-                <option value="SellingPrice">Selling Price</option>
-                <option value="CapeTown_Warehouse">Quantity</option>
-            </select>
-            <select class='condition-select' name="condition">
-                <option value="=">=</option>
-                <option value=">">></option>
-                <option value="<"><</option>
-                <option value=">=">>=</option>
-                <option value="<=>"><=</option>
-            </select>
-            <input type="text" name='value' placeholder='Value' class="condition-select">
-            <input class='conditionSubmit' type="submit">
-            </div>
-        </form>
-        <br>
-        <form method="post" action="addCondition.php">
+        <!-- <form method="post" action="addCondition.php">
             <div class="conditions">
             <p style="color:black">Remove Condition</p>
             <select class='condition-select' name="dataValueRemove">
@@ -67,7 +47,7 @@
             <input type="text" name='valueRemove' placeholder='Value' class="condition-select">
             <input class='conditionSubmit' type="submit">
             </div>
-        </form>
+        </form> -->
     </div>
     <div class='conditionTable'>
         <h1 class='header'>Conditions</h1>
@@ -75,7 +55,7 @@
             for($i = 0; $i < sizeof($output->result); ++$i)
             {
                 $iteration = $output->result[$i];
-                echo("<div class='condition'><p class='align'>$iteration->DataValue $iteration->Conditions $iteration->Value</p></div>");
+                echo("<div class='condition'><p class='align'>$iteration->DataValue $iteration->Statement $iteration->Value</p></div>");
                 echo("<br>");
             }
         ?>
@@ -83,7 +63,7 @@
     <div class="navBar">
                 <div class="overlay">
                     <div class='imageNav'></div>
-                    <h1>Stock2Shop App</h1>
+                    <h1>S2S-App</h1>
                     <div class='buttonContainer2'>
                         <div class="dropDown">
                         <button class="dropDownBtn">Home</button>
@@ -162,6 +142,29 @@
                 </select>
                 <input class='button' type='submit'>
             </form>
+            <br><br>
+            <div class="conditions">
+                <p style="color:black">Add conditions below</p>
+                <hr>
+                <div>
+                <select class='condition-select'>
+                    <option>Active</option>
+                    <option>Brand</option>
+                    <option>Product Type</option>
+                    <option>Selling Price</option>
+                    <option>Quantity</option>
+                </select>
+                <select class='condition-select'>
+                    <option>=</option>
+                    <option>></option>
+                    <option><</option>
+                    <option>>=</option>
+                    <option><=</option>
+                </select>
+                <input type="text" name='value' autocomplete="off" placeholder='Value' class="condition-select">
+                <button class='conditionSubmit' id='true' onclick="Init_function_cond_add_ns(this)">Add</button>
+                </div>
+            </div>
         </div>
     </div>
 </html>
