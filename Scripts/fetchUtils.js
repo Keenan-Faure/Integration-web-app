@@ -36,6 +36,18 @@ function createURL(token, urlConfig = '')
         url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=get_ids&token=' + token;
         return url;
     }
+    else if(urlConfig == 'putCond_add')
+    {
+        arrayUrl = (document.URL).split('/');
+        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=put_cond_add' + token;
+        return url;
+    }
+    else if(urlConfig == 'putCond_del')
+    {
+        arrayUrl = (document.URL).split('/');
+        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=put_cond_del' + token;
+        return url;
+    }
     else if(urlConfig == 'getSKU')
     {
         arrayUrl = (document.URL).split('/');
@@ -45,13 +57,13 @@ function createURL(token, urlConfig = '')
     else if(urlConfig == 'pushWoo')
     {
         arrayUrl = (document.URL).split('/');
-        url = 'http://' + arrayUrl[2] + '/' + 'cURL/pushWoocommerce.php?token=auto';
+        url = 'http://' + arrayUrl[2] + '/' + 'cURL/push_woo.php?token=auto';
         return url;
     }
     else if(urlConfig == 'pushS2S')
     {
         arrayUrl = (document.URL).split('/');
-        url = 'http://' + arrayUrl[2] + '/' + 'cURL/pushStock2Shop.php?token=auto';
+        url = 'http://' + arrayUrl[2] + '/' + 'cURL/push_s2s.php?token=auto';
         return url;
     }
 }
@@ -212,7 +224,7 @@ function createMessage(result, message)
 {
     let button = document.createElement('button');
     let text = '';
-    if(result.return != false)
+    if(result.return == true)
     {
         button.className = 'htmlMessage-success';
         text = document.createTextNode(message);
@@ -220,7 +232,7 @@ function createMessage(result, message)
 
         document.body.appendChild(button);
     }
-    else if(result.return != true)
+    else if(result.return == false)
     {
         button.className = 'htmlMessage-failure';
         text = document.createTextNode(result.body);
@@ -329,6 +341,30 @@ function appendText(message, result)
         container.classList.remove('fadeIn');
         container.classList.add('fadeOut');
     }, 1500);
+}
+
+/**
+ * @Description Creates the conditions as a single param
+ * @param {string} element - The button that is pressed
+ * @returns {string} string
+ */
+function create_cond_params(element)
+{
+    let array = ['dataValue', 'statement', 'value'];
+    let children = element.parentElement.children;
+    let string = '&';
+    for(let i = 0; i < 3; ++i)
+    {
+        if(i != 0)
+        {
+            string = string + "&" + array[i] + "=" + children[i].value;
+        }
+        else
+        {
+            string = string + array[i] + "=" + children[i].value;
+        }
+    }
+    return string;
 }
 
 /**

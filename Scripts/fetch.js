@@ -57,8 +57,32 @@ function Init_function_sku_s2s()
 }
 
 /**
+ * @Description Inserts Conditions into the database
+ * @Parameters None
+ * @Returns None
+ */
+function Init_function_cond_add_ns(element)
+{
+    //create the params first
+    let string = create_cond_params(element);
+    req(string, 'putCond_add', 'd-o', '', '', '', '');
+}
+
+/**
+ * @Description Inserts Conditions into the database
+ * @Parameters None
+ * @Returns None
+ */
+function Init_function_cond_del_ns(element)
+{
+    //create the params first
+    let string = create_cond_params(element);
+    req(string, 'putCond_add', '', '', '', '', '');
+}
+
+/**
  * @Description Initial request which retrieves session token
- * @param {string} token - session token of current user
+ * @param {string} token - session token of current user/ functions with `_ns` will use token as params
  * @param {string} param - Decides what url will be used in the first request
  * @param {string} final - The final function that will be called to make changes to the DOM
  * @param {string} urlConfig - Decides how the url endpoint will be created for the next() function request
@@ -90,7 +114,6 @@ const req = async function(token = '', param, final, urlConfig, conn='', reqPara
     const json = await resp.json();
     if(conn != '')
     {
-        console.log(json);
         if(json.body.length == 0)
         {
             changeAmount("No products found to push");//sets the total amount of products to process
@@ -102,9 +125,25 @@ const req = async function(token = '', param, final, urlConfig, conn='', reqPara
             reqEndpoint(json, '', urlConfig, reqParam, reqParamK, reqParam_2, reqParamK_2, conn);
         }
     }
-    else if(json.return != false)
+    /**
+     * the OR statement is added on because it will return both true and false return statement
+     * This only applies to when the final function equals d-o
+     */
+    else if(json.return != false || final == 'd-o')
     {
-        reqEndpoint(json, final, urlConfig, reqParam, reqParamK, reqParam_2, reqParamK_2, conn);
+        if(urlConfig != '')
+        {
+            reqEndpoint(json, final, urlConfig, reqParam, reqParamK, reqParam_2, reqParamK_2, conn);
+        }
+        /**
+         * Functions that does not require session token
+         * will use this block to display their output
+         */
+        if(urlConfig == '' && final == 'd-o')
+        {
+            console.log(json);
+            createMessage(json, 'Success');
+        }
     }
 }
 
