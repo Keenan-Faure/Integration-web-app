@@ -371,6 +371,7 @@ function create_cond_params_del(element)
 {
     let array = ['dataValue', 'statement', 'value'];
     let string = element.parentElement.children[1].innerHTML;
+    string = string.trim();
     string = string.split(" ");
     let value = '&';
     for(let i = 0; i < string.length; ++i)
@@ -401,6 +402,21 @@ setTimeout(()=>
             logs[i].addEventListener('click', ()=>
             {
                 logs[i].parentNode.style.display = 'none';
+            });
+        }
+    });
+}, 1500);
+
+setTimeout(()=>
+{
+    $(document).ready(()=>
+    {
+        cls_btn = document.getElementsByClassName("condition-cls-btn");
+        for(let i = 0; i < cls_btn.length; ++i)
+        {
+            cls_btn[i].addEventListener('click', ()=>
+            {
+                cls_btn[i].onclick = Init_function_cond_del_ns(cls_btn[i]);
             });
         }
     });

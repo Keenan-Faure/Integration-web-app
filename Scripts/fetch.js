@@ -82,9 +82,7 @@ function Init_function_cond_add_ns(element)
  */
 function Init_function_cond_del_ns(element='')
 {
-    console.log(element);
     let string = create_cond_params_del(element);
-    console.log(string);
     req([string, element], 'putCond_del', 'd-o-d', '', '', '', '');
 }
 
@@ -139,7 +137,6 @@ const req = async function(token = '', param, final, urlConfig, conn='', reqPara
      */
     else if(json.return != false || final == 'd-o')
     {
-        console.log(json);
         if(urlConfig != '')
         {
             reqEndpoint(json, final, urlConfig, reqParam, reqParamK, reqParam_2, reqParamK_2, conn);

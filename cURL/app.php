@@ -36,7 +36,7 @@
                 $iteration = $output->result[$i];
                 echo("
                 <div class='condition'>
-                    <button class='condition-cls-btn' onclick='Init_function_cond_del_ns(this)'>&times;</button>
+                    <button class='condition-cls-btn'>&times;</button>
                     <p class='align'>$iteration->DataValue $iteration->Statement $iteration->Value</p>
                 </div>
                 ");

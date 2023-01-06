@@ -998,6 +998,11 @@ function create_condition_dom(array, remove=false)
         let text = document.createTextNode('×');
         button.appendChild(text);
 
+        button.addEventListener('click', ()=>
+        {
+            button.onclick = Init_function_cond_del_ns(button);
+        });
+
         let p = document.createElement('p');
         p.className = 'align';
         text = document.createTextNode(string);
@@ -1006,11 +1011,5 @@ function create_condition_dom(array, remove=false)
         condition.appendChild(button);
         condition.appendChild(p);
         document.querySelector('.conditionTable').appendChild(condition);
-        setTimeout(()=>
-        {
-            btn = document.querySelector('.condition-cls-btn');
-            btn.id = 'hey';
-            btn.onclick = Init_function_cond_del_ns(btn);
-        }, 500);
     }
 }
