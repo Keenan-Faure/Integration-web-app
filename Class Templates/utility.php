@@ -609,6 +609,23 @@ Class Utility
             return false;
         }
     }
+
+    function convert_query_output($output, $message)
+    {
+        if($output->result == true)
+        {
+            $variable = new \stdClass();
+            $variable->return = $output->result;
+            $variable->body = $message;
+        }
+        else
+        {
+            $variable = new \stdClass();
+            $variable->return = $output->result;
+            $variable->body = $output->message;
+        }
+        return $variable;
+    }
 }
 
 ?>

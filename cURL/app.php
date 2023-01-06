@@ -19,6 +19,7 @@
         <script src="../Scripts/fetch.js"></script>
         <script src="../Scripts/fetchUtils.js"></script>
         <script src="../Scripts/app.js"></script>
+        <script src="../Scripts/createElements.js"></script>
     </head>
     <body>
     <div class='backgroundApp'>
@@ -26,28 +27,6 @@
         <div class="errors"><p class="align">Hover for more information</p></div>
         <br>
         <div class="errors" id="push"><p class="align">Configure Conditions for push</p></div>
-        <br>
-        <!-- <form method="post" action="addCondition.php">
-            <div class="conditions">
-            <p style="color:black">Remove Condition</p>
-            <select class='condition-select' name="dataValueRemove">
-                <option value="Active">Active</option>
-                <option value="Brand">Brand</option>
-                <option value="Product_Type">Product Type</option>
-                <option value="SellingPrice">Selling Price</option>
-                <option value="CapeTown_Warehouse">Quantity</option>
-            </select>
-            <select class='condition-select' name="conditionRemove">
-                <option value="=">=</option>
-                <option value=">">></option>
-                <option value="<"><</option>
-                <option value=">=">>=</option>
-                <option value="<=>"><=</option>
-            </select>
-            <input type="text" name='valueRemove' placeholder='Value' class="condition-select">
-            <input class='conditionSubmit' type="submit">
-            </div>
-        </form> -->
     </div>
     <div class='conditionTable'>
         <h1 class='header'>Conditions</h1>
@@ -55,8 +34,12 @@
             for($i = 0; $i < sizeof($output->result); ++$i)
             {
                 $iteration = $output->result[$i];
-                echo("<div class='condition'><p class='align'>$iteration->DataValue $iteration->Statement $iteration->Value</p></div>");
-                echo("<br>");
+                echo("
+                <div class='condition'>
+                    <button class='condition-cls-btn' onclick='Init_function_cond_del_ns(this)'>&times;</button>
+                    <p class='align'>$iteration->DataValue $iteration->Statement $iteration->Value</p>
+                </div>
+                ");
             }
         ?>
     </div>
@@ -155,11 +138,11 @@
                     <option>Quantity</option>
                 </select>
                 <select class='condition-select'>
-                    <option>=</option>
-                    <option>></option>
-                    <option><</option>
-                    <option>>=</option>
-                    <option><=</option>
+                    <option>equal</option>
+                    <option>greater than</option>
+                    <option>less than</option>
+                    <option>contains</option>
+                    <option>does not contain</option>
                 </select>
                 <input type="text" name='value' autocomplete="off" placeholder='Value' class="condition-select">
                 <button class='conditionSubmit' id='true' onclick="Init_function_cond_add_ns(this)">Add</button>

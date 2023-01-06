@@ -326,17 +326,8 @@ function put_logs($connection, $util, $params)
         $query2 = 'DELETE FROM Logs WHERE ID = "' . $id . '"';
         $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
         $output2 = $connection->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
-        $variable = new \stdClass();
-        $variable->result = $output2->result;
-        if($output2->result != true)
-        {
-            $variable->body = 'Error Occured';
-        }
-        else
-        {
-            $variable->body = 'Success';
-        }
-        echo(json_encode($variable));
+        $output2 = $util->convert_query_output($output2, "Success");
+        echo(json_encode($output2));
         exit();
     }
 }
@@ -378,17 +369,8 @@ function put_usz($connection, $util, $params)
         $query2 = 'UPDATE Userz SET Active = "' . $active . '" WHERE UserID = "' . $id . '"';
         $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
         $output2 = $connection->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
-        $variable = new \stdClass();
-        $variable->result = $output2->result;
-        if($output2->result != true)
-        {
-            $variable->body = 'Error Occured';
-        }
-        else
-        {
-            $variable->body = 'Success';
-        }
-        echo(json_encode($variable));
+        $output2 = $util->convert_query_output($output2, "Success");
+        echo(json_encode($output2));
         exit();
     }
 }
@@ -401,9 +383,6 @@ function put_usz($connection, $util, $params)
  */
 function put_cond_add($connection, $util, $params)
 {
-    //param should contain condition ?
-    //post should not be used
-    //use a param instead
     if(isset($_SESSION['connection']))
     {
         $credentials = $_SESSION['connection']->credentials;
@@ -428,9 +407,9 @@ function put_cond_add($connection, $util, $params)
                 '$dataValue', 
                 '$condition', 
                 '$value'
-            )"
-            ;
+            )";
             $output = $connection->converterObject($rawConnection, $query);
+            $output = $util->convert_query_output($output, "Success");
             echo(json_encode($output));
             mysqli_close($rawConnection);
             exit();
@@ -465,6 +444,7 @@ function put_cond_add($connection, $util, $params)
                 )"
                 ;
                 $output = $connection->converterObject($rawConnection, $query);
+                $output = $util->convert_query_output($output, "Success");
                 echo(json_encode($output));
                 mysqli_close($rawConnection);
                 exit();
@@ -473,6 +453,12 @@ function put_cond_add($connection, $util, $params)
     }
 }
 
+/**
+ * @Description Removes a condition from the Database
+ * @Request_Type PUT
+ * @Params $connection & $util (not used) & $params 
+ * @returns 
+ */
 function put_cond_del($connection, $util, $params)
 {
     if(isset($_SESSION['connection']))
@@ -497,12 +483,12 @@ function put_cond_del($connection, $util, $params)
             $value = $params['value'];
             $query = "DELETE FROM Conditions WHERE 
             DataValue = '$dataValue' &&
-            Conditions = '$condition' && 
-            Value = '$value'
-            ";
+            Statement = '$condition' && 
+            Value = '$value'";
             $output = $connection->converterObject($rawConnection, $query);
+            $output = $util->convert_query_output($output, "Condition Removed");
             echo(json_encode($output));
-            mysqli_close($connection);
+            mysqli_close($rawConnection);
         }
     }
 }

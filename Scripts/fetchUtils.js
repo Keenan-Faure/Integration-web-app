@@ -39,13 +39,13 @@ function createURL(token, urlConfig = '')
     else if(urlConfig == 'putCond_add')
     {
         arrayUrl = (document.URL).split('/');
-        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=put_cond_add' + token;
+        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=put_cond_add' + token[0];
         return url;
     }
     else if(urlConfig == 'putCond_del')
     {
         arrayUrl = (document.URL).split('/');
-        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=put_cond_del' + token;
+        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=put_cond_del' + token[0];
         return url;
     }
     else if(urlConfig == 'getSKU')
@@ -367,6 +367,25 @@ function create_cond_params(element)
     return string;
 }
 
+function create_cond_params_del(element)
+{
+    let array = ['dataValue', 'statement', 'value'];
+    let string = element.parentElement.children[1].innerHTML;
+    string = string.split(" ");
+    let value = '&';
+    for(let i = 0; i < string.length; ++i)
+    {
+        if(i != 0)
+        {
+            value = value + "&" + array[i] + "=" + string[i];
+        }
+        else
+        {
+            value = value + array[i] + "=" + string[i];
+        }
+    }
+    return value;
+}
 /**
  * Description: Below is the list of setTimeout method which 
  * has a delayed run-time. Will only work on certain pages

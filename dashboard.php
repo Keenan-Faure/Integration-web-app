@@ -272,7 +272,7 @@ if(isset($_SESSION['clientConn']) && isset($_SESSION['connection']))
             $query3_ = " CREATE TABLE Conditions (
                 ID int AUTO_INCREMENT primary key NOT NULL,
                 DataValue varchar(10),
-                Statement varchar(2),
+                Statement varchar(10),
                 Value varchar(30)
             );
             ";

@@ -58,31 +58,39 @@ function Init_function_sku_s2s()
 
 /**
  * @Description Inserts Conditions into the database
- * @Parameters None
+ * @param {string} element Element being clicked
  * @Returns None
  */
 function Init_function_cond_add_ns(element)
 {
-    //create the params first
-    let string = create_cond_params(element);
-    req(string, 'putCond_add', 'd-o', '', '', '', '');
+    if(element == '')
+    {
+        let string = create_cond_params(this);
+        req([string, element], 'putCond_add', 'd-o', '', '', '', '');
+    }
+    else
+    {
+        let string = create_cond_params(element);
+        req([string, element], 'putCond_add', 'd-o', '', '', '', '');
+    }
 }
 
 /**
- * @Description Inserts Conditions into the database
- * @Parameters None
+ * @Description Removes Conditions from the database
+ * @param {string} element Element being clicked
  * @Returns None
  */
-function Init_function_cond_del_ns(element)
+function Init_function_cond_del_ns(element='')
 {
-    //create the params first
-    let string = create_cond_params(element);
-    req(string, 'putCond_add', '', '', '', '', '');
+    console.log(element);
+    let string = create_cond_params_del(element);
+    console.log(string);
+    req([string, element], 'putCond_del', 'd-o-d', '', '', '', '');
 }
 
 /**
  * @Description Initial request which retrieves session token
- * @param {string} token - session token of current user/ functions with `_ns` will use token as params
+ * @param {string} token - session token of current user, functions with `_ns` will use token as `[string, element]`
  * @param {string} param - Decides what url will be used in the first request
  * @param {string} final - The final function that will be called to make changes to the DOM
  * @param {string} urlConfig - Decides how the url endpoint will be created for the next() function request
@@ -127,22 +135,30 @@ const req = async function(token = '', param, final, urlConfig, conn='', reqPara
     }
     /**
      * the OR statement is added on because it will return both true and false return statement
-     * This only applies to when the final function equals d-o
+     * This only applies to when the final function equals d-o/d-o-d
      */
     else if(json.return != false || final == 'd-o')
     {
+        console.log(json);
         if(urlConfig != '')
         {
             reqEndpoint(json, final, urlConfig, reqParam, reqParamK, reqParam_2, reqParamK_2, conn);
         }
-        /**
-         * Functions that does not require session token
-         * will use this block to display their output
-         */
-        if(urlConfig == '' && final == 'd-o')
+        else if(urlConfig == '' && final == 'd-o' || final == 'd-o-d')
         {
-            console.log(json);
-            createMessage(json, 'Success');
+            if(final == 'd-o-d')
+            {
+                createMessage(json, 'Success');
+                create_condition_dom(token, true);
+            }
+            else if(final == 'd-o')
+            {
+                createMessage(json, 'Success');
+                if(json.return == true)
+                {
+                    create_condition_dom(token);
+                }
+            }
         }
     }
 }

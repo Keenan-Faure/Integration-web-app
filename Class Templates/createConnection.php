@@ -323,7 +323,7 @@ class Connection
         if($query === '')
         {
             $variable = new \stdClass();
-            $variable->error = 'Uncaught ValueError: mysqli_query(), ($query) cannot be empty';
+            $variable->message = 'Uncaught ValueError: mysqli_query(), ($query) cannot be empty';
             $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
         }
         else
@@ -355,7 +355,7 @@ class Connection
                         {
                             $variable = new \stdClass();
                             $variable->result = true;
-                            $variable->query = str_replace(PHP_EOL, '', $query);;
+                            $variable->query = str_replace(PHP_EOL, '', $query);
                             $variable->duration = $duration;
                         }
                     }
@@ -384,8 +384,7 @@ class Connection
                 else
                 {
                     $variable = new \stdClass();
-                    $variable->result = new \stdClass();
-                    $variable->result = null;
+                    $variable->result = false;
                     $variable->query = str_replace(PHP_EOL, '', $query);;
                     $variable->query_time = $duration;
                 }
@@ -393,7 +392,8 @@ class Connection
             catch(\Exception $error)
             {
                 $variable = new \stdClass();
-                $variable->error = $error->getMessage();
+                $variable->result = false;
+                $variable->message = $error->getMessage();
                 $variable->query = str_replace(PHP_EOL, '', $query);
                 $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
             }
