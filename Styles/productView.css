@@ -463,6 +463,9 @@ li
     text-align: left;
     display: inline-block;
     background-color: #1f1f1f;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 .metaContainer
 {
