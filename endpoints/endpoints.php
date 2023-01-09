@@ -11,7 +11,6 @@ use utils\Utility as util;
 $connection = new connect();
 $util = new util();
 
-
 //queries the params
 $host = "http://" . $_SERVER['HTTP_HOST'];
 $fullUrl = $_SERVER["REQUEST_URI"];
@@ -22,12 +21,10 @@ $function = $params['func'];
 $function($connection, $util, $params);
 
 /**
- * @Description Fetches IDs from Database. Uses inner join on Woocommerce & Inventory tables 
- * @Request_Type GET
- * @Params $connection & $params
- * @returns \stdClass (object)
+ * Fetches IDs from Database. Uses inner join on Woocommerce & Inventory tables 
+ * @return \stdClass
  */
-function get_ids($connection, $util, $params)
+function get_ids(connect $connection, util $util, string $params)
 {
     if(!isset($_SESSION['connection']))
     {
@@ -66,7 +63,7 @@ function get_ids($connection, $util, $params)
  * @Params $connection & $params & $util
  * @returns \stdClass (object)
  */
-function get_search($connection, $util, $params)
+function get_search(connect $connection, util $util, string $params)
 {
     if(!isset($_SESSION['connection']))
     {
@@ -182,7 +179,7 @@ function get_search($connection, $util, $params)
  * @Params none used
  * @returns \stdClass (object)
  */
-function get_ses($connection, $util, $params)
+function get_ses(connect $connection, util $util, string $params)
 {
     if(isset($_SESSION['connection']))
     {
@@ -205,7 +202,7 @@ function get_ses($connection, $util, $params)
  * @Params $connection & $util (Not used) & $params 
  * @returns \stdClass (object)
  */
-function get_sku($connection, $util, $params)
+function get_sku(connect $connection, util $util, string $params)
 {
     if(!isset($_SESSION['connection']))
     {
@@ -253,7 +250,7 @@ function get_sku($connection, $util, $params)
  * @Params $connection & $util (Not used) & $params 
  * @returns \stdClass (object)
  */
-function get_usz($connection, $util, $params)
+function get_usz(connect $connection, util $util, string $params)
 {
     if(!isset($_SESSION['connection']))
     {
@@ -294,7 +291,7 @@ function get_usz($connection, $util, $params)
  * @Params $connection & $util (Not used) & $params 
  * @returns \stdClass (object)
  */
-function put_logs($connection, $util, $params)
+function put_logs(connect $connection, util $util, string $params)
 {
     if(!isset($_SESSION['connection']))
     {
@@ -338,7 +335,7 @@ function put_logs($connection, $util, $params)
  * @Params $connection & $util (Not used) & $params 
  * @returns \stdClass (object)
  */
-function put_usz($connection, $util, $params)
+function put_usz(connect $connection, util $util, string $params)
 {
     if(!isset($_SESSION['connection']))
     {
@@ -381,7 +378,7 @@ function put_usz($connection, $util, $params)
  * @Params $connection & $util & $params 
  * @returns 
  */
-function put_cond_add($connection, $util, $params)
+function put_cond_add(connect $connection, util $util, string $params)
 {
     if(isset($_SESSION['connection']))
     {
@@ -459,7 +456,7 @@ function put_cond_add($connection, $util, $params)
  * @Params $connection & $util (not used) & $params 
  * @returns 
  */
-function put_cond_del($connection, $util, $params)
+function put_cond_del(connect $connection, util $util, string $params)
 {
     if(isset($_SESSION['connection']))
     {
