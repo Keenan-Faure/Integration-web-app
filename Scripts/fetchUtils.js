@@ -66,6 +66,27 @@ function createURL(token, urlConfig = '')
         url = 'http://' + arrayUrl[2] + '/' + 'cURL/push_s2s.php?token=auto';
         return url;
     }
+    if(urlConfig == 'cust')
+    {
+        arrayUrl = (document.URL).split('/');
+        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=get_search';
+        return url;
+        //reqSearch(url, 'cust');
+    }
+    else if(urlConfig == 'prod')
+    {
+        arrayUrl = (document.URL).split('/');
+        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=get_search';
+        return url;
+        //reqSearch(url, 'prod');
+    }
+    else if(urlConfig == 'order')
+    {
+        arrayUrl = (document.URL).split('/');
+        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=get_search';
+        return url;
+        //reqSearch(url, 'order');
+    }
 }
 
 /**
@@ -367,6 +388,11 @@ function create_cond_params(element)
     return string;
 }
 
+/**
+ * @Description (DEL) Creates the conditions as a single param
+ * @param {string} element - The button that is pressed
+ * @returns {string} string
+ */
 function create_cond_params_del(element)
 {
     let array = ['dataValue', 'statement', 'value'];
@@ -387,6 +413,183 @@ function create_cond_params_del(element)
     }
     return value;
 }
+
+/**
+ * Description creates search results
+ * @param {string} results json results from endpoint
+ * @param {string} parameter used to specify which filter to use
+ */
+function createSearchResults(results, parameter)
+{
+    form = document.getElementById('productSForm');
+    if(parameter == 'cust')
+    {
+        for(let i = 0; i < results["result"].length; ++i)
+        {        
+            let dataContainer = document.createElement('button');
+            dataContainer.className = 'search-result-li';
+            dataContainer.name = results["result"][i]['ID'];
+            dataContainer.value = results["result"][i]['ID'];
+                let title = document.createElement('div');
+                title.className = 'dataValues';
+                    let name = document.createElement('b');
+                    let text_1 = document.createTextNode('ID: ');
+                    name.appendChild(text_1);
+
+                    let text_2 = document.createTextNode(results["result"][i]['ID']);
+                title.appendChild(name);
+                title.appendChild(text_2);
+
+                dataContainer.appendChild(title);
+
+                let sku = document.createElement('div');
+                sku.className = 'dataValues';
+                    name = document.createElement('b');
+                    text_1 = document.createTextNode('First Name: ');
+                    name.appendChild(text_1);
+
+                    text_2 = document.createTextNode(results["result"][i]['Name']);
+                sku.appendChild(name);
+                sku.appendChild(text_2);
+            dataContainer.appendChild(sku);
+            form.appendChild(dataContainer);
+        }
+    }
+    else if(parameter == 'prod')
+    {
+        for(let i = 0; i < results["result"].length; ++i)
+        {        
+            let dataContainer = document.createElement('button');
+            dataContainer.className = 'search-result-li';
+            dataContainer.name = results["result"][i]['SKU'];
+            dataContainer.value = results["result"][i]['SKU'];
+                let title = document.createElement('div');
+                title.className = 'dataValues';
+                    let name = document.createElement('b');
+                    let text_1 = document.createTextNode('Title: ');
+                    name.appendChild(text_1);
+
+                    let text_2 = document.createTextNode(results["result"][i]['Title']);
+                title.appendChild(name);
+                title.appendChild(text_2);
+
+                dataContainer.appendChild(title);
+
+                let sku = document.createElement('div');
+                sku.className = 'dataValues';
+                    name = document.createElement('b');
+                    text_1 = document.createTextNode('SKU: ');
+                    name.appendChild(text_1);
+
+                    text_2 = document.createTextNode(results["result"][i]['SKU']);
+                sku.appendChild(name);
+                sku.appendChild(text_2);
+            dataContainer.appendChild(sku);
+            form.appendChild(dataContainer);
+        }
+    }
+    else if(parameter == 'order')
+    {
+        for(let i = 0; i < results["result"].length; ++i)
+        {        
+            let dataContainer = document.createElement('button');
+            dataContainer.className = 'search-result-li';
+            dataContainer.name = results["result"][i]['ID'];
+            dataContainer.value = results["result"][i]['ID'];
+                let title = document.createElement('div');
+                title.className = 'dataValues';
+                    let name = document.createElement('b');
+                    let text_1 = document.createTextNode('ID: ');
+                    name.appendChild(text_1);
+
+                    let text_2 = document.createTextNode(results["result"][i]['ID']);
+                title.appendChild(name);
+                title.appendChild(text_2);
+
+                dataContainer.appendChild(title);
+
+                let sku = document.createElement('div');
+                sku.className = 'dataValues';
+                    name = document.createElement('b');
+                    text_1 = document.createTextNode('Order Status: ');
+                    name.appendChild(text_1);
+
+                    text_2 = document.createTextNode(results["result"][i]['orderStatus']);
+                sku.appendChild(name);
+                sku.appendChild(text_2);
+            dataContainer.appendChild(sku);
+            form.appendChild(dataContainer);
+        }
+    }
+}
+
+/**
+ * Description Fades the search results in and out depending which element is in focus
+ * @param
+ */
+function inFocus()
+{
+    const element = document.activeElement.tagName;
+    if(element == 'INPUT')
+    {
+        s_b_fadeIn();
+    }
+    else if(element == 'BODY')
+    {
+        s_b_fadeOut();
+    }
+}
+
+function s_b_fadeIn()
+{
+    let s_c = document.querySelector('.search-result-container');
+    if(s_c.classList.contains('fade-out'))
+    {
+        s_c.classList.remove('fade-out');
+        s_c.classList.add('fade-in');
+        s_c.classList.add('top');
+    }
+    else
+    {
+        s_c.classList.add('fade-in');
+        s_c.classList.add('top');
+    }
+}
+
+function s_b_fadeOut()
+{
+    let s_c = document.querySelector('.search-result-container');
+    if(s_c.classList.contains('fade-in'))
+    {
+        s_c.classList.remove('fade-in');
+        s_c.classList.add('fade-out');
+        s_c.classList.add('bottom');
+        setTimeout(()=>
+        {
+            removeSearchResults();
+        }, 500);
+    }
+}
+
+/**
+ * Description Removes search results from DOM
+ * @param
+ */
+function removeSearchResults()
+{
+    let results = document.getElementById('productSForm');
+    for(let i = 0; i < results.length; ++i)
+    {
+        if(typeof results[i] !== 'undefined')
+        {
+            while (results.hasChildNodes()) 
+            {
+                results.removeChild(results.firstChild);
+            }
+        }
+    }
+}
+
 /**
  * Description: Below is the list of setTimeout method which 
  * has a delayed run-time. Will only work on certain pages

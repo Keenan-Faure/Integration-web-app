@@ -87,8 +87,19 @@ function Init_function_cond_del_ns(element='')
 }
 
 /**
+ * @Description Removes Conditions from the database
+ * @param {string} element Element being clicked
+ * @Returns None
+ */
+function Init_function_srch(type)
+{
+    let value = document.querySelector('.search-field').value;
+    req('', 'session', 's-c', type, '', value, 'q', type, 'type');
+}
+
+/**
  * @Description Initial request which retrieves session token
- * @param {string} token - session token of current user, functions with `_ns` will use token as `[string, element]`
+ * @param {string} token - session token of current user, functions with `_ns` will use token param as `[string, element]`
  * @param {string} param - Decides what url will be used in the first request
  * @param {string} final - The final function that will be called to make changes to the DOM
  * @param {string} urlConfig - Decides how the url endpoint will be created for the next() function request
@@ -204,6 +215,10 @@ const reqEndpoint = async function(json, final, urlConfig, reqParam, reqParamK, 
             {
                 addConnectorDetails(jsonResults.body_1.result[0].P_ID, jsonResults.body_1.result[0].ID, jsonResults.body.result[0].Pushed);
                 populateAuditTrail(jsonResults.body_1.result[0].Users, jsonResults.body_1.result[0].Audit_Date);
+            }
+            else if(final == 's-c')
+            {
+                createSearchResults(jsonResults, urlConfig);
             }
         }
     }
