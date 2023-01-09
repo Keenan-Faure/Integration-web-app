@@ -75,7 +75,7 @@
                                 <button class="dropDownBtn">Customers</button>
                                 <div class="dropDownContent">
                                     <a href="../customers/addCustomer.html">Add Customer</a>
-                                    <a href="../customers/customerList.php">View Customers</a>
+                                    <a href="../customers/customerList.php?page=1">View Customers</a>
                                 </div>
                             </div>
                         </div>
