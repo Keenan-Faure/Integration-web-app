@@ -15,7 +15,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="../Scripts/createElements.js"></script>
         <script src="../Scripts/fade.js"></script>
-        <script src="../Scripts/search.js"></script>
+        <script src="../Scripts/fetch.js"></script>
+        <script src="../Scripts/fetchUtils.js"></script>
         <?php 
         if(isset($_SESSION['connection']))
         {
@@ -88,7 +89,7 @@
                     <div id='search-b-h'>
                             <div class='search-bar'>
                                 <input class='search-field' type='text' placeholder='Search...'>
-                                <button class='search-btn' onclick="search('order')" type='submit'></button>
+                                <button class='search-btn' onclick="Init_function_srch('order')"  type='submit'></button>
                             </div>
                             <div class='search-result-container'>
                                 Search results
