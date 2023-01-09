@@ -3,6 +3,10 @@ namespace cURL;
 
 Class CURL
 {   
+    /**
+     * gets the current URL
+     * @return string
+     */
     function getUrl()
     {
         $host = "http://" . $_SERVER['HTTP_HOST']; //needs to be defined
@@ -29,10 +33,10 @@ Class CURL
         }
     }
 
-    //uses cURL
-    //URL is the url that we will be initiating the cURL request against
-    //request is the data of the cURL in stdClass (object) notation
-    //username and password acts as the creentials
+    /**
+     * Gets the data from the `url` using a custom cURL method
+     * @return string
+     */
     function get_web_page($url, $request = null, $username = '', $password = '', $customReq = null) 
     {
         $options = array(
