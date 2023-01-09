@@ -113,6 +113,7 @@
                 mysqli_close($rawConnection);
                 echo(json_encode($output));
                 unset($_POST['countOrders']);
+                exit();
             }
             if(isset($_POST['viewOrders']))
             {

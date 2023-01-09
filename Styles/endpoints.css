@@ -22,7 +22,7 @@ body
 /* Navigation Bar */
 .navBar
 {
-    position: fixed;
+    position: relative;
     width: 100%;
     height: 40px;
     z-index: 10;
@@ -59,10 +59,11 @@ body
     position: relative;
     top: 30px;
     height: 50px;
-    background-image: url(../Images/dbPicture.png);
+    background-image: url(../Images/dbPicture.gif);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    border-radius: 50px;
 }
 .dropDownBtn
 {
@@ -711,9 +712,9 @@ h2
 {
     background-color: rgba(0, 0, 0, 0.6);
     position: relative;
-    transform: translate(-50%, 0%);
+    transform: translate(-50%, 10%);
     left: 50%;
-    z-index: -1;
+    z-index: 9;
     width: 70%;
 }
 

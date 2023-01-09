@@ -100,13 +100,15 @@ h1:hover
 {
     width: 70px;
     display: inline-block;
+    cursor: pointer;
     position: relative;
     top: 30px;
     height: 50px;
-    background-image: url(../Images/dbPicture.png);
+    background-image: url(../Images/dbPicture.gif);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    border-radius: 50px;
 }
 .dropDownBtn
 {

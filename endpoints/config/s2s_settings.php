@@ -51,8 +51,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     </head>
     <body>
-    <div class='background'>
-    </div>
+    <div class='background'></div>
     <div class="navBar">
             <div class="overlay">
                 <div class='imageNav'></div>
@@ -61,7 +60,7 @@
                     <div class="dropDown">
                     <button class="dropDownBtn">Session</button>
                         <div class="dropDownContent">
-                            <a href="../../endpoints.php">Home</a>
+                            <a href="../../dashboard.php">Home</a>
                             <a href="../../bin/controllers/output.php?q=session">Current session</a>
                             <a href="../../bin/controllers/output.php?logout=true">Logout</a>
 
@@ -81,34 +80,35 @@
                     <div class="dropDown">
                     <button class="dropDownBtn">Settings</button>
                         <div class="dropDownContent">
-                            <a href="../../endpoints/config/s2s_settings.php">View Settings</a>
-                            <a href="../../endpoints/config/woo_settings.php">Woocommerce Settings</a>
+                            <a href="../../endpoints/config/app_settings.php">App</a>
+                            <a href="../../endpoints/config/woo_settings.php">Woocommerce</a>
                         </div>
                     </div>
                 </div>
         </div>
-        <div class='settings'>
-            <?php
-                foreach($_settings as $x => $value)
+    </div>
+    <div class='settings'>
+        <?php
+            foreach($_settings as $x => $value)
+            {
+                echo("<div class='headerSett'><p class='headSettText'>$x</p></div>");
+                if(sizeof($value) > 0)
                 {
-                    echo("<div class='headerSett'><p class='headSettText'>$x</p></div>");
-                    if(sizeof($value) > 0)
+                    foreach($value as $y => $subValue)
                     {
-                        foreach($value as $y => $subValue)
+                        echo("<textarea class='valueSett' style='resize:none' readonly>$y</textarea>");
+                        if(str_starts_with("$subValue", "{"))
                         {
-                            echo("<textarea class='valueSett' style='resize:none' readonly>$y</textarea>");
-                            if(str_starts_with("$subValue", "{"))
-                            {
-                                echo("<textarea class='valueSett' style='text-align: left' readonly>$subValue</textarea>");
-                            }
-                            else
-                            {
-                                echo("<textarea class='valueSett' readonly>$subValue</textarea>");
-                            }
+                            echo("<textarea class='valueSett' style='text-align: left' readonly>$subValue</textarea>");
+                        }
+                        else
+                        {
+                            echo("<textarea class='valueSett' readonly>$subValue</textarea>");
                         }
                     }
                 }
-            ?>
-        </div>
+            }
+        ?>
+    </div>
     </body>
 </html>

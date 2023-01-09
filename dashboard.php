@@ -46,8 +46,9 @@
                     <div class="dropDown">
                     <button class="dropDownBtn">Settings</button>
                         <div class="dropDownContent">
-                            <a href="endpoints/config/s2s_settings.php">View Settings</a>
-                            <a href="endpoints/config/woo_settings.php">Woocommerce Settings</a>
+                            <a href="endpoints/config/app_settings.php">App</a>
+                            <a href="endpoints/config/s2s_settings.php">Stock2Shop</a>
+                            <a href="endpoints/config/woo_settings.php">Woocommerce</a>
 
                         </div>
                     </div>
@@ -84,9 +85,11 @@
             <form method='post' target='_blank' action='bin/controllers/endpoint_handler.php'>
                 <br><br><br>
                 <input type='text' class='input' name='getOrderByID' placeholder='Get Order by ID' autocomplete="off" id='b1'></input>
-                <br><br>
+            </form>
+            <form method='post' target='_blank' action='bin/controllers/endpoint_handler.php'>
                 <button name='countOrders' class='button' id='b2'><p class='buttonText'>Count Orders</p></button>
-                <br><br>
+            </form>
+            <form method='post' target='_blank' action='bin/controllers/endpoint_handler.php'>
                 <button name='viewOrders' class='button' id='b4'><p class='buttonText'>View All Orders</p></button>
             </form>
         </div>
