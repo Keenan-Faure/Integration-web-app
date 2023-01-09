@@ -3,9 +3,12 @@ namespace Connection;
 class Connection
 {
     private \stdClass $connection;
-    //creates a connection to the Database using the credentials provided
-    //to run queries
-    function createConnection($username, $password, $host, $db)
+
+    /**
+     * Creates a connection to `db` using the `username` and `password`
+     * @return \stdClass
+     */
+    function createConnection(string $username, string $password, string $host, string $db)
     {
         $conn = null;
         try
@@ -29,7 +32,7 @@ class Connection
 
         $this->connection->credentials->username = $username;
         $this->connection->credentials->password = $password;
-        $this->connection->credentials->host = $host; //harcoded to localhost
+        $this->connection->credentials->host = $host; 
         $this->connection->credentials->dbname = $db;
         $this->connection->rawValue = $conn;
         $this->connection->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
