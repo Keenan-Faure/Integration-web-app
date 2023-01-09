@@ -141,7 +141,6 @@ Class pImport
                             $variable->message = $check->header . ' data value null or empty';
                             return $variable;
                         }
-                        //check if the value is set
                         
                         $Product = json_decode(json_encode($Product), true);
                         //variable product

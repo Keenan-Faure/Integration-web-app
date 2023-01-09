@@ -4,7 +4,10 @@ namespace utils;
 
 Class Utility
 {
-    function isNumeric($value, $field)
+    /**
+     * Checks if `value` is numeric
+     */
+    function isNumeric(string $value, string $field)
     {
         if(is_numeric($value))
         {
@@ -23,19 +26,12 @@ Class Utility
             return $variable;
         }
     }
-    function exist($variable)
-    {
-        if(isset($variable))
-        {
-            return $variable;
-        }
-        else
-        {
-            return false;
-        }
-    }
 
-    function existID($customer, $rawConnection, $connect)
+    /**
+     * Checks if the current `customer` ID exists in the database already
+     * @return bool
+     */
+    function existID(array $customer, \mysqli $rawConnection, \Connection\Connection $connect)
     {
         //checks ID
         $query = "SELECT COUNT(*) AS total FROM Client WHERE ID = '" . strtolower($customer['id']) . "'";
@@ -55,10 +51,12 @@ Class Utility
         }
     }
 
-    //variable product
-    function existSKU($product, $rawConnection, $connect)
+    /**
+     * Checks if the current `product` SKU exists in the database already
+     * @return bool
+     */
+    function existSKU(array $product, \mysqli $rawConnection, \Connection\Connection $connect)
     {
-        //checks SKU
         $query = "SELECT COUNT(*) AS total FROM Inventory WHERE SKU = '" . $product['sku'] . "'";
         $result = $connect->converterObject($rawConnection, $query);
 
@@ -76,13 +74,16 @@ Class Utility
         }
     }
 
-    function existVariantCode($product, $rawConnection, $connect)
+    /**
+     * Checks if the variant code of the current product already exists in the database
+     * @return bool
+     */
+    function existVariantCode(array $product, \mysqli $rawConnection, \Connection\Connection $connect)
     {
         $username = $_SESSION['connection']->credentials->username;
         $password = $_SESSION['connection']->credentials->password;
         $dbName = $_SESSION['connection']->credentials->dbname;
 
-        //checks variant code
         $rawConnection = $connect->createConnection($username, $password,"localhost", $dbName)->rawValue;
         
         $query = "SELECT COUNT(*) AS total FROM Inventory WHERE Variant_Code = '" . $product['variantCode'] . "'";
@@ -102,9 +103,12 @@ Class Utility
         }
     }
 
-    //going to be cringe
     //variable products only
-    function existOptions($product, $rawConnection, $connect)
+    /**
+     * Checks if there are any repeated option values in the current `product` group_code
+     * @return bool
+     */
+    function existOptions(array $product, \mysqli $rawConnection, \Connection\Connection $connect)
     {
         $username = $_SESSION['connection']->credentials->username;
         $password = $_SESSION['connection']->credentials->password;
@@ -151,8 +155,11 @@ Class Utility
         }
     }
 
-    //variable product
-    function existSKUe($product, $rawConnection, $connect)
+    /**
+     * Checks if the current `product` SKU already exists in the database (edit)
+     *  @return bool
+     */
+    function existSKUe(\stdClass $product, \mysqli $rawConnection, \Connection\Connection $connect)
     {
 
         //checks SKU
@@ -171,9 +178,13 @@ Class Utility
             return true;
         }
     }
-    function existIDe($customer, $rawConnection, $connect)
+
+    /**
+     * Checks if the current `customer` ID already exists in the database (edit)
+     *  @return bool
+     */
+    function existIDe(\stdClass $customer, \mysqli $rawConnection, \Connection\Connection $connect)
     {
-        //checks ID
         $query = "SELECT COUNT(*) AS total FROM Client WHERE ID = '" . strtolower($customer->id) . "'";
         $result = $connect->converterObject($rawConnection, $query);
         if($result->result[0]->total > 1)
@@ -189,7 +200,12 @@ Class Utility
             return true;
         }
     }
-    function existVariantCodee($product, $rawConnection, $connect)
+
+    /**
+     * Checks if the current `products` variant_code already exists in the database (edit)
+     *  @return bool
+     */
+    function existVariantCodee(\stdClass $product, \mysqli $rawConnection, \Connection\Connection $connect)
     {
         $username = $_SESSION['connection']->credentials->username;
         $password = $_SESSION['connection']->credentials->password;
@@ -215,9 +231,12 @@ Class Utility
         }
     }
 
-    //going to be cringe
     //variable products only
-    function existOptionse($product, $rawConnection, $connect)
+    /**
+     * Checks if there are any repeated option values in the current `product` group_code
+     * @return bool
+     */
+    function existOptionse(\stdClass $product, \mysqli $rawConnection, \Connection\Connection $connect)
     {
         $username = $_SESSION['connection']->credentials->username;
         $password = $_SESSION['connection']->credentials->password;
@@ -264,10 +283,13 @@ Class Utility
             return true;
         }
     }
+
+    /**
+     * Checks the option values/names of the current `product`
+     * @return \stdClass
+     */
     function optionCheck($product)
     {
-        //$productTemplate = array('title', 'description', 'category', 'productType', 'brand', 'sku', 'groupingCode', 'variantCode', 'barcode', 'weight', 'comparePrice', 'sellingPrice',
-        //'quantity', 'optionName', 'optionValue', 'option2Name', 'option2Value', 'meta1', 'meta2', 'meta3');
         if($product['groupingCode'] == null)
         {
             if($product['optionValue'] == null && $product['optionName'] != null)
@@ -349,8 +371,12 @@ Class Utility
             }
         }
     }
-    //stdClass
-    function checkRequired($product)
+    
+    /**
+     * Checks if the required fields are defined as headers on the import file
+     * @return \stdClass
+     */
+    function checkRequired(\stdClass $product)
     {
         $required = array('active', 'sku', 'groupingCode', 'variantCode');
         for($i = 0; $i < sizeof($required); ++$i)
@@ -369,8 +395,11 @@ Class Utility
         return $variable;
     }
     
-    //array
-    function checkRequiredH($product)
+    /**
+     * Checks if the required fields are defined as headers on the template
+     * @return \stdClass
+     */
+    function checkRequiredH(\stdClass $product)
     {
         $required = array('active', 'sku', 'groupingCode', 'variantCode');
         for($i = 0; $i < sizeof($required); ++$i)
@@ -389,22 +418,22 @@ Class Utility
         return $variable;
     }
 
-    //writes data to a file
-    //parameters are:
-    //$filename - name of the file to write to
-    //$ $writeMethod 
-    function writeToFile($filename, $writeMethod, $data)
+    /**
+     * Writes data to a file
+     * @return void
+     */
+    function writeToFile(string $filename, string $writeMethod, string $data)
     {
         $myfile = fopen("../bin/output/" . $filename, $writeMethod) or die("Unable to open file!");
         fwrite($myfile, $data);
         fclose($myfile);
     }
 
-    //function to unserialize order object
-    //parameter is a countable array
-    //second parameter decides when the order is a full wooOrder
-        //if it is then it uses different serialValues
-    function unserializeOrder($orderArray, $wooOrder = false)
+    /**
+     * Unserialize order object
+     * @return array
+     */
+    function unserializeOrder(array $orderArray, bool $wooOrder = false)
     {
         if($wooOrder == true)
         {
@@ -439,9 +468,8 @@ Class Utility
         return $orderArray;
     }
     /**
-     * Description: Removes duplicates from search results
-     * @Params: $variable (query results) & $type (object type)
-     * @returns: \stdClass (object)
+     * Removes duplicates from search results
+     * @return \stdClass
      */
     function removeDuplicates(\stdClass $variable, string $type)
     {
@@ -581,10 +609,11 @@ Class Utility
         return $result_object;
     }
     
-    //compares the conditions
-    //returns true if they are the same
-    //otherwise it returns false
-    function compareCondition($condition1, $condition2)
+    /**
+     * Compares two conditions
+     * @return bool
+     */
+    function compareCondition(\stdClass $condition1, \stdClass $condition2)
     {
         if($condition1->dataValue == $condition2->DataValue)
         {
@@ -610,6 +639,10 @@ Class Utility
         }
     }
 
+    /**
+     * Converts the query output for js functions to use
+     * @return \stdClass
+     */
     function convert_query_output($output, $message)
     {
         if($output->result == true)

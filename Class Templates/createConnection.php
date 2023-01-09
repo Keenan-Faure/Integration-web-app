@@ -49,9 +49,11 @@ class Connection
         return $this->connection;
     }
 
-    //checks if the user entered at the login page is valid
-    //and if it exists in the usertable defined in the database
-    function connectUser($_config, $client_user, $client_pass)
+    /**
+     * Checks if the credentials `client_user` and `client_pass` are valid
+     * @return \stdClass
+     */
+    function connectUser(array $_config, string $client_user, string $client_pass)
     {
         $query = 'SELECT * FROM Userz WHERE Username = "' . $client_user . '"';
         $results = $this->preQuery($_config, $query, 'object');
@@ -124,13 +126,10 @@ class Connection
         }
     }
 
-    //creates html markup which uses the same
-    //format but has different messages relative to the $error
-    //takes three parameters
-    // - The error message
-    // - The best solution that the user can take
-    // - and the link that redirects the user
-    function createHtmlMessages($extension = '', $message = 'No msg specified', $solution = 'No Solution provided', $link = '', $type = 'warn')
+    /**
+     * Creates html markup which uses the same format but has different messages relative to the $error
+     */
+    function createHtmlMessages(string $extension = '', string $message = 'No msg specified', string $solution = 'No Solution provided', string $link = '', string $type = 'warn')
     {
         if($extension == null)
         {
@@ -162,7 +161,11 @@ class Connection
             </html>
         ");
     }
-    function createJsonMessages($message, $solution, $link, $type, $prefix = 'html')
+
+    /**
+     * Wraps JSON in a `pre` tag to display
+     */
+    function createJsonMessages(string $message, string $solution, string $link, string $type, string $prefix = 'html')
     {
         echo("
             <html>
@@ -191,7 +194,11 @@ class Connection
         ");
     }
 
-    function createRandomString($length = 32)
+    /**
+     * Creates the token for the users. Max length is 32 chars
+     * @return string
+     */
+    function createRandomString(int $length = 32)
     {
         $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
@@ -202,10 +209,12 @@ class Connection
         }
         return $randomString;
     }
-    //pre-conection queries
-    //made with the datafound in the config php file
 
-    function preQuery($_config, $query, $key)
+    /**
+     * Pre-conection queries made with the datafound in the config php file
+     * @return \stdClass
+     */
+    function preQuery(array $_config, string $query, string $key)
     {
         try
         {
@@ -239,54 +248,57 @@ class Connection
         }
     }
 
-    //-- ONLY USED BY API (legacy) --//
-    //connects the client to the mysql server
-    //using the username and password found 
-    //in the config.php file
-    //this is hardcoded to:
-    //username = root
-    //password = ''
-    function connectServer($username='null', $password='', $host='localhost')
+    /**
+     * Uses the `token` and `secret` to connect to the API
+     * @return \stdClass
+     */
+    function connectAPI(string $token, string $secret)
     {
-        $serverConnections = null;
-        try
+        if(isset($_SESSION['apicredentials']))
         {
-            $serverConnections = new \mysqli($host, $username, $password);
+            if($_SESSION['apicredentials']->credentials->token == $token)
+            {
+                if($_SESSION['apicredentials']->credentials->secret == $secret)
+                {
+                    $variable = new \stdClass();
+                    $variable->active = true;
+                    $variable->message = 'Valid API credentials';
+                    $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+                    return $variable;
+                }
+                else
+                {
+                    $variable = new \stdClass();
+                    $variable->active = false;
+                    $variable->message = 'Invalid API secret';
+                    $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+                    return $variable;
+                }
+            }
+            else
+            {
+                $variable = new \stdClass();
+                $variable->active = false;
+                $variable->message = 'Invalid API token';
+                $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+                return $variable;
+            }
         }
-        catch(\Exception $error)
+        else
         {
             $variable = new \stdClass();
-            $variable->connection = false;
-            $variable->message = $error->getMessage();
+            $variable->active = false;
+            $variable->message = 'No API credentials detected in database, contact admin!';
+            $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
             return $variable;
         }
-       
-        // connection successful
-        $this->connection = new \stdClass();
-        $this->connection->active = true;
-        $this->connection->credentials = new \stdClass();
-
-        $this->connection->credentials->username = $username;
-        $this->connection->credentials->password = '*******';
-        $this->connection->credentials->host = 'localhost'; //harcoded to localhost
-        $this->connection->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-        $this->connection->rawValue = $serverConnections;
-        $_SESSION['serverconnection'] = $this->connection;
-        
-        $serverConnection = new \stdClass();
-        $serverConnection->connection = true;
-        $serverConnection->rawValue = $serverConnections;
-        $serverConnection->message = 'Connected to MySql server on localhost successful';
-
-        return $serverConnection;
     }
-    //function for pagination
-    //1.) Gets the total number of products in the Database
-    //2.) Divided it by 10 (10 products per page) 
-    //3.) Then returns that number which will be used
-    //    To create the amount of <a> tags
-    //type can be 'Inventory' or 'Client'
-    function pagination($rawConnection, $type)
+
+    /**
+     * Gets the total number of products in the Database divided by 10: `(90/10) -> 9 pages`
+     * @return int
+     */
+    function pagination(\mysqli $rawConnection, string $type)
     {
         $query = "SELECT COUNT(*) AS total FROM " . $type;
         $result = $this->converterObject($rawConnection, $query);
@@ -302,9 +314,10 @@ class Connection
         }
     }
 
-    //returns the query params as a php array
-    //using the URL provided
-    //has to be entire URL
+    /**
+     * Returns the query params as a php array using the URL provided
+     * @return array
+     */
     function queryParams($url)
     {
         $partitions = parse_url($url);
@@ -320,8 +333,11 @@ class Connection
         }
     }
 
-    //converts mysqli object to php object
-    function converterObject($rawConnection, $query, $parameter=null)
+    /**
+     * Queries the database with `query` and converts mysqli object to php object
+     * @return \stdClass
+     */
+    function converterObject(\mysqli $rawConnection, string $query, string $parameter='')
     {
         if($query === '')
         {
@@ -401,12 +417,14 @@ class Connection
                 $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
             }
         }
-        
         return $variable;
     }
 
-    //function to return the databases or tables inside the database 
-    function converterArray($rawConnection, $query)
+    /**
+     * Returns tables inside the database and converts mysqli object to a php array
+     * @return \stdClass
+     */
+    function converterArray(\mysqli $rawConnection, string $query)
     {
         $output = array();
         if($result = mysqli_query($rawConnection, $query))
@@ -425,54 +443,10 @@ class Connection
         return $output;
     }
 
-    function connectAPI($token, $secret)
-    {
-        if(isset($_SESSION['apicredentials']))
-        {
-            if($_SESSION['apicredentials']->credentials->token == $token)
-            {
-                if($_SESSION['apicredentials']->credentials->secret == $secret)
-                {
-                    $variable = new \stdClass();
-                    $variable->active = true;
-                    $variable->message = 'Valid API credentials';
-                    $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-                    return $variable;
-                }
-                else
-                {
-                    $variable = new \stdClass();
-                    $variable->active = false;
-                    $variable->message = 'Invalid API secret';
-                    $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-                    return $variable;
-                }
-            }
-            else
-            {
-                $variable = new \stdClass();
-                $variable->active = false;
-                $variable->message = 'Invalid API token';
-                $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-                return $variable;
-            }
-        }
-        else
-        {
-            $variable = new \stdClass();
-            $variable->active = false;
-            $variable->message = 'No API credentials detected in database, contact admin!';
-            $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-            return $variable;
-        }
-    }
-    
-    //creates the stdClass required when storing data 
-    //in the logs session - some are inserted into the database?
-    //where head -> message head (topic)
-    //body -> main message 
-    //type -> information, warning etc
-    function addLogs($head, $body, $_time, $_type, $saved, $_config)
+    /**
+     * Creates and adds a log into the table `Logs` and session `$_SESSION['log']`
+     */
+    function addLogs(string $head, string $body, string $_time, string $_type, string $saved, array $_config)
     {
         if(!isset($_SESSION))
         {
@@ -494,8 +468,11 @@ class Connection
         }
     }
 
-    //sets the settings in the session
-    function setSettings($_settings)
+    /**
+     * Converts `$_settings` into a \stdClass variable
+     * @return \stdClass
+     */
+    function setSettings(array $_settings)
     {
         $variable = new \stdClass();
         foreach($_settings as $x => $value)

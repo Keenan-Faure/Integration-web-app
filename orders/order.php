@@ -37,7 +37,7 @@
         exit();
     }
     //verify data sent using headers
-    $webHookRegistered = $order->verifyWebhook($requestBody, $headers, $_woo_settings);
+    $webHookRegistered = $order->verifyWebhook(json_decode($requestBody), $headers, $_woo_settings);
 
     if($webHookRegistered == true)
     {
