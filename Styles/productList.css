@@ -469,7 +469,7 @@ h1:hover
 }
 .dataValues
 {
-    color: rgb(58, 58, 58);
+    color: rgb(0 0 0);
     position: relative;
     font-size: 12px;
     font-family: system-ui;

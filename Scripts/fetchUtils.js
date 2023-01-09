@@ -427,6 +427,7 @@ function createSearchResults(results, parameter)
         for(let i = 0; i < results["result"].length; ++i)
         {        
             let dataContainer = document.createElement('button');
+            let hr = document.createElement('hr');
             dataContainer.className = 'search-result-li';
             dataContainer.name = results["result"][i]['ID'];
             dataContainer.value = results["result"][i]['ID'];
@@ -453,6 +454,7 @@ function createSearchResults(results, parameter)
                 sku.appendChild(text_2);
             dataContainer.appendChild(sku);
             form.appendChild(dataContainer);
+            form.appendChild(hr);
         }
     }
     else if(parameter == 'prod')
@@ -460,6 +462,7 @@ function createSearchResults(results, parameter)
         for(let i = 0; i < results["result"].length; ++i)
         {        
             let dataContainer = document.createElement('button');
+            let hr = document.createElement('hr');
             dataContainer.className = 'search-result-li';
             dataContainer.name = results["result"][i]['SKU'];
             dataContainer.value = results["result"][i]['SKU'];
@@ -484,8 +487,9 @@ function createSearchResults(results, parameter)
                     text_2 = document.createTextNode(results["result"][i]['SKU']);
                 sku.appendChild(name);
                 sku.appendChild(text_2);
-            dataContainer.appendChild(sku);
+                dataContainer.appendChild(sku);
             form.appendChild(dataContainer);
+            form.appendChild(hr);
         }
     }
     else if(parameter == 'order')
@@ -493,6 +497,7 @@ function createSearchResults(results, parameter)
         for(let i = 0; i < results["result"].length; ++i)
         {        
             let dataContainer = document.createElement('button');
+            let hr = document.createElement('hr');
             dataContainer.className = 'search-result-li';
             dataContainer.name = results["result"][i]['ID'];
             dataContainer.value = results["result"][i]['ID'];
@@ -519,6 +524,7 @@ function createSearchResults(results, parameter)
                 sku.appendChild(text_2);
             dataContainer.appendChild(sku);
             form.appendChild(dataContainer);
+            form.appendChild(hr);
         }
     }
 }
