@@ -77,7 +77,7 @@ if($_SESSION['connection']->active == true)
         $connect = new connect();
         $credentials = $_SESSION['connection']->credentials;
         $connection = $connect->createConnection($credentials->username, $credentials->password, $credentials->host, $credentials->dbname)->rawValue;
-        $query = 'select * from Conditions';
+        $query = 'SELECT * FROM Conditions';
         $output = $connect->converterObject($connection, $query);
         $output = $output->result;
         if(sizeof($output) == 0)

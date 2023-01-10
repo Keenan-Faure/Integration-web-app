@@ -460,8 +460,12 @@ Class CURL
                             }
                         }
                         //returns it in StdClass Format
+
+                        //remove null option arrays from product
+
                         $product = new \stdClass();
                         $product = json_decode(json_encode($product_map_array));
+                        $product = $this->removeEmptyOptions($product);
                         return $product;
                     }
                 }
@@ -505,6 +509,29 @@ Class CURL
         }
         return null;
     }
+    
+    /**
+     * Removes empty option fields and arrays from the product
+     * @return \stdClass
+     */
+    function removeEmptyOptions($product)
+    {
+        if($product->product->options[0]->name == "")
+        {
+            $product->product->options = array();
+            unset($product->product->variants->option1);
+            unset($product->product->variants->option2);
+        }
+        else if($product->product->options[0]->name != "")
+        {
+            if($product->product->options[1]->name == "")
+            {
+                $product->product->options[1] = new \stdClass();
+                unset($product->product->variants->option2);
+            }
+        }
+        return $product;
+    }
 
     //inserts Product into Stock2Shop table
     //showing that it has been pushed
@@ -523,7 +550,7 @@ Class CURL
             Pushed = 'true' 
             WHERE SKU = '" . $sku . "';";
 
-            $ou = $connection->converterObject($rawConnection, $query);
+            $connection->converterObject($rawConnection, $query);
         }
         else
         {
@@ -534,7 +561,6 @@ Class CURL
     }
 
     // Helper Functions for the internal product map
-
     //Adds options to products
     function addOptions($product)
     {

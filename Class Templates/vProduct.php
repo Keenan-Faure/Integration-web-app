@@ -181,13 +181,12 @@ Class vProducts
             $product->option2Name . "','" .
             $product->option2Value . "','" .
             $product->meta1 . "','" .
-            $product->meta2 . "'," . 
+            $product->meta2 . "','" . 
             $product->meta3 . "','" .
             date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']) . "','"
             . $_SESSION['clientConn']->token . "');"
         ;
         $connection->converterObject($rawConnection, $query);
-
         $query_ = "INSERT INTO Woocommerce 
         (
             SKU,
@@ -202,7 +201,7 @@ Class vProducts
             '0',
             '0');"
         ;
-        $connection->converterObject($rawConnection, $query_);
+        $ou = $connection->converterObject($rawConnection, $query_);
 
         $queryS2S = "INSERT INTO Stock2Shop 
         (

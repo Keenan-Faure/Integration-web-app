@@ -67,8 +67,8 @@
                             <div class="dropDownContent">
                                 <a href="../products/addItem.html">Add Product</a>
                                 <a href="../products/productList.php?page=1">View all products</a>
-                                <a href="../products/importUtils/import.html">Import Products</a>
-                                <a href="../products/importUtils/productExport.php">Export Products</a>
+                                <a href="../importUtils/import.html">Import Products</a>
+                                <a href="../importUtils/productExport.php">Export Products</a>
                             </div>
                         </div>
     
