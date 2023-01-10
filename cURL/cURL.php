@@ -37,7 +37,7 @@ Class CURL
      * Gets the data from the `url` using a custom cURL method
      * @return string
      */
-    function get_web_page($url, $request = null, $username = '', $password = '', $customReq = null) 
+    function get_web_page(string $url, string $request = '', string $username = '', string $password = '', string $customReq = '') 
     {
         $options = array(
             CURLOPT_USERPWD => $username . ":" . $password, 
@@ -58,7 +58,7 @@ Class CURL
         //uses the URL in function parameter
         $ch = curl_init($url);
 
-        if(isset($request))
+        if($request != '')
         {
             curl_setopt($ch, CURLOPT_POSTFIELDS, $request);
         }
@@ -100,32 +100,45 @@ Class CURL
     +--------------------------------+
     */
 
-    function getSources($token, $username, $password)
+    /**
+     * Requests the source(s) of the current user with credentials `username` and `password`
+     * @return \stdClass
+     */
+    function getSources(string $token, string $username, string $password)
     {
-        //use http_build_query here to create parameters for ep
         $params = http_build_query(array('format' => 'json', 'token' => $token)); 
 
         $url = 'https://app.stock2shop.com/v1/sources?' . $params;
-        return $this->cURLRequest(null, $url, $username, $password);
+        return $this->cURLRequest('', $url, $username, $password);
 
     }
 
-    function getChannels($token, $username, $password)
+    /**
+     * Requests the channels(s) of the current user with credentials `username` and `password`
+     * @return \stdClass
+     */
+    function getChannels(string $token, string $username, string $password)
     {
-        //use http_build_query here to create parameters for ep
         $params = http_build_query(array('format' => 'json', 'token' => $token)); 
 
         $url = 'https://app.stock2shop.com/v1/channels?' . $params;
-        return $this->cURLRequest(null, $url, $username, $password);
+        return $this->cURLRequest('', $url, $username, $password);
     }
 
-    function validateToken($token, $username, $password)
+    /**
+     * Runs a cURL request to validate the current users token
+     * @return array
+     */
+    function validateToken(string $token, string $username, string $password)
     {
         $url = 'https://app.stock2shop.com/v1/users/valid_token/' . $token . '?format=json';
-        return $this->cURLRequest(null, $url, $username, $password);
+        return $this->cURLRequest('', $url, $username, $password);
     }
 
-    function authenticate($username, $password)
+    /**
+     * Runs a cURL request to authenticate the credentials `username` and `password`
+     */
+    function authenticate(string $username, string $password)
     {
         //builds json object
         $request = new \stdClass();
@@ -139,8 +152,11 @@ Class CURL
         return $this->cURLRequest($request, $url, $username, $password);
     }
 
-    //Initiates the Curl Response
-    function cURLRequest($request = new \stdClass(), $url = '', $username = '', $password = '')
+    /**
+     * Initiates the Curl Request
+     * @return \stdClass
+     */
+    function cURLRequest(string $request, string $url = '', string $username = '', string $password = '')
     {
         $response = $this->get_web_page($url, $request, $username, $password);
         $resArr = array();
@@ -148,7 +164,10 @@ Class CURL
         return $resArr;
     }
 
-    //adds the HTTP header to the content
+    /**
+     * Adds the HTTP message to the response content
+     * @return string
+     */
     function addHTTP($content, $code)
     {
         $content = json_decode($content);
@@ -501,10 +520,10 @@ Class CURL
             //since SKU is unique there will only ever exist 1 value
             $query = "UPDATE Stock2Shop SET 
             pushDate = '" . $date . "', 
-            Pushed = 'true',
+            Pushed = 'true' 
             WHERE SKU = '" . $sku . "';";
 
-            $connection->converterObject($rawConnection, $query);
+            $ou = $connection->converterObject($rawConnection, $query);
         }
         else
         {
@@ -634,7 +653,7 @@ Class CURL
             $ck = $wooSettings->Woocommerce_Store->consumer_key;
             $cs = $wooSettings->Woocommerce_Store->consumer_secret;
 
-            $result = $this->get_web_page($url, null, $ck, $cs);
+            $result = $this->get_web_page($url, '', $ck, $cs);
             if($result == null)
             {
                 $variable = new \stdClass();
@@ -690,7 +709,7 @@ Class CURL
     //displays the Woocommerce API details of the store
     function Auth()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs']);
         if($result == null)
         {
             $variable = new \stdClass();
@@ -703,7 +722,7 @@ Class CURL
     //GET customers from Woocommerce by ID
     function getCustomer()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs']);
         if($result == null)
         {
             $variable = new \stdClass();
@@ -716,7 +735,7 @@ Class CURL
     //returns a list of customers from Woocommerce
     function getCustomer_l()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs']);
         if($result == null)
         {
             $variable = new \stdClass();
@@ -729,7 +748,7 @@ Class CURL
     //removes the respective customer on Woocommerce
     function deleteCustomer()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs'], 'delete');
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs'], 'delete');
         if($result == null)
         {
             $variable = new \stdClass();
@@ -770,7 +789,7 @@ Class CURL
     //returns an order from Woocommerce
     function getOrder()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs']);
         if($result == null)
         {
             $variable = new \stdClass();
@@ -783,7 +802,7 @@ Class CURL
     //returns a list of orders from Woocommerce
     function getOrder_l()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs']);
         if($result == null)
         {
             $variable = new \stdClass();
@@ -796,7 +815,7 @@ Class CURL
     //deletes an order on Woocommerce
     function deleteOrder()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs'], 'delete');
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs'], 'delete');
         if($result == null)
         {
             $variable = new \stdClass();
@@ -851,7 +870,7 @@ Class CURL
     //gets an order's notes on Woocommerce
     function getOrderNote()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs']);
         if($result == null)
         {
             $variable = new \stdClass();
@@ -864,7 +883,7 @@ Class CURL
     //gets a list of an order's notes on Woocommerce
     function getOrderNote_l()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs']);
         if($result == null)
         {
             $variable = new \stdClass();
@@ -877,7 +896,7 @@ Class CURL
     //deletes an order's notes on Woocommerce
     function deleteOrderNote()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs'], 'delete');
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs'], 'delete');
         if($result == null)
         {
             $variable = new \stdClass();
@@ -890,7 +909,7 @@ Class CURL
     //gets a product from Woocommerce
     function getProduct()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs']);
         if($result == null)
         {
             $variable = new \stdClass();
@@ -903,7 +922,7 @@ Class CURL
     //gets a product from Woocommerce
     function getProductBySKU()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs']);
         if($result == null)
         {
             $variable = new \stdClass();
@@ -917,7 +936,7 @@ Class CURL
     //gets a list of products from Woocommerce
     function getProduct_l()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs']);
         if($result == null)
         {
             $variable = new \stdClass();
@@ -930,7 +949,7 @@ Class CURL
     //deletes a products on Woocommerce
     function deleteProduct()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs'], 'delete');
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs'], 'delete');
         if($result == null)
         {
             $variable = new \stdClass();
@@ -971,7 +990,7 @@ Class CURL
     //gets a product from Woocommerce
     function getProductVariation()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs']);
         if($result == null)
         {
             $variable = new \stdClass();
@@ -984,7 +1003,7 @@ Class CURL
     //gets a list of products from Woocommerce
     function getProductVariation_l()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs']);
         if($result == null)
         {
             $variable = new \stdClass();
@@ -997,7 +1016,7 @@ Class CURL
     //deletes a products on Woocommerce
     function deleteProductVariation()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs'], 'delete');
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs'], 'delete');
         if($result == null)
         {
             $variable = new \stdClass();
@@ -1038,7 +1057,7 @@ Class CURL
     //gets a list of products Attributes from Woocommerce
     function getProductAttribute_l()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs']);
         if($result == null)
         {
             $variable = new \stdClass();
@@ -1051,7 +1070,7 @@ Class CURL
     //gets a list of products Categories from Woocommerce
     function getProductCategories_l()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs']);
         if($result == null)
         {
             $variable = new \stdClass();
@@ -1064,7 +1083,7 @@ Class CURL
     //gets a list of shipping classes on Woocommerce
     function getProductShipClas_l()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs']);
         if($result == null)
         {
             $variable = new \stdClass();
@@ -1077,7 +1096,7 @@ Class CURL
     //gets a list of webhooks on Woocommerce
     function getWebhook_l()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs']);
         if($result == null)
         {
             $variable = new \stdClass();
@@ -1090,7 +1109,7 @@ Class CURL
     //gets the system status of the server woocommerce is found on
     function getSystemStatus()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs']);
         if($result == null)
         {
             $variable = new \stdClass();
@@ -2110,7 +2129,7 @@ Class CURL
         $ck = $_wooSettings->Woocommerce_Store->consumer_key;
         $cs = $_wooSettings->Woocommerce_Store->consumer_secret;
 
-        $result = $this->get_web_page($url, null, $ck, $cs);
+        $result = $this->get_web_page($url, '', $ck, $cs);
         $woo_categories = (json_decode($result))->product_categories;
         for($i = 0; $i < sizeof($woo_categories); ++$i)
         {
@@ -2148,7 +2167,7 @@ Class CURL
         $ck = $_wooSettings->Woocommerce_Store->consumer_key;
         $cs = $_wooSettings->Woocommerce_Store->consumer_secret;
 
-        $id = (json_decode($this->get_web_page($url, null, $ck, $cs, ))->products[0]->id);
+        $id = (json_decode($this->get_web_page($url, '', $ck, $cs, ))->products[0]->id);
         $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
         
         //check if SKU is found in table
@@ -2229,7 +2248,7 @@ Class CURL
         $ck = $_wooSettings->Woocommerce_Store->consumer_key;
         $cs = $_wooSettings->Woocommerce_Store->consumer_secret;
 
-        $p_id = (json_decode($this->get_web_page($url, null, $ck, $cs, ))->products[0]->parent_id);
+        $p_id = (json_decode($this->get_web_page($url, '', $ck, $cs, ))->products[0]->parent_id);
         $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
         
         //check if SKU is found in table
@@ -2437,7 +2456,7 @@ Class CURL
         $newVariation->product = $Product->variations;
 
         $url = 'https://' . $storeName. '/wc-api/v3/products/' . $p_id;
-        $result = $this->get_web_page($url, null, $ck, $cs, 'get');
+        $result = $this->get_web_page($url, '', $ck, $cs, 'get');
         
         //update parent data
 

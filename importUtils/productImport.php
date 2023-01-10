@@ -85,9 +85,7 @@ Class pImport
                         $this->deleteFile($fileToUse);
                         return $variable;
                         exit();
-                    }
-                    //gets the array key where the headers are defined
-                    
+                    }                    
                 }
                 //create product and add it to the database
                 //check if the product exists already, if it does then just update the values
@@ -99,7 +97,7 @@ Class pImport
                     $sku = ltrim(rtrim($rawValue[$template['sku']])); 
 
                     //gets the SKU
-                    $query2 = "select * from Inventory where SKU = '" . $sku .  "'";
+                    $query2 = "SELECT * FROM Inventory WHERE SKU = '" . $sku .  "'";
                     $output2 = $conn->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
                     if($output2->result == null)
                     {
@@ -113,7 +111,7 @@ Class pImport
                         //first defined index
                         $min = min($template);
 
-                        for($i = $min; $i < sizeof($template); ++$i)
+                        for($i = $min; $i < sizeof($template) + $min; ++$i)
                         {
                             //because it uses the keys (the numbers) we cant set anything.
                             $index = array_keys($template, $i)[0];

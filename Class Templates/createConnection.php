@@ -212,7 +212,6 @@ class Connection
 
     /**
      * Pre-conection queries made with the datafound in the config php file
-     * @return \stdClass
      */
     function preQuery(array $_config, string $query, string $key)
     {
@@ -422,7 +421,7 @@ class Connection
 
     /**
      * Returns tables inside the database and converts mysqli object to a php array
-     * @return \stdClass
+     * @return array
      */
     function converterArray(\mysqli $rawConnection, string $query)
     {

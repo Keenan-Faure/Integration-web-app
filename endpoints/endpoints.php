@@ -24,7 +24,7 @@ $function($connection, $util, $params);
  * Fetches IDs from Database. Uses inner join on Woocommerce & Inventory tables 
  * @return \stdClass
  */
-function get_ids(connect $connection, util $util, string $params)
+function get_ids(connect $connection, util $util, array $params)
 {
     if(!isset($_SESSION['connection']))
     {
@@ -58,12 +58,10 @@ function get_ids(connect $connection, util $util, string $params)
 }
 
 /**
- * @Description Search endpoint for products/orders/customers. Searches through the respective tables in the database
- * @Request_Type GET
- * @Params $connection & $params & $util
- * @returns \stdClass (object)
+ * Search endpoint for products/orders/customers. Searches through the respective tables in the database
+ * @return void
  */
-function get_search(connect $connection, util $util, string $params)
+function get_search(connect $connection, util $util, array $params)
 {
     if(!isset($_SESSION['connection']))
     {
@@ -174,12 +172,10 @@ function get_search(connect $connection, util $util, string $params)
 }
 
 /**
- * @Description Gets the session, as a json object, and returns it
- * @Request_Type GET
- * @Params none used
- * @returns \stdClass (object)
+ * Gets the session, as a json object, and returns it
+ * @return void
  */
-function get_ses(connect $connection, util $util, string $params)
+function get_ses(connect $connection, util $util, array $params)
 {
     if(isset($_SESSION['connection']))
     {
@@ -195,14 +191,12 @@ function get_ses(connect $connection, util $util, string $params)
 }
 
 /**
- * @Description Gets all products in the Inventory table that:
+ * Gets all products in the Inventory table that:
  *      - That has a recent audit date
  *      - Is active to sync
- * Request_Type GET
- * @Params $connection & $util (Not used) & $params 
- * @returns \stdClass (object)
+ * @return void
  */
-function get_sku(connect $connection, util $util, string $params)
+function get_sku(connect $connection, util $util, array $params)
 {
     if(!isset($_SESSION['connection']))
     {
@@ -245,12 +239,10 @@ function get_sku(connect $connection, util $util, string $params)
 }
 
 /**
- * @Description Gets all users in the Client table
- * @Request_Type GET
- * @Params $connection & $util (Not used) & $params 
- * @returns \stdClass (object)
+ * Gets all users in the Client table
+ * @return void
  */
-function get_usz(connect $connection, util $util, string $params)
+function get_usz(connect $connection, util $util, array $params)
 {
     if(!isset($_SESSION['connection']))
     {
@@ -286,12 +278,10 @@ function get_usz(connect $connection, util $util, string $params)
 }
 
 /**
- * @Description Updates the `Logs` table in the database
- * @Request_Type PUT
- * @Params $connection & $util (Not used) & $params 
- * @returns \stdClass (object)
+ * Updates the `Logs` table in the database
+ * @return void
  */
-function put_logs(connect $connection, util $util, string $params)
+function put_logs(connect $connection, util $util, array $params)
 {
     if(!isset($_SESSION['connection']))
     {
@@ -330,12 +320,10 @@ function put_logs(connect $connection, util $util, string $params)
 }
 
 /**
- * @Description Updates the `Userz` table in the database
- * @Request_Type PUT
- * @Params $connection & $util (Not used) & $params 
- * @returns \stdClass (object)
+ * Updates the `Userz` table in the database
+ * @return void
  */
-function put_usz(connect $connection, util $util, string $params)
+function put_usz(connect $connection, util $util, array $params)
 {
     if(!isset($_SESSION['connection']))
     {
@@ -373,12 +361,10 @@ function put_usz(connect $connection, util $util, string $params)
 }
 
 /**
- * @Description Adds new conditions for the Stock2Shop push to the Database
- * @Request_Type POST/PUT
- * @Params $connection & $util & $params 
- * @returns 
+ * Adds new conditions for the Stock2Shop push to the Database
+ * @return void
  */
-function put_cond_add(connect $connection, util $util, string $params)
+function put_cond_add(connect $connection, util $util, array $params)
 {
     if(isset($_SESSION['connection']))
     {
@@ -451,12 +437,10 @@ function put_cond_add(connect $connection, util $util, string $params)
 }
 
 /**
- * @Description Removes a condition from the Database
- * @Request_Type PUT
- * @Params $connection & $util (not used) & $params 
- * @returns 
+ * Removes a condition from the Database
+ * @return void 
  */
-function put_cond_del(connect $connection, util $util, string $params)
+function put_cond_del(connect $connection, util $util, array $params)
 {
     if(isset($_SESSION['connection']))
     {

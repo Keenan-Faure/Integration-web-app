@@ -79,7 +79,6 @@ h1:hover
 {
     position: relative;
     display: inline-block;
-    width: 176px;
 }
 .overlay
 {
@@ -94,7 +93,6 @@ h1:hover
 {
     position: relative;
     display: inline-block;
-    width: 130px;
 }
 .imageNav
 {
@@ -102,7 +100,7 @@ h1:hover
     display: inline-block;
     cursor: pointer;
     position: relative;
-    top: 30px;
+    top: 33px;
     height: 50px;
     background-image: url(../Images/dbPicture.gif);
     background-size: cover;

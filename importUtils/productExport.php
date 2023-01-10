@@ -54,7 +54,31 @@ Class pExport
     {
         $connection = new connect();
         $conn = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password,'localhost',$_SESSION['connection']->credentials->dbname);
-        $query = 'select * from Inventory';
+        $query = 'SELECT 
+         Token,
+         Type,
+         Active,
+         SKU,
+         Title,
+         Description,
+         Group_Code,
+         Category,
+         Product_Type,
+         Brand,
+         Variant_Code,
+         Barcode,
+         Weight,
+         ComparePrice,
+         SellingPrice,
+         CapeTown_Warehouse,
+         Option_1_Name,
+         Option_1_Value,
+         Option_2_Name,
+         Option_2_Value,
+         Meta_1,
+         Meta_2,
+         Meta_3
+         FROM Inventory';
         $output = $this->createProductArray($conn->rawValue, $query);
         return $output->result;
     }

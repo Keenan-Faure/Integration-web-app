@@ -399,7 +399,7 @@ Class Utility
      * Checks if the required fields are defined as headers on the template
      * @return \stdClass
      */
-    function checkRequiredH(\stdClass $product)
+    function checkRequiredH(array $product)
     {
         $required = array('active', 'sku', 'groupingCode', 'variantCode');
         for($i = 0; $i < sizeof($required); ++$i)
@@ -490,7 +490,6 @@ Class Utility
                 }
             }
 
-            //
             for($i = 0; $i < sizeof($variable->body_1); ++$i)
             {
                 if(!in_array($variable->body_1[$i]->SKU, $array_values))
@@ -503,14 +502,13 @@ Class Utility
                     array_push($array_values, $variable->body_1[$i]->SKU);
                 }
             }
-            //
 
             for($i = 0; $i < sizeof($variable->body_2); ++$i)
             {
                 if(!in_array($variable->body_2[$i]->SKU, $array_values))
                 {
                     array_push($result, $variable->body_2[$i]);
-                    array_push($array_values, $variable->body_1[$i]->SKU);
+                    array_push($array_values, $variable->body_2[$i]->SKU);
                 }
                 else
                 {
