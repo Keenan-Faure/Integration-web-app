@@ -221,7 +221,9 @@ function get_sku(connect $connection, util $util, array $params)
     else if($connector == 's2s')
     {
         $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+        $conditions = $connection->converterObject($rawConnection, "SELECT * FROM Conditions", $_SESSION['connection']->credentials->dbname);
         $query2 = 'SELECT inv.SKU FROM Inventory inv INNER JOIN Stock2Shop s2s ON inv.SKU = s2s.SKU WHERE inv.Audit_Date > s2s.pushDate AND Active = "true"';
+        $query2 = $util->createQuery($conditions, $query2);
         $output2 = $connection->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
         $result = $output2->result;
         $variable = new \stdClass();

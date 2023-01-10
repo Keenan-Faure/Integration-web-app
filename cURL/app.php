@@ -131,7 +131,6 @@
                 <hr>
                 <div>
                 <select class='condition-select'>
-                    <option>Active</option>
                     <option>Brand</option>
                     <option>Product Type</option>
                     <option>Selling Price</option>

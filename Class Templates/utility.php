@@ -657,6 +657,94 @@ Class Utility
         }
         return $variable;
     }
+    /**
+     * Finds duplicate values inside the `conditionArray` parameter
+     */
+    function findDuplicates($conditionArray)
+    {
+        $repeated = array();
+        $output = array();
+        for($i = 0; $i < sizeof($conditionArray); ++$i)
+        {
+            $repeated[$i] = $conditionArray[$i]['DataValue'];
+        }
+        $repeated = array_count_values($repeated);
+        foreach($repeated as $key => $value)
+        {
+            $i = 0;
+            if($value > 1)
+            {
+                $output[$i] = $key;
+                ++$i;
+            }
+        }
+        return $output;
+    }
+    /**
+     * Creates the query considering the conditions defined inside the Conditions table and returns query
+     */
+    function createQuery($conditions, $query)
+    {
+        $statement = ['equal', 'greater than', 'less than'];
+        $sign = ['=', '>', '<'];
+        $duplicates = $this->findDuplicates(json_decode(json_encode($conditions->result), true));
+        $duplicateValues = array();
+        $condition = $conditions->result;
+        $additional = '';
+        $Clause = '';
+        if(sizeof($condition) == 0)
+        {
+            return $query;
+        }
+        else
+        {
+            $conditionIndex = 0;
+            for($i = 0; $i < sizeof($condition); ++$i)
+            {
+                if(in_array($condition[$i]->DataValue, $duplicates))
+                {
+                    $duplicateValues[$conditionIndex] = $condition[$i]->Value;
+                    $conditionIndex = $conditionIndex + 1;
+                    continue;
+                }
+                if(($i - $conditionIndex) > 0)
+                {
+                    $Clause = $Clause . ' && ';
+                }
+                $i = array_search($condition[$i]->Statement, $statement);
+                $Clause = " && " . $condition[$i]->DataValue . " " .  $sign[$i] . " " ."'" . $condition[$i]->Value . "'"; 
+            }
+            //When the above is done
+            //Then it adds the query: duplicate in ('duplicatevalue[0]', 'duplicatevalue[1]');
+            for($j = 0; $j < sizeof($duplicates); ++$j)
+            {
+                if($j > 0)
+                {
+                    $additional = $additional . ' && ';
+                }
+                if($Clause == "")
+                {
+                    $additional = $duplicates[$j] . " IN ";
+                }
+                else
+                {
+                    $additional = " && " . $duplicates[$j] . " IN ";
+                }
+                $values = '';
+                for($z = 0; $z < sizeof($duplicateValues); ++$z)
+                {
+                    if($z > 0)
+                    {
+                        $values = ',' . $values;
+                    }
+                    $values = "'" . $duplicateValues[$z] . "'" . $values;
+                }
+                $additional = $additional . '(' . $values . ')';
+            }
+        }
+        $query = $query . $Clause . $additional;
+        return $query;
+    }
 }
 
 ?>
