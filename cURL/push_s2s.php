@@ -66,7 +66,7 @@
 
             //if session variable of pushVariable > 20 or equal to the limit
             //then we proceed with the push
-            if(sizeof($_SESSION['pushVariable']) > 20 || sizeof($_SESSION['pushVariable']) == $limit)
+            if(sizeof($_SESSION['pushVariable']) > 9 || sizeof($_SESSION['pushVariable']) == $limit)
             {
                 $curl = new curl();
                 $username = $_SESSION['settings']->Stock2Shop_Credentials->s2s_user;
