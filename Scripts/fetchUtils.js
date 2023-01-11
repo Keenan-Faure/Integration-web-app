@@ -6,46 +6,40 @@
  */
 function createURL(token, urlConfig = '')
 {
-    if(urlConfig == 'session')
+    if(urlConfig == 'putUsers')
     {
         arrayUrl = (document.URL).split('/');
-        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=get_ses';
-        return url;
-    }
-    else if(urlConfig == 'putUsers')
-    {
-        arrayUrl = (document.URL).split('/');
-        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=put_usz&token=' + token;
+        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=put_usz';
         return url;
     }
     else if(urlConfig == 'getUsers')
     {
         arrayUrl = (document.URL).split('/');
-        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=get_usz&token=' + token;
+        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=get_usz';
         return url;
     }
     else if(urlConfig == 'putLogs')
     {
         arrayUrl = (document.URL).split('/');
-        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=put_logs&token=' + token;
+        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=put_logs';
         return url;
     }
     else if(urlConfig == 'getIDs')
     {
         arrayUrl = (document.URL).split('/');
-        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=get_ids&token=' + token;
+        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=get_ids';
         return url;
     }
     else if(urlConfig == 'putCond_add')
     {
         arrayUrl = (document.URL).split('/');
-        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=put_cond_add' + token[0];
+        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=put_cond_add';
         return url;
     }
     else if(urlConfig == 'putCond_del')
     {
         arrayUrl = (document.URL).split('/');
-        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=put_cond_del' + token[0];
+        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=put_cond_del';
         return url;
     }
     else if(urlConfig == 'getSKU')
@@ -66,26 +60,23 @@ function createURL(token, urlConfig = '')
         url = 'http://' + arrayUrl[2] + '/' + 'cURL/push_s2s.php?token=auto';
         return url;
     }
-    if(urlConfig == 'cust')
+    else if(urlConfig == 'cust')
     {
         arrayUrl = (document.URL).split('/');
         url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=get_search';
         return url;
-        //reqSearch(url, 'cust');
     }
     else if(urlConfig == 'prod')
     {
         arrayUrl = (document.URL).split('/');
         url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=get_search';
         return url;
-        //reqSearch(url, 'prod');
     }
     else if(urlConfig == 'order')
     {
         arrayUrl = (document.URL).split('/');
         url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=get_search';
         return url;
-        //reqSearch(url, 'order');
     }
 }
 

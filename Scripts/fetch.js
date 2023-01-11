@@ -1,26 +1,27 @@
 /**
- * @Description Initiates the request to retrieve the session information - Updates Logs
+ * @Description Initiates the request to Update Logs
  * @Parameters None
  * @Returns None
  */
 function Init_function_srq()
 {
-    req('', 'session', 'c-m', 'putLogs', '', this.id, 'id');
+    reqEndpoint('', 'c-m', 'putLogs', this.id, 'id');
 }
 
 /**
- * @Description Initiates the request to retrieve the session information - Updates Users
+ * @Description Initiates the request to Update Users
  * @Parameters None
  * @Returns None
  */
 function Init_function_srq_pu()
 {
     let active = this.parentElement.parentElement.firstChild.childNodes[0].checked;
-    req('', 'session', 'c-m', 'putUsers', '', this.id, 'id', active, 'active');
+    reqEndpoint('', 'c-m', 'putUsers', this.id, 'id', active, 'active');
+
 }
 
 /**
- * @Description Initiates the request to retrieve the session information - Loads connector details
+ * @Description Initiates the request to Load connector details
  * @Parameters None
  * @Returns None
  */
@@ -31,7 +32,7 @@ function Init_function_sku_p()
         let sku = document.getElementsByClassName('s');
         if(sku.length != 0)
         {
-            req('', 'session', 'p-c-d', 'getIDs', '',sku[0].innerHTML, 'sku');
+            reqEndpoint('', 'p-c-d', 'getIDs', sku[0].innerHTML, 'sku');
         }
     }, 200);
 }
@@ -87,14 +88,14 @@ function Init_function_cond_del_ns(element='')
 }
 
 /**
- * @Description Removes Conditions from the database
+ * @Description Search function
  * @param {string} element Element being clicked
  * @Returns None
  */
 function Init_function_srch(type)
 {
     let value = document.querySelector('.search-field').value;
-    req('', 'session', 's-c', type, '', value, 'q', type, 'type');
+    reqEndpoint('', 's-c', type, value, 'q', type, 'type');
 }
 
 /**
@@ -182,9 +183,9 @@ const req = async function(token = '', param, final, urlConfig, conn='', reqPara
  */
 const reqEndpoint = async function(json, final, urlConfig, reqParam, reqParamK, reqParam_2, reqParamK_2, conn)
 {
-    if(conn == '')
+    if(conn == '' || typeof myVar == 'undefined')
     {
-        let url = createURL(json.token, urlConfig);
+        let url = createURL('', urlConfig);
         url = appendParams(url, reqParam, reqParamK, reqParam_2, reqParamK_2);
         const resp = await fetch(url,
         {
