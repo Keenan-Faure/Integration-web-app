@@ -18,7 +18,7 @@ Class pExport
         $name = 'Product Export.csv';
         if(isset($_SESSION['connection']))
         {
-            $database = $_SESSION['connection']->credentials->dbname;
+            $_SESSION['connection']->credentials->dbname;
             
             $name = 'Product Export.csv';
             $myFile = fopen($name, 'w');
