@@ -144,7 +144,7 @@
             <a href="bin/controllers/output.php?q=viewLog"> View Log</a>
             <a class='userz'>Manage Users ✰</a>
             <?php
-                echo("<script>req('', 'session', 'c-u-t', 'getUsers');</script>");
+                echo("<script>reqEndpoint('', 'c-u-t', 'getUsers');</script>");
             ?>
         </div> 
         <div class='info-report'>
