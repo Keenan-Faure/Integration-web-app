@@ -36,9 +36,9 @@ Class pExport
                 }
             }
             fclose($myFile);
+            $this->downloadFile();
+            $this->deleteFile($name);
         }
-        $this->downloadFile();
-        $this->deleteFile($name);
     }
     function deleteFile($file)
     {
