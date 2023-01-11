@@ -59,13 +59,21 @@ Class pImport
                         $head = ltrim(rtrim($headerS[$i]));
                         if(in_array($head, $productTemplate))
                         {
-                            //strips the spaces
                             $headers[$i] = $head;
+                        }
+                        else
+                        {
+                            fclose($openFile);
+                            $this->deleteFile($fileToUse);
+                            $var = new \stdClass();
+                            $var->return = false;
+                            $var->message = 'Undefined header "' . $headerS[$i] . '"';
+                            return $var;
+                            exit();
                         }
                     }
                     for($i = 0; $i < sizeof($productTemplate); ++$i)
                     {
-                        $var = $productTemplate[$i];
                         if(in_array($productTemplate[$i], $headers))
                         {
                             $template[$productTemplate[$i]] = array_keys($headers, $productTemplate[$i])[0];
@@ -148,14 +156,14 @@ Class pImport
                             if(isset($result->return))
                             {
                                 $output->productsSkipped = $output->productsSkipped + 1;
-                                $conn->addLogs('Import product', 'Product Skipped: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
+                                $conn->addLogs('Import product', 'Product Skipped: "' . $Product['sku'] . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
                                 continue;
                             }
                             $output->newProductsAdded = $output->newProductsAdded + 1;
                             $result = $vproduct->addProduct($result, $conn);
                             if(!isset($result->data))
                             {
-                                $conn->addLogs('Add Product Failed:', 'Product: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
+                                $conn->addLogs('Add Product Failed:', 'Product: "' . $Product['sku'] . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
                             }
                         }
                         //simple product
@@ -166,14 +174,14 @@ Class pImport
                             if(isset($result->return))
                             {
                                 $output->productsSkipped = $output->productsSkipped + 1;
-                                $conn->addLogs('Import product', 'Product Skipped: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
+                                $conn->addLogs('Import product', 'Product Skipped: "' . $Product['sku'] . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
                                 continue;
                             }
                             $output->newProductsAdded = $output->newProductsAdded + 1;
                             $result = $sproduct->addProduct($result, $conn);
                             if(!isset($result->data))
                             {
-                                $conn->addLogs('Add Product Failed:', 'Product: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
+                                $conn->addLogs('Add Product Failed:', 'Product: "' . $Product['sku'] . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
                             }
                         }
                     }
@@ -192,7 +200,6 @@ Class pImport
 
                         for($i = $min; $i < sizeof($headers) + $min; ++$i)
                         {
-                            
                             $index = array_keys($template, $i)[0];
                             
                             if(isset($rawValue[$template[array_keys($template, $i)[0]]]))
@@ -232,14 +239,14 @@ Class pImport
                             if(isset($result->return))
                             {
                                 $output->productsSkipped = $output->productsSkipped + 1;
-                                $conn->addLogs('Import product', 'Product Skipped: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
+                                $conn->addLogs('Import product', 'Product Skipped: "' . $Product['sku'] . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
                                 continue;
                             }
                             $output->existingProductsUpdated = $output->existingProductsUpdated + 1;
                             $result = $vproduct->updateProduct($result, $util, $conn);
                             if(!isset($result->data))
                             {
-                                $conn->addLogs('Update Failed:', 'Product: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
+                                $conn->addLogs('Update Failed:', 'Product: "' . $Product['sku'] . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
                             }
                         }
                         //simple product
@@ -250,14 +257,14 @@ Class pImport
                             if(isset($result->return))
                             {
                                 $output->productsSkipped = $output->productsSkipped + 1;
-                                $conn->addLogs('Import Product', 'Product Skipped: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
+                                $conn->addLogs('Import Product', 'Product Skipped: "' . $Product['sku'] . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
                                 continue;
                             }
                             $output->existingProductsUpdated = $output->existingProductsUpdated + 1;
                             $result = $sproduct->updateProduct($result, $util, $conn);
                             if(!isset($result->data))
                             {
-                                $conn->addLogs('Update Failed:', 'Product: "' . $Product->sku . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
+                                $conn->addLogs('Update Failed:', 'Product: "' . $Product['sku'] . '"', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
                             }
                         }
 

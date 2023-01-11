@@ -57,26 +57,13 @@ class Connection
     {
         $query = 'SELECT * FROM Userz WHERE Username = "' . $client_user . '"';
         $results = $this->preQuery($_config, $query, 'object');
-        if(isset($results->result) || isset($results->connection))
+        if($results->result == null)
         {
-            if(isset($results->connection))
-            {
-                if($results->connection == false)
-                {
-                    $message = $results->message;
-                    $solution = 'Please ensure:<br> - MySQL is installed <br> - MySQL is running <br> - Credentials are configured in the config file';
-                    $this->createHtmlMessages('', $message, $solution, '../auth/login', 'warn');
-                    exit();
-                }
-            }
-            else if($results->result == null)
-            {
-                //then the user does not exist at all, has to be created.
-                $message = 'The Username "' . $client_user . '" does not exist.';
-                $solution = 'Kindly contact your admin or register your account';
-                $this->createHtmlMessages('', $message, $solution, '../auth/register', 'warn');
-                exit();
-            }
+            //then the user does not exist at all, has to be created.
+            $message = 'The Username "' . $client_user . '" does not exist.';
+            $solution = 'Kindly contact your admin or register your account';
+            $this->createHtmlMessages('', $message, $solution, '../auth/register', 'warn');
+            exit();
         }
         else
         {
