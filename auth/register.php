@@ -15,7 +15,6 @@
     <body>
         <div class = 'background'>
         <div class = 'background-cover'>
-            <a class='close'>&times;</a>
             <div class="modalContainer">
                 <div class='img'></div>
                 <hr>
