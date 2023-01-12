@@ -438,4 +438,62 @@ function put_cond_del(connect $connection, util $util, array $params)
         exit();
     }
 }
+
+/**
+ * Removes a User from the Database
+ * @return void 
+ */
+function put_usz_del(connect $connection, util $util, array $params)
+{
+    if(isset($_SESSION['connection']))
+    {
+        $credentials = $_SESSION['connection']->credentials;
+        $rawConnection = $connection->createConnection($credentials->username, $credentials->password, $credentials->host, $credentials->dbname)->rawValue;
+        
+        $uid = $params['uid'];
+
+        $query = "DELETE FROM Userz WHERE UserID = '$uid'";
+        $output = $connection->converterObject($rawConnection, $query);
+        $output = $util->convert_query_output($output, "User Removed");
+        echo(json_encode($output));
+        mysqli_close($rawConnection);
+    }
+    else
+    {
+        $variable = new \stdClass();
+        $variable->return = false;
+        $variable->body = "No session found";
+        echo(json_encode($variable));
+        exit();
+    }
+}
+
+/**
+ * Removes a Product from the Database
+ * @return void 
+ */
+function put_prod_del(connect $connection, util $util, array $params)
+{
+    if(isset($_SESSION['connection']))
+    {
+        $credentials = $_SESSION['connection']->credentials;
+        $rawConnection = $connection->createConnection($credentials->username, $credentials->password, $credentials->host, $credentials->dbname)->rawValue;
+        
+        $sku = $params['sku'];
+
+        $query = "DELETE FROM Inventory WHERE SKU = '$sku'";
+        $output = $connection->converterObject($rawConnection, $query);
+        $output = $util->convert_query_output($output, "Product Removed");
+        echo(json_encode($output));
+        mysqli_close($rawConnection);
+    }
+    else
+    {
+        $variable = new \stdClass();
+        $variable->return = false;
+        $variable->body = "No session found";
+        echo(json_encode($variable));
+        exit();
+    }
+}
 ?>
