@@ -12,7 +12,7 @@ Class pExport
     //uses the createFile and getProducts output as parameters
     function writeOutput($products = array())
     {
-        $headers = array('token', 'type', 'active', 'sku', 'title', 'description', 'groupingCode', 'category', 'productType', 'brand', 'variantCode', 'barcode', 'weight', 
+        $headers = array('active', 'sku', 'title', 'description', 'groupingCode', 'category', 'productType', 'brand', 'variantCode', 'barcode', 'weight', 
         'comparePrice', 'sellingPrice', 'quantity', 'optionName', 'optionValue', 'option2Name', 'option2Value', 'meta1', 'meta2', 'meta3');
 
         $name = 'Product Export.csv';
@@ -55,8 +55,6 @@ Class pExport
         $connection = new connect();
         $conn = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password,'localhost',$_SESSION['connection']->credentials->dbname);
         $query = 'SELECT 
-         Token,
-         Type,
          Active,
          SKU,
          Title,
