@@ -4,6 +4,10 @@ namespace pImport;
 
 Class pImport
 {
+    /**
+     * Deletes file from server
+     * @param string $file - file to delete
+     */
     function deleteFile($file)
     {
         $dir = 'uploads/';
@@ -14,6 +18,15 @@ Class pImport
             unlink($file);
         }
     }
+    /**
+     * Imports products into the application
+     * @param string $fileToUse file that will be uploaded and imported
+     * @param conn $conn connection class variable
+     * @param util $util util class variable
+     * @param vproduct $vproduct vproduct class variable
+     * @param vsproduct $sproduct sproduct class variable
+     * @return \stdClass results of import
+     */
     function importProduct($fileToUse, $conn, $util, $vproduct, $sproduct)
     {
         $_config = include('../config/config.php');
