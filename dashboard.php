@@ -63,22 +63,6 @@
                 <a class='logoutButton' href='bin/controllers/output.php?logout=true'></a>
             </div>
         </div>
-        <div class='selfBackground top'>
-            <div class='buttonContainer'></div>
-            <button class='closeButton'>&times;</button>
-            
-            <?php
-                if($_SESSION['settings']->App_settings->app_enable_self_query == 'true')
-                {
-                    echo("<h1 class='header-self'>Custom Query</h1>
-                    <form method='post' target='_blank' action='bin/controllers/endpoint_handler.php'>
-                            <br><br><br>
-                            <textarea class='textarea' name='selfquery' placeholder='Enter your query here'></textarea>
-                            <button type = 'submit' class='enter'>Submit</button>
-                    </form>");
-                }
-            ?>
-        </div>
         <div class='container' id='container-1'>
             <h2 class='h2-hidden'>Orders</h2>
             <div class='line' id='line-1'></div>
@@ -134,12 +118,6 @@
             </form>
         </div>  
         <div class='sideNavBar'>
-            <?php
-                if($_SESSION['settings']->App_settings->app_enable_self_query == 'true')
-                {
-                    echo("<a class='custom'>Custom Query</a>");
-                }
-            ?>
             <a href="bin/controllers/output.php?q=checkConn">Check Connection</a>
             <a href="bin/controllers/output.php?q=viewLog"> View Log</a>
             <a class='userz'>Manage Users ✰</a>
