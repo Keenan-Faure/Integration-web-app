@@ -33,13 +33,13 @@ function createURL(token, urlConfig = '')
     else if(urlConfig == 'putCond_add')
     {
         arrayUrl = (document.URL).split('/');
-        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=put_cond_add';
+        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=put_cond_add' + token[0];
         return url;
     }
     else if(urlConfig == 'putCond_del')
     {
         arrayUrl = (document.URL).split('/');
-        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=put_cond_del';
+        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=put_cond_del' + token[0];
         return url;
     }
     else if(urlConfig == 'getSKU')
@@ -51,13 +51,13 @@ function createURL(token, urlConfig = '')
     else if(urlConfig == 'pushWoo')
     {
         arrayUrl = (document.URL).split('/');
-        url = 'http://' + arrayUrl[2] + '/' + 'cURL/push_woo.php?token=auto';
+        url = 'http://' + arrayUrl[2] + '/' + 'cURL/push_woo.php';
         return url;
     }
     else if(urlConfig == 'pushS2S')
     {
         arrayUrl = (document.URL).split('/');
-        url = 'http://' + arrayUrl[2] + '/' + 'cURL/push_s2s.php?token=auto';
+        url = 'http://' + arrayUrl[2] + '/' + 'cURL/push_s2s.php';
         return url;
     }
     else if(urlConfig == 'cust')
@@ -89,6 +89,18 @@ function createURL(token, urlConfig = '')
         arrayUrl = (document.URL).split('/');
         url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=put_usz_del';
         return url;
+    }
+    else if(urlConfig == 'getPush_s2s')
+    {
+        arrayUrl = (document.URL).split('/');
+        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=get_s2s_push_status';
+        return url; 
+    }
+    else if(urlConfig == 'getPush_woo')
+    {
+        arrayUrl = (document.URL).split('/');
+        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=get_woo_push_status';
+        return url; 
     }
 }
 
@@ -351,6 +363,13 @@ function changeAmount(amount)
 {
     text = document.getElementById('textAmount');
     text.innerHTML = amount;
+}
+/**
+ * Changes the DOM to show the complete message
+ */
+function changeComplete()
+{
+    document.querySelector('.container').style.backgroundImage = "url('../Images/completed.gif')"
 }
 
 /**

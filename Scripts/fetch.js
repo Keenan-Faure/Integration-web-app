@@ -1,7 +1,6 @@
 /**
- * @Description Initiates the request to Update Logs
- * @Parameters None
- * @Returns None
+ * Initiates the request to Update Logs
+ * @returns None
  */
 function Init_function_srq()
 {
@@ -9,9 +8,8 @@ function Init_function_srq()
 }
 
 /**
- * @Description Initiates the request to Update Users
- * @Parameters None
- * @Returns None
+ * Initiates the request to Update Users
+ * @returns None
  */
 function Init_function_srq_pu()
 {
@@ -21,9 +19,8 @@ function Init_function_srq_pu()
 }
 
 /**
- * @Description Initiates the request to Load connector details
- * @Parameters None
- * @Returns None
+ * Initiates the request to Load connector details
+ * @returns None
  */
 function Init_function_sku_p()
 {
@@ -38,29 +35,43 @@ function Init_function_sku_p()
 }
 
 /**
- * @Description Initiates the request to retrieve the session information - Pushes data to Woocommerce
- * @Parameters None
- * @Returns None
+ * Initiates the request to retrieve the session information - Pushes data to Woocommerce
+ * @return None
  */
 function Init_function_sku_woo()
 {
-    req('', 'getSKU', '', 'pushWoo', 'Woocommerce', 'woo', 'conn');
+    req('', 'pushWoo', '', '', '', '', 'conn');
 }
 
 /**
- * @Description Initiates the request to retrieve the session information - Pushes data to Stock2Shop
- * @Parameters None
- * @Returns None
+ * Initiates the request to retrieve the status of the pushing to S2S
+ */
+function Init_function_push_status_woo()
+{
+    reqEndpoint('', 'u-dom-woo', 'getPush_woo');
+}
+
+/**
+ * Initiates the request to retrieve the session information - Pushes data to Stock2Shop
+ * @returns None
  */
 function Init_function_sku_s2s()
 {
-    req('', 'getSKU', '', 'pushS2S', 'Stock2Shop','s2s', 'conn');
+    req('', 'pushS2S', '', '', '', '', 'conn');
 }
 
 /**
- * @Description Inserts Conditions into the database
+ * Initiates the request to retrieve the status of the pushing to S2S
+ */
+function Init_function_push_status_s2s()
+{
+    reqEndpoint('', 'u-dom-s2s', 'getPush_s2s');
+}
+
+/**
+ * Inserts Conditions into the database
  * @param {string} element Element being clicked
- * @Returns None
+ * @returns None
  */
 function Init_function_cond_add_ns(element)
 {
@@ -77,7 +88,7 @@ function Init_function_cond_add_ns(element)
 }
 
 /**
- * @Description Removes Conditions from the database
+ * Removes Conditions from the database
  * @param {string} element Element being clicked
  * @Returns None
  */
@@ -88,7 +99,7 @@ function Init_function_cond_del_ns(element='')
 }
 
 /**
- * @Description Search function
+ * Search function
  * @param {string} element Element being clicked
  * @Returns None
  */
@@ -99,7 +110,7 @@ function Init_function_srch(type)
 }
 
 /**
- * @Description Deletes a product from the database
+ * Deletes a product from the database
  * @Returns None
  */
 function Init_function_prod_del()
@@ -116,8 +127,8 @@ function Init_function_prod_del()
 }
 
 /**
- * @Description Deletes a user from the database
- * @Returns None
+ * Deletes a user from the database
+ * @return None
  */
 function Init_function_usz_del(element)
 {
@@ -128,7 +139,7 @@ function Init_function_usz_del(element)
 }
 
 /**
- * @Description Initial request which retrieves session token
+ * Initial request which retrieves session token
  * @param {string} token - session token of current user, functions with `_ns` will use token param as `[string, element]`
  * @param {string} param - Decides what url will be used in the first request
  * @param {string} final - The final function that will be called to make changes to the DOM
@@ -159,18 +170,9 @@ const req = async function(token = '', param, final, urlConfig, conn='', reqPara
         referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     });
     const json = await resp.json();
-    if(conn != '')
+    if(json.return == true)
     {
-        if(json.body.length == 0)
-        {
-            changeAmount("No products found to push");//sets the total amount of products to process
-            reqEndpoint(json, '', urlConfig, reqParam, reqParamK, reqParam_2, reqParamK_2, conn);
-        }
-        else
-        {
-            changeAmount("0 / " + json.body.length);//sets the total amount of products to process
-            reqEndpoint(json, '', urlConfig, reqParam, reqParamK, reqParam_2, reqParamK_2, conn);
-        }
+        changeAmount(json.message);//sets the total amount of products to process
     }
     /**
      * the OR statement is added on because it will return both true and false return statement
@@ -202,7 +204,7 @@ const req = async function(token = '', param, final, urlConfig, conn='', reqPara
 }
 
 /**
- * @Description Requests data from endpoint and returns json data
+ * Requests data from endpoint and returns json data
  * @param {string} json - Json session data from previous request
  * @param {string} final - final function to run
  * @param {string} urlConfig - configs the endpoint's url
@@ -243,56 +245,38 @@ const reqEndpoint = async function(json, final, urlConfig, reqParam, reqParamK, 
             }
             else if(final == 'p-c-d')
             {
-                addConnectorDetails(jsonResults.body_1.result[0].P_ID, jsonResults.body_1.result[0].ID, jsonResults.body.result[0].Pushed);
-                populateAuditTrail(jsonResults.body_1.result[0].Users, jsonResults.body_1.result[0].Audit_Date);
+                addConnectorDetails(jsonResults.body_1[0].P_ID, jsonResults.body_1[0].ID, jsonResults.body[0].Pushed);
+                populateAuditTrail(jsonResults.body_1[0].Users, jsonResults.body_1[0].Audit_Date);
             }
             else if(final == 's-c')
             {
                 createSearchResults(jsonResults, urlConfig);
             }
-        }
-    }
-    else if(conn != '')
-    {
-        //uses the json in req to make a loop
-        for(let i = 0; i < json.body.length; ++i)
-        {
-            let url = createURL('', urlConfig);
-            if(conn == 'Stock2Shop')
+            else if(final == 'u-dom-s2s')
             {
-                url = appendParams(url, json.body[i].SKU, 'sku', json.body.length, 'limit');
-            }
-            else if(conn == 'Woocommerce')
-            {
-                url = appendParams(url, json.body[i].SKU, 'sku', reqParam_2, reqParamK_2);
-            }
-            const resp = await fetch(url,
-            {
-                method: 'GET', // *GET, POST, PUT, DELETE, etc.
-                mode: 'cors', // no-cors, *cors, same-origin
-                cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-                credentials: 'include', // include, *same-origin, omit
-                headers: 
+                changeAmount('Push Complete');
+                appendText(jsonResults.message, jsonResults.return);
+                setTimeout(()=>
                 {
-                    'Access-Control-Allow-Origin': '*',
-                    'Content-Type': 'application/json'
-                },
-                redirect: 'follow', // manual, *follow, error
-                referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-            });
-            const jsonResults = await resp.json();
-            if(jsonResults.result == true)
-            {
-                changeAmount((i + 1) + " / " + json.body.length);//updates the process
-                appendText(jsonResults.message, jsonResults.result);
+                    if(jsonResults.message == "Push Complete")
+                    {
+                        changeComplete();
+                    }
+                })
             }
-            else
+            else if(final == 'u-dom-woo')
             {
-                changeAmount((i + 1) + " / " + json.body.length);//updates the process
-                appendText(jsonResults.message, jsonResults.result);
+                console.log(jsonResults);
+                changeAmount('Push Complete');
+                appendText(jsonResults.message, jsonResults.return);
+                setTimeout(()=>
+                {
+                    if(jsonResults.message == "Push Complete")
+                    {
+                        changeComplete();
+                    }
+                })
             }
         }
-        document.getElementById('text').innerHTML = 'Push Complete';
-        document.querySelector('.container').style.backgroundImage = "url('../Images/completed.gif')";
     }
 }

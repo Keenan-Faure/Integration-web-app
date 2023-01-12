@@ -48,10 +48,10 @@ Class CURL
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_MAXREDIRS      => 10,     // stop after 10 redirects
             CURLOPT_ENCODING       => "",     // handle compressed
-            CURLOPT_USERAGENT      => "test", // name of client
+            CURLOPT_USERAGENT      => "", // name of client
             CURLOPT_AUTOREFERER    => true,   // set referrer on redirect
             CURLOPT_CONNECTTIMEOUT => 120,    // time-out on connect
-            CURLOPT_TIMEOUT        => 120,    // time-out on response
+            CURLOPT_TIMEOUT        => 240,    // time-out on response
         ); 
         
         //Initializes a new session and return a cURL handle for use

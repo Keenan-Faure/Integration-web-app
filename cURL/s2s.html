@@ -119,10 +119,30 @@
             margin: 0;
             display: inline-block;
         }
+        .refresh
+        {
+            overflow: hidden;
+            color: white;
+            border-style: inset;
+            border-width: 1px;
+            padding: 10px;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid white;
+            cursor: pointer;
+            transition-duration: 0.4s;
+            left: 50%;
+            top: 26%;
+            transform: translate(-50%, -50%);
+            position: relative;
+        }
+        .refresh:hover
+        {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
     </style>
     <body>
         <div class='container'></div>
-        <div id='text' class='txt-cls'>Pushing products... please wait</div>
         <div id='textAmount' class='txt-cls'>Fetching Products to push from database</div>
         <div class='table'>
             <div class="table-header">Process chain</div>
@@ -132,11 +152,11 @@
                         <img id='img' src="../images/image.png"> 
                     </div>
                     <div id="text-1">
-
                     </div>
                 </div>
             </div>
         </div>
+        <button class='refresh' onclick="Init_function_push_status_s2s()">Refresh DOM</button>
     </body>
     <script src="../Scripts/fetch.js"></script>
     <script src="../Scripts/fetchUtils.js"></script>

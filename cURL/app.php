@@ -76,7 +76,7 @@
                         <button class="dropDownBtn">Customers</button>
                             <div class="dropDownContent">
                                 <a href="../customers/addCustomer.html">Add Customer</a>
-                                <a href="../customers/editCustomer.php">View Customers</a>
+                                <a href="../customers/customerList.php?page=1">View Customers</a>
                             </div>
                         </div>
                     </div>
@@ -140,8 +140,8 @@
                     <option>equal</option>
                     <option>greater than</option>
                     <option>less than</option>
-                    <option>contains</option>
-                    <option>does not contain</option>
+                    <!-- <option>contains</option>
+                    <option>does not contain</option> -->
                 </select>
                 <input type="text" name='value' autocomplete="off" placeholder='Value' class="condition-select">
                 <button class='conditionSubmit' id='true' onclick="Init_function_cond_add_ns(this)">Add</button>
