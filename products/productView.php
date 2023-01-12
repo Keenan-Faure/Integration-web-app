@@ -96,6 +96,9 @@
                 <input type='checkbox' class='act'>
                 <label for='active'>Product Active</label>
             </div>
+            <div class='delete'>
+                <button class='Del-prod-btn'>Delete Product</button>
+            </div>
             <div class='saveCloseContainer'>
                 
                 <button class='save' type='submit' title='Save current product'></button>

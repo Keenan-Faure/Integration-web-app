@@ -99,6 +99,35 @@ function Init_function_srch(type)
 }
 
 /**
+ * @Description Deletes a product from the database
+ * @Returns None
+ */
+function Init_function_prod_del()
+{
+    let sku = document.getElementsByClassName('s');
+    if(sku.length != 0)
+    {
+        reqEndpoint('', 'c-m', 'putProd_del', sku[0].innerHTML, 'sku');
+    }
+    
+    arrayUrl = (document.URL).split('/');
+    url = 'http://' + arrayUrl[2] + '/' + 'products/productList?page=1';
+    window.location.replace(url);
+}
+
+/**
+ * @Description Deletes a user from the database
+ * @Returns None
+ */
+function Init_function_usz_del(element)
+{
+    let uid = element.parentElement.parentElement.children[1].innerHTML;
+    reqEndpoint('', 'c-m', 'putUser_del', uid, 'uid');
+    
+    removeUserDOM(element);
+}
+
+/**
  * @Description Initial request which retrieves session token
  * @param {string} token - session token of current user, functions with `_ns` will use token param as `[string, element]`
  * @param {string} param - Decides what url will be used in the first request
@@ -183,7 +212,7 @@ const req = async function(token = '', param, final, urlConfig, conn='', reqPara
  */
 const reqEndpoint = async function(json, final, urlConfig, reqParam, reqParamK, reqParam_2, reqParamK_2, conn)
 {
-    if(conn == '' || typeof myVar == 'undefined')
+    if(conn == '' || typeof conn == 'undefined')
     {
         let url = createURL('', urlConfig);
         url = appendParams(url, reqParam, reqParamK, reqParam_2, reqParamK_2);

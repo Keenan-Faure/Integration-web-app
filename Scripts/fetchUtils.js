@@ -1,5 +1,5 @@
 /**
- * @Description creates the request url
+ * creates the request url
  * @param {string} token - Session token of current user
  * @param {string} urlConfig - used to configure which func endpoint to run
  * @returns {string} url
@@ -78,10 +78,22 @@ function createURL(token, urlConfig = '')
         url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=get_search';
         return url;
     }
+    else if(urlConfig == 'putProd_del')
+    {
+        arrayUrl = (document.URL).split('/');
+        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=put_prod_del';
+        return url;
+    }
+    else if(urlConfig == 'putUser_del')
+    {
+        arrayUrl = (document.URL).split('/');
+        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=put_usz_del';
+        return url;
+    }
 }
 
 /**
- * @Description Appends the available (none null) params to the current url
+ * Appends the available (none null) params to the current url
  * @param {string} url - Current URL
  * @param {string} rqParam - First param
  * @param {string} rqParam_key - First param key
@@ -103,13 +115,13 @@ function appendParams(url, rqParam = '', rqParam_key = '', rqParam_2 = '', rqPar
 }
 
 /**
- * @Description Builds user table
+ * Builds user table
  * @param {JSON} json - Table is built using the json object
  * @returns {null} null
  */
 function createUserTable(json)
 {
-    let headers = ['Active', 'UserID', 'Username', 'Token', ''];
+    let headers = ['Active', 'UserID', 'Username', 'Token', '', ''];
     let userTable = document.createElement('div');
     userTable.className = 'userTable fade-out';
 
@@ -123,7 +135,7 @@ function createUserTable(json)
             if(i == 0 && j == 0)
             {
                 let tr = document.createElement('tr');
-                for(let z = 0; z < 5; ++z)
+                for(let z = 0; z < 6; ++z)
                 {
                     let td = document.createElement('td');
                     let tdText = document.createTextNode(headers[z]);
@@ -134,7 +146,7 @@ function createUserTable(json)
                 tbl.appendChild(tr);
 
                 let tr1 = document.createElement('tr');
-                for(let z = 0; z < 5; ++z)
+                for(let z = 0; z < 6; ++z)
                 {
                     if(z == 0)
                     {
@@ -162,6 +174,11 @@ function createUserTable(json)
                         let td = document.createElement('td');
                         tr1.appendChild(td);
                     }
+                    else if(z == 5)
+                    {
+                        let td = document.createElement('td');
+                        tr1.appendChild(td);
+                    }
                     else
                     {
                         let td = document.createElement('td');
@@ -175,7 +192,7 @@ function createUserTable(json)
             else
             {
                 let tr = document.createElement('tr');
-                for(let z = 0; z < 5; ++z)
+                for(let z = 0; z < 6; ++z)
                 {
                     if(z == 0)
                     {
@@ -211,6 +228,18 @@ function createUserTable(json)
                         td.appendChild(aTag);
                         tr.appendChild(td);
                     }
+                    else if(z == 5)
+                    {
+                        let td = document.createElement('td');
+                            let aTag = document.createElement('button');
+                            aTag.className = 'RemoveBtn';
+                            
+                            let text = document.createTextNode('Delete');
+                            aTag.appendChild(text);
+
+                        td.appendChild(aTag);
+                        tr.appendChild(td);
+                    }
                     else
                     {
                         let td = document.createElement('td');
@@ -228,7 +257,7 @@ function createUserTable(json)
 }
 
 /**
- * @Description Creates an html button element, advises user if the call was successfull or not
+ * Creates an html button element, advises user if the call was successfull or not
  * @param {string} result - Can be true or false. True for success message, otherwise false
  * @param {string} message - message to use if the call was successful
  */
@@ -263,7 +292,7 @@ function createMessage(result, message)
 }
 
 /**
- * @Description adds Connector details to the DOM
+ * adds Connector details to the DOM
  * @param {string} p_id - parent ID
  * @param {string} v_id - variant ID
  * @param {string} s2s_active - Stock2Shop active
@@ -297,7 +326,7 @@ function addConnectorDetails(p_id, v_id, s2s_active)
 }
 
 /**
- * @Description Populates the audit trail in DOM
+ * Populates the audit trail in DOM
  * @param {string} user - user that logged on session
  * @param {string} date - date that the change was made
  */
@@ -315,7 +344,7 @@ function populateAuditTrail(user, date)
 }
 
 /**
- * @Description Changes the amount on the DOM
+ * Changes the amount on the DOM
  * @param {string} amount - Value to update the DOM with
  */
 function changeAmount(amount)
@@ -325,7 +354,7 @@ function changeAmount(amount)
 }
 
 /**
- * @Description Appends image/text to DOM
+ * Appends image/text to DOM
  * @param {string} message - message to append
  * @param {string} result - true/false result of cURL request
  */
@@ -356,7 +385,7 @@ function appendText(message, result)
 }
 
 /**
- * @Description Creates the conditions as a single param
+ * Creates the conditions as a single param
  * @param {string} element - The button that is pressed
  * @returns {string} string
  */
@@ -380,7 +409,7 @@ function create_cond_params(element)
 }
 
 /**
- * @Description (DEL) Creates the conditions as a single param
+ * Creates the conditions as a single param
  * @param {string} element - The button that is pressed
  * @returns {string} string
  */
@@ -406,7 +435,7 @@ function create_cond_params_del(element)
 }
 
 /**
- * Description creates search results
+ * creates search results
  * @param {string} results json results from endpoint
  * @param {string} parameter used to specify which filter to use
  */
@@ -521,7 +550,7 @@ function createSearchResults(results, parameter)
 }
 
 /**
- * Description Fades the search results in and out depending which element is in focus
+ * Fades the search results in and out depending which element is in focus
  * @param
  */
 function inFocus()
@@ -569,7 +598,7 @@ function s_b_fadeOut()
 }
 
 /**
- * Description Removes search results from DOM
+ * Removes search results from DOM
  * @param
  */
 function removeSearchResults()
@@ -585,6 +614,14 @@ function removeSearchResults()
             }
         }
     }
+}
+
+/**
+ * Removes deleted User (tr) from the table in the DOM
+ */
+function removeUserDOM(element)
+{
+    (element.parentElement.parentElement).remove();
 }
 
 /**
@@ -621,3 +658,33 @@ setTimeout(()=>
         }
     });
 }, 1500);
+
+setTimeout(()=>
+{
+    $('.RemoveBtn').click(function(event)
+    {
+        if(!confirm('Are you sure you want to continue ?'))
+        {
+            event.preventDefault(); 
+        }
+        else
+        {
+            Init_function_usz_del(document.querySelector('.RemoveBtn'));
+        }
+    });
+}, 1000);
+
+setTimeout(()=>
+{
+    $('.Del-prod-btn').click(function(event)
+    {
+        if(!confirm('Are you sure you want to continue ?'))
+        {
+            event.preventDefault(); 
+        }
+        else
+        {
+            Init_function_prod_del();
+        }
+    });
+}, 1000);
