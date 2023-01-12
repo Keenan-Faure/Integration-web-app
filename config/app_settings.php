@@ -10,7 +10,6 @@ return array(
     array(
         "app_delete_products" => "false",
         "app_add_products" => "true", 
-        "app_enable_self_query" => "true", 
         "app_enable_product_push" => "true"),
     
     "API_settings" =>
