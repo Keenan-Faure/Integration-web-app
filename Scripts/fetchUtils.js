@@ -51,7 +51,7 @@ function createURL(token, urlConfig = '')
     else if(urlConfig == 'pushWoo')
     {
         arrayUrl = (document.URL).split('/');
-        url = 'http://' + arrayUrl[2] + '/' + 'cURL/push_woo.php';
+        url = 'http://' + arrayUrl[2] + '/' + 'cURL/push_woo.php?token=auto';
         return url;
     }
     else if(urlConfig == 'pushS2S')

@@ -36,12 +36,12 @@ function Init_function_sku_p()
 
 /**
  * Initiates the request to retrieve the session information - Pushes data to Woocommerce
- * @return None
  */
 function Init_function_sku_woo()
 {
-    req('', 'pushWoo', '', '', '', '', 'conn');
+    req('', 'getSKU', '', 'pushWoo', 'Woocommerce', 'woo', 'conn');
 }
+
 
 /**
  * Initiates the request to retrieve the status of the pushing to S2S
@@ -170,9 +170,23 @@ const req = async function(token = '', param, final, urlConfig, conn='', reqPara
         referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     });
     const json = await resp.json();
-    if(json.return == true)
+    console.log(json);
+    if(typeof json.message != 'undefined')
     {
         changeAmount(json.message);//sets the total amount of products to process
+    }
+    else if(conn != '')
+    {
+        if(json.body.length == 0)
+        {
+            changeAmount("No products found to push");//sets the total amount of products to process
+            reqEndpoint(json, '', urlConfig, reqParam, reqParamK, reqParam_2, reqParamK_2, conn);
+        }
+        else
+        {
+            changeAmount("0 / " + json.body.length);//sets the total amount of products to process
+            reqEndpoint(json, '', urlConfig, reqParam, reqParamK, reqParam_2, reqParamK_2, conn);
+        }
     }
     /**
      * the OR statement is added on because it will return both true and false return statement
@@ -214,6 +228,7 @@ const req = async function(token = '', param, final, urlConfig, conn='', reqPara
  */
 const reqEndpoint = async function(json, final, urlConfig, reqParam, reqParamK, reqParam_2, reqParamK_2, conn)
 {
+    console.log("here");
     if(conn == '' || typeof conn == 'undefined')
     {
         let url = createURL('', urlConfig);
@@ -278,5 +293,48 @@ const reqEndpoint = async function(json, final, urlConfig, reqParam, reqParamK, 
                 })
             }
         }
+    }
+    else if(conn != '')
+    {
+        //uses the json in req to make a loop
+        for(let i = 0; i < json.body.length; ++i)
+        {
+            let url = createURL('', urlConfig);
+            if(conn == 'Stock2Shop')
+            {
+                url = appendParams(url, json.body[i].SKU, 'sku', json.body.length, 'limit');
+            }
+            else if(conn == 'Woocommerce')
+            {
+                url = appendParams(url, json.body[i].SKU, 'sku', reqParam_2, reqParamK_2);
+            }
+            const resp = await fetch(url,
+            {
+                method: 'GET', // *GET, POST, PUT, DELETE, etc.
+                mode: 'cors', // no-cors, *cors, same-origin
+                cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                credentials: 'include', // include, *same-origin, omit
+                headers: 
+                {
+                    'Access-Control-Allow-Origin': '*',
+                    'Content-Type': 'application/json'
+                },
+                redirect: 'follow', // manual, *follow, error
+                referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            });
+            const jsonResults = await resp.json();
+            if(jsonResults.result == true)
+            {
+                changeAmount((i + 1) + " / " + json.body.length);//updates the process
+                appendText(jsonResults.message, jsonResults.result);
+            }
+            else
+            {
+                changeAmount((i + 1) + " / " + json.body.length);//updates the process
+                appendText(jsonResults.message, jsonResults.result);
+            }
+        }
+        document.getElementById('text').innerHTML = 'Push Complete';
+        document.querySelector('.container').style.backgroundImage = "url('../Images/completed.gif')";
     }
 }

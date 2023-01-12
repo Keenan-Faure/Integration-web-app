@@ -191,6 +191,36 @@ function get_ses(connect $connection, util $util, array $params)
 }
 
 /**
+ * Gets all products in the Inventory table that:
+ *      - That has a recent audit date
+ *      - Is active to sync
+ * @return void
+ */
+function get_sku(connect $connection, util $util, array $params)
+{
+    if(!isset($_SESSION['connection']))
+    {
+        $variable = new \stdClass();
+        $variable->return = false;
+        $variable->body = "No session found";
+        echo(json_encode($variable));
+        exit();
+    }
+    $connector = $params['conn'];
+    if($connector == 'woo')
+    {
+        $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
+        $query2 = 'SELECT inv.SKU FROM Inventory inv INNER JOIN Woocommerce woo ON inv.SKU = woo.SKU WHERE inv.Audit_Date > woo.pushDate AND Active = "true"';
+        $output2 = $connection->converterObject($rawConnection, $query2, $_SESSION['connection']->credentials->dbname);
+        $result = $output2->result;
+        $variable = new \stdClass();
+        $variable->return = true;
+        $variable->body = $result;
+        echo(json_encode($variable));
+    }
+}
+
+/**
  * Gets all users in the Client table
  * @return void
  */

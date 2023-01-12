@@ -51,7 +51,7 @@ Class CURL
             CURLOPT_USERAGENT      => "", // name of client
             CURLOPT_AUTOREFERER    => true,   // set referrer on redirect
             CURLOPT_CONNECTTIMEOUT => 120,    // time-out on connect
-            CURLOPT_TIMEOUT        => 240,    // time-out on response
+            CURLOPT_TIMEOUT        => 120,    // time-out on response
         ); 
         
         //Initializes a new session and return a cURL handle for use
