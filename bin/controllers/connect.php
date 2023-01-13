@@ -6,6 +6,12 @@ $_config = include('../../config/config.php');
 use Connection\Connection as connect;
 if(isset($_POST['uname']) && isset($_POST['psw']))
 {
+    $conn = new connect();
+    if($_POST['uname'] == '' || $_POST['psw'] == '')
+    {
+        $conn->createHtmlMessages('', "Invalid credentials", "Please retry", '../auth/login', 'warn');
+        exit();
+    }
     //uses the token to decide whether 
     //to login or not
     if(isset($_SESSION['clientConn']->token))
@@ -18,7 +24,6 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
         {
             //removes all previous data of login
             session_destroy();
-            $conn = new connect();
             $result = $conn->connectUser($_config, $_POST['uname'], $_POST['psw']);
             if($result->connection == false)
             {
@@ -66,9 +71,12 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
 }
 else if(isset($_POST['runame']) && isset($_POST['rpsw']))
 {
-
     $conn = new connect();
-
+    if($_POST['runame'] == '' || $_POST['rpsw'] == '')
+    {
+        $conn->createHtmlMessages('', "Invalid credentials", "Please retry", '../auth/register', 'warn');
+        exit();
+    }
     $query = 'SELECT COUNT(*) as total FROM Userz WHERE Username = "' . $_POST['runame'] . '"';
     $result = $conn->preQuery($_config, $query, 'object');
     if($result->result[0]->total > 0)
