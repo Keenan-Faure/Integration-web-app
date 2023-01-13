@@ -236,7 +236,10 @@ class Connection
             {
                 return $this->converterArray($conn, $query);
             }
-            return $this->converterObject($conn, $query);
+            else
+            {
+                return $this->converterObject($conn, $query);
+            }
         }
         catch(\Exception $error)
         {
@@ -452,6 +455,7 @@ class Connection
             session_start();
         }
         $body = str_replace('"', "", $body);
+        $body = str_replace("'", "", $body);
         $variable = new \stdClass();
         $variable->head = $head;
         $variable->body = $body;
@@ -462,7 +466,6 @@ class Connection
         if($saved == true)
         {
             $query = 'INSERT INTO Logs(Head, Body, T_ime, T_ype)VALUES("' . $head . '","' . $body . '","' . $_time . '","' . $_type . '")';
-            $query = str_replace('"', "'", $query);
             $this->preQuery($_config, $query, 'object');
         }
     }
