@@ -56,6 +56,10 @@
         if($result3->result[0]->total == 0)
         {
             //create admin user
+            if($_config['dbPass'] == '')
+            {
+                $_config['dbPass'] = 'admin';
+            }
             $query = 'INSERT INTO Userz(Active, Username, Password, Token) VALUES("true", "' . $_config['dbUser'] . '", "' . $_config['dbPass'] . '", "' . $conn->createRandomString() .'")';
             $result3 = $conn->preQuery($_config, $query, 'object');
         }
