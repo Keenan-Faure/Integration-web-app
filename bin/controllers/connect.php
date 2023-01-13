@@ -6,6 +6,12 @@ $_config = include('../../config/config.php');
 use Connection\Connection as connect;
 if(isset($_POST['uname']) && isset($_POST['psw']))
 {
+    $conn = new connect();
+    if($_POST['uname'] == '' || $_POST['psw'] == '')
+    {
+        $conn->createHtmlMessages('', "Invalid credentials", "Please retry", '../auth/login', 'warn');
+        exit();
+    }
     //uses the token to decide whether 
     //to login or not
     if(isset($_SESSION['clientConn']->token))
@@ -18,13 +24,12 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
         {
             //removes all previous data of login
             session_destroy();
-            $conn = new connect();
             $result = $conn->connectUser($_config, $_POST['uname'], $_POST['psw']);
             if($result->connection == false)
             {
                 if(isset($_SESSION['log']))
                 {
-                    $conn->addLogs('Connection failed', $result->message, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', false);
+                    $conn->addLogs('Connection failed', $result->message, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', false, $_config);
                 }
                 header('Refresh:1,url=../../auth/login.php');
             }
@@ -34,7 +39,7 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
                 unset($_POST['psw']);
                 if(isset($_SESSION['log']))
                 {
-                    $conn->addLogs('Connection successful', $result->message, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'info', false);
+                    $conn->addLogs('Connection successful', $result->message, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'info', false, $_config);
                 }
                 header('Refresh:0, url=dashboard.php');
             }
@@ -48,7 +53,7 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
         {
             if(isset($_SESSION['log']))
             {
-                $conn->addLogs('Connection failed', $result->message, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', false);
+                $conn->addLogs('Connection failed', $result->message, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', false, $_config);
             }
             header('Refresh:2,url=../../auth/login.php');
         }
@@ -58,7 +63,7 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
             unset($_POST['psw']);
             if(isset($_SESSION['log']))
             {
-                $conn->addLogs('Connection successful', $result->message, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'info', false);
+                $conn->addLogs('Connection successful', $result->message, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'info', false, $_config);
             }
             header('Refresh:0, url=../../dashboard.php');
         }
@@ -66,9 +71,12 @@ if(isset($_POST['uname']) && isset($_POST['psw']))
 }
 else if(isset($_POST['runame']) && isset($_POST['rpsw']))
 {
-
     $conn = new connect();
-
+    if($_POST['runame'] == '' || $_POST['rpsw'] == '')
+    {
+        $conn->createHtmlMessages('', "Invalid credentials", "Please retry", '../auth/register', 'warn');
+        exit();
+    }
     $query = 'SELECT COUNT(*) as total FROM Userz WHERE Username = "' . $_POST['runame'] . '"';
     $result = $conn->preQuery($_config, $query, 'object');
     if($result->result[0]->total > 0)
@@ -104,7 +112,7 @@ else if(isset($_POST['runame']) && isset($_POST['rpsw']))
         $conn->createHtmlMessages('', $message, $solution, 'auth/login', 'info');
         if(isset($_SESSION['log']))
         {
-            $conn->addLogs("User creation", "Please review user: '" . $_POST['runame'] . "' before activation", date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), "info", true);
+            $conn->addLogs("User creation", "Please review user: '" . $_POST['runame'] . "' before activation", date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), "info", true, $_config);
         }
         exit();
     }
@@ -158,7 +166,7 @@ else
                     echo(json_encode($connection));
                     if(isset($_SESSION['log']))
                     {
-                        $conn->addLogs('API Connection unsuccessful', 'Username: ' . $username . ' Password: ' . $password, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', false);
+                        $conn->addLogs('API Connection unsuccessful', 'Username: ' . $username . ' Password: ' . $password, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', false, $_config);
                     }
                     die();
                 }
@@ -166,7 +174,7 @@ else
                 {
                     if(isset($_SESSION['log']))
                     {
-                        $conn->addLogs('API Connection successful', 'Username: ' . $username . ' Password: ' . $password, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'info', false);
+                        $conn->addLogs('API Connection successful', 'Username: ' . $username . ' Password: ' . $password, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'info', false, $_config);
                     }
                     header('location: dashboard.php');
                 }
@@ -183,7 +191,7 @@ else
                 echo(json_encode($variable));
                 if(isset($_SESSION['log']))
                 {
-                    $conn->addLogs('No Session', 'Attempted to connect but no session was found', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'info', false);
+                    $conn->addLogs('No Session', 'Attempted to connect but no session was found', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'info', false, $_config);
                 }
             }
             else if(!isset($_SESSION['connection']))
@@ -194,7 +202,7 @@ else
                 echo(json_encode($variable));
                 if(isset($_SESSION['log']))
                 {
-                    $conn->addLogs('No Session', 'Attempted to connect but no session was found', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'info', false);
+                    $conn->addLogs('No Session', 'Attempted to connect but no session was found', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'info', false, $_config);
                 }    
             }
         }

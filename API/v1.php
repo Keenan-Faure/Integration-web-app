@@ -1,28 +1,29 @@
 <?php
+    session_start();
+    include("../Class Templates/createConnection.php");
+    include("Controller/API/BaseController.php");
+
+    use Connection\Connection as connect;
+    use controller\Controller as control;
+
     if(!isset($_SESSION['log']))
     {
         $_SESSION['log'] = array();
     }
-    include("../Class Templates/createConnection.php");
-    use Connection\Connection as connect;
-    use controller\Controller as control;
 
     if(!isset($_SERVER['PHP_AUTH_USER']) && !isset($_SERVER['PHP_AUTH_USER'])) 
     {
         header('WWW-Authenticate: Basic realm="Authorization"');
         header('HTTP/1.0 401 Unauthorized');
-        header('Content-Type: application/json');
+        header('Content-Type: application/json; charset=utf-8');
         $variable = new \stdClass();
         $variable->message = 'Unauthorized access, or credentials not provided';
         echo(json_encode($variable));
-        header('Refresh:2, url=v1.php');
-        exit;
+        exit();
     } 
     else 
     {
-        include("Controller/API/BaseController.php");
         $apiConn = new connect();
-
         $apiConn = $apiConn->connectServer($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'], 'localhost');
         if($apiConn->connection)
         {

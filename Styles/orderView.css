@@ -100,7 +100,6 @@ h1:hover
 {
     position: relative;
     display: inline-block;
-    width: 176px;
 }
 .overlay
 {
@@ -115,19 +114,20 @@ h1:hover
 {
     position: relative;
     display: inline-block;
-    width: 130px;
 }
 .imageNav
 {
     width: 70px;
     display: inline-block;
+    cursor: pointer;
     position: relative;
-    top: 30px;
+    top: 33px;
     height: 50px;
-    background-image: url(../Images/dbPicture.png);
+    background-image: url(../Images/dbPicture.gif);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    border-radius: 50px;
 }
 .dropDownBtn
 {
@@ -686,6 +686,9 @@ textarea
     font-size: 14px;
     margin: 10px 0px;
     font-family: system-ui;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 .totald
 {

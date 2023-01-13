@@ -4,8 +4,10 @@ namespace orders;
 
 Class Orders
 {
-    //adds the order to the database
-    function addOrder($orderBody, $connection, $_settings)
+    /**
+     * Adds the order to the database
+     */
+    function addOrder(\stdClass $orderBody, \Connection\Connection $connection, \stdClass $_settings)
     {
         $query = "INSERT INTO Orders
         (
@@ -61,8 +63,10 @@ Class Orders
         $connection->converterObject($rawConnection, $query, $_settings->dbName);  
     }
 
-    //updates the order
-    function updateOrder($orderBody, $connection, $_settings)
+    /**
+     * Updates an existing order
+     */
+    function updateOrder(\stdClass $orderBody, \Connection\Connection $connection, \stdClass $_settings)
     {
         //serialize values before updating
         $orderBody->order->customer = serialize($orderBody->order->customer);
@@ -104,13 +108,14 @@ Class Orders
         ;
 
         $rawConnection = $connection->createConnection($_settings->dbUser, $_settings->dbPass, 'localhost', $_settings->dbName)->rawValue;
-        $output = $connection->converterObject($rawConnection, $query, $_settings->dbName);  
+        $connection->converterObject($rawConnection, $query, $_settings->dbName);  
     }
 
-    //checks if the order already exists in the database
-    //returns false is the order is not found
-    //and true when it is
-    function checkOrderExist($order_id, $connection, $_settings)
+    /**
+     * Checks if the order exists in the database already using `order_id`
+     * @return bool
+     */
+    function checkOrderExist(string $order_id, \Connection\Connection $connection, \stdClass $_settings)
     {
         $query = "SELECT * FROM Orders WHERE ID = '" . $order_id . "'";
         $rawConnection = $connection->createConnection($_settings->dbUser, $_settings->dbPass, 'localhost', $_settings->dbName)->rawValue;
@@ -126,10 +131,11 @@ Class Orders
 
     }
 
-    //verifies the webhook using the headers received
-    //checks if the resource is an order
-    //checks if the Signature is correct
-    function verifyWebhook($requestBody, $headers, $_wooSettings)
+    /**
+     * Verifies the webhook using the headers received
+     * @return boolean
+     */
+    function verifyWebhook(\stdClass $requestBody, \stdClass $headers, \stdClass $_wooSettings)
     {
         if(isset($headers->{'X-Wc-Webhook-Resource'}) && isset($headers->{'X-Wc-Webhook-Source'}))
         {
@@ -139,7 +145,7 @@ Class Orders
                 {
                     if($_wooSettings->Woocommerce_Settings->woo_enable_hmac_decoding == "true")
                     {
-                        $signature = base64_encode(hash_hmac('sha256', $requestBody, $_wooSettings->Woocommerce_Store->webhook_secret, true));
+                        $signature = base64_encode(hash_hmac('sha256', json_encode($requestBody), $_wooSettings->Woocommerce_Store->webhook_secret, true));
                         if($headers->{'X-Wc-Webhook-Signature'} == $signature)
                         {
                             return true;

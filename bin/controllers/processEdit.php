@@ -5,6 +5,7 @@ include("../../Class Templates/sProduct.php");
 include("../../Class Templates/customer.php");
 include("../../Class Templates/utility.php");
 include('../../Class Templates/createConnection.php');
+$_config = include('../../config/config.php');
 
 use sProducts\sProducts as sproduct;
 use vProducts\vProducts as vproduct;
@@ -90,7 +91,7 @@ if(isset($_SESSION['connection']) && isset($_SESSION['connection']))
         else
         {
             $conn = new connect();
-            $conn->addLogs('Error connecting', 'No connection found in current session, please re-connect', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', false);
+            $conn->addLogs('Error connecting', 'No connection found in current session, please re-connect', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', false, $_config);
             $conn->createHtmlMessages('', 'Error connecting', 'No Session was detected', 'login', 'info');
 
             header('Refresh:1,url=../../auth/login.php');
@@ -99,7 +100,7 @@ if(isset($_SESSION['connection']) && isset($_SESSION['connection']))
     else
     {
         $conn = new connect();
-        $conn->addLogs('Error connecting', 'No login data found for current user', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', false);
+        $conn->addLogs('Error connecting', 'No login data found for current user', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', false, $_config);
         $conn->createHtmlMessages('', 'Error connecting to user session', 'No Session User was detected', 'login', 'info');
         header('Refresh:1,url=../../auth/login.php');
     }
@@ -107,7 +108,7 @@ if(isset($_SESSION['connection']) && isset($_SESSION['connection']))
 else
 {
     $conn = new connect();
-    $conn->addLogs('Error connecting', 'No login data found for current user', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', false);
+    $conn->addLogs('Error connecting', 'No login data found for current user', date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', false, $_config);
     $conn->createHtmlMessages('', 'Error connecting to user session', 'No Session User was detected', 'login', 'info');
     header('Refresh:1,url=../../auth/login.php');
 }

@@ -7,9 +7,13 @@ Class sProducts
 
     private \stdClass $product;
 
-    function createProduct($product, $util, $connection, $update = '')
+    /**
+     * Creates a product
+     * @return \stdClass
+     */
+    function createProduct(array $product, \utils\Utility $util, \Connection\Connection $connection, string $update = '')
     {
-        //checks if all the numeric values entered are numeric...
+        //Checks if all the numeric values entered are numeric
         $numeric = array("barcode", "weight", "comparePrice", "sellingPrice", "quantity"); //array of numeric values
         for($j = 0; $j < sizeof($numeric); ++$j)
         {
@@ -17,11 +21,10 @@ Class sProducts
             {
                 if($product[$numeric[$j]] != null)
                 {
-                    //check if they are numeric using the util class -- its a parameter
                     $variable = $util->isNumeric($product[$numeric[$j]], $numeric[$j]);
                     if($variable->return == false)
                     {
-                        // returns the values that are not numeric...
+                        //returns non-numeric values
                         return $variable;
                     }
                 }
@@ -37,21 +40,14 @@ Class sProducts
 
         if($update == 'edit')
         {
-            //creates the product
             $productTemplate = array('active', 'title', 'description', 'category', 'productType', 'brand', 'sku', 'groupingCode', 'variantCode', 'barcode', 'weight', 'comparePrice', 'sellingPrice',
             'quantity', 'meta1', 'meta2', 'meta3');
 
-            //creates as a standard class
             $this->product = new \stdClass();
             for($i = 0; $i < sizeof($productTemplate); ++$i)
             {
-                //for debugging only 
-
-                //print_r($product[$productTemplate[$i]]);
-                //echo("<br>");
                 if(isset($product[$productTemplate[$i]]) && $product[$productTemplate[$i]] != 'null')
                 {
-                    //converts to a string
                     $variable = $productTemplate[$i];
                     $this->product->$variable = addslashes($product[$productTemplate[$i]]);
                 }
@@ -84,11 +80,7 @@ Class sProducts
             //creates as a standard class
             $this->product = new \stdClass();
             for($i = 0; $i < sizeof($productTemplate); ++$i)
-            {
-                //for debugging only 
-
-                //print_r($product[$productTemplate[$i]]);
-                //echo("<br>");
+            {          
                 if(isset($product[$productTemplate[$i]]))
                 {
                     //converts to a string
@@ -104,7 +96,11 @@ Class sProducts
             return $this->product;
             }
     }
-    function addProduct($product, $connection)
+    /**
+     * Adds a product in the database
+     * @return \stdClass
+     */
+    function addProduct(\stdClass $product, \Connection\Connection $connection)
     {
         $username = $_SESSION['connection']->credentials->username;
         $password = $_SESSION['connection']->credentials->password;
@@ -191,9 +187,12 @@ Class sProducts
         $result = new \stdClass();
         $result->data = $product;
         return $result;
-
     }
-    function updateProduct($product, $util, $connection)
+    /**
+     * Updates an existing product in the database
+     * @return \stdClass
+     */
+    function updateProduct(\stdClass $product, \utils\Utility $util, \Connection\Connection $connection)
     {
         $date = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
         $user = $_SESSION['clientConn']->token;
@@ -247,6 +246,10 @@ Class sProducts
             ComparePrice = '$product->comparePrice',
             SellingPrice = '$product->sellingPrice',
             CapeTown_Warehouse = '$product->quantity',
+            Option_1_Name = '',
+            Option_1_Value = '',
+            Option_2_Name = '',
+            Option_2_Value = '',
             Meta_1 = '$product->meta1',
             Meta_2 = '$product->meta2',
             Meta_3 = '$product->meta3',

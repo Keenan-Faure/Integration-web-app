@@ -10,9 +10,12 @@
         <link rel="icon" type="image/x-icon" href="../Images/logo.png"/>
         <link rel='stylesheet' href='../Styles/productView.css'>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="../Scripts/fade.js"></script>
+        <script src='../Scripts/fetch.js'></script>
+        <script src='../Scripts/fetchUtils.js'></script>
         <script src="../Scripts/createElements.js"></script>
         <script src="../Scripts/formTransform.js"></script>
+        <script>Init_function_sku_p();</script>
+        <script src='../Scripts/fade.js'></script>
         <?php 
         
         if(isset($_POST) && (sizeof($_POST) != 0))
@@ -21,7 +24,7 @@
             $sku = ltrim(rtrim($_POST[$sku]));
             unset($_POST);
 
-            if($_SESSION['connection'])
+            if(isset($_SESSION['connection']))
             {
                 $connection2 = new connect();
                 $rawConnection = $connection2->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
@@ -31,9 +34,10 @@
                 $output2->result[0]->$body_html = stripslashes(html_entity_decode($output2->result[0]->$body_html));
                 $type = $output2->result[0]->Type;
                 $result = json_encode($output2->result[0]);
+
+                //passes the text as a json object
+                echo("<script>getClassNames($result, '$type');</script>");
             }
-            //passes the text as a json object
-            echo("<script>getClassNames($result, '$type');</script>");
         }
         
         ?>
@@ -91,6 +95,9 @@
             <div class='active'>
                 <input type='checkbox' class='act'>
                 <label for='active'>Product Active</label>
+            </div>
+            <div class='delete'>
+                <button class='Del-prod-btn'>Delete Product</button>
             </div>
             <div class='saveCloseContainer'>
                 

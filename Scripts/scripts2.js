@@ -108,31 +108,6 @@ window.addEventListener('load', ()=>
     },400); //0.2s
 });
 
-
-document.querySelector('.closeButton').addEventListener('click', () =>
-{
-    array = document.querySelector('.bottom');
-    array.classList.add('fade-out');
-    array.classList.remove('bottom');
-    array.classList.add('top');
-});
-
-document.querySelector('.custom').addEventListener('click', ()=>
-{
-    array = document.querySelector('.top');
-    array.classList.remove('bottom');
-    array.classList.remove('fade-out');
-    array.classList.add('fade-in');
-    array.classList.add('bottom');
-
-    array1 = document.querySelector('.userTable');
-    array1.classList.remove('bottom');
-    array1.classList.remove('fade-in');
-    array1.classList.add('top');
-    array1.classList.add('fade-out');
-    
-});
-
 document.querySelector('.rowHeader').addEventListener('click', ()=>
 {
     let elements = document.getElementsByClassName('row-item');

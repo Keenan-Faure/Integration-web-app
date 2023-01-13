@@ -15,9 +15,10 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="../Scripts/createElements.js"></script>
         <script src="../Scripts/fade.js"></script>
-        <script src="../Scripts/search.js"></script>
+        <script src="../Scripts/fetch.js"></script>
+        <script src="../Scripts/fetchUtils.js"></script>
         <?php 
-        if($_SESSION['connection']->active == true)
+        if(isset($_SESSION['connection']))
         {
             $connection2 = new connect();
             $util = new util();
@@ -88,7 +89,7 @@
                     <div id='search-b-h'>
                             <div class='search-bar'>
                                 <input class='search-field' type='text' placeholder='Search...'>
-                                <button class='search-btn' onclick="search('order')" type='submit'></button>
+                                <button class='search-btn' onclick="Init_function_srch('order')"  type='submit'></button>
                             </div>
                             <div class='search-result-container'>
                                 Search results
@@ -118,16 +119,19 @@
                 </div>
             </div>
             <?php
-                //create the <a> tags using php
-                //calculate the number of page numbers
-                $_SESSION['pagination'] = $connection2->pagination($rawConnection, "Orders");
-
-                if(isset($_SESSION['pagination']))
+                if(isset($_SESSION['connection']))
                 {
-                    //SELECT * FROM Inventory LIMIT [$number], $number+10;
-                    $number = $_SESSION['pagination'];
-                    $url = $host . parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
-                    echo("<script>createPagination($number, '$url', $page)</script>");
+                    //create the <a> tags using php
+                    //calculate the number of page numbers
+                    $_SESSION['pagination'] = $connection2->pagination($rawConnection, "Orders");
+
+                    if(isset($_SESSION['pagination']))
+                    {
+                        //SELECT * FROM Inventory LIMIT [$number], $number+10;
+                        $number = $_SESSION['pagination'];
+                        $url = $host . parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
+                        echo("<script>createPagination($number, '$url', $page)</script>");
+                    }
                 }
             ?>
     </body>

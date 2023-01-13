@@ -17,20 +17,6 @@ function initiatorCreateLogs(logs)
 //can be closed (and removed) (tbi)
 function createLogs(logsJson)
 {
-    // <div class='row-item'>
-    //     <div class='type-msg'>
-    //         <img class='type-msg-image' src='Images/info-icon.png'>
-    //     </div>
-    //     <div class='head'>Hi am am the head</div>
-    //     <div class='body'>I am a very very very very very very veyr very long body</div>
-    //     <div class='time'>I am the time </div>
-    //     <div class='closer'>&times;</div>
-    // </div>
-
-
-
-
-
     for(let i = 0; i < logsJson.length; ++i)
     {
         let returns = convertJsonToArray(logsJson[i]);
@@ -73,9 +59,8 @@ function createLogs(logsJson)
                 closer.id = returns[4][j];
                     text = document.createTextNode('×');
                 closer.appendChild(text);
-                closer.onclick = InitUpdateLogs;
+                closer.onclick = Init_function_srq;
                 rowItem.appendChild(closer);
-
             document.querySelector('.info-report').appendChild(rowItem);
         }
     }
@@ -97,18 +82,6 @@ function initiatorCreateProducts(products)
 
 function createProducts(products)
 {
-    /*
-        <button class="lineItems" name='{{SKU}}' value='{{SKU}}'>
-            <div class="imageContainer" id="imageContainertwo" >
-                <img class='image' src="../Images/imageContainer.png">
-            </div>
-            <div class="sku">SKUasdapsdojapsdjkas;ldkaspdja</div>
-            <div class="title">title</div>
-            <div class="category">collection</div>
-            <div class="vendor">Vendor</div>
-        </button>
-    */
-
     // 1.) Get SKU, Title, Vedor, Category from iteration of product
     // 2.) Create the DOM Elements
     // 3.) Append the values to the DOM elements
@@ -308,16 +281,6 @@ function setText(classNames, text, formNames, type)
 //using the amount returned from the php function
 function createPagination(number, url, pageNumber)
 {
-    // <div class='pagination'>
-    //     <a href="#">&laquo;</a>
-    //     <a href="#">1</a>
-    //     <a href="#">2</a>
-    //     <a href="#">3</a>
-    //     <a href="#">4</a>
-    //     <a href="#">5</a>
-    //     <a href="#">6</a>
-    //     <a href="#">&raquo;</a>
-    // </div>
     let pagination = document.querySelector('.pagination')
 
     //creates the back button
@@ -376,18 +339,6 @@ function initiatorCreateCustomers(customers)
 
 function createCustomers(customers)
 {
-    /*
-        <button class="lineItems" name='{{id}}' value='{{id}}'>
-            <div class="imageContainer" id="imageContainertwo" >
-                <img class='image' src="../Images/customerDemo.webp">
-            </div>
-            <div class="id">ID</div>
-            <div class="Name">Name</div>
-            <div class="Surname">Surname</div>
-            <div class="Email">Email</div>
-        </button>
-    */
-
     // 1.) Get ID, Name, Surname, Category from iteration of product
     // 2.) Create the DOM Elements
     // 3.) Append the values to the DOM elements
@@ -469,8 +420,6 @@ function getCustomerClassNames(text)
         let generalClassNames = [null, 'act', 'titleContainer', 'm1', 'm2', 'm3', 'ad1', 'ad2', 'ad3', 'ad4'];
         let formNames = [null, 'active', 'id', 'name', 'surname', 'email', 'address1', 'address2', 'address3', 'address4'];
         let valueArray = convertJsonToArray(text);
-        //console.log(valueArray[valueArray.length - 1]); //23
-        //console.log(generalClassNames.length); //20
         setCustomerText(generalClassNames, valueArray, formNames);
     });
     
@@ -568,16 +517,6 @@ function initiatorCreateOrders(orders)
 
 function createOrders(orders)
 {
-    /*
-        <button class="orderItems" name='{{ID}}' value='{{ID}}'>
-            <div class="orderID">OrderID</div>
-            <div class="customer">SKUasdapsdojapsdjkas;ldkaspdja</div>
-            <div class="status">title</div>
-            <div class="date">collection</div>
-            <div class="total">Vendor</div>
-        </button>
-    */
-
     // 1.) Get orderID, customer, status, date and total from iteration of product
     // 2.) Create the DOM Elements
     // 3.) Append the values to the DOM elements
@@ -660,41 +599,6 @@ function createOrders(orders)
     }
 }
 
-/**
-    <div class='data'>
-        <div class='pData' id='product'>
-            <div class='imageContainer'>
-                <img class='image' src='../Images/image1.png'>
-            </div>
-            <div class='dataContainer'>
-                <div class='dataValues orderTitle'><b>Title:</b> Balled of Goblets - Venti</div>
-                <div class='dataValues sku'><b>SKU:</b> GenImp-V-AA</div>
-                <div class='dataValues meta'></div>
-            </div>
-        </div>
-        <div class='priced' id='price'>R1700</div>
-        <div class='amountd' id='amount'>&times; 1</div>
-        <div class='totald' id='total'>R1700</div>
-        <div class='vatd' id='vat'>R175</div>
-    </div>
-
-    //check for shipping as well
-    <div class='data'>
-        <div class='pData' id='product'>
-            <div class='imageContainer'>
-                <img class='image' src='../Images/ship.jpeg'>
-            </div>
-            <div class='dataContainer'>
-                <div class='dataValues shipTitle'><b>Title:</b> Shipping methods</div>
-            </div>
-        </div>
-        <div class='priced' id='price'></div>
-        <div class='amountd' id='amount'></div>
-        <div class='total_shipd' id='total'>total_shipping</div>
-        <div class='ship_vatd' id='vat'>shipping_tax</div>
-    </div>
- */
-
 // +----------------------------------------------+
 // | Run-format of the functions (orderView.php)  |
 // | getOrderClassNames -> setBilling|setShipping |
@@ -742,22 +646,6 @@ function getOrderClassNames(text)
 //creates line items defined inside an object
 function createLineItems(object)
 {
-    // <div class='data'>
-    //     <div class='pData' id='product'>
-    //         <div class='imageContainer'>
-    //             <img class='image' src='../Images/image1.png'>
-    //         </div>
-    //         <div class='dataContainer'>
-    //             <div class='dataValues orderTitle'><b>Title:</b> Balled of Goblets - Venti</div>
-    //             <div class='dataValues sku'><b>SKU:</b> GenImp-V-AA</div>
-    //             <div class='dataValues meta'></div>
-    //         </div>
-    //     </div>
-    //     <div class='priced' id='price'>R1700</div>
-    //     <div class='amountd' id='amount'>&times; 1</div>
-    //     <div class='totald' id='total'>R1700</div>
-    //     <div class='vatd' id='vat'>R175</div>
-    // </div>
     for(let i = 0; i < object.length; ++i)
     {
         let data = document.createElement('div');
@@ -957,7 +845,7 @@ function setGeneral(object)
                 document.querySelector('.' + array[i]).innerHTML = "R " + object[dbValues[i]];
 
             }
-            else if(array[i] == 'vatTotal')
+            else if(array[i] == 'vattotal')
             {
                 document.querySelector('.' + array[i]).innerHTML = "R " + object[dbValues[i]];
 
@@ -1041,7 +929,6 @@ function setCustomer(object)
 //which is defined inside an object
 function setPayDetails(object)
 {
-    console.log(object);
     let array = ['button-title', 'button-status'];
     let dbValues = ['method_title', 'paid'];
     for(let i = 0; i < array.length; ++i)
@@ -1077,5 +964,52 @@ function setPayDetails(object)
                 }
             }
         }
+    }
+}
+
+/**
+ * Description Creates the condition on the DOM using the query_params
+ * @param {array} array array containing the `[query_params, element]` combination
+ * @param {boolean} remove if true the element will be removed
+ */
+function create_condition_dom(array, remove=false)
+{
+    if(remove == true)
+    {
+        array[1].parentElement.remove();
+    }
+    else
+    {
+        //<button class='condition-cls-btn' onclick='Init_function_cond_del_ns(this)'>&times;</button>
+        array[0] = array[0].slice(1,array[0].length);
+        value = array[0].split("&");
+        let string = '';
+        for(let i = 0; i < value.length; ++i)
+        {
+            value[i] = value[i].split("=");
+            string = string + " " + value[i][1];
+        }
+        let condition = document.createElement('div');
+        condition.className = 'condition';
+    
+        let button = document.createElement('button');
+        button.className = 'condition-cls-btn';
+
+        let text = document.createTextNode('×');
+        button.appendChild(text);
+
+        button.addEventListener('click', ()=>
+        {
+            button.onclick = Init_function_cond_del_ns(button);
+        });
+
+        let p = document.createElement('p');
+        p.className = 'align';
+        text = document.createTextNode(string);
+    
+        p.appendChild(text);
+        condition.appendChild(button);
+        condition.appendChild(p);
+        document.querySelector('.conditionTable').appendChild(condition);
     }
 }

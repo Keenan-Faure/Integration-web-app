@@ -3,6 +3,10 @@ namespace cURL;
 
 Class CURL
 {   
+    /**
+     * gets the current URL
+     * @return string
+     */
     function getUrl()
     {
         $host = "http://" . $_SERVER['HTTP_HOST']; //needs to be defined
@@ -29,11 +33,11 @@ Class CURL
         }
     }
 
-    //uses cURL
-    //URL is the url that we will be initiating the cURL request against
-    //request is the data of the cURL in stdClass (object) notation
-    //username and password acts as the creentials
-    function get_web_page($url, $request = null, $username = '', $password = '', $customReq = null) 
+    /**
+     * Gets the data from the `url` using a custom cURL method
+     * @return string
+     */
+    function get_web_page(string $url, string $request = '', string $username = '', string $password = '', string $customReq = '') 
     {
         $options = array(
             CURLOPT_USERPWD => $username . ":" . $password, 
@@ -44,7 +48,7 @@ Class CURL
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_MAXREDIRS      => 10,     // stop after 10 redirects
             CURLOPT_ENCODING       => "",     // handle compressed
-            CURLOPT_USERAGENT      => "test", // name of client
+            CURLOPT_USERAGENT      => "", // name of client
             CURLOPT_AUTOREFERER    => true,   // set referrer on redirect
             CURLOPT_CONNECTTIMEOUT => 120,    // time-out on connect
             CURLOPT_TIMEOUT        => 120,    // time-out on response
@@ -54,7 +58,7 @@ Class CURL
         //uses the URL in function parameter
         $ch = curl_init($url);
 
-        if(isset($request))
+        if($request != '')
         {
             curl_setopt($ch, CURLOPT_POSTFIELDS, $request);
         }
@@ -96,32 +100,45 @@ Class CURL
     +--------------------------------+
     */
 
-    function getSources($token, $username, $password)
+    /**
+     * Requests the source(s) of the current user with credentials `username` and `password`
+     * @return \stdClass
+     */
+    function getSources(string $token, string $username, string $password)
     {
-        //use http_build_query here to create parameters for ep
         $params = http_build_query(array('format' => 'json', 'token' => $token)); 
 
         $url = 'https://app.stock2shop.com/v1/sources?' . $params;
-        return $this->cURLRequest(null, $url, $username, $password);
+        return $this->cURLRequest('', $url, $username, $password);
 
     }
 
-    function getChannels($token, $username, $password)
+    /**
+     * Requests the channels(s) of the current user with credentials `username` and `password`
+     * @return \stdClass
+     */
+    function getChannels(string $token, string $username, string $password)
     {
-        //use http_build_query here to create parameters for ep
         $params = http_build_query(array('format' => 'json', 'token' => $token)); 
 
         $url = 'https://app.stock2shop.com/v1/channels?' . $params;
-        return $this->cURLRequest(null, $url, $username, $password);
+        return $this->cURLRequest('', $url, $username, $password);
     }
 
-    function validateToken($token, $username, $password)
+    /**
+     * Runs a cURL request to validate the current users token
+     * @return array
+     */
+    function validateToken(string $token, string $username, string $password)
     {
         $url = 'https://app.stock2shop.com/v1/users/valid_token/' . $token . '?format=json';
-        return $this->cURLRequest(null, $url, $username, $password);
+        return $this->cURLRequest('', $url, $username, $password);
     }
 
-    function authenticate($username, $password)
+    /**
+     * Runs a cURL request to authenticate the credentials `username` and `password`
+     */
+    function authenticate(string $username, string $password)
     {
         //builds json object
         $request = new \stdClass();
@@ -135,8 +152,11 @@ Class CURL
         return $this->cURLRequest($request, $url, $username, $password);
     }
 
-    //Initiates the Curl Response
-    function cURLRequest($request = new \stdClass(), $url = '', $username = '', $password = '')
+    /**
+     * Initiates the Curl Request
+     * @return \stdClass
+     */
+    function cURLRequest(string $request, string $url = '', string $username = '', string $password = '')
     {
         $response = $this->get_web_page($url, $request, $username, $password);
         $resArr = array();
@@ -144,7 +164,10 @@ Class CURL
         return $resArr;
     }
 
-    //adds the HTTP header to the content
+    /**
+     * Adds the HTTP message to the response content
+     * @return string
+     */
     function addHTTP($content, $code)
     {
         $content = json_decode($content);
@@ -152,7 +175,7 @@ Class CURL
         {
             $var = new \stdClass();
             $var->message = 'An Error occured while trying to connect to the URL';
-            $var->http_code = $code;
+            $var->httpcode = $code;
             return json_encode($var);
         }
         $content->httpcode = $code;
@@ -217,91 +240,6 @@ Class CURL
         //url to send request
         $url = 'https://app.stock2shop.com/v1/products/elastic_search?token=' . $token . '&channel_id=' . 1683;
         return $this->cURLRequest($request, $url, $username, $password);
-    }
-
-    //creates the query considering the conditions 
-    //defined inside the Conditions table
-    //and returns query
-    function createQuery($conditions)
-    {
-        $duplicates = $this->findDuplicates(json_decode(json_encode($conditions->result), true));
-        $duplicateValues = array();
-        $query = "SELECT * FROM Inventory WHERE ";
-        $condition = $conditions->result;
-        $additional = '';
-        $Clause = '';
-        if(sizeof($condition) == 0)
-        {
-            return "SELECT * FROM Inventory";
-        }
-        else
-        {
-            $conditionIndex = 0;
-            for($i = 0; $i < sizeof($condition); ++$i)
-            {
-                if(in_array($condition[$i]->DataValue, $duplicates))
-                {
-                    $duplicateValues[$conditionIndex] = $condition[$i]->Value;
-                    $conditionIndex = $conditionIndex + 1;
-                    continue;
-                }
-                if(($i - $conditionIndex) > 0)
-                {
-                    $Clause = $Clause . ' && ';
-                }
-                $Clause = $condition[$i]->DataValue . $condition[$i]->Conditions . "'" . $condition[$i]->Value . "'"; 
-            }
-            //When the above is done
-            //Then it adds the query: duplicate in ('duplicatevalue[0]', 'duplicatevalue[1]');
-            for($j = 0; $j < sizeof($duplicates); ++$j)
-            {
-                if($j > 0)
-                {
-                    $additional = $additional . ' && ';
-                }
-                if($Clause == "")
-                {
-                    $additional = $duplicates[$j] . " IN ";
-                }
-                else
-                {
-                    $additional = " && " . $duplicates[$j] . " IN ";
-                }
-                $values = '';
-                for($z = 0; $z < sizeof($duplicateValues); ++$z)
-                {
-                    if($z > 0)
-                    {
-                        $values = ',' . $values;
-                    }
-                    $values = "'" . $duplicateValues[$z] . "'" . $values;
-                }
-                $additional = $additional . '(' . $values . ')';
-            }
-        }
-        $query = $query . $Clause . $additional;
-        return $query;
-    }
-
-    function findDuplicates($conditionArray)
-    {
-        $repeated = array();
-        $output = array();
-        for($i = 0; $i < sizeof($conditionArray); ++$i)
-        {
-            $repeated[$i] = $conditionArray[$i]['DataValue'];
-        }
-        $repeated = array_count_values($repeated);
-        foreach($repeated as $key => $value)
-        {
-            $i = 0;
-            if($value > 1)
-            {
-                $output[$i] = $key;
-                ++$i;
-            }
-        }
-        return $output;
     }
 
     function addProduct($product, $source, $_settings)
@@ -437,8 +375,12 @@ Class CURL
                             }
                         }
                         //returns it in StdClass Format
+
+                        //remove null option arrays from product
+
                         $product = new \stdClass();
                         $product = json_decode(json_encode($product_map_array));
+                        $product = $this->removeEmptyOptions($product);
                         return $product;
                     }
                 }
@@ -482,6 +424,29 @@ Class CURL
         }
         return null;
     }
+    
+    /**
+     * Removes empty option fields and arrays from the product
+     * @return \stdClass
+     */
+    function removeEmptyOptions($product)
+    {
+        if($product->product->options[0]->name == "")
+        {
+            $product->product->options = array();
+            unset($product->product->variants->option1);
+            unset($product->product->variants->option2);
+        }
+        else if($product->product->options[0]->name != "")
+        {
+            if($product->product->options[1]->name == "")
+            {
+                $product->product->options[1] = new \stdClass();
+                unset($product->product->variants->option2);
+            }
+        }
+        return $product;
+    }
 
     //inserts Product into Stock2Shop table
     //showing that it has been pushed
@@ -497,7 +462,7 @@ Class CURL
             //since SKU is unique there will only ever exist 1 value
             $query = "UPDATE Stock2Shop SET 
             pushDate = '" . $date . "', 
-            Pushed = 'true',
+            Pushed = 'true' 
             WHERE SKU = '" . $sku . "';";
 
             $connection->converterObject($rawConnection, $query);
@@ -511,7 +476,6 @@ Class CURL
     }
 
     // Helper Functions for the internal product map
-
     //Adds options to products
     function addOptions($product)
     {
@@ -630,7 +594,7 @@ Class CURL
             $ck = $wooSettings->Woocommerce_Store->consumer_key;
             $cs = $wooSettings->Woocommerce_Store->consumer_secret;
 
-            $result = $this->get_web_page($url, null, $ck, $cs);
+            $result = $this->get_web_page($url, '', $ck, $cs);
             if($result == null)
             {
                 $variable = new \stdClass();
@@ -638,7 +602,7 @@ Class CURL
                 $variable->message = 'Incorrect store name';
                 return $variable;
             }
-            if(json_decode($result)->http_code == 0)
+            if(json_decode($result)->httpcode == 0)
             {
                 $variable = new \stdClass();
                 $variable->result = 'null';
@@ -686,7 +650,7 @@ Class CURL
     //displays the Woocommerce API details of the store
     function Auth()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs']);
         if($result == null)
         {
             $variable = new \stdClass();
@@ -699,7 +663,7 @@ Class CURL
     //GET customers from Woocommerce by ID
     function getCustomer()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs']);
         if($result == null)
         {
             $variable = new \stdClass();
@@ -712,7 +676,7 @@ Class CURL
     //returns a list of customers from Woocommerce
     function getCustomer_l()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs']);
         if($result == null)
         {
             $variable = new \stdClass();
@@ -725,7 +689,7 @@ Class CURL
     //removes the respective customer on Woocommerce
     function deleteCustomer()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs'], 'delete');
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs'], 'delete');
         if($result == null)
         {
             $variable = new \stdClass();
@@ -766,7 +730,7 @@ Class CURL
     //returns an order from Woocommerce
     function getOrder()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs']);
         if($result == null)
         {
             $variable = new \stdClass();
@@ -779,7 +743,7 @@ Class CURL
     //returns a list of orders from Woocommerce
     function getOrder_l()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs']);
         if($result == null)
         {
             $variable = new \stdClass();
@@ -792,7 +756,7 @@ Class CURL
     //deletes an order on Woocommerce
     function deleteOrder()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs'], 'delete');
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs'], 'delete');
         if($result == null)
         {
             $variable = new \stdClass();
@@ -847,7 +811,7 @@ Class CURL
     //gets an order's notes on Woocommerce
     function getOrderNote()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs']);
         if($result == null)
         {
             $variable = new \stdClass();
@@ -860,7 +824,7 @@ Class CURL
     //gets a list of an order's notes on Woocommerce
     function getOrderNote_l()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs']);
         if($result == null)
         {
             $variable = new \stdClass();
@@ -873,7 +837,7 @@ Class CURL
     //deletes an order's notes on Woocommerce
     function deleteOrderNote()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs'], 'delete');
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs'], 'delete');
         if($result == null)
         {
             $variable = new \stdClass();
@@ -886,7 +850,7 @@ Class CURL
     //gets a product from Woocommerce
     function getProduct()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs']);
         if($result == null)
         {
             $variable = new \stdClass();
@@ -899,7 +863,7 @@ Class CURL
     //gets a product from Woocommerce
     function getProductBySKU()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs']);
         if($result == null)
         {
             $variable = new \stdClass();
@@ -913,7 +877,7 @@ Class CURL
     //gets a list of products from Woocommerce
     function getProduct_l()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs']);
         if($result == null)
         {
             $variable = new \stdClass();
@@ -926,7 +890,7 @@ Class CURL
     //deletes a products on Woocommerce
     function deleteProduct()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs'], 'delete');
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs'], 'delete');
         if($result == null)
         {
             $variable = new \stdClass();
@@ -967,7 +931,7 @@ Class CURL
     //gets a product from Woocommerce
     function getProductVariation()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs']);
         if($result == null)
         {
             $variable = new \stdClass();
@@ -980,7 +944,7 @@ Class CURL
     //gets a list of products from Woocommerce
     function getProductVariation_l()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs']);
         if($result == null)
         {
             $variable = new \stdClass();
@@ -993,7 +957,7 @@ Class CURL
     //deletes a products on Woocommerce
     function deleteProductVariation()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs'], 'delete');
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs'], 'delete');
         if($result == null)
         {
             $variable = new \stdClass();
@@ -1034,7 +998,7 @@ Class CURL
     //gets a list of products Attributes from Woocommerce
     function getProductAttribute_l()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs']);
         if($result == null)
         {
             $variable = new \stdClass();
@@ -1047,7 +1011,7 @@ Class CURL
     //gets a list of products Categories from Woocommerce
     function getProductCategories_l()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs']);
         if($result == null)
         {
             $variable = new \stdClass();
@@ -1060,7 +1024,7 @@ Class CURL
     //gets a list of shipping classes on Woocommerce
     function getProductShipClas_l()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs']);
         if($result == null)
         {
             $variable = new \stdClass();
@@ -1073,7 +1037,7 @@ Class CURL
     //gets a list of webhooks on Woocommerce
     function getWebhook_l()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs']);
         if($result == null)
         {
             $variable = new \stdClass();
@@ -1086,7 +1050,7 @@ Class CURL
     //gets the system status of the server woocommerce is found on
     function getSystemStatus()
     {
-        $result = $this->get_web_page($_POST['url'], null, $_POST['ck'], $_POST['cs']);
+        $result = $this->get_web_page($_POST['url'], '', $_POST['ck'], $_POST['cs']);
         if($result == null)
         {
             $variable = new \stdClass();
@@ -1101,6 +1065,7 @@ Class CURL
     //external map uses map inside config
     function woo_addProduct($product, $_wooSettings, $wooExist, $connection)
     {
+        $_config = include('../config/config.php');
         $array = [
             //product
             '$product->Title' => $product->Title,
@@ -1342,7 +1307,7 @@ Class CURL
                                 //OR gets the ID from Woocommerce
                                 
                                 $id = $this->getID($product->SKU, $connection);
-                                if($id == null)
+                                if($id == null || $id == '0')
                                 {
                                     //gets the ID from Woocommerce, saves it in Table
                                     $this->getSKUID($product, $_wooSettings, $connection);
@@ -1355,10 +1320,20 @@ Class CURL
                                 if(json_decode($result)->httpcode != 200)
                                 {
                                     $this->insertID($product->SKU, $id, $connection, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']));
-                                    $connection->addLogs('Update Product - Woocommerce', 'Error occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
-                                    $var = new \stdClass();
-                                    $var->result = false;
-                                    $var->message = 'Update Product - Woocommerce \nError occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU;
+                                    if(isset(json_decode($result)->errors[0]->message))
+                                    {
+                                        $connection->addLogs('Update Product - Woocommerce', 'Error occured: ' . json_encode(json_decode($result)->errors[0]->message) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
+                                        $var = new \stdClass();
+                                        $var->result = false;
+                                        $var->message = 'Update Product - Woocommerce \nError occured: ' . json_encode(json_decode($result)->errors[0]->message) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU;
+                                    }
+                                    else
+                                    {
+                                        $connection->addLogs('Update Product - Woocommerce', 'Error occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
+                                        $var = new \stdClass();
+                                        $var->result = false;
+                                        $var->message = 'Update Product - Woocommerce \nError occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU;
+                                    }
                                     return $var;
                                 }
                                 
@@ -1370,7 +1345,7 @@ Class CURL
                                 if(json_decode($result)->httpcode != 200)
                                 {
                                     $this->insertID($product->SKU, $id, $connection, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']));
-                                    $connection->addLogs('Update variant data - Woocommerce', 'Error occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                    $connection->addLogs('Update variant data - Woocommerce', 'Error occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
                                     $var = new \stdClass();
                                     $var->result = false;
                                     $var->message = 'Update variant data - Woocommerce \nError occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU;
@@ -1398,7 +1373,7 @@ Class CURL
                                 //check for any errors and log them
                                 if(!in_array(json_decode($result)->httpcode, [200,201]))
                                 {
-                                    $connection->addLogs('Create Product - Woocommerce', 'Error occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                    $connection->addLogs('Create Product - Woocommerce', 'Error occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
                                     $var = new \stdClass();
                                     $var->result = false;
                                     $var->message = 'Create Product - Woocommerce \nError occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU;
@@ -1412,7 +1387,7 @@ Class CURL
                                 $result = $this->get_web_page($url, json_encode($variation_data), $ck, $cs, 'post');
                                 if(!in_array(json_decode($result)->httpcode, [200,201]))
                                 {
-                                    $connection->addLogs('Create Variant - Woocommerce', 'Error occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                    $connection->addLogs('Create Variant - Woocommerce', 'Error occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
                                     $var = new \stdClass();
                                     $var->result = false;
                                     $var->message = 'Create Variant - Woocommerce \nError occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU;
@@ -1477,7 +1452,7 @@ Class CURL
                                 
                                 //If product SKU exists then get the parent ID (store in DB)
                                 $p_id = $this->getP_ID($product->SKU, $connection);
-                                if($p_id == null)
+                                if($p_id == null || $p_id == '0')
                                 {
                                     //gets the parent ID from Woocommerce, saves it in P_ID column
                                     $this->getSKUP_ID($product, $_wooSettings, $connection);
@@ -1512,7 +1487,7 @@ Class CURL
                                 if(!in_array(json_decode($result)->httpcode, [200,201]))
                                 {
                                     $this->insertID($product->SKU, $id, $connection, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']));
-                                    $connection->addLogs('Update Product - Woocommerce', 'Error occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                    $connection->addLogs('Update Product - Woocommerce', 'Error occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
                                     $var = new \stdClass();
                                     $var->result = false;
                                     $var->message = 'Update Product - Woocommerce \nError occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU;
@@ -1529,7 +1504,7 @@ Class CURL
                                 if(!in_array(json_decode($result)->httpcode, [200,201]))
                                 {
                                     $this->insertID($product->SKU, $id, $connection, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']));
-                                    $connection->addLogs('Update variant data - Woocommerce', 'Error occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                    $connection->addLogs('Update variant data - Woocommerce', 'Error occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
                                     $var = new \stdClass();
                                     $var->result = false;
                                     $var->message = 'Update variant data - Woocommerce \nError occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU;
@@ -1637,7 +1612,7 @@ Class CURL
                                 if(!in_array(json_decode($result)->httpcode, [200,201]))
                                 {
                                     $this->insertID($product->SKU, $id, $connection, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']));
-                                    $connection->addLogs('Create variant - Woocommerce', 'Error occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                    $connection->addLogs('Create variant - Woocommerce', 'Error occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
                                     $var = new \stdClass();
                                     $var->result = false;
                                     $var->message = 'Create variant - Woocommerce \nError occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU;
@@ -1734,7 +1709,7 @@ Class CURL
                             if(!in_array(json_decode($result)->httpcode, [200,201]))
                             {
                                 $this->insertID($product->SKU, $id, $connection, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']));
-                                $connection->addLogs('Update Product - Woocommerce', 'Error occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                $connection->addLogs('Update Product - Woocommerce', 'Error occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
                                 $var = new \stdClass();
                                 $var->result = false;
                                 $var->message = 'Update Product - Woocommerce \nError occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU;
@@ -1749,7 +1724,7 @@ Class CURL
                             if(!in_array(json_decode($result)->httpcode, [200,201]))
                             {
                                 $this->insertID($product->SKU, $id, $connection, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']));
-                                $connection->addLogs('Update variant data - Woocommerce', 'Error occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                $connection->addLogs('Update variant data - Woocommerce', 'Error occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
                                 $var = new \stdClass();
                                 $var->result = false;
                                 $var->message = 'Update variant data - Woocommerce \nError occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU;
@@ -1776,7 +1751,7 @@ Class CURL
                             //check for any errors and log them
                             if(json_decode($result)->httpcode != 200)
                             {
-                                $connection->addLogs('Create Product - Woocommerce', 'Error occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                $connection->addLogs('Create Product - Woocommerce', 'Error occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
                                 $var = new \stdClass();
                                 $var->result = false;
                                 $var->message = 'Create Product - Woocommerce \nError occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU;
@@ -1790,7 +1765,7 @@ Class CURL
                             $result = $this->get_web_page($url, json_encode($variation_data), $ck, $cs, 'post');
                             if(json_decode($result)->httpcode != 200)
                             {
-                                $connection->addLogs('Create Variant - Woocommerce', 'Error occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                $connection->addLogs('Create Variant - Woocommerce', 'Error occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
                                 $var = new \stdClass();
                                 $var->result = false;
                                 $var->message = 'Create Variant - Woocommerce \nError occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU;
@@ -1877,7 +1852,7 @@ Class CURL
                             if(!in_array(json_decode($result)->httpcode, [200,201]))
                             {
                                 $this->insertID($product->SKU, $id, $connection, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']));
-                                $connection->addLogs('Update Product - Woocommerce', 'Error occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                $connection->addLogs('Update Product - Woocommerce', 'Error occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
                                 $var = new \stdClass();
                                 $var->result = false;
                                 $var->message = 'Update Product - Woocommerce \nError occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU;
@@ -1894,7 +1869,7 @@ Class CURL
                             if(json_decode($result)->httpcode != 200)
                             {
                                 $this->insertID($product->SKU, $id, $connection, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']));
-                                $connection->addLogs('Update variant data - Woocommerce', 'Error occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                $connection->addLogs('Update variant data - Woocommerce', 'Error occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
                                 $var = new \stdClass();
                                 $var->result = false;
                                 $var->message = 'Update variant data - Woocommerce \nError occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU;
@@ -2001,7 +1976,7 @@ Class CURL
                             //check for any errors and log them
                             if(!in_array(json_decode($result)->httpcode, [200,201]))
                             {
-                                $connection->addLogs('Create Product - Woocommerce', 'Error occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+                                $connection->addLogs('Create Product - Woocommerce', 'Error occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
                                 $var = new \stdClass();
                                 $var->result = false;
                                 $var->message = 'Create Product - Woocommerce \nError occured: ' . json_encode(json_decode($result)) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU;
@@ -2095,7 +2070,7 @@ Class CURL
         $ck = $_wooSettings->Woocommerce_Store->consumer_key;
         $cs = $_wooSettings->Woocommerce_Store->consumer_secret;
 
-        $result = $this->get_web_page($url, null, $ck, $cs);
+        $result = $this->get_web_page($url, '', $ck, $cs);
         $woo_categories = (json_decode($result))->product_categories;
         for($i = 0; $i < sizeof($woo_categories); ++$i)
         {
@@ -2133,7 +2108,7 @@ Class CURL
         $ck = $_wooSettings->Woocommerce_Store->consumer_key;
         $cs = $_wooSettings->Woocommerce_Store->consumer_secret;
 
-        $id = (json_decode($this->get_web_page($url, null, $ck, $cs, ))->products[0]->id);
+        $id = (json_decode($this->get_web_page($url, '', $ck, $cs, ))->products[0]->id);
         $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
         
         //check if SKU is found in table
@@ -2214,7 +2189,7 @@ Class CURL
         $ck = $_wooSettings->Woocommerce_Store->consumer_key;
         $cs = $_wooSettings->Woocommerce_Store->consumer_secret;
 
-        $p_id = (json_decode($this->get_web_page($url, null, $ck, $cs, ))->products[0]->parent_id);
+        $p_id = (json_decode($this->get_web_page($url, '', $ck, $cs, ))->products[0]->parent_id);
         $rawConnection = $connection->createConnection($_SESSION['connection']->credentials->username, $_SESSION['connection']->credentials->password, 'localhost', $_SESSION['connection']->credentials->dbname)->rawValue;
         
         //check if SKU is found in table
@@ -2412,6 +2387,7 @@ Class CURL
     //save ID's in table
     function addVariantToParent($product, $Product, $p_id, $connection, $_wooSettings)
     {
+        $_config = include('../config/config.php');
         $storeName = $_wooSettings->Woocommerce_Store->store_name;
         $ck = $_wooSettings->Woocommerce_Store->consumer_key;
         $cs = $_wooSettings->Woocommerce_Store->consumer_secret;
@@ -2421,7 +2397,7 @@ Class CURL
         $newVariation->product = $Product->variations;
 
         $url = 'https://' . $storeName. '/wc-api/v3/products/' . $p_id;
-        $result = $this->get_web_page($url, null, $ck, $cs, 'get');
+        $result = $this->get_web_page($url, '', $ck, $cs, 'get');
         
         //update parent data
 
@@ -2440,7 +2416,7 @@ Class CURL
         //check if errors
         if(json_decode($result)->httpcode != 200)
         {
-            $connection->addLogs('Update Product - Woocommerce', 'Error occured: ' . json_decode($result) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true);
+            $connection->addLogs('Update Product - Woocommerce', 'Error occured: ' . json_decode($result) . ' - ' .  json_decode($result)->httpcode . ' - SKU: ' . $product->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
         }
 
         //stdClass format

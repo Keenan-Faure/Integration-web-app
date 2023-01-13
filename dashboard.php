@@ -15,7 +15,8 @@
         <link rel='stylesheet' href='Styles/endpoints.css'>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src='Scripts/createElements.js'></script>
-        <script src='Scripts/formTransFormUser.js'></script>
+        <script src='Scripts/fetch.js'></script>
+        <script src='Scripts/fetchUtils.js'></script>
     </head>
     <body>
         <div class='background'>
@@ -45,8 +46,9 @@
                     <div class="dropDown">
                     <button class="dropDownBtn">Settings</button>
                         <div class="dropDownContent">
-                            <a href="endpoints/config/s2s_settings.php">View Settings</a>
-                            <a href="endpoints/config/woo_settings.php">Woocommerce Settings</a>
+                            <a href="endpoints/config/app_settings.php">App</a>
+                            <a href="endpoints/config/s2s_settings.php">Stock2Shop</a>
+                            <a href="endpoints/config/woo_settings.php">Woocommerce</a>
 
                         </div>
                     </div>
@@ -61,31 +63,17 @@
                 <a class='logoutButton' href='bin/controllers/output.php?logout=true'></a>
             </div>
         </div>
-        <div class='selfBackground top'>
-            <div class='buttonContainer'></div>
-            <button class='closeButton'>&times;</button>
-            
-            <?php
-                if($_SESSION['settings']->App_settings->app_enable_self_query == 'true')
-                {
-                    echo("<h1 class='header-self'>Custom Query</h1>
-                    <form method='post' target='_blank' action='bin/controllers/endpoint_handler.php'>
-                            <br><br><br>
-                            <textarea class='textarea' name='selfquery' placeholder='Enter your query here'></textarea>
-                            <button type = 'submit' class='enter'>Submit</button>
-                    </form>");
-                }
-            ?>
-        </div>
         <div class='container' id='container-1'>
             <h2 class='h2-hidden'>Orders</h2>
             <div class='line' id='line-1'></div>
             <form method='post' target='_blank' action='bin/controllers/endpoint_handler.php'>
                 <br><br><br>
                 <input type='text' class='input' name='getOrderByID' placeholder='Get Order by ID' autocomplete="off" id='b1'></input>
-                <br><br>
+            </form>
+            <form method='post' target='_blank' action='bin/controllers/endpoint_handler.php'>
                 <button name='countOrders' class='button' id='b2'><p class='buttonText'>Count Orders</p></button>
-                <br><br>
+            </form>
+            <form method='post' target='_blank' action='bin/controllers/endpoint_handler.php'>
                 <button name='viewOrders' class='button' id='b4'><p class='buttonText'>View All Orders</p></button>
             </form>
         </div>
@@ -130,19 +118,11 @@
             </form>
         </div>  
         <div class='sideNavBar'>
-            <?php
-                if($_SESSION['settings']->App_settings->app_enable_self_query == 'true')
-                {
-                    echo("<a class='custom'>Custom Query</a>");
-                }
-            ?>
-            <a href="bin/controllers/output.php?q=clearLog">Clear log</a>
             <a href="bin/controllers/output.php?q=checkConn">Check Connection</a>
             <a href="bin/controllers/output.php?q=viewLog"> View Log</a>
             <a class='userz'>Manage Users ✰</a>
             <?php
-                //how to parse a php variable inside a javascript function
-                echo("<script src='Scripts/getUserz.js'></script>");
+                echo("<script>reqEndpoint('', 'c-u-t', 'getUsers');</script>");
             ?>
         </div> 
         <div class='info-report'>
@@ -162,12 +142,6 @@
     <script src='Scripts/scripts2.js'></script>
 </html>
 <?php
-
-echo('<div class="errorTable">');
-if(!isset($_SESSION['connection']))
-{
-    echo('<div class="errors"><p class="align">No Connection found in current session</p></div>');
-}
 
 if(isset($_SESSION['clientConn']) && isset($_SESSION['connection']))
 {
@@ -277,9 +251,9 @@ if(isset($_SESSION['clientConn']) && isset($_SESSION['connection']))
         {
             echo('<div class="errors"><p class="align">Conditions table created</p></div>');
             $query3_ = " CREATE TABLE Conditions (
-                Token int AUTO_INCREMENT primary key NOT NULL,
+                ID int AUTO_INCREMENT primary key NOT NULL,
                 DataValue varchar(10),
-                Statement varchar(2),
+                Statement varchar(10),
                 Value varchar(30)
             );
             ";

@@ -79,7 +79,6 @@ h1:hover
 {
     position: relative;
     display: inline-block;
-    width: 176px;
 }
 .overlay
 {
@@ -94,19 +93,19 @@ h1:hover
 {
     position: relative;
     display: inline-block;
-    width: 130px;
 }
 .imageNav
 {
     width: 70px;
     display: inline-block;
     position: relative;
-    top: 30px;
+    top: 33px;
     height: 50px;
-    background-image: url(../Images/dbPicture.png);
+    background-image: url(../Images/dbPicture.gif);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    border-radius: 50px;
 }
 .dropDownBtn
 {
@@ -222,11 +221,12 @@ h1:hover
 }
 .image
 {
-    top: 5px;
-    width: 60px;
-    left: 0;
+    top: 9px;
+    border: 1px solid black;
+    width: 50px;
+    left: 10px;
     text-align: center;
-    height: 60px;
+    height: 50px;
     position: absolute;
     display: inline-block;
 }
@@ -469,7 +469,7 @@ h1:hover
 }
 .dataValues
 {
-    color: rgb(58, 58, 58);
+    color: rgb(0 0 0);
     position: relative;
     font-size: 12px;
     font-family: system-ui;

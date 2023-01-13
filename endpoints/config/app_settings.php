@@ -36,7 +36,7 @@
         exit();
     }
 
-    $_settings = include('../../config/s2s_settings.php');
+    $_settings = include('../../config/app_settings.php');
     function isJson($value)
     {
             json_decode($value);
@@ -80,7 +80,7 @@
                     <div class="dropDown">
                     <button class="dropDownBtn">Settings</button>
                         <div class="dropDownContent">
-                            <a href="../../endpoints/config/app_settings.php">App</a>
+                            <a href="../../endpoints/config/s2s_settings.php">Stock2Shop</a>
                             <a href="../../endpoints/config/woo_settings.php">Woocommerce</a>
                         </div>
                     </div>

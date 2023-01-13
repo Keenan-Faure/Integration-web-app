@@ -3,9 +3,12 @@ namespace Connection;
 class Connection
 {
     private \stdClass $connection;
-    //creates a connection to the Database using the credentials provided
-    //to run queries
-    function createConnection($username, $password, $host, $db)
+
+    /**
+     * Creates a connection to `db` using the `username` and `password`
+     * @return \stdClass
+     */
+    function createConnection(string $username, string $password, string $host, string $db)
     {
         $conn = null;
         try
@@ -29,7 +32,7 @@ class Connection
 
         $this->connection->credentials->username = $username;
         $this->connection->credentials->password = $password;
-        $this->connection->credentials->host = $host; //harcoded to localhost
+        $this->connection->credentials->host = $host; 
         $this->connection->credentials->dbname = $db;
         $this->connection->rawValue = $conn;
         $this->connection->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
@@ -46,9 +49,11 @@ class Connection
         return $this->connection;
     }
 
-    //checks if the user entered at the login page is valid
-    //and if it exists in the usertable defined in the database
-    function connectUser($_config, $client_user, $client_pass)
+    /**
+     * Checks if the credentials `client_user` and `client_pass` are valid
+     * @return \stdClass
+     */
+    function connectUser(array $_config, string $client_user, string $client_pass)
     {
         $query = 'SELECT * FROM Userz WHERE Username = "' . $client_user . '"';
         $results = $this->preQuery($_config, $query, 'object');
@@ -121,13 +126,10 @@ class Connection
         }
     }
 
-    //creates html markup which uses the same
-    //format but has different messages relative to the $error
-    //takes three parameters
-    // - The error message
-    // - The best solution that the user can take
-    // - and the link that redirects the user
-    function createHtmlMessages($extension = '', $message = 'No msg specified', $solution = 'No Solution provided', $link = '', $type = 'warn')
+    /**
+     * Creates html markup which uses the same format but has different messages relative to the $error
+     */
+    function createHtmlMessages(string $extension = '', string $message = 'No msg specified', string $solution = 'No Solution provided', string $link = '', string $type = 'warn')
     {
         if($extension == null)
         {
@@ -159,7 +161,11 @@ class Connection
             </html>
         ");
     }
-    function createJsonMessages($message, $solution, $link, $type, $prefix = 'html')
+
+    /**
+     * Wraps JSON in a `pre` tag to display
+     */
+    function createJsonMessages(string $message, string $solution, string $link, string $type, string $prefix = 'html')
     {
         echo("
             <html>
@@ -188,7 +194,11 @@ class Connection
         ");
     }
 
-    function createRandomString($length = 32)
+    /**
+     * Creates the token for the users. Max length is 32 chars
+     * @return string
+     */
+    function createRandomString(int $length = 32)
     {
         $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
@@ -199,10 +209,11 @@ class Connection
         }
         return $randomString;
     }
-    //pre-conection queries
-    //made with the datafound in the config php file
 
-    function preQuery($_config, $query, $key)
+    /**
+     * Pre-conection queries made with the datafound in the config php file
+     */
+    function preQuery(array $_config, string $query, string $key)
     {
         try
         {
@@ -225,7 +236,10 @@ class Connection
             {
                 return $this->converterArray($conn, $query);
             }
-            return $this->converterObject($conn, $query);
+            else
+            {
+                return $this->converterObject($conn, $query);
+            }
         }
         catch(\Exception $error)
         {
@@ -236,216 +250,11 @@ class Connection
         }
     }
 
-    //-- ONLY USED BY API (legacy) --//
-    //connects the client to the mysql server
-    //using the username and password found 
-    //in the config.php file
-    //this is hardcoded to:
-    //username = root
-    //password = ''
-    function connectServer($username='null', $password='', $host='localhost')
-    {
-        $serverConnections = null;
-        try
-        {
-            $serverConnections = new \mysqli($host, $username, $password);
-        }
-        catch(\Exception $error)
-        {
-            $variable = new \stdClass();
-            $variable->connection = false;
-            $variable->message = $error->getMessage();
-            return $variable;
-        }
-       
-        // connection successful
-        $this->connection = new \stdClass();
-        $this->connection->active = true;
-        $this->connection->credentials = new \stdClass();
-
-        $this->connection->credentials->username = $username;
-        $this->connection->credentials->password = '*******';
-        $this->connection->credentials->host = 'localhost'; //harcoded to localhost
-        $this->connection->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-        $this->connection->rawValue = $serverConnections;
-        $_SESSION['serverconnection'] = $this->connection;
-        
-        $serverConnection = new \stdClass();
-        $serverConnection->connection = true;
-        $serverConnection->rawValue = $serverConnections;
-        $serverConnection->message = 'Connected to MySql server on localhost successful';
-
-        return $serverConnection;
-    }
-    //function for pagination
-    //1.) Gets the total number of products in the Database
-    //2.) Divided it by 10 (10 products per page) 
-    //3.) Then returns that number which will be used
-    //    To create the amount of <a> tags
-    //type can be 'Inventory' or 'Client'
-    function pagination($rawConnection, $type)
-    {
-        $query = "SELECT COUNT(*) AS total FROM " . $type;
-        $result = $this->converterObject($rawConnection, $query);
-        if($result->result[0]->total < 11)
-        {
-            return 0;
-        }
-        else
-        {
-            $amount = $result->result[0]->total;
-            $pages = $amount / 10;
-            return round($pages);
-        }
-    }
-
-    //returns the query params as a php array
-    //using the URL provided
-    //has to be entire URL
-    function queryParams($url)
-    {
-        $partitions = parse_url($url);
-        if(isset($partitions['query']))
-        {
-            $queryParams = array();
-            parse_str($partitions['query'], $queryParams);
-            if(isset($queryParams['page']))
-            {
-                return $queryParams;
-            }
-            if(isset($queryParams['type']))
-            {
-                return $queryParams;
-            }
-            if(isset($queryParams['logout']))
-            {
-                return $queryParams;
-            }
-            if(isset($queryParams['q']))
-            {
-                return $queryParams;
-            }
-            if(isset($queryParams['endpoint']))
-            {
-                return $queryParams;
-            }
-            else
-            {
-                return 1;
-            }
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    //converts mysqli object to php object
-    function converterObject($rawConnection, $query, $parameter=null)
-    {
-        if($query === '')
-        {
-            $variable = new \stdClass();
-            $variable->error = 'Uncaught ValueError: mysqli_query(), ($query) cannot be empty';
-            $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-        }
-        else
-        {
-            if(str_contains(strtolower($query),'insert into') && $parameter === 'selfquery')
-            {
-                $variable = new \stdClass();
-                $variable->return = false;
-                $variable->raw_query = str_replace(PHP_EOL, '', $query);;
-                $variable->message = "Not allowed via Custom Query";
-
-                return $variable;
-            }
-            $resultArray = array();
-            $output = array();
-            $duration = 0;
-            $variable = null;
-            $starttime = microtime(true);
-            try
-            {
-                if($result = mysqli_query($rawConnection, $query))
-                {
-                    $endtime = microtime(true);
-                    $duration = $endtime - $starttime; //calculates total time taken
-                    $array = array();
-                    if(is_bool($result))
-                    {
-                        if($result)
-                        {
-                            $variable = new \stdClass();
-                            $variable->result = true;
-                            $variable->query = str_replace(PHP_EOL, '', $query);;
-                            $variable->duration = $duration;
-                        }
-                    }
-                    else
-                    {
-                        while($row = $result->fetch_object())
-                        {
-                            if(isset($row->Description))
-                            {
-                                $var = htmlspecialchars(stripslashes(str_replace('"', "'", $row->Description)));
-                                $row->Description = $var;
-                            }
-                            $array = $row;
-                            array_push($resultArray, $array);
-                        }
-                        for($i = 0; $i < sizeof($resultArray); ++$i)
-                        {
-                            array_push($output, $resultArray[$i]);
-                        }    
-                        $variable = new \stdClass();
-                        $variable->result = $output;
-                        $variable->query = str_replace(PHP_EOL, '', $query);
-                        $variable->query_time = $duration;
-                    }
-                }
-                else
-                {
-                    $variable = new \stdClass();
-                    $variable->result = new \stdClass();
-                    $variable->result = null;
-                    $variable->query = str_replace(PHP_EOL, '', $query);;
-                    $variable->query_time = $duration;
-                }
-            }
-            catch(\Exception $error)
-            {
-                $variable = new \stdClass();
-                $variable->error = $error->getMessage();
-                $variable->query = str_replace(PHP_EOL, '', $query);
-                $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-            }
-        }
-        
-        return $variable;
-    }
-
-    //function to return the databases or tables inside the database 
-    function converterArray($rawConnection, $query)
-    {
-        $output = array();
-        if($result = mysqli_query($rawConnection, $query))
-        {
-            while($row = $result->fetch_object())
-            {
-                    
-                //converts it into a php array
-                $row = json_decode(json_encode($row), true);
-                //gets the first element of the associative array
-                $row = array_shift($row);
-                
-                array_push($output, $row);    
-            }
-        }
-        return $output;
-    }
-
-    function connectAPI($token, $secret)
+    /**
+     * Uses the `token` and `secret` to connect to the API
+     * @return \stdClass
+     */
+    function connectAPI(string $token, string $secret)
     {
         if(isset($_SESSION['apicredentials']))
         {
@@ -486,19 +295,167 @@ class Connection
             return $variable;
         }
     }
-    
-    //creates the stdClass required when storing data 
-    //in the logs session - some are inserted into the database?
-    //where head -> message head (topic)
-    //body -> main message 
-    //type -> information, warning etc
-    function addLogs($head, $body, $_time, $_type, $saved)
+
+    /**
+     * Gets the total number of products in the Database divided by 10: `(90/10) -> 9 pages`
+     * @return int
+     */
+    function pagination(\mysqli $rawConnection, string $type)
     {
-        $_config = include("../../config/config.php");
+        $query = "SELECT COUNT(*) AS total FROM " . $type;
+        $result = $this->converterObject($rawConnection, $query);
+        if($result->result[0]->total < 11)
+        {
+            return 0;
+        }
+        else
+        {
+            $amount = $result->result[0]->total;
+            $pages = $amount / 10;
+            return round($pages);
+        }
+    }
+
+    /**
+     * Returns the query params as a php array using the URL provided
+     * @return array
+     */
+    function queryParams($url)
+    {
+        $partitions = parse_url($url);
+        if(isset($partitions['query']))
+        {
+            $queryParams = array();
+            parse_str($partitions['query'], $queryParams);
+            return $queryParams;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    /**
+     * Queries the database with `query` and converts mysqli object to php object
+     * @return \stdClass
+     */
+    function converterObject(\mysqli $rawConnection, string $query, string $parameter='')
+    {
+        if($query === '')
+        {
+            $variable = new \stdClass();
+            $variable->message = 'Uncaught ValueError: mysqli_query(), ($query) cannot be empty';
+            $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+        }
+        else
+        {
+            if(str_contains(strtolower($query),'insert into') && $parameter === 'selfquery')
+            {
+                $variable = new \stdClass();
+                $variable->return = false;
+                $variable->raw_query = str_replace(PHP_EOL, '', $query);;
+                $variable->message = "Not allowed via Custom Query";
+
+                return $variable;
+            }
+            $resultArray = array();
+            $output = array();
+            $duration = 0;
+            $variable = null;
+            $starttime = microtime(true);
+            try
+            {
+                if($result = mysqli_query($rawConnection, $query))
+                {
+                    $endtime = microtime(true);
+                    $duration = $endtime - $starttime; //calculates total time taken
+                    $array = array();
+                    if(is_bool($result))
+                    {
+                        if($result)
+                        {
+                            $variable = new \stdClass();
+                            $variable->result = true;
+                            $variable->query = str_replace(PHP_EOL, '', $query);
+                            $variable->duration = $duration;
+                        }
+                    }
+                    else
+                    {
+                        while($row = $result->fetch_object())
+                        {
+                            if(isset($row->Description))
+                            {
+                                $var = htmlspecialchars(stripslashes(str_replace('"', "'", $row->Description)));
+                                $row->Description = $var;
+                            }
+                            $array = $row;
+                            array_push($resultArray, $array);
+                        }
+                        for($i = 0; $i < sizeof($resultArray); ++$i)
+                        {
+                            array_push($output, $resultArray[$i]);
+                        }    
+                        $variable = new \stdClass();
+                        $variable->result = $output;
+                        $variable->query = str_replace(PHP_EOL, '', $query);
+                        $variable->query_time = $duration;
+                    }
+                }
+                else
+                {
+                    $variable = new \stdClass();
+                    $variable->result = false;
+                    $variable->query = str_replace(PHP_EOL, '', $query);;
+                    $variable->query_time = $duration;
+                }
+            }
+            catch(\Exception $error)
+            {
+                $variable = new \stdClass();
+                $variable->result = false;
+                $variable->message = $error->getMessage();
+                $variable->query = str_replace(PHP_EOL, '', $query);
+                $variable->timestamp = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+            }
+        }
+        return $variable;
+    }
+
+    /**
+     * Returns tables inside the database and converts mysqli object to a php array
+     * @return array
+     */
+    function converterArray(\mysqli $rawConnection, string $query)
+    {
+        $output = array();
+        if($result = mysqli_query($rawConnection, $query))
+        {
+            while($row = $result->fetch_object())
+            {
+                    
+                //converts it into a php array
+                $row = json_decode(json_encode($row), true);
+                //gets the first element of the associative array
+                $row = array_shift($row);
+                
+                array_push($output, $row);    
+            }
+        }
+        return $output;
+    }
+
+    /**
+     * Creates and adds a log into the table `Logs` and session `$_SESSION['log']`
+     */
+    function addLogs(string $head, string $body, string $_time, string $_type, string $saved, array $_config)
+    {
         if(!isset($_SESSION))
         {
             session_start();
         }
+        $body = str_replace('"', "", $body);
+        $body = str_replace("'", "", $body);
         $variable = new \stdClass();
         $variable->head = $head;
         $variable->body = $body;
@@ -508,13 +465,16 @@ class Connection
         array_push($_SESSION['log'], $variable);
         if($saved == true)
         {
-            $query = 'INSERT INTO Logs(Head, Body, T_ime , T_ype)VALUES("' . $head . '","' . $body . '","' . $_time . '","' . $_type . '")';
+            $query = 'INSERT INTO Logs(Head, Body, T_ime, T_ype)VALUES("' . $head . '","' . $body . '","' . $_time . '","' . $_type . '")';
             $this->preQuery($_config, $query, 'object');
         }
     }
 
-    //sets the settings in the session
-    function setSettings($_settings)
+    /**
+     * Converts `$_settings` into a \stdClass variable
+     * @return \stdClass
+     */
+    function setSettings(array $_settings)
     {
         $variable = new \stdClass();
         foreach($_settings as $x => $value)
@@ -529,27 +489,6 @@ class Connection
             }
         }
         return $variable;
-    }
-
-    //accessor methods
-    function getUsername()
-    {
-        return $this->username;
-    }
-
-    function getPassword()
-    {
-        return $this->password;
-    }
-
-    function getHost()
-    {
-        return $this->host;
-    }
-
-    function getDbname()
-    {
-       return $this->dbName;
     }
 }
 

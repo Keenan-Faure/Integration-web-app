@@ -6,7 +6,11 @@ Class vProducts
 {
     private \stdClass $product;
 
-    function createProduct($product, $util, $connection, $update = '')
+    /**
+     * Creates a new product using the current `product` post data
+     * @return \stdClass
+     */
+    function createProduct(array $product, \utils\Utility $util, \Connection\Connection $connection, string $update = '')
     {
         //checks if all the numeric values entered are numeric...
         $numeric = array("barcode", "weight", "comparePrice", "sellingPrice", "quantity"); //array of numeric values
@@ -116,7 +120,11 @@ Class vProducts
             return $this->product;
         }   
     }
-    function addProduct($product, $connection)
+    /** 
+     * Adds a new product to the database
+     * @return \stdClass
+     */
+    function addProduct(\stdClass $product, \Connection\Connection $connection)
     {
         $username = $_SESSION['connection']->credentials->username;
         $password = $_SESSION['connection']->credentials->password;
@@ -173,13 +181,12 @@ Class vProducts
             $product->option2Name . "','" .
             $product->option2Value . "','" .
             $product->meta1 . "','" .
-            $product->meta2 . "'," . 
+            $product->meta2 . "','" . 
             $product->meta3 . "','" .
             date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']) . "','"
             . $_SESSION['clientConn']->token . "');"
         ;
         $connection->converterObject($rawConnection, $query);
-
         $query_ = "INSERT INTO Woocommerce 
         (
             SKU,
@@ -194,7 +201,7 @@ Class vProducts
             '0',
             '0');"
         ;
-        $connection->converterObject($rawConnection, $query_);
+        $ou = $connection->converterObject($rawConnection, $query_);
 
         $queryS2S = "INSERT INTO Stock2Shop 
         (
@@ -215,7 +222,11 @@ Class vProducts
         return $result;
 
     }
-    function updateProduct($product, $util, $connection)
+    /**
+     * Updates an existing product in the database
+     * @return \stdClass
+     */
+    function updateProduct(\stdClass $product, \utils\Utility $util, \Connection\Connection $connection)
     {
         $date = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
         $user = $_SESSION['clientConn']->token;

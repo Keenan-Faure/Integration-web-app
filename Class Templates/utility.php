@@ -4,7 +4,10 @@ namespace utils;
 
 Class Utility
 {
-    function isNumeric($value, $field)
+    /**
+     * Checks if `value` is numeric
+     */
+    function isNumeric(string $value, string $field)
     {
         if(is_numeric($value))
         {
@@ -23,19 +26,12 @@ Class Utility
             return $variable;
         }
     }
-    function exist($variable)
-    {
-        if(isset($variable))
-        {
-            return $variable;
-        }
-        else
-        {
-            return false;
-        }
-    }
 
-    function existID($customer, $rawConnection, $connect)
+    /**
+     * Checks if the current `customer` ID exists in the database already
+     * @return bool
+     */
+    function existID(array $customer, \mysqli $rawConnection, \Connection\Connection $connect)
     {
         //checks ID
         $query = "SELECT COUNT(*) AS total FROM Client WHERE ID = '" . strtolower($customer['id']) . "'";
@@ -55,10 +51,12 @@ Class Utility
         }
     }
 
-    //variable product
-    function existSKU($product, $rawConnection, $connect)
+    /**
+     * Checks if the current `product` SKU exists in the database already
+     * @return bool
+     */
+    function existSKU(array $product, \mysqli $rawConnection, \Connection\Connection $connect)
     {
-        //checks SKU
         $query = "SELECT COUNT(*) AS total FROM Inventory WHERE SKU = '" . $product['sku'] . "'";
         $result = $connect->converterObject($rawConnection, $query);
 
@@ -76,13 +74,16 @@ Class Utility
         }
     }
 
-    function existVariantCode($product, $rawConnection, $connect)
+    /**
+     * Checks if the variant code of the current product already exists in the database
+     * @return bool
+     */
+    function existVariantCode(array $product, \mysqli $rawConnection, \Connection\Connection $connect)
     {
         $username = $_SESSION['connection']->credentials->username;
         $password = $_SESSION['connection']->credentials->password;
         $dbName = $_SESSION['connection']->credentials->dbname;
 
-        //checks variant code
         $rawConnection = $connect->createConnection($username, $password,"localhost", $dbName)->rawValue;
         
         $query = "SELECT COUNT(*) AS total FROM Inventory WHERE Variant_Code = '" . $product['variantCode'] . "'";
@@ -102,9 +103,12 @@ Class Utility
         }
     }
 
-    //going to be cringe
     //variable products only
-    function existOptions($product, $rawConnection, $connect)
+    /**
+     * Checks if there are any repeated option values in the current `product` group_code
+     * @return bool
+     */
+    function existOptions(array $product, \mysqli $rawConnection, \Connection\Connection $connect)
     {
         $username = $_SESSION['connection']->credentials->username;
         $password = $_SESSION['connection']->credentials->password;
@@ -151,8 +155,11 @@ Class Utility
         }
     }
 
-    //variable product
-    function existSKUe($product, $rawConnection, $connect)
+    /**
+     * Checks if the current `product` SKU already exists in the database (edit)
+     *  @return bool
+     */
+    function existSKUe(\stdClass $product, \mysqli $rawConnection, \Connection\Connection $connect)
     {
 
         //checks SKU
@@ -171,9 +178,13 @@ Class Utility
             return true;
         }
     }
-    function existIDe($customer, $rawConnection, $connect)
+
+    /**
+     * Checks if the current `customer` ID already exists in the database (edit)
+     *  @return bool
+     */
+    function existIDe(\stdClass $customer, \mysqli $rawConnection, \Connection\Connection $connect)
     {
-        //checks ID
         $query = "SELECT COUNT(*) AS total FROM Client WHERE ID = '" . strtolower($customer->id) . "'";
         $result = $connect->converterObject($rawConnection, $query);
         if($result->result[0]->total > 1)
@@ -189,7 +200,12 @@ Class Utility
             return true;
         }
     }
-    function existVariantCodee($product, $rawConnection, $connect)
+
+    /**
+     * Checks if the current `products` variant_code already exists in the database (edit)
+     *  @return bool
+     */
+    function existVariantCodee(\stdClass $product, \mysqli $rawConnection, \Connection\Connection $connect)
     {
         $username = $_SESSION['connection']->credentials->username;
         $password = $_SESSION['connection']->credentials->password;
@@ -215,9 +231,12 @@ Class Utility
         }
     }
 
-    //going to be cringe
     //variable products only
-    function existOptionse($product, $rawConnection, $connect)
+    /**
+     * Checks if there are any repeated option values in the current `product` group_code
+     * @return bool
+     */
+    function existOptionse(\stdClass $product, \mysqli $rawConnection, \Connection\Connection $connect)
     {
         $username = $_SESSION['connection']->credentials->username;
         $password = $_SESSION['connection']->credentials->password;
@@ -264,10 +283,13 @@ Class Utility
             return true;
         }
     }
+
+    /**
+     * Checks the option values/names of the current `product`
+     * @return \stdClass
+     */
     function optionCheck($product)
     {
-        //$productTemplate = array('title', 'description', 'category', 'productType', 'brand', 'sku', 'groupingCode', 'variantCode', 'barcode', 'weight', 'comparePrice', 'sellingPrice',
-        //'quantity', 'optionName', 'optionValue', 'option2Name', 'option2Value', 'meta1', 'meta2', 'meta3');
         if($product['groupingCode'] == null)
         {
             if($product['optionValue'] == null && $product['optionName'] != null)
@@ -349,8 +371,12 @@ Class Utility
             }
         }
     }
-    //stdClass
-    function checkRequired($product)
+    
+    /**
+     * Checks if the required fields are defined as headers on the import file
+     * @return \stdClass
+     */
+    function checkRequired(\stdClass $product)
     {
         $required = array('active', 'sku', 'groupingCode', 'variantCode');
         for($i = 0; $i < sizeof($required); ++$i)
@@ -369,8 +395,11 @@ Class Utility
         return $variable;
     }
     
-    //array
-    function checkRequiredH($product)
+    /**
+     * Checks if the required fields are defined as headers on the template
+     * @return \stdClass
+     */
+    function checkRequiredH(array $product)
     {
         $required = array('active', 'sku', 'groupingCode', 'variantCode');
         for($i = 0; $i < sizeof($required); ++$i)
@@ -389,22 +418,22 @@ Class Utility
         return $variable;
     }
 
-    //writes data to a file
-    //parameters are:
-    //$filename - name of the file to write to
-    //$ $writeMethod 
-    function writeToFile($filename, $writeMethod, $data)
+    /**
+     * Writes data to a file
+     * @return void
+     */
+    function writeToFile(string $filename, string $writeMethod, string $data)
     {
         $myfile = fopen("../bin/output/" . $filename, $writeMethod) or die("Unable to open file!");
         fwrite($myfile, $data);
         fclose($myfile);
     }
 
-    //function to unserialize order object
-    //parameter is a countable array
-    //second parameter decides when the order is a full wooOrder
-        //if it is then it uses different serialValues
-    function unserializeOrder($orderArray, $wooOrder = false)
+    /**
+     * Unserialize order object
+     * @return array
+     */
+    function unserializeOrder(array $orderArray, bool $wooOrder = false)
     {
         if($wooOrder == true)
         {
@@ -437,6 +466,284 @@ Class Utility
             }
         }
         return $orderArray;
+    }
+    /**
+     * Removes duplicates from search results
+     * @return \stdClass
+     */
+    function removeDuplicates(\stdClass $variable, string $type)
+    {
+        $result = [];
+        $array_values = [];
+        if($type == 'prod')
+        {
+            for($i = 0; $i < sizeof($variable->body); ++$i)
+            {
+                if(!in_array($variable->body[$i]->SKU, $array_values))
+                {
+                    array_push($result, $variable->body[$i]);
+                    array_push($array_values, $variable->body_1[$i]->SKU);
+                }
+                else
+                {
+                    array_push($array_values, $variable->body[$i]->SKU);
+                }
+            }
+
+            for($i = 0; $i < sizeof($variable->body_1); ++$i)
+            {
+                if(!in_array($variable->body_1[$i]->SKU, $array_values))
+                {
+                    array_push($result, $variable->body_1[$i]);
+                    array_push($array_values, $variable->body_1[$i]->SKU);
+                }
+                else
+                {
+                    array_push($array_values, $variable->body_1[$i]->SKU);
+                }
+            }
+
+            for($i = 0; $i < sizeof($variable->body_2); ++$i)
+            {
+                if(!in_array($variable->body_2[$i]->SKU, $array_values))
+                {
+                    array_push($result, $variable->body_2[$i]);
+                    array_push($array_values, $variable->body_2[$i]->SKU);
+                }
+                else
+                {
+                    array_push($array_values, $variable->body_2[$i]->SKU);
+                }
+            }
+        }
+        else if($type == 'cust')
+        {
+            for($i = 0; $i < sizeof($variable->body); ++$i)
+            {
+                if(!in_array($variable->body[$i]->ID, $array_values))
+                {
+                    array_push($result, $variable->body[$i]);
+                    array_push($array_values, $variable->body[$i]->ID);
+                }
+                else
+                {
+                    array_push($array_values, $variable->body[$i]->ID);
+                }
+            }
+
+            //
+            for($i = 0; $i < sizeof($variable->body_1); ++$i)
+            {
+                if(!in_array($variable->body_1[$i]->ID, $array_values))
+                {
+                    array_push($result, $variable->body_1[$i]);
+                    array_push($array_values, $variable->body_1[$i]->ID);
+                }
+                else
+                {
+                    array_push($array_values, $variable->body_1[$i]->ID);
+                }
+            }
+            //
+
+            for($i = 0; $i < sizeof($variable->body_2); ++$i)
+            {
+                if(!in_array($variable->body_2[$i]->ID, $array_values))
+                {
+                    array_push($result, $variable->body_2[$i]);
+                    array_push($array_values, $variable->body_1[$i]->ID);
+                }
+                else
+                {
+                    array_push($array_values, $variable->body_2[$i]->ID);
+                }
+            }
+        }
+        else if($type == 'order')
+        {
+            for($i = 0; $i < sizeof($variable->body); ++$i)
+            {
+                if(!in_array($variable->body[$i]->ID, $array_values))
+                {
+                    array_push($result, $variable->body[$i]);
+                    array_push($array_values, $variable->body[$i]->ID);
+                }
+                else
+                {
+                    array_push($array_values, $variable->body[$i]->ID);
+                }
+            }
+
+            //
+            for($i = 0; $i < sizeof($variable->body_1); ++$i)
+            {
+                if(!in_array($variable->body_1[$i]->ID, $array_values))
+                {
+                    array_push($result, $variable->body_1[$i]);
+                    array_push($array_values, $variable->body_1[$i]->ID);
+                }
+                else
+                {
+                    array_push($array_values, $variable->body_1[$i]->ID);
+                }
+            }
+            //
+
+            for($i = 0; $i < sizeof($variable->body_2); ++$i)
+            {
+                if(!in_array($variable->body_2[$i]->ID, $array_values))
+                {
+                    array_push($result, $variable->body_2[$i]);
+                    array_push($array_values, $variable->body[$i]->ID);
+                }
+                else
+                {
+                    array_push($array_values, $variable->body_2[$i]->ID);
+                }
+            }
+        }
+        $result_object = new \stdClass();
+        $result_object->result = $result;
+        return $result_object;
+    }
+    
+    /**
+     * Compares two conditions
+     * @return bool
+     */
+    function compareCondition(\stdClass $condition1, \stdClass $condition2)
+    {
+        if($condition1->dataValue == $condition2->DataValue)
+        {
+            if($condition1->statement == $condition2->Statement)
+            {
+                if($condition1->value == $condition2->Value)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    /**
+     * Converts the query output for js functions to use
+     * @return \stdClass
+     */
+    function convert_query_output($output, $message)
+    {
+        if($output->result == true)
+        {
+            $variable = new \stdClass();
+            $variable->return = $output->result;
+            $variable->body = $message;
+        }
+        else
+        {
+            $variable = new \stdClass();
+            $variable->return = $output->result;
+            $variable->body = $output->message;
+        }
+        return $variable;
+    }
+    /**
+     * Finds duplicate values inside the `conditionArray` parameter
+     */
+    function findDuplicates($conditionArray)
+    {
+        $repeated = array();
+        $output = array();
+        for($i = 0; $i < sizeof($conditionArray); ++$i)
+        {
+            $repeated[$i] = $conditionArray[$i]['DataValue'];
+        }
+        $repeated = array_count_values($repeated);
+        foreach($repeated as $key => $value)
+        {
+            $i = 0;
+            if($value > 1)
+            {
+                $output[$i] = $key;
+                ++$i;
+            }
+        }
+        return $output;
+    }
+    /**
+     * Creates the query considering the conditions defined inside the Conditions table and returns query
+     */
+    function createQuery($conditions, $query)
+    {
+        $statement = ['equal', 'greater than', 'less than'];
+        $sign = ['=', '>', '<'];
+        $duplicates = $this->findDuplicates(json_decode(json_encode($conditions->result), true));
+        $duplicateValues = array();
+        $condition = $conditions->result;
+        $additional = '';
+        $Clause = '';
+        if(sizeof($condition) == 0)
+        {
+            return $query;
+        }
+        else
+        {
+            $conditionIndex = 0;
+            for($i = 0; $i < sizeof($condition); ++$i)
+            {
+                if(in_array($condition[$i]->DataValue, $duplicates))
+                {
+                    $duplicateValues[$conditionIndex] = $condition[$i]->Value;
+                    $conditionIndex = $conditionIndex + 1;
+                    continue;
+                }
+                if(($i - $conditionIndex) > 0)
+                {
+                    $Clause = $Clause . ' && ';
+                }
+                $i = array_search($condition[$i]->Statement, $statement);
+                $Clause = " && " . $condition[$i]->DataValue . " " .  $sign[$i] . " " ."'" . $condition[$i]->Value . "'"; 
+            }
+            //When the above is done
+            //Then it adds the query: duplicate in ('duplicatevalue[0]', 'duplicatevalue[1]');
+            for($j = 0; $j < sizeof($duplicates); ++$j)
+            {
+                if($j > 0)
+                {
+                    $additional = $additional . ' && ';
+                }
+                if($Clause == "")
+                {
+                    $additional = $duplicates[$j] . " IN ";
+                }
+                else
+                {
+                    $additional = " && " . $duplicates[$j] . " IN ";
+                }
+                $values = '';
+                for($z = 0; $z < sizeof($duplicateValues); ++$z)
+                {
+                    if($z > 0)
+                    {
+                        $values = ',' . $values;
+                    }
+                    $values = "'" . $duplicateValues[$z] . "'" . $values;
+                }
+                $additional = $additional . '(' . $values . ')';
+            }
+        }
+        $query = $query . $Clause . $additional;
+        return $query;
     }
 }
 

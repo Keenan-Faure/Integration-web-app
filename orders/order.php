@@ -25,11 +25,11 @@
     $fullUrl = $_SERVER["REQUEST_URI"];
     $fullUrl = $host . $fullUrl;
     $params = ($conn->queryParams($fullUrl));
-    $id = trim($params['q']);
+    $uid = trim($params['uid']);
     $token = trim($params['token']);
 
     //check if token and id exists on any user in database
-    $query2 = 'SELECT * FROM Userz WHERE UserID = "' . $id . '" AND Token = "' . $token . '"';
+    $query2 = 'SELECT * FROM Userz WHERE UserID = "' . $uid . '" AND Token = "' . $token . '"';
     $output2 = $conn->preQuery($_settings, $query2, '');
     $result = json_encode($output2->result);
     if($output2->result == null)
@@ -37,7 +37,7 @@
         exit();
     }
     //verify data sent using headers
-    $webHookRegistered = $order->verifyWebhook($requestBody, $headers, $_woo_settings);
+    $webHookRegistered = $order->verifyWebhook(json_decode($requestBody), $headers, $_woo_settings);
 
     if($webHookRegistered == true)
     {

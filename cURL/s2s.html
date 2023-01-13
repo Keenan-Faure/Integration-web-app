@@ -1,128 +1,10 @@
 <html>
-    <style>
-        body
-        {
-            margin: 0;
-            background-color: black;
-        }
-        .container
-        {
-            width:215px;
-            top: 30%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            height: 250px;
-            position: relative;
-            background-image: url(../Images/load.gif);
-        }
-        .txt-cls
-        {
-            color: white;
-            text-align: center;
-            width: 200px;
-            left: 50%;
-            position: relative;
-            top: 15%;
-            padding: 20px;
-            transform: translate(-50%, -50%);
-        }
-        .table
-        {
-            position: relative;
-            top: 20%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(255, 255, 255, 0.1);
-            width: 40%;
-        }
-        .table-header
-        {
-            overflow: hidden;
-            color: white;
-            border-style: inset;
-            border-width: 1px;
-            padding: 10px;
-            text-align: center;
-        }
-        .head
-        {
-            text-align: center;
-            width: 100%;
-            padding: 12px 0px 12px 0px;
-            position: absolute;
-            display: inline-block;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-            background-color: rgba(255, 255, 255, 0.8);
-        }
-        .type-msg
-        {
-            width: 40px;
-            left: 0;
-            text-align: center;
-            position: relative;
-            display: inline-block;
-        }
-        .type-msg-image
-        {
-            width: 15px;
-            height: 15px;
-            text-align: center;
-            position: relative;
-            display: inline-block;
-            background-color: lightgrey;
-        }
-        .row-item
-        {
-            width: 100%;
-            background-color: rgba(255,255,255, 0.7);
-            height: 0px;
-            display: block;
-            transition-duration: 0.2s;
-            opacity: 0;
-        }
-        @keyframes fade-in
-        {
-            from
-            {
-                opacity: 0;
-            }
-            to
-            {
-                opacity: 1;
-            }
-        }
-        .fadeIn
-        {
-            animation: fade-in 0.5s ease-in forwards;
-        }
-        @keyframes fade-out
-        {
-            from
-            {
-                opacity: 1;
-            }
-            to
-            {
-                opacity: 0;
-            }
-        }
-        .fadeOut
-        {
-            animation: fade-out 0.5s ease-in forwards;
-        }
-        #text-1
-        {
-            position: relative;
-            text-align: center;
-            margin: 0;
-            display: inline-block;
-        }
-    </style>
+    <head>
+        <link rel="icon" type="image/x-icon" href="../Images/logo.png"/>
+        <link rel='stylesheet' href='../Styles/push.css'>
+    </head>
     <body>
         <div class='container'></div>
-        <div id='text' class='txt-cls'>Pushing products... please wait</div>
         <div id='textAmount' class='txt-cls'>Fetching Products to push from database</div>
         <div class='table'>
             <div class="table-header">Process chain</div>
@@ -132,13 +14,20 @@
                         <img id='img' src="../images/image.png"> 
                     </div>
                     <div id="text-1">
-
                     </div>
                 </div>
             </div>
         </div>
+        <button class='refresh' onclick="Init_function_push_status_s2s()">Refresh</button>
+        <div class='table-fetch'>
+            <div class="table-header-fetch">Fetch Results</div>
+            <div class="row-item-fetch">
+            </div>
+        </div>
     </body>
-    <script src="../Scripts/pushS2S.js">
-    </script>
+    <script src="../Scripts/fetch.js"></script>
+    <script src="../Scripts/fetchUtils.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>Init_function_sku_s2s()</script>
     </body>
 </html>
