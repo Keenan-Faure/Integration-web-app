@@ -170,10 +170,13 @@ const req = async function(token = '', param, final, urlConfig, conn='', reqPara
         referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     });
     const json = await resp.json();
-    console.log(json);
     if(typeof json.message != 'undefined')
     {
-        changeAmount(json.message);//sets the total amount of products to process
+        if(typeof json.data != 'undefined')
+        {
+            createTabProducts(json);
+        }
+        changeAmount(json.message);
     }
     else if(conn != '')
     {
@@ -228,7 +231,6 @@ const req = async function(token = '', param, final, urlConfig, conn='', reqPara
  */
 const reqEndpoint = async function(json, final, urlConfig, reqParam, reqParamK, reqParam_2, reqParamK_2, conn)
 {
-    console.log("here");
     if(conn == '' || typeof conn == 'undefined')
     {
         let url = createURL('', urlConfig);
@@ -279,32 +281,19 @@ const reqEndpoint = async function(json, final, urlConfig, reqParam, reqParamK, 
                     }
                 })
             }
-            else if(final == 'u-dom-woo')
-            {
-                console.log(jsonResults);
-                changeAmount('Push Complete');
-                appendText(jsonResults.message, jsonResults.return);
-                setTimeout(()=>
-                {
-                    if(jsonResults.message == "Push Complete")
-                    {
-                        changeComplete();
-                    }
-                })
-            }
         }
     }
     else if(conn != '')
     {
+        if(typeof json.body != 'undefined')
+        {
+            createTabProducts_woo(json);
+        }
         //uses the json in req to make a loop
         for(let i = 0; i < json.body.length; ++i)
         {
             let url = createURL('', urlConfig);
-            if(conn == 'Stock2Shop')
-            {
-                url = appendParams(url, json.body[i].SKU, 'sku', json.body.length, 'limit');
-            }
-            else if(conn == 'Woocommerce')
+            if(conn == 'Woocommerce')
             {
                 url = appendParams(url, json.body[i].SKU, 'sku', reqParam_2, reqParamK_2);
             }

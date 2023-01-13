@@ -644,6 +644,53 @@ function removeUserDOM(element)
 }
 
 /**
+ * Creates tabular format of fetched products to be pushed on the DOM
+ */
+function createTabProducts(json)
+{
+    let rif = document.querySelector('.row-item-fetch');
+    for(let i = 0; i < json.data.length; ++i)
+    {
+        let head_fetch = document.createElement('div');
+        head_fetch.className = 'head-fetch';
+
+        let text_1 = document.createElement('div');
+        text_1.className = 'text-1-fetch';
+
+        let textNode = document.createTextNode(json.data[i].SKU);
+        text_1.appendChild(textNode);
+
+        head_fetch.appendChild(text_1);
+        head_fetch.classList.add('fadeIn');
+        rif.appendChild(head_fetch);
+    }
+}
+
+/**
+ * Creates tabular format of fetched products to be pushed on the DOM
+ */
+function createTabProducts_woo(json)
+{
+    let rif = document.querySelector('.row-item-fetch');
+    for(let i = 0; i < json.body.length; ++i)
+    {
+        let head_fetch = document.createElement('div');
+        head_fetch.className = 'head-fetch';
+
+        let text_1 = document.createElement('div');
+        text_1.className = 'text-1-fetch';
+
+        let textNode = document.createTextNode(json.body[i].SKU);
+        text_1.appendChild(textNode);
+
+        head_fetch.appendChild(text_1);
+        head_fetch.classList.add('fadeIn');
+        rif.appendChild(head_fetch);
+    }
+}
+
+
+/**
  * Description: Below is the list of setTimeout method which 
  * has a delayed run-time. Will only work on certain pages
  * that has the specified className

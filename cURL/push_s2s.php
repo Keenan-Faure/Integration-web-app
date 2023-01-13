@@ -35,7 +35,7 @@ else
 }
 
 /**
- * Queries the data to return all the products that are elligible to push to Stock2Shop
+ * Queries the data to return all the products that are eligible to push to Stock2Shop
  */
 function get_prod_s2s($connection, $util)
 {
@@ -60,6 +60,10 @@ function push_s2s($products, $connection, $curl, $_config)
 {
     $_SESSION['s2s_push_status']->return = true;
     $_SESSION['s2s_push_status']->message = 'Push was Initialized';
+    if(sizeof($products) > 0)
+    {
+        $_SESSION['s2s_push_status']->data = $products;
+    }
     echo(json_encode($_SESSION['s2s_push_status']));
 
     if($_SESSION['settings']->S2S_settings->s2s_add_products != 'true')
@@ -88,9 +92,9 @@ function push_s2s($products, $connection, $curl, $_config)
 
     for($i = 0; $i < $limit; ++$i)
     {
-        $_SESSION['s2s_push_status']->message = "Pushing Product " . ($i+1) . "/" . $limit;
-
         $sku = $products[$i]->SKU;
+
+        $_SESSION['s2s_push_status']->message = "Pushing '" . $sku . "' - " .($i+1) . "/" . $limit;
 
         if($sku == '')
         {
