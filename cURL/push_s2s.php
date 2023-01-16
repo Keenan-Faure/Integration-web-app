@@ -89,7 +89,7 @@ function push_s2s($products, $connection, $curl, $_config)
         $_SESSION['s2s_push_status']->message = 'Push Complete';
         exit();
     }
-
+    
     for($i = 0; $i < $limit; ++$i)
     {
         $sku = $products[$i]->SKU;
@@ -118,13 +118,13 @@ function push_s2s($products, $connection, $curl, $_config)
             $output->result = array();
 
             //loops through the entire array of products and adds them together
-            for($i = 0; $i < sizeof($_SESSION['pushVariable']); ++$i)
+            for($j = 0; $j < sizeof($_SESSION['pushVariable']); ++$j)
             {
-                $product = $connection->converterObject($rawConnection, 'SELECT * FROM Inventory WHERE SKU="' . $_SESSION['pushVariable'][$i] . '"')->result;
+                $product = $connection->converterObject($rawConnection, 'SELECT * FROM Inventory WHERE SKU="' . $_SESSION['pushVariable'][$j] . '"')->result;
                 $product[0]->Description = html_entity_decode($product[0]->Description);
                 array_push($output->result, $product[0]);
             }
-            unset($_SESSION['pushVariable']);
+            $_SESSION['pushVariable'] = array();
 
             //gets the source information, we'll only use the flatfile
             if(!isset($_SESSION['clientConn']->token))
@@ -140,30 +140,27 @@ function push_s2s($products, $connection, $curl, $_config)
                 $pushed = new \stdClass();
                 $pushed->system_products = array();
 
-                for($i = 0; $i < sizeof($output->result); ++$i)
+                for($z = 0; $z < sizeof($output->result); ++$z)
                 {
                     //converts the description to HTML decodes, strips slashes
-                    $output->result[$i]->Description = htmlspecialchars_decode(stripslashes($output->result[$i]->Description));
+                    $output->result[$z]->Description = htmlspecialchars_decode(stripslashes($output->result[$z]->Description));
                     
-                    $data = $curl->addProduct($output->result[$i], $sources->system_sources[0], $_SESSION['settings']);
+                    $data = $curl->addProduct($output->result[$z], $sources->system_sources[0], $_SESSION['settings']);
                     if($data != null)
                     {
                         //update table Stock2Shop
-                        $curl->insertStock2Shop($connection, $output->result[$i]->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']));
+                        $curl->insertStock2Shop($connection, $output->result[$z]->SKU, date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']));
                         array_push($pushed->system_products, $data);
                     }
                     else
                     {
                         if(isset($_SESSION['log']))
                         {
-                            $connection->addLogs('Push Product', "Product with SKU " . $output->result[$i]->SKU . " was not processed because of NULL Data", date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
+                            $connection->addLogs('Push Product', "Product with SKU " . $output->result[$z]->SKU . " was not processed because of NULL Data", date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']), 'warn', true, $_config);
                         }
                     }
                 }
                 $curl->push($pushed, $sources->system_sources[0], $token, $username, $password);
-                $_SESSION['s2s_push_status']->return = true;
-                $_SESSION['s2s_push_status']->message = 'Push Complete';
-                exit();
             }
             else
             {
@@ -171,5 +168,8 @@ function push_s2s($products, $connection, $curl, $_config)
             }
         }
     }
+    $_SESSION['s2s_push_status']->return = true;
+    $_SESSION['s2s_push_status']->message = 'Push Complete';
+    exit();
 }
 ?>
