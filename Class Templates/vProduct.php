@@ -4,8 +4,6 @@ namespace vProducts;
 
 Class vProducts
 {
-    private \stdClass $product;
-
     /**
      * Creates a new product using the current `product` post data
      * @return \stdClass
@@ -51,7 +49,7 @@ Class vProducts
                 return $util->optionCheck($product);
             }
             //creates as a standard class
-            $this->product = new \stdClass();
+            $product = new \stdClass();
             for($i = 0; $i < sizeof($productTemplate); ++$i)
             {
                 //for debugging only 
@@ -64,15 +62,15 @@ Class vProducts
                 {
                     //converts to a string
                     $variable = $productTemplate[$i];
-                    $this->product->$variable = addslashes($product[$productTemplate[$i]]);
+                    $product->$variable = addslashes($product[$productTemplate[$i]]);
                 }
                 else
                 {
                     $variable = $productTemplate[$i];
-                    $this->product->$variable = null;
+                    $product->$variable = null;
                 }
             }
-            return $this->product;
+            return $product;
         }
         else
         {
@@ -98,7 +96,7 @@ Class vProducts
             'quantity', 'optionName', 'optionValue', 'option2Name', 'option2Value', 'meta1', 'meta2', 'meta3');
 
             //creates as a standard class
-            $this->product = new \stdClass();
+            $product = new \stdClass();
             for($i = 0; $i < sizeof($productTemplate); ++$i)
             {
                 //for debugging only 
@@ -109,15 +107,15 @@ Class vProducts
                 {
                     //converts to a string
                     $variable = $productTemplate[$i];
-                    $this->product->$variable = addslashes($product[$productTemplate[$i]]);
+                    $product->$variable = addslashes($product[$productTemplate[$i]]);
                 }
                 else
                 {
                     $variable = $productTemplate[$i];
-                    $this->product->$variable = null;
+                    $product->$variable = null;
                 }
             }
-            return $this->product;
+            return $product;
         }   
     }
     /** 

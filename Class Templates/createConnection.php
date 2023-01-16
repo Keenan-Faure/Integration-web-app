@@ -2,8 +2,6 @@
 namespace Connection;
 class Connection
 {
-    private \stdClass $connection;
-
     /**
      * Creates a connection to `db` using the `username` and `password`
      * @return \stdClass
@@ -26,27 +24,27 @@ class Connection
 
         //connection successful
         //creates a stdClass representation of the connection details
-        $this->connection = new \stdClass();
-        $this->connection->active = true;
-        $this->connection->credentials = new \stdClass();
+        $connection = new \stdClass();
+        $connection->active = true;
+        $connection->credentials = new \stdClass();
 
-        $this->connection->credentials->username = $username;
-        $this->connection->credentials->password = $password;
-        $this->connection->credentials->host = $host; 
-        $this->connection->credentials->dbname = $db;
-        $this->connection->rawValue = $conn;
-        $this->connection->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+        $connection->credentials->username = $username;
+        $connection->credentials->password = $password;
+        $connection->credentials->host = $host; 
+        $connection->credentials->dbname = $db;
+        $connection->rawValue = $conn;
+        $connection->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
 
         if(!isset($_SESSION['connection']))
         {
-            $_SESSION['connection'] = $this->connection;
+            $_SESSION['connection'] = $connection;
         }
 
         $serverConnection = new \stdClass();
         $serverConnection->connection = true;
         $serverConnection->message = 'Connected to MySql server on ' . $host . ' successful';
 
-        return $this->connection;
+        return $connection;
     }
 
     /**
@@ -77,19 +75,19 @@ class Connection
                     $message = 'Successfully connected to server with Username "' . $client_user . '"';
                     //creates session variable containing connection details
                     //creates a stdClass representation of the connection details
-                    $this->connection = new \stdClass();
-                    $this->connection->active = true;
-                    $this->connection->credentials = new \stdClass();
+                    $connection = new \stdClass();
+                    $connection->active = true;
+                    $connection->credentials = new \stdClass();
 
-                    $this->connection->credentials->username = $client_user;
-                    $this->connection->credentials->password = '_';
-                    $this->connection->credentials->host = $_config['host']; //harcoded to localhost
-                    $this->connection->credentials->dbname = $_config['dbName'];
-                    $this->connection->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
-                    $this->connection->token = $results->result[0]->Token;
+                    $connection->credentials->username = $client_user;
+                    $connection->credentials->password = '_';
+                    $connection->credentials->host = $_config['host']; //harcoded to localhost
+                    $connection->credentials->dbname = $_config['dbName'];
+                    $connection->time = date('m/d/Y H:i:s', $_SERVER['REQUEST_TIME']);
+                    $connection->token = $results->result[0]->Token;
 
                     //stores it inside a session
-                    $_SESSION['clientConn'] = $this->connection;
+                    $_SESSION['clientConn'] = $connection;
 
                     //stores connection credentials in session variable
                     $this->createConnection($_config['dbUser'], $_config['dbPass'], $_config['host'], $_config['dbName']);

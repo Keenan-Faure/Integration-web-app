@@ -6,8 +6,6 @@ use utils\Utility;
 
 Class Customers
 {
-    private \stdClass $customer;
-
     /**
      * Creates/updates a customer dependent on the value of `update`
      * @return \stdClass
@@ -33,21 +31,21 @@ Class Customers
             $customerTemplate = array('active', 'id','name', 'surname', 'email', 'address1', 'address2', 'address3', 'address4');
 
             $customer['id'] = strtolower($customer['name']) . '-' . strtolower($customer['surname']);
-            $this->customer = new \stdClass();
+            $customer = new \stdClass();
             for($i = 0; $i < sizeof($customerTemplate); ++$i)
             {
                 if(isset($customer[$customerTemplate[$i]]) && $customer[$customerTemplate[$i]] != 'null')
                 {
                     $variable = $customerTemplate[$i];
-                    $this->customer->$variable = $customer[$customerTemplate[$i]];
+                    $customer->$variable = $customer[$customerTemplate[$i]];
                 }
                 else
                 {
                     $variable = $customerTemplate[$i];
-                    $this->customer->$variable = null;
+                    $customer->$variable = null;
                 }
             }
-            return $this->customer;
+            return $customer;
         }
         else
         {
@@ -59,16 +57,16 @@ Class Customers
             }
 
             $customerTemplate = array('id','name', 'surname', 'email', 'address1', 'address2', 'address3', 'address4');
-            $this->customer = new \stdClass();
+            $customer = new \stdClass();
             for($i = 0; $i < sizeof($customerTemplate); ++$i)
             {
                 if(isset($customer[$customerTemplate[$i]]))
                 {
                     $variable = $customerTemplate[$i];
-                    $this->customer->$variable = $customer[$customerTemplate[$i]];
+                    $customer->$variable = $customer[$customerTemplate[$i]];
                 }
             }
-            return $this->customer;
+            return $customer;
         }
     }
     /**

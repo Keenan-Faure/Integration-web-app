@@ -4,13 +4,7 @@ namespace sProducts;
 
 Class sProducts
 {
-
-    private \stdClass $product;
-
-    /**
-     * Creates a product
-     * @return \stdClass
-     */
+    
     function createProduct(array $product, \utils\Utility $util, \Connection\Connection $connection, string $update = '')
     {
         //Checks if all the numeric values entered are numeric
@@ -43,21 +37,21 @@ Class sProducts
             $productTemplate = array('active', 'title', 'description', 'category', 'productType', 'brand', 'sku', 'groupingCode', 'variantCode', 'barcode', 'weight', 'comparePrice', 'sellingPrice',
             'quantity', 'meta1', 'meta2', 'meta3');
 
-            $this->product = new \stdClass();
+            $product = new \stdClass();
             for($i = 0; $i < sizeof($productTemplate); ++$i)
             {
                 if(isset($product[$productTemplate[$i]]) && $product[$productTemplate[$i]] != 'null')
                 {
                     $variable = $productTemplate[$i];
-                    $this->product->$variable = addslashes($product[$productTemplate[$i]]);
+                    $product->$variable = addslashes($product[$productTemplate[$i]]);
                 }
                 else
                 {
                     $variable = $productTemplate[$i];
-                    $this->product->$variable = null;
+                    $product->$variable = null;
                 }
             }
-            return $this->product;
+            return $product;
         }   
         else
         {
@@ -78,22 +72,22 @@ Class sProducts
             'quantity', 'meta1', 'meta2', 'meta3');
 
             //creates as a standard class
-            $this->product = new \stdClass();
+            $product = new \stdClass();
             for($i = 0; $i < sizeof($productTemplate); ++$i)
             {          
                 if(isset($product[$productTemplate[$i]]))
                 {
                     //converts to a string
                     $variable = $productTemplate[$i];
-                    $this->product->$variable = addslashes($product[$productTemplate[$i]]);
+                    $product->$variable = addslashes($product[$productTemplate[$i]]);
                 }
                 else
                 {
                     $variable = $productTemplate[$i];
-                    $this->product->$variable = null;
+                    $product->$variable = null;
                 }
             }
-            return $this->product;
+            return $product;
             }
     }
     /**
