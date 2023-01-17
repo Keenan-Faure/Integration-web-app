@@ -15,5 +15,6 @@ ioWorker.php
 sql_workbench
 vendor
 composer*
-Tests
+test
+src
 

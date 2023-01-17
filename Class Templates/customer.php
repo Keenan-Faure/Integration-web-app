@@ -31,21 +31,21 @@ Class Customers
             $customerTemplate = array('active', 'id','name', 'surname', 'email', 'address1', 'address2', 'address3', 'address4');
 
             $customer['id'] = strtolower($customer['name']) . '-' . strtolower($customer['surname']);
-            $customer = new \stdClass();
+            $customer_new = new \stdClass();
             for($i = 0; $i < sizeof($customerTemplate); ++$i)
             {
                 if(isset($customer[$customerTemplate[$i]]) && $customer[$customerTemplate[$i]] != 'null')
                 {
                     $variable = $customerTemplate[$i];
-                    $customer->$variable = $customer[$customerTemplate[$i]];
+                    $customer_new->$variable = $customer[$customerTemplate[$i]];
                 }
                 else
                 {
                     $variable = $customerTemplate[$i];
-                    $customer->$variable = null;
+                    $customer_new->$variable = null;
                 }
             }
-            return $customer;
+            return $customer_new;
         }
         else
         {
@@ -57,16 +57,16 @@ Class Customers
             }
 
             $customerTemplate = array('id','name', 'surname', 'email', 'address1', 'address2', 'address3', 'address4');
-            $customer = new \stdClass();
+            $customer_new = new \stdClass();
             for($i = 0; $i < sizeof($customerTemplate); ++$i)
             {
                 if(isset($customer[$customerTemplate[$i]]))
                 {
                     $variable = $customerTemplate[$i];
-                    $customer->$variable = $customer[$customerTemplate[$i]];
+                    $customer_new->$variable = $customer[$customerTemplate[$i]];
                 }
             }
-            return $customer;
+            return $customer_new;
         }
     }
     /**

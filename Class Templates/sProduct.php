@@ -4,7 +4,6 @@ namespace sProducts;
 
 Class sProducts
 {
-    
     function createProduct(array $product, \utils\Utility $util, \Connection\Connection $connection, string $update = '')
     {
         //Checks if all the numeric values entered are numeric
@@ -37,21 +36,21 @@ Class sProducts
             $productTemplate = array('active', 'title', 'description', 'category', 'productType', 'brand', 'sku', 'groupingCode', 'variantCode', 'barcode', 'weight', 'comparePrice', 'sellingPrice',
             'quantity', 'meta1', 'meta2', 'meta3');
 
-            $product = new \stdClass();
+            $product_new = new \stdClass();
             for($i = 0; $i < sizeof($productTemplate); ++$i)
             {
                 if(isset($product[$productTemplate[$i]]) && $product[$productTemplate[$i]] != 'null')
                 {
                     $variable = $productTemplate[$i];
-                    $product->$variable = addslashes($product[$productTemplate[$i]]);
+                    $product_new->$variable = addslashes($product[$productTemplate[$i]]);
                 }
                 else
                 {
                     $variable = $productTemplate[$i];
-                    $product->$variable = null;
+                    $product_new->$variable = null;
                 }
             }
-            return $product;
+            return $product_new;
         }   
         else
         {
@@ -72,23 +71,23 @@ Class sProducts
             'quantity', 'meta1', 'meta2', 'meta3');
 
             //creates as a standard class
-            $product = new \stdClass();
+            $product_new = new \stdClass();
             for($i = 0; $i < sizeof($productTemplate); ++$i)
             {          
                 if(isset($product[$productTemplate[$i]]))
                 {
                     //converts to a string
                     $variable = $productTemplate[$i];
-                    $product->$variable = addslashes($product[$productTemplate[$i]]);
+                    $product_new->$variable = addslashes($product[$productTemplate[$i]]);
                 }
                 else
                 {
                     $variable = $productTemplate[$i];
-                    $product->$variable = null;
+                    $product_new->$variable = null;
                 }
             }
-            return $product;
-            }
+            return $product_new;
+        }
     }
     /**
      * Adds a product in the database

@@ -49,28 +49,24 @@ Class vProducts
                 return $util->optionCheck($product);
             }
             //creates as a standard class
-            $product = new \stdClass();
+            $product_new = new \stdClass();
             for($i = 0; $i < sizeof($productTemplate); ++$i)
-            {
-                //for debugging only 
-                //print_r($product[$productTemplate[$i]]);
-                //echo("<br>");
-                
+            {   
                 //check if the productOption has been created without a value
                 
                 if(isset($product[$productTemplate[$i]]) && $product[$productTemplate[$i]] != 'null')
                 {
                     //converts to a string
                     $variable = $productTemplate[$i];
-                    $product->$variable = addslashes($product[$productTemplate[$i]]);
+                    $product_new->$variable = addslashes($product[$productTemplate[$i]]);
                 }
                 else
                 {
                     $variable = $productTemplate[$i];
-                    $product->$variable = null;
+                    $product_new->$variable = null;
                 }
             }
-            return $product;
+            return $product_new;
         }
         else
         {
@@ -96,7 +92,7 @@ Class vProducts
             'quantity', 'optionName', 'optionValue', 'option2Name', 'option2Value', 'meta1', 'meta2', 'meta3');
 
             //creates as a standard class
-            $product = new \stdClass();
+            $product_new = new \stdClass();
             for($i = 0; $i < sizeof($productTemplate); ++$i)
             {
                 //for debugging only 
@@ -107,15 +103,15 @@ Class vProducts
                 {
                     //converts to a string
                     $variable = $productTemplate[$i];
-                    $product->$variable = addslashes($product[$productTemplate[$i]]);
+                    $product_new->$variable = addslashes($product[$productTemplate[$i]]);
                 }
                 else
                 {
                     $variable = $productTemplate[$i];
-                    $product->$variable = null;
+                    $product_new->$variable = null;
                 }
             }
-            return $product;
+            return $product_new;
         }   
     }
     /** 
