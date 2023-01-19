@@ -40,7 +40,7 @@ if(isset($_SESSION['clientConn']) && isset($_SESSION['connection']))
             }
             else if(!isset($_POST['name']) && !isset($_POST['surname']))
             {
-                if($_SESSION['settings']->App_settings->app_add_products != 'true')
+                if($_SESSION['app_settings']->App_settings->app_add_products != 'true')
                 {
                     $connection->createHtmlMessages('', 'Add Products disabled', 'Please contact admin', 'endpoints', 'info');
                     exit();

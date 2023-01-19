@@ -17,4 +17,5 @@ vendor
 composer*
 test
 src
+test.php
 

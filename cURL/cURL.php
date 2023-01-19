@@ -441,7 +441,7 @@ Class CURL
         {
             if($product->product->options[1]->name == "")
             {
-                $product->product->options[1] = new \stdClass();
+                unset($product->product->options[1]);
                 unset($product->product->variants->option2);
             }
         }
