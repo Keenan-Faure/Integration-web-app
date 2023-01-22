@@ -6,7 +6,7 @@
 * Add and Customise product and customer data.
     * Data can be added and modified using API
     * Bulk import and export of data
-* Can be run locally on using the application [XAMPP](https://www.apachefriends.org/)
+* Can be run locally using the application [XAMPP](https://www.apachefriends.org/)
 * Product data can be integrated with major Ecommerce website [Woocomerce](https://woocommerce.com/blackcyber/) and Integration company [Stock2Shop](https.stock2shop.com/)
 * Uses JSON format in API calls
 * Contains an internal application to request Woocommerce and Stock2Shop data.
