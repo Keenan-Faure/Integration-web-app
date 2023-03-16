@@ -80,7 +80,8 @@
                             </div>
                         </div>
                     </div>
-                    <a id='push-s2s' href='s2s.html' target="_blank" class='buttonPush-S2S'>Push Products</a>            
+                    <a id='push-s2s' href='s2s.html' target="_blank" class='buttonPush-S2S'>Push Products</a>
+                    <button id='rmv_id_s2s' class='buttonRmv' onclick="Init_function_rmv_ids_s2s()">Remove ID's</button>  
                     </div>
                 </div>
         <div class='modalContainer'>

@@ -18,6 +18,8 @@
         <link rel='stylesheet' href='../Styles/addItem.css'>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="../Scripts/app.js"></script>
+        <script src='../Scripts/fetch.js'></script>
+        <script src='../Scripts/fetchUtils.js'></script>
     </head>
     <body>
     <div class='backgroundApp-Woo'>
@@ -59,6 +61,7 @@
                         </div>
                     </div>
                     <a id='push-woo' href='woo.html' target="_blank" class='buttonPush-Woo'>Push Products</a>
+                    <button id='rmv_id_woo' class='buttonRmv' onclick="Init_function_rmv_ids_woo()">Remove ID's</button>
                     </div>
                 </div>
         <div class='modalContainer-Woo'>

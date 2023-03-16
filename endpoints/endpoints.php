@@ -517,4 +517,58 @@ function get_woo_push_status(connect $connection, util $util, array $params)
     }
 }
 
+/**
+ * Removes all Stock2Shop IDs from the Database
+ * @return void 
+ */
+function post_remove_s2s_id(connect $connection, util $util, array $params)
+{
+    if(isset($_SESSION['connection']))
+    {
+        $credentials = $_SESSION['connection']->credentials;
+        $rawConnection = $connection->createConnection($credentials->username, $credentials->password, $credentials->host, $credentials->dbname)->rawValue;
+        
+        $query = "UPDATE Stock2Shop SET Pushed='No', pushDate= '0'";
+        $output = $connection->converterObject($rawConnection, $query);
+        $output = $util->convert_query_output($output, "IDs Removed");
+        echo(json_encode($output));
+        mysqli_close($rawConnection);
+    }
+    else
+    {
+        $variable = new \stdClass();
+        $variable->return = false;
+        $variable->body = "No session detected";
+        echo(json_encode($variable));
+        exit();
+    }
+}
+
+/**
+ * Returns the s2s_push session variable
+ * @return void 
+ */
+function post_remove_woo_id(connect $connection, util $util, array $params)
+{
+    if(isset($_SESSION['connection']))
+    {
+        $credentials = $_SESSION['connection']->credentials;
+        $rawConnection = $connection->createConnection($credentials->username, $credentials->password, $credentials->host, $credentials->dbname)->rawValue;
+        
+        $query = "UPDATE Woocommerce SET ID='0', P_ID= '0', pushDate='0'";
+        $output = $connection->converterObject($rawConnection, $query);
+        $output = $util->convert_query_output($output, "IDs Removed");
+        echo(json_encode($output));
+        mysqli_close($rawConnection);        
+    }
+    else
+    {
+        $variable = new \stdClass();
+        $variable->return = false;
+        $variable->body = "No session detected";
+        echo(json_encode($variable));
+        exit();
+    }
+}
+
 ?>

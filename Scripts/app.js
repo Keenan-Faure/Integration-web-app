@@ -29,6 +29,51 @@ $(document).ready(()=>
         }
         else
         {
+            
+        }
+    });
+});
+
+$(document).ready(()=>
+{
+    $('#push-woo').click(function(event)
+    {
+        if (!confirm('Push active products to Woocommerce?'))
+        {
+            event.preventDefault(); 
+        }
+        else
+        {
+
+        }
+    });
+});
+
+$(document).ready(()=>
+{
+    $('#rmv_id_woo').click(function(event)
+    {
+        if (!confirm('Remove all Woocommerce IDs from System?'))
+        {
+            event.preventDefault(); 
+        }
+        else
+        {
+
+        }
+    });
+});
+
+$(document).ready(()=>
+{
+    $('#rmv_id_s2s').click(function(event)
+    {
+        if (!confirm('Remove all Stock2Shop IDs from System?'))
+        {
+            event.preventDefault(); 
+        }
+        else
+        {
 
         }
     });

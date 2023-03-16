@@ -15,7 +15,6 @@ function Init_function_srq_pu()
 {
     let active = this.parentElement.parentElement.firstChild.childNodes[0].checked;
     reqEndpoint('', 'c-m', 'putUsers', this.id, 'id', active, 'active');
-
 }
 
 /**
@@ -86,16 +85,31 @@ function Init_function_cond_add_ns(element)
         req([string, element], 'putCond_add', 'd-o', '', '', '', '');
     }
 }
-
-/**
- * Removes Conditions from the database
- * @param {string} element Element being clicked
- * @Returns None
+/*
+ * @returns None
  */
 function Init_function_cond_del_ns(element='')
 {
-    let string = create_cond_params_del(element);
-    req([string, element], 'putCond_del', 'd-o-d', '', '', '', '');
+   let string = create_cond_params_del(element);
+   req([string, element], 'putCond_del', 'd-o-d', '', '', '', '');
+}
+
+/**
+ * Initiator function to remove S2S IDs from Database
+ * @returns None
+ */
+function Init_function_rmv_ids_s2s()
+{
+    req('', 'remove_s2s_id', 'd-o', '', '', '', '');
+}
+
+/**
+ * Initiator function to remove Woocommerce IDs from Database
+ * @Returns None
+ */
+function Init_function_rmv_ids_woo()
+{
+    req('', 'remove_woo_id', 'd-o', '', '', '', '');
 }
 
 /**
@@ -213,7 +227,10 @@ const req = async function(token = '', param, final, urlConfig, conn='', reqPara
                 createMessage(json, 'Success');
                 if(json.return == true)
                 {
-                    create_condition_dom(token);
+                    if(Array.isArray(token))
+                    {
+                        create_condition_dom(token);
+                    }
                 }
             }
         }

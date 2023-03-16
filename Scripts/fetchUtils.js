@@ -102,6 +102,18 @@ function createURL(token, urlConfig = '')
         url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=get_woo_push_status';
         return url; 
     }
+    else if(urlConfig == 'remove_woo_id')
+    {
+        arrayUrl = (document.URL).split('/');
+        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=post_remove_woo_id';
+        return url; 
+    }
+    else if(urlConfig == 'remove_s2s_id')
+    {
+        arrayUrl = (document.URL).split('/');
+        url = 'http://' + arrayUrl[2] + '/' + 'endpoints/endpoints.php?func=post_remove_s2s_id';
+        return url; 
+    }
 }
 
 /**
