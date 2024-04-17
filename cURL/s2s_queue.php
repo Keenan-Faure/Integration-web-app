@@ -8,8 +8,11 @@
 
         <div class="containerText">Source ID</div>
         <div class="line"></div>
-        <textarea type='text' class='appTitle-textarea' name='source_id' title='Stock2Shop user password'
-            required></textarea>
+        <textarea type='text' class='appTitle-textarea' name='source_id' title='Source ID'></textarea>
+
+        <div class="containerText">Channel ID</div>
+        <div class="line"></div>
+        <textarea type='text' class='appTitle-textarea' name='channel_id' title='Channel ID'></textarea>
 
         <div class="containerText">Limit</div>
         <div class="line"></div>
@@ -17,15 +20,19 @@
 
         <div class="containerText">Offset</div>
         <div class="line"></div>
-        <textarea type='text' class='appTitle-textarea' name='offset' title='Limit' required>0</textarea>
+        <textarea type='text' class='appTitle-textarea' name='offset' title='Offset' required>0</textarea>
 
         <div class="containerText">Retry Count</div>
         <div class="line"></div>
-        <textarea type='text' class='appTitle-textarea' name='retry_counter' title='Offset' required>50</textarea>
+        <textarea type='text' class='appTitle-textarea' name='retry_counter' title='Retry Count' required>50</textarea>
+
+        <div class="containerText">Limit by Date</div>
+        <div class="line"></div>
+        <textarea type='text' class='appTitle-textarea' name='date_limit' title='Limit by Date' required><?php echo (date("Y-m-d h:i:s")); ?></textarea>
 
         <div class="containerText">Error Message</div>
         <div class="line"></div>
-        <textarea type='text' class='appTitle-textarea' name='error_message' title='Offset'
+        <textarea type='text' class='appTitle-textarea' name='error_message' title='Error Message'
             required>Local proxy failed</textarea>
 
         <br><br>
